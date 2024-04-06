@@ -4,6 +4,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+import SideBar from '@/Components/SideBar';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -62,6 +63,9 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Content>
                                 </Dropdown>
                             </div>
+                            <div className=' flex items-center text-blue-500'>
+                                <i className='pi pi-palette text-lg cursor-pointer'/>
+                            </div>
                         </div>
 
                         <div className="-me-2 flex items-center sm:hidden">
@@ -87,9 +91,9 @@ export default function Authenticated({ user, header, children }) {
                                 </svg>
                             </button>
                         </div>
+
                     </div>
                 </div>
-
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
@@ -111,15 +115,20 @@ export default function Authenticated({ user, header, children }) {
                         </div>
                     </div>
                 </div>
+
             </nav>
+            <div className='w-full flex overflow-hidden'>
+                <SideBar />
+                <div className='flex-grow'>
+                    {header && (
+                        <header className="bg-white shadow">
+                            <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+                        </header>
+                    )}
+                    <main className='p-2 h-full'>{children}</main>
+                </div>
+            </div>
 
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                </header>
-            )}
-
-            <main>{children}</main>
         </div>
     );
 }
