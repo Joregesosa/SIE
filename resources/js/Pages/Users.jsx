@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
@@ -9,6 +9,8 @@ import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import EditUser from '@/Components/Users/EditUser';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
+import { classNames } from 'primereact/utils';
+import { ThemeContext } from '@/Context/ThemeProvider';
 
 const defaultUsers = [
     {
@@ -151,7 +153,7 @@ export default function Users({ auth }) {
     const [globalFilter, setGlobalFilter] = useState(null);
     const [editUserDialog, setEditUserDialog] = useState(false);
     const [deleteUserDialog, setDeleteUserDialog] = useState(false);
-
+    const { theme } = useContext(ThemeContext)
     const dt = useRef(null);
     /* searh function */
     const search = (
@@ -233,28 +235,25 @@ export default function Users({ auth }) {
         return <span>{rowData.firstName} {rowData.secondName} {rowData.fLastName} {rowData.sLastName}</span>
     }
 
-
+    const tableConfig = {
+        dataKey:'id',paginator: true, rows:5, rowsPerPageOptions:[5, 10, 25], paginatorTemplate:"FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate:"Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: search, scrollable:true, scrollHeight:'484px', paginatorClassName:`bg-${theme}-primary text-${theme}-text rounded-b-md`, className:'h-full flex flex-grow flex-col'
+    }
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight h-3">
-                    Usuarios
-                </h2>
-            }
+            header={<h2 className="font-semibold text-lg leading-tight">Usuarios</h2>}
         >
             <Head title="Lista de Usuarios" />
+            <div className='h-full bg-white rounded-b-md flex flex-col'>
+                <Toolbar className={` rounded-none`} left={renderLeftToolbar} right={renderRightToolbar} />
 
-            <div className=''>
-                <Toolbar className="mb-2 p-4" left={renderLeftToolbar} right={renderRightToolbar} />
-                <DataTable ref={dt} value={users} dataKey='id' paginator rows={5} rowsPerPageOptions={[5, 10, 25]} paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} usuarios"
-                    globalFilter={globalFilter} header={search} scrollable scrollHeight='378px'>
+                <DataTable ref={dt} value={users} {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-2' />
+                    <Column field='id' header='ID' sortable className='py-2 ' />
 
                     <Column field='firstName' header='Nombre' sortable className='py-2' body={renderUserName} />
-                  
+
                     <Column field='userName' header='usuario' sortable className='py-2' />
 
                     <Column field='email' header='Email' sortable className='py-2' />

@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import SideBar from '@/Components/SideBar';
+import { ThemeControl } from '@/Components/ThemeControl';
+import { ThemeContext } from '@/Context/ThemeProvider';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
+    const [showThemeControl, setShowThemeControl] = useState(false)
+    const { theme} = useContext(ThemeContext)
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+            <nav className={`bg-${theme}-primary `}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -21,21 +24,21 @@ export default function Authenticated({ user, header, children }) {
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            {/*   <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
                             <div className="ms-3 relative">
-                                <Dropdown>
+                                <Dropdown >
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className={`inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-${theme}-text bg-${theme}-primary focus:outline-none transition ease-in-out duration-150`}
                                             >
                                                 {user.name}
 
@@ -63,8 +66,9 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Content>
                                 </Dropdown>
                             </div>
-                            <div className=' flex items-center text-blue-500'>
-                                <i className='pi pi-palette text-lg cursor-pointer'/>
+                            {/* theme button */}
+                            <div className={`mx-4 flex items-center text-${theme}-text`} onClick={() => setShowThemeControl(true)}>
+                                <i className='pi pi-palette text-lg cursor-pointer' />
                             </div>
                         </div>
 
@@ -95,11 +99,11 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 </div>
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1">
+                    {/* <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
-                    </div>
+                    </div> */}
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
@@ -118,17 +122,20 @@ export default function Authenticated({ user, header, children }) {
 
             </nav>
             <div className='w-full flex overflow-hidden'>
-                <SideBar />
-                <div className='flex-grow'>
+                <SideBar/>
+                <div className={`flex-grow bg-gray-300  m-1 rounded-md min-h-[calc(100vh-73px)] flex flex-col`}>
                     {header && (
-                        <header className="bg-white shadow">
-                            <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+                        <header className={`shadow bg-${theme}-secondary text-${theme}-text rounded-t-md`}>
+                            <div className={`max-w-7xl mx-auto px-4 sm:px-4 lg:px-6 py-2`}>{header}</div>
                         </header>
                     )}
-                    <main className='p-2 h-full'>{children}</main>
+                    <main className='p-1 rounded-b-md flex-grow'>{children}</main>
                 </div>
             </div>
-
+            <ThemeControl
+                showThemeControl={showThemeControl}
+                setShowThemeControl={setShowThemeControl}
+            />
         </div>
     );
 }
