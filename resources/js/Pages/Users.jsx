@@ -5,12 +5,11 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
-import { InputText } from 'primereact/inputtext';
-import { Tag } from 'primereact/tag';
 import EditUser from '@/Components/Users/EditUser';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
-import { classNames } from 'primereact/utils';
 import { ThemeContext } from '@/Context/ThemeProvider';
+import { Search, TableConfig, RenderStatus, RenderRightToolbar, RenderLeftToolbar, RenderActionButtons } from '@/Config/Table.Config';
+// import { tableConfig } from '@/Config/Table.Config';
 
 const defaultUsers = [
     {
@@ -155,29 +154,9 @@ export default function Users({ auth }) {
     const [deleteUserDialog, setDeleteUserDialog] = useState(false);
     const { theme } = useContext(ThemeContext)
     const dt = useRef(null);
-    /* searh function */
-    const search = (
-        <div className="flex flex-wrap gap-2 align-items-center pl-8">
-            <span className="p-input-icon-left">
-                <i className="pi pi-search" />
-                <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
-            </span>
-        </div>
-    );
 
-    /* Set styles for status function this is goin to be moved to a global space */
-    const getStatusStyle = (user) => {
-        switch (user.status) {
-            case true:
-                return 'success';
-
-            case false:
-                return 'warning';
-
-            default:
-                return null;
-        }
-    };
+    const search = Search(setGlobalFilter)
+    const tableConfig = TableConfig(theme, globalFilter, search, dt, users)
 
     const editUser = (user) => {
         setSelectedUser(user);
@@ -189,54 +168,17 @@ export default function Users({ auth }) {
         setDeleteUserDialog(true);
     };
 
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
-
-    /* Render status component */
-    const renderStatus = (rowData) => {
-        return <Tag value={rowData.status ? 'Activo' : 'Inactivo'} severity={getStatusStyle(rowData)} />;
-    };
-
-    /* Render Actions buttons component */
-    const renderActionButtons = (rowData) => {
-        return (
-            <React.Fragment>
-                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editUser(rowData)} />
-                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => deleteUser(rowData)} />
-            </React.Fragment>
-        );
-    };
-
-    /* Render left Toolbar component*/
-    const renderLeftToolbar = () => {
-        return (
-            <div className="flex flex-wrap gap-2">
-                <Button label="Nuevo" icon="pi pi-plus" severity="success" /* onClick={openNew} */ />
-            </div>
-        );
-    };
-
-    /* Render Right Toolbar component*/
-    const renderRightToolbar = () => {
-        return <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />;
-    };
-
     /* Render footer buttons */
     const renderUserDialogFooter = (close, execute) => (
-        <React.Fragment>
+        <>
             <Button label="Cancelar" icon="pi pi-times" outlined onClick={() => close(false)} className='mx-3' />
             <Button label="Aceptar" icon="pi pi-check" className='mx-3' />
-        </React.Fragment>
+        </>
     );
 
     /* Render users */
     const renderUserName = (rowData) => {
         return <span>{rowData.firstName} {rowData.secondName} {rowData.fLastName} {rowData.sLastName}</span>
-    }
-
-    const tableConfig = {
-        dataKey:'id',paginator: true, rows:5, rowsPerPageOptions:[5, 10, 25], paginatorTemplate:"FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate:"Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: search, scrollable:true, scrollHeight:'484px', paginatorClassName:`bg-${theme}-primary text-${theme}-text rounded-b-md`, className:'h-full flex flex-grow flex-col'
     }
 
     return (
@@ -245,10 +187,11 @@ export default function Users({ auth }) {
             header={<h2 className="font-semibold text-lg leading-tight">Usuarios</h2>}
         >
             <Head title="Lista de Usuarios" />
-            <div className='h-full bg-white rounded-b-md flex flex-col'>
-                <Toolbar className={` rounded-none`} left={renderLeftToolbar} right={renderRightToolbar} />
 
-                <DataTable ref={dt} value={users} {...tableConfig}>
+            <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
+                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+
+                <DataTable  {...tableConfig}>
 
                     <Column field='id' header='ID' sortable className='py-2 ' />
 
@@ -260,9 +203,9 @@ export default function Users({ auth }) {
 
                     <Column field='rol' header='Rol' sortable className='py-2' />
 
-                    <Column field='status' header='Estatus' sortable body={renderStatus} className='py-2' />
+                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
-                    <Column header="Acciones" body={renderActionButtons} exportable={false} className='py-2' />
+                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData, editUser, deleteUser)} exportable={false} className='py-2' />
 
                 </DataTable>
             </div>

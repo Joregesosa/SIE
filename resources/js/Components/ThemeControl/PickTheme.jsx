@@ -2,7 +2,7 @@ import { ThemeContext } from '@/Context/ThemeProvider'
 import React, { useContext } from 'react'
 
 export const PickTheme = () => {
-    const { theme, setTheme, setSidebarState, sidebarState } = useContext(ThemeContext)
+    const { theme, handleTheme } = useContext(ThemeContext)
     const themeList = [
         {
             id: 1,
@@ -52,7 +52,7 @@ export const PickTheme = () => {
                 {
                     themeList.map(item =>
                         <li key={item.id}>
-                            <button value={item.theme} onClick={() => setTheme(item.theme)} className={`bg-${item.theme}-secondary px-7 py-2 rounded-full focus:border-4 focus:border-white ring-sky-700-400 ring-2 ${theme === item.theme && 'border-4'}`} />
+                            <button value={item.theme} onClick={() => handleTheme(item.theme)} className={`bg-${item.theme}-secondary px-7 py-2 rounded-full focus:border-4 focus:border-white ring-sky-700-400 ring-2 ${theme === item.theme && 'border-4'}`} />
                         </li>
                     )
                 }

@@ -14,17 +14,33 @@ export const ThemeProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    if (localStorage.getItem('theme')) {
+      setTheme(localStorage.getItem('theme'))
+    }
+
+    if (localStorage.getItem('sidebarState')) {
+      setSidebarState(localStorage.getItem('sidebarState'))
+    }
+  }, [])
+
+  const handleTheme = (selected) => {
+    setTheme(selected)
+    localStorage.setItem('theme', selected)
+  }
+
+  useEffect(() => {
     if (sidebarState === 'collapsed') {
       setIsMouseOver(false)
     } else {
       setIsMouseOver(true)
     }
+    localStorage.setItem('sidebarState', sidebarState)
   }, [sidebarState])
   return (
     <ThemeContext.Provider value={
       {
         theme,
-        setTheme,
+        handleTheme,
         handleMouseOverSidebar,
         setSidebarState,
         sidebarState,

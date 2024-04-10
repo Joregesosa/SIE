@@ -4,5 +4,7 @@
 
 
 .p-datatable-wrapper{
-    flex-grow: 1 ;
+     max-height: calc(100vh - 298px);
+     min-height: calc(100vh - 298px);
+     background-color: white;
 }

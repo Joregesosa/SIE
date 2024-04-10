@@ -9,7 +9,7 @@ import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { ThemeContext } from '@/Context/ThemeProvider';
-
+import { Search, TableConfig, RenderStatus, RenderRightToolbar, RenderLeftToolbar, RenderActionButtons } from '@/Config/Table.Config';
 const defaultRoles = [
     {
         id: "1",
@@ -99,29 +99,9 @@ export default function Roles({ auth }) {
     const [deleteRoleDialog, setDeleteRoleDialog] = useState(false);
     const { theme } = useContext(ThemeContext)
     const dt = useRef(null);
-    /* searh function */
-    const search = (
-        <div className="flex flex-wrap gap-2 align-items-center pl-8">
-            <span className="p-input-icon-left">
-                <i className="pi pi-search" />
-                <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
-            </span>
-        </div>
-    );
 
-    /* Set styles for status function this is goin to be moved to a global space */
-    const getStatusStyle = (role) => {
-        switch (role.status) {
-            case true:
-                return 'success';
-
-            case false:
-                return 'warning';
-
-            default:
-                return null;
-        }
-    };
+    const search = Search(setGlobalFilter)
+    const tableConfig = TableConfig(theme, globalFilter, search, dt, roles)
 
     const editRole = (role) => {
         setSelectedRole(role);
@@ -133,49 +113,16 @@ export default function Roles({ auth }) {
         setDeleteRoleDialog(true);
     };
 
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
-
-    /* Render status component */
-    const renderStatus = (rowData) => {
-        return <Tag value={rowData.status ? 'Activo' : 'Inactivo'} severity={getStatusStyle(rowData)} />;
-    };
-
-    /* Render Actions buttons component */
-    const renderActionButtons = (rowData) => {
-        return (
-            <React.Fragment>
-                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editRole(rowData)} />
-                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => deleteRole(rowData)} />
-            </React.Fragment>
-        );
-    };
-
-    /* Render left Toolbar component*/
-    const renderLeftToolbar = () => {
-        return (
-            <div className="flex flex-wrap gap-2">
-                <Button label="Nuevo" icon="pi pi-plus" severity="success" /* onClick={openNew} */ />
-            </div>
-        );
-    };
-
     const renderPermissions = (rowData) => {
         return <div className='flex flex-wrap gap-2'>
-             {
+            {
                 rowData.permissions.map((item, i) =>
-                        <span key={i} className='rounded-md bg-gray-100 px-2'>{item}</span>
-                    )
-             }
+                    <span key={i} className='rounded-md bg-gray-100 px-2'>{item}</span>
+                )
+            }
         </div>
 
     }
-
-    /* Render Right Toolbar component*/
-    const renderRightToolbar = () => {
-        return <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} />;
-    };
 
     /* Render footer buttons */
     const renderRoleDialogFooter = (close, execute) => (
@@ -192,29 +139,21 @@ export default function Roles({ auth }) {
         >
             <Head title="Lista de Usuarios" />
 
-            <div className='h-full bg-white rounded-b-md flex flex-col'>
-                <Toolbar className="rounded-none" left={renderLeftToolbar} right={renderRightToolbar}   />
-                <DataTable ref={dt} value={roles} dataKey='id' paginator rows={5} rowsPerPageOptions={[5, 10, 25]} paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} usuarios"  globalFilter={globalFilter} header={search} height='100%' scrollable scrollHeight='404px' rowHover  paginatorClassName={`bg-${theme}-primary text-${theme}-text rounded-b-md`} >
+            <div className='h-[calc(100vh-120px)]  bg-white rounded-b-md flex flex-col'>
+                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+                <DataTable ref={dt} value={roles} {...tableConfig} >
 
                     <Column field='id' header='ID' sortable className='py-2' />
 
                     <Column field='role' header='Nombre' sortable className='py-2' />
 
-                 {/*    <Column field='permissions' header='Permisos' sortable className='py-2' body={renderPermissions} style={{ maxWidth: "320px" }} /> */}
+                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
-                    <Column field='status' header='Estatus' sortable body={renderStatus} className='py-2' />
-
-                    <Column header="Acciones" body={renderActionButtons} exportable={false} className='py-2' />
+                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData, editRole, deleteRole)} exportable={false} className='py-2' />
 
                 </DataTable>
             </div>
-            {/* modal edit User */}
-            {/*  <EditUser
-                user={selectedRole}
-                showDialog={editUserDialog}
-                actionFooter={renderRoleDialogFooter(setEditRoleDialog)}
-                hideDialog={() => setEditRoleDialog(false)}
-            /> */}
+
             {/* modal delete User */}
 
 
