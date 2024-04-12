@@ -9,7 +9,6 @@ import EditUser from '@/Components/Users/EditUser';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { ThemeContext } from '@/Context/ThemeProvider';
 import { Search, TableConfig, RenderStatus, RenderRightToolbar, RenderLeftToolbar, RenderActionButtons } from '@/Config/Table.Config';
-// import { tableConfig } from '@/Config/Table.Config';
 
 const defaultUsers = [
     {
