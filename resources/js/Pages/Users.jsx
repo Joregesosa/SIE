@@ -9,6 +9,7 @@ import EditUser from '@/Components/Users/EditUser';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { ThemeContext } from '@/Context/ThemeProvider';
 import { Search, TableConfig, RenderStatus, RenderRightToolbar, RenderLeftToolbar, RenderActionButtons } from '@/Config/Table.Config';
+import NewUser from '@/Components/Users/New';
 
 const defaultUsers = [
     {
@@ -151,6 +152,7 @@ export default function Users({ auth }) {
     const [globalFilter, setGlobalFilter] = useState(null);
     const [editUserDialog, setEditUserDialog] = useState(false);
     const [deleteUserDialog, setDeleteUserDialog] = useState(false);
+    const [newUserDialog, setNewUserDialog] = useState(false);
     const { theme } = useContext(ThemeContext)
     const dt = useRef(null);
 
@@ -188,7 +190,7 @@ export default function Users({ auth }) {
             <Head title="Lista de Usuarios" />
 
             <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+                <Toolbar left={()=>RenderLeftToolbar(setNewUserDialog)} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
 
                 <DataTable  {...tableConfig}>
 
@@ -223,6 +225,12 @@ export default function Users({ auth }) {
                 actionFooter={() => renderUserDialogFooter(setDeleteUserDialog)}
                 hideDialog={() => setDeleteUserDialog(false)}
 
+            />
+
+            <NewUser
+                showDialog={newUserDialog}
+                actionFooter={() => renderUserDialogFooter(setNewUserDialog)}
+                hideDialog={()=>setNewUserDialog(false)}
             />
 
         </AuthenticatedLayout>

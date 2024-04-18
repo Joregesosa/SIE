@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -31,15 +32,31 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'firstName' => 'required|string|max:255',
+            'secondName' => 'required|string|max:255required|string|max:255',
+            'fLastName' => 'required|string|max:255',
+            'sLastName' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $userName = $this->generateUsername(
+            $request->firstName,
+            $request->secondName,
+            $request->fLastName,
+            $request->sLastName
+        );
+        $password = $this->generatePassword();
+
+
         $user = User::create([
-            'name' => $request->name,
+            'firstName' => $request->firstName,
+            'secondName' => $request->secondName,
+            'fLastName' => $request->fLastName,
+            'sLastName' => $request->sLastName,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'userName' => $userName,
+            'password' => Hash::make($password),
         ]);
 
         event(new Registered($user));
@@ -47,5 +64,48 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));
+    }
+
+    private function generateUsername($firstName, $secondName, $fLastName, $sLastName)
+    {
+        // Generar nombre de usuario base
+        $usernameBase = $firstName . substr($secondName, 0, 3) . strtoupper(substr($fLastName, 0, 2));
+
+        // Agregar un número aleatorio al final
+        $username = $usernameBase . rand(100, 999);
+
+        // Verificar si el nombre de usuario ya existe
+        while ($this->usernameExists($username)) {
+            // Si existe, generar un nuevo número aleatorio y probar de nuevo
+            $username = $usernameBase . rand(100, 999);
+        }
+
+        return $username;
+    }
+
+    private function usernameExists($username)
+    {
+        // Consultar en la base de datos si el nombre de usuario existe
+        $user = User::where('username', $username)->first();
+
+        return $user !== null;
+    }
+
+    private function generatePassword()
+    {
+        while (true) {
+            $password = Str::random(10);
+
+            if (
+                preg_match('/[A-Z]/', $password) &&
+                preg_match('/[a-z]/', $password) &&
+                preg_match('/[0-9]/', $password) &&
+                preg_match('/[^A-Za-z0-9]/', $password)
+            ) {
+                break;
+            }
+        }
+
+        return $password;
     }
 }
