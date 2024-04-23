@@ -55,7 +55,7 @@ return new class extends Migration
         Schema::create('student_parent', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('people')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->unsignedBigInteger('parent_id');
             $table->foreign('parent_id')->references('id')->on('parents')->onDelete('cascade');
             $table->unsignedBigInteger('parent_type_id')->nullable();
@@ -67,9 +67,9 @@ return new class extends Migration
         Schema::create('student_siblings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('people')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->unsignedBigInteger('sibling_id');
-            $table->foreign('sibling_id')->references('id')->on('people')->onDelete('cascade');
+            $table->foreign('sibling_id')->references('id')->on('students')->onDelete('cascade');
             $table->unsignedBigInteger('parent_type_id')->nullable();
             $table->foreign('parent_type_id')->references('id')->on('parent_types')->onDelete('set null');
             $table->timestamps();
