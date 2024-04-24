@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('userName');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->unsignedBigInteger('rol_id');
+            $table->tinyInteger('status')->default(1);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

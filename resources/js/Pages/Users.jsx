@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
@@ -146,7 +146,7 @@ const defaultUsers = [
     },
 ];
 
-export default function Users({ auth }) {
+export default function Users({ auth, usersData }) {
     const [users, setUsers] = useState(defaultUsers)
     const [selectedUser, setSelectedUser] = useState({})
     const [globalFilter, setGlobalFilter] = useState(null);
@@ -155,7 +155,6 @@ export default function Users({ auth }) {
     const [newUserDialog, setNewUserDialog] = useState(false);
     const { theme } = useContext(ThemeContext)
     const dt = useRef(null);
-
     const search = Search(setGlobalFilter)
     const tableConfig = TableConfig(theme, globalFilter, search, dt, users)
 
@@ -170,10 +169,10 @@ export default function Users({ auth }) {
     };
 
     /* Render footer buttons */
-    const renderUserDialogFooter = (close, execute) => (
+    const renderUserDialogFooter = (close) => (
         <>
             <Button label="Cancelar" icon="pi pi-times" outlined onClick={() => close(false)} className='mx-3' />
-            <Button label="Aceptar" icon="pi pi-check" className='mx-3' />
+            <Button type='submit' label="Aceptar" icon="pi pi-check" className='mx-3' />
         </>
     );
 
@@ -181,7 +180,10 @@ export default function Users({ auth }) {
     const renderUserName = (rowData) => {
         return <span>{rowData.firstName} {rowData.secondName} {rowData.fLastName} {rowData.sLastName}</span>
     }
-
+    useEffect(() => {
+        console.log(usersData)
+    }, [usersData])
+    
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -202,7 +204,7 @@ export default function Users({ auth }) {
 
                     <Column field='email' header='Email' sortable className='py-2' />
 
-                    <Column field='rol' header='Rol' sortable className='py-2' />
+                    <Column field='role' header='Rol' sortable className='py-2' />
 
                     <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
@@ -229,7 +231,7 @@ export default function Users({ auth }) {
 
             <NewUser
                 showDialog={newUserDialog}
-                actionFooter={() => renderUserDialogFooter(setNewUserDialog)}
+                // actionFooter={() => renderUserDialogFooter(setNewUserDialog)}
                 hideDialog={()=>setNewUserDialog(false)}
             />
 

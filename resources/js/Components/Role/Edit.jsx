@@ -6,7 +6,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 
 
-export default function NewUser({ showDialog, hideDialog }) {
+export default function NewRole({ showDialog, hideDialog }) {
     const cleanUser = {
         firstName: '',
         secondName: '',
@@ -16,12 +16,7 @@ export default function NewUser({ showDialog, hideDialog }) {
         rol: '',
     }
     const { data, setData, post, processing, errors, reset } = useForm(cleanUser);
-    const roles = [
-        { rol: 'Estudiante', id: '1' },
-        { rol: 'Maestro', id: '2' },
-        { rol: 'Gerencia', id: '3' },
-        { rol: 'Psicologia', id: '4' },
-    ];
+  
 
     const submit = (e) => {
         e.preventDefault();
