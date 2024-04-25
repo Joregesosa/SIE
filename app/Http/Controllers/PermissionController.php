@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PermissionController extends Controller
 {
@@ -12,15 +13,10 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $permissions = Permission::all();
+        return Inertia::render('Permissions', [
+            'data' => $permissions
+        ]);
     }
 
     /**

@@ -55,8 +55,8 @@ class PermissionSeeder extends Seeder
         ];
 
         // Create permissions or update if they already exist with descriptions
-        foreach ($permissions as $name => $description) {
-            Permission::firstOrCreate(['name' => $name], ['description' => $description]);
+        foreach ($permissions as $permission => $description) {
+            Permission::firstOrCreate(['permission' => $permission], ['description' => $description]);
         }
     }
 }
