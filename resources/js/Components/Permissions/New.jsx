@@ -13,7 +13,7 @@ export default function NewPermission({ showDialog, hideDialog }) {
         e.preventDefault();
         hideDialog()
         setData(cleanUser)
-        post(route('permissions.store'), {
+        post(route('permission.store'), {
             onSuccess: () => {
                 console.log('created')
             }

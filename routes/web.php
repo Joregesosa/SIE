@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,12 +23,10 @@ Route::get('/dashboard', function () {
 Route::get('/users', function () {
     return Inertia::render('Users');
 })->middleware(['auth', 'verified'])->name('users');
-Route::get('/roles', function () {
+/* Route::get('/roles', function () {
     return Inertia::render('Roles');
-})->middleware(['auth', 'verified'])->name('roles');
-/* Route::get('/permissions', function () {
-    return Inertia::render('Permissions');
-})->middleware(['auth', 'verified'])->name('permissions'); */
+})->middleware(['auth', 'verified'])->name('roles'); */
+ 
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
 
 
@@ -38,9 +37,15 @@ Route::middleware('auth')->group(function () {
  
 
     Route::controller(PermissionController::class)->group(function () {
-        Route::get('/permissions', 'index')->name('permissions');
-        Route::post('/permissions', 'store')->name('permissions.store');
-        Route::delete('/permissions/{id}', 'destroy')->name('permissions.delete');
+        Route::get('/permission', 'index')->name('permission');
+        Route::post('/permission', 'store')->name('permission.store');
+        Route::delete('/permission/{id}', 'destroy')->name('permission.delete');
+    });
+
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/role', 'index')->name('roles');
+        Route::post('/role', 'store')->name('role.store');
+        Route::delete('/role/{id}', 'destroy')->name('role.delete');
     });
 
 });

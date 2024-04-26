@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 
 class RoleController extends Controller
 {
@@ -12,7 +14,15 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $mensaje = session('msj');
+        if ($mensaje) {
+            Session::forget('msj');
+        }
+        $permissions = Role::all();
+        return Inertia::render('Roles', [
+            'data' => $permissions,
+            'msj' => $mensaje
+        ]);
     }
 
     /**
@@ -58,8 +68,10 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
-        //
+        Role::destroy($id);
+
+        return redirect()->route('roles')->with('msj', ['success' => "Permission deleted succesfully"], 200);
     }
 }

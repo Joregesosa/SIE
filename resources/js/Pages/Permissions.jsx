@@ -11,7 +11,7 @@ import NewPermission from '@/Components/Permissions/New';
 import { Alert } from '@/Components/Alerts/Alert';
 
 export default function Permissions({ auth, data, msj }) {
-    
+
     const {
         dt,
         alert,
@@ -36,10 +36,12 @@ export default function Permissions({ auth, data, msj }) {
         setAlert(msj)
     }, [data, msj])
 
- 
+
 
     return (
         <AuthenticatedLayout
+            alert={alert}
+            setAlert={setAlert}
             user={auth.user}
             header={<h2 className="font-semibold text-lg leading-tight">Permisos</h2>}
         >
@@ -66,10 +68,10 @@ export default function Permissions({ auth, data, msj }) {
 
 
             <DeleteAlert
-                itemId= {selectedItem.id}
+                itemId={selectedItem.id}
                 value={selectedItem.permission}
                 message={"el permiso"}
-                endpoint = 'permissions.delete'
+                endpoint='permission.delete'
                 showDialog={deleteItemDialog}
                 hideDialog={hideDeleteDialog}
             />
@@ -79,8 +81,6 @@ export default function Permissions({ auth, data, msj }) {
                 hideDialog={() => setShowNewDialog(false)}
             />
 
-
-            <Alert alerta={alert} setAlert={setAlert}/>
         </AuthenticatedLayout>
     );
 }

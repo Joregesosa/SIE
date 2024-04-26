@@ -65,7 +65,7 @@ const sections = [
             {
                 icon: 'pi-cog',
                 title: 'Permisos usuario',
-                url: 'permissions'
+                url: 'permission'
             }
         ],
     },
