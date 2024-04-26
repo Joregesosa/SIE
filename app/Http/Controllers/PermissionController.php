@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class PermissionController extends Controller
@@ -13,9 +14,14 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        $mensaje = session('msj');
+        if ($mensaje) {
+            Session::forget('msj');
+        }
         $permissions = Permission::all();
         return Inertia::render('Permissions', [
-            'data' => $permissions
+            'data' => $permissions,
+            'msj' => $mensaje
         ]);
     }
 
@@ -24,28 +30,25 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $mensajes = [
+            'permission' => 'El nombre del permiso no es invalido',
+            'description' => 'La descripcion del permiso es obligatoria',
+        ];
+
+        $validator =  validator($request->all(), [
+            'permission' => 'required|string|max:255',
+            'description' => 'required|string',
+        ], $mensajes);
+
+        if ($validator->fails()) {
+
+            return redirect()->route('permission')->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
+        }
+
+        Permission::create($request->all());
+        return redirect()->route('permissions')->with('msj', ['success' => "Permission created succesfully"], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Permission $permission)
     {
         //
@@ -54,8 +57,10 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Permission $permission)
+    public function destroy($id)
     {
-        //
+        Permission::destroy($id);
+
+        return redirect()->route('permissions')->with('msj', ['success' => "Permission deleted succesfully"], 200);
     }
 }

@@ -11,6 +11,8 @@ export const useTable = (data) => {
     const [selectedItem, setSelectedItem] = useState({})
     const [editItemDialog, setEditItemDialog] = useState(false);
     const [deleteItemDialog, setDeleteItemDialog] = useState(false);
+    const [showNewDialog, setShowNewDialog] = useState(false)
+    const [alert, setAlert] = useState(null)
     const { theme } = useContext(ThemeContext)
     const dt = useRef(null);
 
@@ -38,7 +40,7 @@ export const useTable = (data) => {
         setDeleteItemDialog(true);
     };
 
-    const hideDeleteDialog = () => setDeleteItemDialog(false)
+    const hideDeleteDialog = () =>{ setDeleteItemDialog(false)}
 
     const exportCSV = (ref) => {
         ref.current.exportCSV();
@@ -53,10 +55,10 @@ export const useTable = (data) => {
         return <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={() => exportCSV(ref)} />;
     };
 
-    const RenderLeftToolbar = (openNew) => {
+    const RenderLeftToolbar = () => {
         return (
             <div className="flex flex-wrap gap-2">
-                <Button label="Nuevo" icon="pi pi-plus" severity="success" onClick={() => openNew(true)} />
+                <Button label="Nuevo" icon="pi pi-plus" severity="success" onClick={() => setShowNewDialog(true)} />
             </div>
         );
     };
@@ -82,9 +84,11 @@ export const useTable = (data) => {
     const tableConfig = {
         ref: dt, value: dataList, dataKey: 'id', paginator: true, rows: 5, rowsPerPageOptions: [5, 10, 25], paginatorTemplate: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate: "Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: RenderSearch, scrollable: true, paginatorClassName: `bg-${theme}-primary text-${theme}-text rounded-b-md`
     }
-    
+
     return {
         dt,
+        alert,
+        setAlert,
         dataList,
         setDataList,
         globalFilter,
@@ -96,7 +100,9 @@ export const useTable = (data) => {
         editItemDialog,
         deleteItemDialog,
         hideDeleteDialog,
-        tableConfig
+        tableConfig,
+        showNewDialog,
+        setShowNewDialog,
 
     }
 }

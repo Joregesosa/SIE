@@ -1,16 +1,21 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { useTable } from '@/hooks/useTable';
- 
-export default function Permissions({ auth, data }) {
+import NewPermission from '@/Components/Permissions/New';
+import { Alert } from '@/Components/Alerts/Alert';
+
+export default function Permissions({ auth, data, msj }) {
+    
     const {
         dt,
+        alert,
+        setAlert,
         RenderStatus,
         RenderRightToolbar,
         RenderLeftToolbar,
@@ -21,17 +26,17 @@ export default function Permissions({ auth, data }) {
         editItemDialog,
         deleteItemDialog,
         hideDeleteDialog,
-        tableConfig
+        tableConfig,
+        showNewDialog,
+        setShowNewDialog
     } = useTable(data)
+
+    useEffect(() => {
+        setDataList(data)
+        setAlert(msj)
+    }, [data, msj])
+
  
-
-
-    const renderRoleDialogFooter = (close, execute) => (
-        <React.Fragment>
-            <Button label="Cancelar" icon="pi pi-times" outlined onClick={close} className='mx-3' />
-            <Button label="Aceptar" icon="pi pi-check" className='mx-3' />
-        </React.Fragment>
-    );
 
     return (
         <AuthenticatedLayout
@@ -61,12 +66,21 @@ export default function Permissions({ auth, data }) {
 
 
             <DeleteAlert
-                data={selectedItem.permission}
+                itemId= {selectedItem.id}
+                value={selectedItem.permission}
                 message={"el permiso"}
+                endpoint = 'permissions.delete'
                 showDialog={deleteItemDialog}
-                actionFooter={() => renderRoleDialogFooter(hideDeleteDialog)}
                 hideDialog={hideDeleteDialog}
             />
+
+            <NewPermission
+                showDialog={showNewDialog}
+                hideDialog={() => setShowNewDialog(false)}
+            />
+
+
+            <Alert alerta={alert} setAlert={setAlert}/>
         </AuthenticatedLayout>
     );
 }
