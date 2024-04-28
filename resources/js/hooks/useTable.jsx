@@ -40,14 +40,15 @@ export const useTable = (data) => {
         setDeleteItemDialog(true);
     };
 
-    const hideDeleteDialog = () =>{ setDeleteItemDialog(false)}
-
+    const hideDeleteDialog = () => setDeleteItemDialog(false)
+    const onHideEditDialog = () => setEditItemDialog(false)
     const exportCSV = (ref) => {
         ref.current.exportCSV();
     };
 
     /* Todo lo que dice render es un componente */
     const RenderStatus = (rowData) => {
+        console.log(rowData)
         return <Tag value={rowData.status ? 'Activo' : 'Inactivo'} severity={getStatusStyle(rowData)} />;
     };
 
@@ -103,6 +104,6 @@ export const useTable = (data) => {
         tableConfig,
         showNewDialog,
         setShowNewDialog,
-
+        onHideEditDialog
     }
 }

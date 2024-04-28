@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button'
 import React from 'react'
 
-export const FormActionButttons = ({ hideDialog, type, action }) => {
+export const FormActionButtons = ({ hideDialog, type, action }) => {
     const execute = () => {
         if (typeof action === 'function') {
    

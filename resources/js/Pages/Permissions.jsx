@@ -9,6 +9,7 @@ import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { useTable } from '@/hooks/useTable';
 import NewPermission from '@/Components/Permissions/New';
 import { Alert } from '@/Components/Alerts/Alert';
+import Edit from '@/Components/Permissions/Edit';
 
 export default function Permissions({ auth, data, msj }) {
 
@@ -28,7 +29,8 @@ export default function Permissions({ auth, data, msj }) {
         hideDeleteDialog,
         tableConfig,
         showNewDialog,
-        setShowNewDialog
+        setShowNewDialog,
+        onHideEditDialog
     } = useTable(data)
 
     useEffect(() => {
@@ -66,6 +68,12 @@ export default function Permissions({ auth, data, msj }) {
 
             {/* modal delete User */}
 
+            <Edit
+                selectedItem={selectedItem}
+                showDialog={editItemDialog}
+                hideDialog={onHideEditDialog}
+                endpoint='permission.update'
+            />
 
             <DeleteAlert
                 itemId={selectedItem.id}

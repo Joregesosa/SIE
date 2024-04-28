@@ -14,14 +14,14 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $mensaje = session('msj');
-        if ($mensaje) {
+        $message = session('msj');
+        if ($message) {
             Session::forget('msj');
         }
         $permissions = Role::all();
         return Inertia::render('Roles', [
             'data' => $permissions,
-            'msj' => $mensaje
+            'msj' => $message
         ]);
     }
 

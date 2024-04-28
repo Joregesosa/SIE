@@ -1,9 +1,9 @@
-import React from 'react'
-import { useForm } from '@inertiajs/react'
-import { Dialog } from 'primereact/dialog'
-import { InputText } from 'primereact/inputtext'
-import { FormActionButttons } from '../FormActionButttons'
-import { InputTextarea } from 'primereact/inputtextarea'
+import React from 'react';
+import { useForm } from '@inertiajs/react';
+import { Dialog } from 'primereact/dialog';
+import { InputText } from 'primereact/inputtext';
+import { FormActionButtons } from '../FormActionButtons';
+import { InputTextarea } from 'primereact/inputtextarea';
 
 const cleanUser = { permission: '', description: '' }
 export default function NewPermission({ showDialog, hideDialog }) {
@@ -39,7 +39,7 @@ export default function NewPermission({ showDialog, hideDialog }) {
                     </div>
 
                 </div>
-                <FormActionButttons hideDialog={hideDialog} />
+                <FormActionButtons hideDialog={hideDialog} />
             </form>
         </Dialog>
     )

@@ -31,7 +31,6 @@ export default function Roles({ auth, data, msj }) {
     } = useTable(data)
 
     useEffect(() => {
-        console.log(data)
         setDataList(data)
         setAlert(msj)
     }, [data, msj])

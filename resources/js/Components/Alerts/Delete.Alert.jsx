@@ -1,7 +1,7 @@
 import { useForm } from '@inertiajs/react';
 import { Dialog } from 'primereact/dialog'
 import React from 'react'
-import { FormActionButttons } from '../FormActionButttons';
+import { FormActionButtons } from '../FormActionButtons';
 
 export default function DeleteAlert({ value, showDialog, hideDialog, message, endpoint, itemId }) {
 
@@ -26,7 +26,7 @@ export default function DeleteAlert({ value, showDialog, hideDialog, message, en
                     </span>
                 )}
             </div>
-            <FormActionButttons hideDialog={hideDialog} type={"button"} action={destroy} />
+            <FormActionButtons hideDialog={hideDialog} type={"button"} action={destroy} />
         </Dialog>
     )
 }

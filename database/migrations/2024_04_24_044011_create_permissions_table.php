@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('permission');
             $table->string('description');
-            $table->tinyInteger('status')->default(1);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
