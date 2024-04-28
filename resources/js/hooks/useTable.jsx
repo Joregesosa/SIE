@@ -20,9 +20,11 @@ export const useTable = (data) => {
     const getStatusStyle = (object) => {
         switch (object.status) {
             case true:
+            case 1:
                 return 'success';
 
             case false:
+            case 0:
                 return 'warning';
 
             default:
@@ -48,8 +50,8 @@ export const useTable = (data) => {
 
     /* Todo lo que dice render es un componente */
     const RenderStatus = (rowData) => {
-        console.log(rowData)
-        return <Tag value={rowData.status ? 'Activo' : 'Inactivo'} severity={getStatusStyle(rowData)} />;
+      
+        return <Tag value={rowData.status? 'Activo' : 'Inactivo'} severity={getStatusStyle(rowData)} />;
     };
 
     const RenderRightToolbar = (ref) => {

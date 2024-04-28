@@ -32,7 +32,7 @@ class PermissionController extends Controller
     {
         $message = [
             'permission' => 'El nombre del permiso no es invalido',
-            'description' => 'La descripcion del permiso es obligatoria',
+            'description' => 'La descripción del permiso es obligatoria',
         ];
 
         $validator =  validator($request->all(), [
@@ -46,7 +46,7 @@ class PermissionController extends Controller
         }
 
         Permission::create($request->all());
-        return redirect()->route('permission')->with('msj', ['success' => "Permission created succesfully"], 200);
+        return redirect()->route('permission')->with('msj', ['success' => "Permission created successfully"], 200);
     }
 
     public function update(Request $request,  $id)
@@ -54,7 +54,7 @@ class PermissionController extends Controller
            $permission =  Permission::find($id);
            $permission->update($request->all());
 
-           return redirect()->route('permission')->with('msj', ['success' => "Permission updated succesfully"], 200);
+           return redirect()->route('permission')->with('msj', ['success' => "Permission updated successfully"], 200);
     }
 
     /**
@@ -64,6 +64,6 @@ class PermissionController extends Controller
     {
         Permission::destroy($id);
 
-        return redirect()->route('permission')->with('msj', ['success' => "Permission deleted succesfully"], 200);
+        return redirect()->route('permission')->with('msj', ['success' => "Permission deleted successfully"], 200);
     }
 }

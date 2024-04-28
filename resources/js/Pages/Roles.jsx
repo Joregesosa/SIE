@@ -1,16 +1,18 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
+import { New } from '@/Components/Role/New';
 import { useTable } from '@/hooks/useTable';
- 
+import Edit from '@/Components/Role/Edit';
 
 
-export default function Roles({ auth, data, msj }) {
-    
+
+export default function Roles({ auth, data, msj, permissions }) {
+
     const {
         dt,
         alert,
@@ -27,7 +29,8 @@ export default function Roles({ auth, data, msj }) {
         hideDeleteDialog,
         tableConfig,
         showNewDialog,
-        setShowNewDialog
+        setShowNewDialog,
+        onHideEditDialog
     } = useTable(data)
 
     useEffect(() => {
@@ -59,6 +62,20 @@ export default function Roles({ auth, data, msj }) {
             </div>
 
             {/* modal delete User */}
+
+
+            <Edit
+                selectedItem={selectedItem}
+                showDialog={editItemDialog}
+                hideDialog={onHideEditDialog}
+                endpoint='role.update'
+            />
+            <New
+                showDialog={showNewDialog}
+                hideDialog={() => setShowNewDialog(false)}
+                permissions = {permissions}
+            />
+
             <DeleteAlert
                 itemId={selectedItem.id}
                 value={selectedItem.role}
@@ -67,14 +84,6 @@ export default function Roles({ auth, data, msj }) {
                 showDialog={deleteItemDialog}
                 hideDialog={hideDeleteDialog}
             />
-
-          {/*   <DeleteAlert
-                data={selectedRole.role}
-                message={"el rol"}
-                showDialog={deleteRoleDialog}
-                actionFooter={() => renderRoleDialogFooter(setDeleteRoleDialog)}
-                hideDialog={() => setDeleteRoleDialog(false)}
-            /> */}
         </AuthenticatedLayout>
     );
 }

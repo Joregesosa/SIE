@@ -2,88 +2,54 @@ import React, { useEffect } from 'react'
 import { useForm } from '@inertiajs/react'
 import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
-import { Dropdown } from 'primereact/dropdown';
-import { Button } from 'primereact/button';
+import { InputTextarea } from 'primereact/inputtextarea'
+import { SelectButton } from 'primereact/selectbutton';
+import { FormActionButtons } from '../FormActionButtons'
+
+const options = ['Active', 'Inactive'];
+const cleanPermission = { role: '', status: true }
+export default function Edit({ showDialog, hideDialog, selectedItem, endpoint }) {
 
 
-export default function NewRole({ showDialog, hideDialog }) {
-    const cleanUser = {
-        firstName: '',
-        secondName: '',
-        fLastName: '',
-        sLastName: '',
-        email: '',
-        rol: '',
-    }
-    const { data, setData, post, processing, errors, reset } = useForm(cleanUser);
-  
-
+    const { data, setData, put, processing, errors, reset } = useForm(selectedItem);
+    useEffect(() => {
+        setData(selectedItem)
+    }, [selectedItem])
     const submit = (e) => {
         e.preventDefault();
         hideDialog()
-        setData(cleanUser)
-        post(route('register'), {
+        setData(cleanPermission)
+        put(route(endpoint, data.id), {
             onSuccess: () => {
-                    console.log('created')
+                console.log('created')
             }
         });
     };
 
     return (
-        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Usuario" modal className="p-fluid" onHide={hideDialog}>
+        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Permiso" modal className="p-fluid" onHide={hideDialog} >
+
             <form onSubmit={submit} className='flex flex-col gap-2'>
-                <div className='flex gap-3'>
+                <div className='flex flex-col gap-3'>
                     <div className="field">
-                        <label htmlFor="firstName" className="font-bold text-xs">
-                            Primer nombre
+                        <label htmlFor="role" className="font-bold text-xs">
+                            Permiso
                         </label>
-                        <InputText id="firstName" value={data?.firstName} required className='rounded-md' onChange={(e) => setData('firstName', e.target.value)} />
+                        <InputText id="role" value={data?.role} required className='rounded-md' onChange={(e) => setData('role', e.target.value)} placeholder='Nombre del permiso' />
                     </div>
-                    <div className="field">
-                        <label htmlFor="secondName" className="font-bold text-xs">
-                            Segundo nombre
+                  {/*   <div className="field">
+                        <label htmlFor="description" className="font-bold text-xs">
+                            Descripción
                         </label>
-                        <InputText id="secondName" value={data?.secondName} onChange={(e) => setData('secondName', e.target.value)} className='rounded-md' />
+                        <InputTextarea id="description" value={data?.description} onChange={(e) => setData('description', e.target.value)} className='rounded-md resize-none' placeholder='Descripción del permiso' />
+                    </div> */}
+
+                    <div className="card flex justify-content-center">
+                        <SelectButton value={data.status ? 'Active' : 'Inactive'} onChange={(e) => setData('status', e.value === 'Active')} options={options} />
                     </div>
 
                 </div>
-                <div className='flex gap-3'>
-                    <div className="field">
-                        <label htmlFor="fLastName" className="font-bold text-xs">
-                            Primer apellido
-                        </label>
-                        <InputText id="fLastName" value={data?.fLastName} required className='rounded-md' onChange={(e) => setData('fLastName', e.target.value)} />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="sLastName" className="font-bold text-xs">
-                            Segundo apellido
-                        </label>
-                        <InputText id="sLastName" value={data?.sLastName} className='rounded-md' onChange={(e) => setData('sLastName', e.target.value)} />
-
-                    </div>
-                </div>
-                <div className='flex gap-3'>
-                    <div className="field">
-                        <label htmlFor="email" className="font-bold text-xs">
-                            Correo
-                        </label>
-                        <InputText id="email" type='email' value={data?.email} required onChange={(e) => setData('email', e.target.value)} className='rounded-md' />
-                    </div>
-
-                    <div className="field flex-grow ">
-                        <label htmlFor="rol" className="font-bold text-xs">
-                            Rol
-                        </label>
-                        <Dropdown value={data?.rol} onChange={(e) => setData('rol', (e.target.value))} options={roles} optionLabel="rol" placeholder="Select a Role"
-                            filter className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-                    </div>
-
-                </div>
-
-                <div className='flex justify-end pt-4'>
-                    <Button typeof='button' label="Cancelar" icon="pi pi-times" outlined onClick={hideDialog} className='mx-3 w-fit' />
-                    <Button type='submit' label="Aceptar" icon="pi pi-check" className='mx-3 w-fit' />
-                </div>
+                <FormActionButtons hideDialog={hideDialog} />
             </form>
         </Dialog>
     )

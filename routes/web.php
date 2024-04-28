@@ -26,7 +26,7 @@ Route::get('/users', function () {
 /* Route::get('/roles', function () {
     return Inertia::render('Roles');
 })->middleware(['auth', 'verified'])->name('roles'); */
- 
+
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
 
 
@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
- 
 
     Route::controller(PermissionController::class)->group(function () {
         Route::get('/permission', 'index')->name('permission');
@@ -46,11 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::controller(RoleController::class)->group(function () {
         Route::get('/role', 'index')->name('roles');
         Route::post('/role', 'store')->name('role.store');
+        Route::put('/role/{id}', 'update')->name('role.update');
         Route::delete('/role/{id}', 'destroy')->name('role.delete');
     });
-
 });
- 
+
 
 
 require __DIR__ . '/auth.php';

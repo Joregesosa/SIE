@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -18,19 +19,13 @@ class RoleController extends Controller
         if ($message) {
             Session::forget('msj');
         }
-        $permissions = Role::all();
+        $role = Role::all();
+        $permissions = Permission::all();
         return Inertia::render('Roles', [
-            'data' => $permissions,
+            'data' => $role,
+            'permissions' => $permissions,
             'msj' => $message
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -38,31 +33,33 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = [
+            'role.unique' => 'Ya existe un role con el nombre' . $request->role,
+            'role.required' => 'El nombre del role es requerido',
+        ];
+
+        $validator =  validator($request->all(), [
+            'role' => 'required|string|unique:' . Role::class,
+        ], $message);
+
+        if ($validator->fails()) {
+
+            return redirect()->route('roles')->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
+        }
+
+        Role::create($request->all());
+        return redirect()->route('roles')->with('msj', ['success' => "Role created successfully"], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Role $role)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Role $role)
-    {
-        //
-    }
-
-    /**
+    /** 
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $id)
     {
-        //
+        $role =  Role::find($id);
+        $role->update($request->all());
+
+        return redirect()->route('roles')->with('msj', ['success' => "Role updated successfully"], 200);
     }
 
     /**
@@ -72,6 +69,6 @@ class RoleController extends Controller
     {
         Role::destroy($id);
 
-        return redirect()->route('roles')->with('msj', ['success' => "Permission deleted succesfully"], 200);
+        return redirect()->route('roles')->with('msj', ['success' => "Role deleted successfully"], 200);
     }
 }
