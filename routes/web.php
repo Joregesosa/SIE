@@ -54,7 +54,5 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
         Route::delete('/role/{id}', 'destroy')->name('role.delete');
     });
 });
-
-
-
+ 
 require __DIR__ . '/auth.php';
