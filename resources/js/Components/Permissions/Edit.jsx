@@ -35,7 +35,7 @@ export default function Edit({ showDialog, hideDialog, selectedItem, endpoint })
                         <label htmlFor="permission" className="font-bold text-xs">
                             Permiso
                         </label>
-                        <InputText id="permission" value={data?.permission} required className='rounded-md' onChange={(e) => setData('permission', e.target.value)} placeholder='Nombre del permiso' />
+                        <InputText id="permission" value={data?.name} required className='rounded-md' onChange={(e) => setData('name', e.target.value)} placeholder='Nombre del permiso' />
                     </div>
                     <div className="field">
                         <label htmlFor="description" className="font-bold text-xs">

@@ -13,7 +13,7 @@ return new class extends Migration
     {   /*TIPOS DE TELEFONOS*/    
         Schema::create('phone_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->boolean('status')->default(1);
             $table->timestamps();
 
@@ -23,7 +23,7 @@ return new class extends Migration
         Schema::create('family_structures', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
@@ -31,7 +31,7 @@ return new class extends Migration
         /*TIPOS DE VIVIENDAS*/
         Schema::create('type_houses', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
@@ -39,7 +39,7 @@ return new class extends Migration
         /*TIPOS DE ATENCIÓN MÉDICA*/
         Schema::create('medical_attention_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
@@ -47,7 +47,7 @@ return new class extends Migration
         /*TIPOS DE EMBARAZO*/
         Schema::create('pregnancy_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
@@ -80,7 +80,7 @@ return new class extends Migration
          Schema::create('phones', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('people_id')->nullable();
-            $table->foreign('people_id')->references('id')->on('people')->onDelete('set null');
+            $table->foreign('people_id')->references('id')->on('people')->onDelete('cascade');
             $table->string('number');
             $table->unsignedBigInteger('phone_type_id')->nullable();
             $table->foreign('phone_type_id')->references('id')->on('phone_types')->onDelete('set null');

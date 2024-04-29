@@ -10,7 +10,7 @@ export const FormActionButtons = ({ hideDialog, type, action }) => {
     }
     return (
         <div className='flex justify-end pt-4'>
-            <Button typeof='button' label="Cancelar" icon="pi pi-times" outlined onClick={hideDialog} className='mx-3 w-fit' />
+            <Button type='button' label="Cancelar" icon="pi pi-times" outlined onClick={hideDialog} className='mx-3 w-fit' />
             <Button type={type || "submit"} label="Aceptar" icon="pi pi-check" className='mx-3 w-fit' onClick={execute} />
         </div>
     )
