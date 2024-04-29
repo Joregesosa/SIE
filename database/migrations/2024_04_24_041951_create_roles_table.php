@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('route');
             $table->string('description');
+            $table->string('color');
+            $table->string('color2');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
