@@ -22,7 +22,7 @@ class ProfileController extends Controller
         if ($message) {
             Session::forget('msj');
         }
-        $user = User::with('roles')->get();
+        $user = User::with('roles', 'person')->get();
       
 
         return Inertia::render('Users', [

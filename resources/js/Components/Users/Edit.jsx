@@ -4,26 +4,28 @@ import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown';
 import { SelectButton } from 'primereact/selectbutton';
+import { FormActionButtons } from '../FormActionButtons';
 
-
-export default function EditUser({ user, showDialog, actionFooter, hideDialog }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        firstName: '',
-        secondName: '',
-        fLastName: '',
-        sLastName: '',
-        email: '',
-        rol: '',
-        status: false,
-    });
+const cleanUser = {
+    firstName: '',
+    secondName: '',
+    fLastName: '',
+    sLastName: '',
+    email: '',
+    rol: '',
+    status: false,
+}
+const options = ['Active', 'Inactive'];
+export default function Edit({ selectedItem, showDialog, actionFooter, hideDialog }) {
+    const { data, setData, post, processing, errors, reset } = useForm(cleanUser);
     useEffect(() => {
-        setData(user)
-    }, [user])
+        setData(selectedItem)
+    }, [selectedItem])
     const roles = [
         { rol: 'Estudiante', id: '1' },
         { rol: 'Maestro', id: '2' },
         { rol: 'Gerencia', id: '3' },
-        { rol: 'Psicologia', id: '4' },
+        { rol: 'Psicología', id: '4' },
     ];
 
     const submit = (e) => {
@@ -32,20 +34,20 @@ export default function EditUser({ user, showDialog, actionFooter, hideDialog })
     };
 
     return (
-        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Product Details" modal className="p-fluid" footer={actionFooter} onHide={hideDialog}>
+        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Editar usuario" modal className="p-fluid" footer={actionFooter} onHide={hideDialog}>
             <form onSubmit={submit} className='flex flex-col gap-2'>
                 <div className='flex gap-3'>
                     <div className="field">
                         <label htmlFor="firstName" className="font-bold text-xs">
                             Primer nombre
                         </label>
-                        <InputText id="firstName" value={data.firstName} required autoFocus className='rounded-md' onChange={(e) => setData('firstName', e.target.value)} />
+                        <InputText id="firstName" value={data.person?.first_name} required autoFocus className='rounded-md' onChange={(e) => setData('firstName', e.target.value)} />
                     </div>
                     <div className="field">
                         <label htmlFor="secondName" className="font-bold text-xs">
                             Segundo nombre
                         </label>
-                        <InputText id="secondName" value={data.secondName} autoFocus onChange={(e) => setData('secondName', e.target.value)} className='rounded-md' />
+                        <InputText id="secondName" value={data.person?.second_name} autoFocus onChange={(e) => setData('secondName', e.target.value)} className='rounded-md' />
                     </div>
 
                 </div>
@@ -54,13 +56,13 @@ export default function EditUser({ user, showDialog, actionFooter, hideDialog })
                         <label htmlFor="fLastName" className="font-bold text-xs">
                             Primer apellido
                         </label>
-                        <InputText id="fLastName" value={data.fLastName} required autoFocus className='rounded-md' onChange={(e) => setData('fLastName', e.target.value)} />
+                        <InputText id="fLastName" value={data.person?.fLast_name} required autoFocus className='rounded-md' onChange={(e) => setData('fLastName', e.target.value)} />
                     </div>
                     <div className="field">
                         <label htmlFor="sLastName" className="font-bold text-xs">
                             Segundo apellido
                         </label>
-                        <InputText id="sLastName" value={data.sLastName} autoFocus className='rounded-md' />
+                        <InputText id="sLastName" value={data.person?.sLast_name} autoFocus className='rounded-md' />
 
                     </div>
                 </div>
@@ -75,7 +77,7 @@ export default function EditUser({ user, showDialog, actionFooter, hideDialog })
                         <label htmlFor="userName" className="font-bold text-xs">
                             Nombre de usuario
                         </label>
-                        <InputText id="userName" value={data.userName} required autoFocus onChange={(e) => setData('userName', e.target.value)} className='rounded-md' disabled />
+                        <InputText id="userName" value={data.user_name} required autoFocus onChange={(e) => setData('userName', e.target.value)} className='rounded-md' disabled />
                     </div>
                 </div>
 
@@ -88,14 +90,14 @@ export default function EditUser({ user, showDialog, actionFooter, hideDialog })
                             filter className="flex items-center border h-[42px] border-gray-500 flex-grow" />
                     </div>
 
-                    <div className="card flex flex-col">
-                        <label htmlFor="rol" className="font-bold text-xs">
+                    <div className="card flex flex-col justify-content-center">
+                        <label className="font-bold text-xs mt-2">
                             Estado
                         </label>
-                        <SelectButton value={data.status? 'Activo': 'Inactivo'} onChange={(e) => { setData('status', e.target.value), console.log(data) }} options={['Activo', 'Inactivo']} className='h-[42px] mt-2 border border-gray-500 rounded-md'/>
+                        <SelectButton value={data.status ? 'Active' : 'Inactive'} onChange={(e) => setData('status', e.value === 'Active')} options={options} className=' h-10' />
                     </div>
                 </div>
-
+                <FormActionButtons hideDialog={hideDialog} />
             </form>
         </Dialog>
     )
