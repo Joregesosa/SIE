@@ -12,24 +12,28 @@ return new class extends Migration
     public function up(): void
     {
         /*ESTADOS CIVILES*/
-        Schema::create('marital_statuses', function (Blueprint $table) {
+        Schema::create('marital_status', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
-            $table->timestamps();
+            $table->string('name');
+            $table->string('description');
+            $table->boolean('status')->default(true);
         });
 
         /*NIVELES DE EDUCACION*/
         Schema::create('education_levels', function (Blueprint $table) {
             $table->id();
-            $table->string('level');
-            $table->timestamps();
+            $table->string('name');
+            $table->string('description');
+            $table->boolean('status')->default(true);
         });
 
         /*TIPOS DE FAMILIARES*/
         Schema::create('parent_types', function (Blueprint $table) {
             $table->id();
             $table->string('name'); 
-            $table->timestamps();
+            $table->string('description');
+
+            $table->boolean('status')->default(true);
         });
 
         /*DATOS DE LOS PADRES*/
@@ -45,6 +49,7 @@ return new class extends Migration
             $table->string('workPlace');
             $table->integer('income');
             $table->string('email')->unique();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
 

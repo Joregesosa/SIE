@@ -13,7 +13,7 @@ return new class extends Migration
     {   /*TIPOS DE TELEFONOS*/    
         Schema::create('phone_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->boolean('status')->default(1);
             $table->timestamps();
 
@@ -31,7 +31,7 @@ return new class extends Migration
         /*TIPOS DE VIVIENDAS*/
         Schema::create('type_houses', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
@@ -39,7 +39,7 @@ return new class extends Migration
         /*TIPOS DE ATENCIÓN MÉDICA*/
         Schema::create('medical_attention_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
@@ -47,7 +47,7 @@ return new class extends Migration
         /*TIPOS DE EMBARAZO*/
         Schema::create('pregnancy_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
