@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        $this->call(UserSeeder::class);
-        $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(PersonSeeder::class);
+        $this->call(UserSeeder::class);
 
         DB::table('phone_types')->insert([
             ['name' => 'Casa'],

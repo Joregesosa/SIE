@@ -23,7 +23,7 @@ return new class extends Migration
         Schema::create('education_levels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->boolean('status')->default(true);
         });
 
@@ -42,7 +42,7 @@ return new class extends Migration
             $table->unsignedBigInteger('people_id');
             $table->foreign('people_id')->references('id')->on('people')->onDelete('cascade');
             $table->unsignedBigInteger('marital_status_id')->nullable();
-            $table->foreign('marital_status_id')->references('id')->on('marital_statuses')->onDelete('set null');
+            $table->foreign('marital_status_id')->references('id')->on('marital_status')->onDelete('set null');
             $table->unsignedBigInteger('education_level_id')->nullable();
             $table->foreign('education_level_id')->references('id')->on('education_levels')->onDelete('set null');
             $table->string('ocupation');
