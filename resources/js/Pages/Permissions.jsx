@@ -55,7 +55,7 @@ export default function Permissions({ auth, data, msj }) {
 
                     <Column field='id' header='ID' sortable className='py-2' />
 
-                    <Column field='permission' header='Nombre' sortable className='py-2' />
+                    <Column field='name' header='Nombre' sortable className='py-2' />
 
                     <Column field='description' header='Descripción' sortable className='py-2' />
 

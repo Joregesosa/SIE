@@ -27,8 +27,6 @@ class CheckPermission
        
         $permissions = Auth::user()->load('role.permissions')->role->permissions->pluck('route')->toArray();
         
-
-        
         if (!in_array($ruta, $permissions)) {
            
 
