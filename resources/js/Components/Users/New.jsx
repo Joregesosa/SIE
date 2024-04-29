@@ -3,37 +3,39 @@ import { useForm } from '@inertiajs/react'
 import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
 import { Dropdown } from 'primereact/dropdown';
-import { SelectButton } from 'primereact/selectbutton';
+import { Button } from 'primereact/button';
 
 
-export default function NewUser({ showDialog, actionFooter, hideDialog }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+export default function NewUser({ showDialog, hideDialog }) {
+    const cleanUser = {
         firstName: '',
         secondName: '',
         fLastName: '',
         sLastName: '',
         email: '',
         rol: '',
-        status: false,
-    });
-    useEffect(() => {
-        
-    }, [data])
+    }
+    const { data, setData, post, processing, errors, reset } = useForm(cleanUser);
     const roles = [
         { rol: 'Estudiante', id: '1' },
         { rol: 'Maestro', id: '2' },
         { rol: 'Gerencia', id: '3' },
         { rol: 'Psicologia', id: '4' },
     ];
+
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('register'));
+        hideDialog()
+        setData(cleanUser)
+        post(route('register'), {
+            onSuccess: () => {
+                    console.log('created')
+            }
+        });
     };
 
-
     return (
-        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Usuario" modal className="p-fluid" footer={actionFooter} onHide={hideDialog}>
+        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Usuario" modal className="p-fluid" onHide={hideDialog}>
             <form onSubmit={submit} className='flex flex-col gap-2'>
                 <div className='flex gap-3'>
                     <div className="field">
@@ -61,7 +63,7 @@ export default function NewUser({ showDialog, actionFooter, hideDialog }) {
                         <label htmlFor="sLastName" className="font-bold text-xs">
                             Segundo apellido
                         </label>
-                        <InputText id="sLastName" value={data?.sLastName} className='rounded-md' />
+                        <InputText id="sLastName" value={data?.sLastName} className='rounded-md' onChange={(e) => setData('sLastName', e.target.value)} />
 
                     </div>
                 </div>
@@ -70,33 +72,23 @@ export default function NewUser({ showDialog, actionFooter, hideDialog }) {
                         <label htmlFor="email" className="font-bold text-xs">
                             Correo
                         </label>
-                        <InputText id="email" type='email' value={data?.email} required autoFocus onChange={(e) => setData('email', e.target.value)} className='rounded-md' />
+                        <InputText id="email" type='email' value={data?.email} required onChange={(e) => setData('email', e.target.value)} className='rounded-md' />
                     </div>
-                    <div className="field">
-                        <label htmlFor="userName" className="font-bold text-xs">
-                            Nombre de usuario
-                        </label>
-                        <InputText id="userName" value={data?.userName} required onChange={(e) => setData('userName', e.target.value)} className='rounded-md' readOnly />
-                    </div>
-                </div>
 
-                <div className='flex gap-3'>
                     <div className="field flex-grow ">
                         <label htmlFor="rol" className="font-bold text-xs">
                             Rol
                         </label>
-                        <Dropdown value={data?.rol} onChange={(e) => setData('rol', (e.target.value === 'Activo'))} options={roles} optionLabel="rol" placeholder="Select a Role"
+                        <Dropdown value={data?.rol} onChange={(e) => setData('rol', (e.target.value))} options={roles} optionLabel="rol" placeholder="Select a Role"
                             filter className="flex items-center border h-[42px] border-gray-500 flex-grow" />
                     </div>
 
-                    <div className="card flex flex-col">
-                        <label htmlFor="rol" className="font-bold text-xs">
-                            Estado
-                        </label>
-                        <SelectButton value={data?.status ? 'Activo' : 'Inactivo'} onChange={(e) => { setData('status', e.target.value) }} options={['Activo', 'Inactivo']} className='h-[42px] mt-2 border border-gray-500 rounded-md' />
-                    </div>
                 </div>
 
+                <div className='flex justify-end pt-4'>
+                    <Button typeof='button' label="Cancelar" icon="pi pi-times" outlined onClick={hideDialog} className='mx-3 w-fit' />
+                    <Button type='submit' label="Aceptar" icon="pi pi-check" className='mx-3 w-fit' />
+                </div>
             </form>
         </Dialog>
     )

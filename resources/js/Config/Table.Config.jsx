@@ -7,14 +7,14 @@ export const TableConfig = (theme, globalFilter, search, ref, data) => ({
 })
 
 /* Barra de busqueda */
-export const Search = (setGlobalFilter) => (
+/* export const Search = (setGlobalFilter) => (
     <div className="flex flex-wrap gap-2 align-items-center pl-8">
         <span className="p-input-icon-left">
             <i className="pi pi-search" />
             <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
         </span>
     </div>
-);
+); */
 
 /* 
     * getStatusStyle
@@ -70,7 +70,5 @@ export const RenderActionButtons = (rowData, onEdit, onDelete) => {
             <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => onEdit(rowData)} />
             <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => onDelete(rowData)} />
         </>
-
-
     );
 };

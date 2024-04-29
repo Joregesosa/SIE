@@ -3,15 +3,16 @@ import { Head } from '@inertiajs/react';
 import React, { useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
-import { New } from '@/Components/Role/New';
 import { useTable } from '@/hooks/useTable';
-import { Edit } from '@/Components/Role/Edit';
+import NewPermission from '@/Components/Permissions/New';
+import { Alert } from '@/Components/Alerts/Alert';
+import Edit from '@/Components/Permissions/Edit';
 
+export default function Permissions({ auth, data, msj }) {
 
-
-export default function Roles({ auth, data, msj, permissions }) {
     const {
         dt,
         alert,
@@ -32,28 +33,19 @@ export default function Roles({ auth, data, msj, permissions }) {
         onHideEditDialog
     } = useTable(data)
 
-    const RenderPermissionList = (rowData) => {
-        if(rowData){
-            return (<span className='text-sm'>{rowData.permissions.map(obj => obj.permission).join(', ')}
-            </span>)
-        }
-        
-    }
-
-
-
-
-
     useEffect(() => {
         setDataList(data)
         setAlert(msj)
     }, [data, msj])
+
+
+
     return (
         <AuthenticatedLayout
             alert={alert}
             setAlert={setAlert}
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Roles</h2>}
+            header={<h2 className="font-semibold text-lg leading-tight">Permisos</h2>}
         >
             <Head title="Lista de Usuarios" />
 
@@ -63,9 +55,9 @@ export default function Roles({ auth, data, msj, permissions }) {
 
                     <Column field='id' header='ID' sortable className='py-2' />
 
-                    <Column field='role' header='Role' sortable className='py-2' />
+                    <Column field='permission' header='Nombre' sortable className='py-2' />
 
-                      <Column field='permissions' header='Permissions' sortable body={RenderPermissionList} className='py-2 max-w-80' />   
+                    <Column field='description' header='Descripción' sortable className='py-2' />
 
                     <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
@@ -76,28 +68,27 @@ export default function Roles({ auth, data, msj, permissions }) {
 
             {/* modal delete User */}
 
-
             <Edit
                 selectedItem={selectedItem}
                 showDialog={editItemDialog}
                 hideDialog={onHideEditDialog}
-                permissions={permissions}
-                endpoint='role.update'
-            />
-            <New
-                showDialog={showNewDialog}
-                hideDialog={() => setShowNewDialog(false)}
-                permissions={permissions}
+                endpoint='permission.update'
             />
 
             <DeleteAlert
                 itemId={selectedItem.id}
-                value={selectedItem.role}
-                message={"el role"}
-                endpoint='role.delete'
+                value={selectedItem.permission}
+                message={"el permiso"}
+                endpoint='permission.delete'
                 showDialog={deleteItemDialog}
                 hideDialog={hideDeleteDialog}
             />
+
+            <NewPermission
+                showDialog={showNewDialog}
+                hideDialog={() => setShowNewDialog(false)}
+            />
+
         </AuthenticatedLayout>
     );
 }
