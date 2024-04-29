@@ -3,16 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ProfileController extends Controller
 {
+
+    public function index()
+    {
+        $message = session('msj');
+        if ($message) {
+            Session::forget('msj');
+        }
+        $user = User::with('roles')->get();
+      
+
+        return Inertia::render('Users', [
+            'data' => $user,
+            'msj' => $message
+        ]);
+    }
+
+
     /**
      * Display the user's profile form.
      */

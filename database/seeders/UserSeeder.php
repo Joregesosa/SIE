@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'fLastName' => "Sosa",
             'sLastName' => "Nunez",
             'userName' => "jorge.sosa",
-            'rol_id' => 1, 
+            'role_id' => 1, 
             'email' => "joregesosa@gmail.com",
             'email_verified_at' => now(),
             'password' => "admin", 

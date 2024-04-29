@@ -33,8 +33,11 @@ export default function Roles({ auth, data, msj, permissions }) {
     } = useTable(data)
 
     const RenderPermissionList = (rowData) => {
-        return (<span className='text-sm'>{rowData.permissions.map(obj => obj.permission).join(', ')}
-        </span>)
+        if(rowData){
+            return (<span className='text-sm'>{rowData.permissions.map(obj => obj.permission).join(', ')}
+            </span>)
+        }
+        
     }
 
 
@@ -62,7 +65,7 @@ export default function Roles({ auth, data, msj, permissions }) {
 
                     <Column field='role' header='Role' sortable className='py-2' />
 
-                    <Column field='permissions' header='Permissions' sortable body={RenderPermissionList} className='py-2 max-w-80' />
+                      <Column field='permissions' header='Permissions' sortable body={RenderPermissionList} className='py-2 max-w-80' />   
 
                     <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 

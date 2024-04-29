@@ -54,7 +54,9 @@ const sections = [
             {
                 icon: 'pi-list',
                 title: 'Lista  de Usuarios',
-                url: 'users'
+                url: 'users',
+                permission: 'edit_user'
+                
             },
             {
                 icon: 'pi-cog',
@@ -69,7 +71,6 @@ const sections = [
             }
         ],
     },
- 
 ];
 
 export default Accordion;
