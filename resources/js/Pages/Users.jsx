@@ -61,7 +61,7 @@ export default function Users({ auth,currentUser, data, msj }) {
 
                     <Column field='email' header='Email' sortable className='py-2' />
 
-                    <Column field='roles.role' header='Rol' sortable className='py-2' />
+                    <Column field='role.role' header='Rol' sortable className='py-2' />
 
                     <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
