@@ -7,11 +7,12 @@ import { Link } from '@inertiajs/react';
 import SideBar from '@/Components/SideBar';
 import { ThemeControl } from '@/Components/ThemeControl';
 import { ThemeContext } from '@/Context/ThemeProvider';
+import { Alert } from '@/Components/Alerts/Alert';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ user, header,alert, setAlert ,children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const [showThemeControl, setShowThemeControl] = useState(false)
-    const { theme} = useContext(ThemeContext)
+    const { theme } = useContext(ThemeContext)
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className={`bg-${theme}-primary `}>
@@ -122,7 +123,7 @@ export default function Authenticated({ user, header, children }) {
 
             </nav>
             <div className='w-full flex overflow-hidden'>
-                <SideBar/>
+                <SideBar />
                 <div className={`flex-grow bg-gray-300  m-1 rounded-md min-h-[calc(100vh-73px)] flex flex-col`}>
                     {header && (
                         <header className={`shadow bg-${theme}-secondary text-${theme}-text rounded-t-md`}>
@@ -136,6 +137,7 @@ export default function Authenticated({ user, header, children }) {
                 showThemeControl={showThemeControl}
                 setShowThemeControl={setShowThemeControl}
             />
+            <Alert alerta={alert} setAlert={setAlert} />
         </div>
     );
 }

@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use App\Notifications\NewUserNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
@@ -29,25 +26,38 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->validate([
+        $mensajes = [
+            'firstName' => 'El nombre es invalido',
+            'secondName' => 'El nombre es invalido',
+            'fLastName' => 'El nombre es invalido',
+            'sLastName' => 'El nombre es invalido',
+            'email.required' => 'El email no puede estar en blanco',
+            'email.email' => 'Email no valido',
+            'email.unique' => 'Ya existe una cuenta con este email'
+        ];
+
+        $validator =  validator($request->all(), [
             'firstName' => 'required|string|max:255',
-            'secondName' => 'required|string|max:255required|string|max:255',
+            'secondName' => 'required|string|max:255|required|string|max:255',
             'fLastName' => 'required|string|max:255',
             'sLastName' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+ 
+        ], $mensajes);
+
+          if ($validator->fails()) {
+
+            return redirect()->route('users')->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
+        }
 
         $userName = $this->generateUsername(
             $request->firstName,
-            $request->secondName,
             $request->fLastName,
-            $request->sLastName
         );
-        $password = $this->generatePassword();
 
+        $password = Str::random(12);
 
         $user = User::create([
             'firstName' => $request->firstName,
@@ -59,25 +69,29 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($password),
         ]);
 
-        event(new Registered($user));
+        $user->notify(new NewUserNotification($userName, $password));
 
-        Auth::login($user);
+        $users = User::all(); 
 
-        return redirect(route('dashboard', absolute: false));
+        return Inertia::render('Users', [
+            'usersData' => $users,
+            'msj' => ["success" => 'Usuario registrado con exito']
+        ]);
     }
 
-    private function generateUsername($firstName, $secondName, $fLastName, $sLastName)
+    private function generateUsername($firstName, $fLastName,)
     {
         // Generar nombre de usuario base
-        $usernameBase = $firstName . substr($secondName, 0, 3) . strtoupper(substr($fLastName, 0, 2));
+        $counter = 1;
 
         // Agregar un número aleatorio al final
-        $username = $usernameBase . rand(100, 999);
+        $username =  strtolower(substr($firstName, 0, 1) . '.' . $fLastName);
 
         // Verificar si el nombre de usuario ya existe
         while ($this->usernameExists($username)) {
             // Si existe, generar un nuevo número aleatorio y probar de nuevo
-            $username = $usernameBase . rand(100, 999);
+            $counter++;
+            strtolower(substr($firstName, 0, $counter) . '.' . $fLastName);
         }
 
         return $username;
@@ -86,26 +100,22 @@ class RegisteredUserController extends Controller
     private function usernameExists($username)
     {
         // Consultar en la base de datos si el nombre de usuario existe
-        $user = User::where('username', $username)->first();
+        $user = User::where('userName', $username)->first();
 
         return $user !== null;
     }
 
-    private function generatePassword()
-    {
-        while (true) {
-            $password = Str::random(10);
 
-            if (
-                preg_match('/[A-Z]/', $password) &&
-                preg_match('/[a-z]/', $password) &&
-                preg_match('/[0-9]/', $password) &&
-                preg_match('/[^A-Za-z0-9]/', $password)
-            ) {
-                break;
-            }
-        }
+    private function redirectAfterRegister($mensaje){
+      return ["hola"];
 
-        return $password;
+        $users = User::all();
+
+        // $roles = Rol::select('id', 'nombre')->where('status', 1)->get();
+
+        return Inertia::render('Users', [
+            'usersData' => $users,
+            'msj' => $mensaje
+        ]);
     }
 }
