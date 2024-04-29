@@ -20,7 +20,8 @@ return new class extends Migration
 
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('permission');
+            $table->string('name');
+            $table->string('route');
             $table->string('description');
             $table->boolean('status')->default(true);
             $table->timestamps();

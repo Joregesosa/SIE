@@ -9,8 +9,9 @@ import NewUser from '@/Components/Users/New';
 import { useTable } from '@/hooks/useTable';
 import Edit from '@/Components/Users/Edit';
 
-export default function Users({ auth, data, msj }) {
+export default function Users({ auth,currentUser, data, msj }) {
 
+    console.log(currentUser)
     const {
         dt,
         alert,
