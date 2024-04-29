@@ -12,4 +12,9 @@ class Role extends Model
         'role',
         'status'
     ];
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 }

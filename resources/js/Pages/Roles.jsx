@@ -7,12 +7,11 @@ import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { New } from '@/Components/Role/New';
 import { useTable } from '@/hooks/useTable';
-import Edit from '@/Components/Role/Edit';
+import { Edit } from '@/Components/Role/Edit';
 
 
 
 export default function Roles({ auth, data, msj, permissions }) {
-
     const {
         dt,
         alert,
@@ -32,6 +31,15 @@ export default function Roles({ auth, data, msj, permissions }) {
         setShowNewDialog,
         onHideEditDialog
     } = useTable(data)
+
+    const RenderPermissionList = (rowData) => {
+        return (<span className='text-sm'>{rowData.permissions.map(obj => obj.permission).join(', ')}
+        </span>)
+    }
+
+
+
+
 
     useEffect(() => {
         setDataList(data)
@@ -54,6 +62,8 @@ export default function Roles({ auth, data, msj, permissions }) {
 
                     <Column field='role' header='Role' sortable className='py-2' />
 
+                    <Column field='permissions' header='Permissions' sortable body={RenderPermissionList} className='py-2 max-w-80' />
+
                     <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
                     <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
@@ -68,12 +78,13 @@ export default function Roles({ auth, data, msj, permissions }) {
                 selectedItem={selectedItem}
                 showDialog={editItemDialog}
                 hideDialog={onHideEditDialog}
+                permissions={permissions}
                 endpoint='role.update'
             />
             <New
                 showDialog={showNewDialog}
                 hideDialog={() => setShowNewDialog(false)}
-                permissions = {permissions}
+                permissions={permissions}
             />
 
             <DeleteAlert

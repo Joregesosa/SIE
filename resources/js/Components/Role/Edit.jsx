@@ -1,31 +1,51 @@
-import React, { useEffect } from 'react'
-import { useForm } from '@inertiajs/react'
-import { Dialog } from 'primereact/dialog'
-import { InputText } from 'primereact/inputtext'
-import { InputTextarea } from 'primereact/inputtextarea'
+import React, { useEffect, useState } from 'react';
+import { useForm } from '@inertiajs/react';
+import { Dialog } from 'primereact/dialog';
+import { InputText } from 'primereact/inputtext';
+import { FormActionButtons } from '../FormActionButtons';
+import { PickList } from 'primereact/picklist';
 import { SelectButton } from 'primereact/selectbutton';
-import { FormActionButtons } from '../FormActionButtons'
 
 const options = ['Active', 'Inactive'];
-const cleanPermission = { role: '', status: true }
-export default function Edit({ showDialog, hideDialog, selectedItem, endpoint }) {
+const cleanUser = { role: '', permissions: [] }
+export function Edit({ showDialog, hideDialog, permissions, selectedItem }) {
 
+    const [source, setSource] = useState(permissions)
+    const { data, setData, put, processing, errors, reset } = useForm(cleanUser);
 
-    const { data, setData, put, processing, errors, reset } = useForm(selectedItem);
-    useEffect(() => {
-        setData(selectedItem)
-    }, [selectedItem])
     const submit = (e) => {
         e.preventDefault();
         hideDialog()
-        setData(cleanPermission)
-        put(route(endpoint, data.id), {
+        setData(cleanUser)
+        put(route('role.update', selectedItem.id), {
             onSuccess: () => {
                 console.log('created')
             }
         });
     };
+    const onChange = (e) => {
+        setSource(e.source);
+        setData('permissions', e.target);
+    };
+    const itemTemplate = (item) => {
+        return (
+            <div className="flex flex-col align-items-center gap-3">
+                <span className='font-semibold text-sky-700'>{item.permission}</span>
+            </div>
+        );
+    };
+    useEffect(() => {
+        console.log(selectedItem?.permissions)
+          if (selectedItem && selectedItem?.permissions) {
+            const getSource = permissions.filter(objeto1 => {
+                       const existeEnArray2 = selectedItem.permissions.some(objeto2 => objeto2.id === objeto1.id);
+                       return !existeEnArray2;
+                   });
+                   setSource(getSource);
+        }  
 
+        setData(selectedItem);
+    }, [selectedItem])
     return (
         <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Permiso" modal className="p-fluid" onHide={hideDialog} >
 
@@ -33,21 +53,17 @@ export default function Edit({ showDialog, hideDialog, selectedItem, endpoint })
                 <div className='flex flex-col gap-3'>
                     <div className="field">
                         <label htmlFor="role" className="font-bold text-xs">
-                            Permiso
+                            Rol
                         </label>
-                        <InputText id="role" value={data?.role} required className='rounded-md' onChange={(e) => setData('role', e.target.value)} placeholder='Nombre del permiso' />
+                        <InputText id="role" value={data?.role} required className='rounded-md' onChange={(e) => setData('role', e.target.value)} readOnly placeholder='Nombre del permiso' />
                     </div>
-                  {/*   <div className="field">
-                        <label htmlFor="description" className="font-bold text-xs">
-                            Descripción
-                        </label>
-                        <InputTextarea id="description" value={data?.description} onChange={(e) => setData('description', e.target.value)} className='rounded-md resize-none' placeholder='Descripción del permiso' />
-                    </div> */}
 
+                    <div className="card">
+                        <PickList dataKey="id" itemTemplate={itemTemplate} source={source} target={data.permissions} onChange={onChange} breakpoint="1280px" sourceHeader="Disponibles" targetHeader="Asignados" sourceStyle={{ height: '20rem' }} targetStyle={{ height: '20rem' }} />
+                    </div>
                     <div className="card flex justify-content-center">
                         <SelectButton value={data.status ? 'Active' : 'Inactive'} onChange={(e) => setData('status', e.value === 'Active')} options={options} />
                     </div>
-
                 </div>
                 <FormActionButtons hideDialog={hideDialog} />
             </form>

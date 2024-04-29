@@ -47,7 +47,7 @@ export function New({ showDialog, hideDialog, permissions }) {
                     </div>
 
                     <div className="card">
-                        <PickList dataKey="id" itemTemplate={itemTemplate} source={source} target={data.permissions} onChange={onChange} breakpoint="1280px" sourceHeader="Disponibles" targetHeader="Seleccionados" sourceStyle={{ height: '20rem' }} targetStyle={{ height: '20rem'}}  />
+                        <PickList dataKey="id" itemTemplate={itemTemplate} source={source} target={data.permissions} onChange={onChange} breakpoint="1280px" sourceHeader="Disponibles" targetHeader="Asignados" sourceStyle={{ height: '20rem' }} targetStyle={{ height: '20rem'}}  />
                     </div>
 
                 </div>
