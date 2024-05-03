@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -19,6 +20,9 @@ Route::get('/', function () {
     ]);
 });
 
+Route::post('/formcontact', [FormController::class, 'formContact'])->name('new.formcontact');
+
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -31,7 +35,9 @@ Route::get('/dashboard', function () {
 
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
 
-Route::get('/AccessDenied', function () {return Inertia::render('AccessDenied');})->name('AccessDenied');
+Route::get('/AccessDenied', function () {
+    return Inertia::render('AccessDenied');
+})->name('AccessDenied');
 
 
 Route::middleware(['auth', CheckPermission::class])->group(function () {
@@ -54,5 +60,5 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
         Route::delete('/role/{id}', 'destroy')->name('role.delete');
     });
 });
- 
+
 require __DIR__ . '/auth.php';
