@@ -10,131 +10,127 @@ import { AcademicData } from '@/Components/InscriptionFormPartials/AcademicData'
 import { MedicalData } from '@/Components/InscriptionFormPartials/MedicalData';
 import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHistory';
 
-
-const InscriptionForm = () => {
-    const cleanData = {
-        identification_data: {
-            address_sector: '',
-            address_street: '',
-            birth_date: '',
-            birth_day_place: '',
-            fLast_name: '',
-            first_name: '',
-            id_card: '',
-            level: null,
-            number: '',
-            reference: '',
-            sLast_name: '',
-            second_Name: ''
-        },
-        mother_data: {
-            birth_date: "",
-            email: "",
-            fLast_name: "",
-            first_name: "",
-            instruction_level: "",
-            marital_status: "",
-            number: "",
-            profession: "",
-            sLast_name: "",
-            second_name: "",
-            work_place: ""
-        },
-        father_data: {
-            birth_date: "",
-            email: "",
-            fLast_name: "",
-            first_name: "",
-            instruction_level: "",
-            marital_status: "",
-            number: "",
-            profession: "",
-            sLast_name: "",
-            second_name: "",
-            work_place: ""
-        },
-        tutor_data: {
-            birth_date: "",
-            email: "",
-            fLast_name: "",
-            first_name: "",
-            instruction_level: "",
-            marital_status: "",
-            number: "",
-            profession: "",
-            sLast_name: "",
-            second_name: "",
-            work_place: ""
-        },
-        socioeconomic_data: {
-            student_partners: [],
-            siblings: [{ age: '', name: '', studying: false }]
-        },
-        financial_references: {
-            father_incomes: "",
-            living_description: "",
-            mother_incomes: "",
-            other_incomes: "",
-            structural_integrity: "",
-            total_outcomes: ""
-        },
-        academic_data: {
-            achievements: "",
-            difficult_subjects: "",
-            entry_date: "",
-            extracurriculars: "",
-            participation: "",
-            preferred_subjects: "",
-            previous_institution: "",
-            repeated_years: "",
-        },
-        medical_data: {
-            allergies: "",
-            allergies_details: "",
-            attending_physician: "",
-            disability_details: "",
-            medical_condition_details: "",
-            medical_facility: "",
-            medical_facility_details: "",
-            medications: "",
-            specific_medical_condition: "",
-            student_disability: "",
-        },
-        medical_history: {
-            accidents_during_pregnancy: "",
-            birth_height: "",
-            birth_type: "",
-            birth_weight: "",
-            bottle_usage_age: "",
-            breastfeeding_period: "",
-            familyMedicalHistory: "",
-            first_wordsAge: "",
-            habitsAndActivities: "",
-            medications_during_pregnancy: "",
-            mother_age: "",
-            observations: "",
-            other_difficulties_during_pregnancy: "",
-            studentFatherRelationship: "",
-            studentMotherRelationship: "",
-            studentOthersRelationship: "",
-            studentSiblingsRelationship: "",
-            toilet_training_age: "",
-            walking_age: "",
-        }
+const cleanData = {
+    identification_data: {
+        address_sector: '',
+        address_street: '',
+        birth_date: '',
+        birth_day_place: '',
+        fLast_name: '',
+        first_name: '',
+        id_card: '',
+        level: null,
+        number: '',
+        reference: '',
+        sLast_name: '',
+        second_Name: ''
+    },
+    mother_data: {
+        birth_date: "",
+        email: "",
+        fLast_name: "",
+        first_name: "",
+        instruction_level: "",
+        marital_status: "",
+        number: "",
+        profession: "",
+        sLast_name: "",
+        second_name: "",
+        work_place: ""
+    },
+    father_data: {
+        birth_date: "",
+        email: "",
+        fLast_name: "",
+        first_name: "",
+        instruction_level: "",
+        marital_status: "",
+        number: "",
+        profession: "",
+        sLast_name: "",
+        second_name: "",
+        work_place: ""
+    },
+    tutor_data: {
+        birth_date: "",
+        email: "",
+        fLast_name: "",
+        first_name: "",
+        instruction_level: "",
+        marital_status: "",
+        number: "",
+        profession: "",
+        sLast_name: "",
+        second_name: "",
+        work_place: ""
+    },
+    socioeconomic_data: {
+        student_partners: [],
+        siblings: [{ age: '', name: '', studying: false }]
+    },
+    financial_references: {
+        father_incomes: "",
+        living_description: "",
+        mother_incomes: "",
+        other_incomes: "",
+        structural_integrity: "",
+        total_outcomes: ""
+    },
+    academic_data: {
+        achievements: "",
+        difficult_subjects: "",
+        entry_date: "",
+        extracurriculars: "",
+        participation: "",
+        preferred_subjects: "",
+        previous_institution: "",
+        repeated_years: "",
+    },
+    medical_data: {
+        allergies: "",
+        allergies_details: "",
+        attending_physician: "",
+        disability_details: "",
+        medical_condition_details: "",
+        medical_facility: "",
+        medical_facility_details: "",
+        medications: "",
+        specific_medical_condition: "",
+        student_disability: "",
+    },
+    medical_history: {
+        accidents_during_pregnancy: "",
+        birth_height: "",
+        birth_type: "",
+        birth_weight: "",
+        bottle_usage_age: "",
+        breastfeeding_period: "",
+        familyMedicalHistory: "",
+        first_wordsAge: "",
+        habitsAndActivities: "",
+        medications_during_pregnancy: "",
+        mother_age: "",
+        observations: "",
+        other_difficulties_during_pregnancy: "",
+        studentFatherRelationship: "",
+        studentMotherRelationship: "",
+        studentOthersRelationship: "",
+        studentSiblingsRelationship: "",
+        toilet_training_age: "",
+        walking_age: "",
     }
+}
+const InscriptionForm = () => {
 
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
-
+    const [step, setStep] = useState(0);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        /*  console.log(data); */
+         console.log(data);
 
         /* post(route('new.formcontact')); */
-    }
-    const handleIdentificationData = (e) => {
-        setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
     const handleMotherData = (e) => {
         setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
@@ -145,9 +141,17 @@ const InscriptionForm = () => {
     const handleTutorData = (e) => {
         setData({ ...data, tutor_data: { ...data.tutor_data, [e.target.name]: e.target.value } })
     }
-    useEffect(() => {
-        console.log(data)
-    }, [data])
+    const forms = [
+        <IdentificationData data={data} setData={setData} />,
+        <MotherData data={data} handleMotherData={handleMotherData} />,
+        <FatherData data={data} handleFatherData={handleFatherData} />,
+        <TutorData data={data} handleTutorData={handleTutorData} />,
+        <SocioeconomicData data={data} setData={setData} />,
+        <FinancialReferences data={data} setData={setData} />,
+        <AcademicData data={data} setData={setData} />,
+        <MedicalData data={data} setData={setData} />,
+        <MedicalHistory data={data} setData={setData} />,
+    ];
     return (
         <div className='form_bg relative'>
             <header className='bg-[#9e1525] text-gray-100'>
@@ -161,18 +165,25 @@ const InscriptionForm = () => {
 
             </header>
             <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto  '>
-                {/* <IdentificationData data={data} handleIdentificationData={handleIdentificationData} /> */}
-                {/* <MotherData data={data} handleMotherData={handleMotherData} /> */}
-                {/* <FatherData data={data} handleFatherData={handleFatherData}/> */}
-                {/* <TutorData data={data} handleTutorData={handleTutorData} /> */}
-                {/* <SocioeconomicData data={data} setData={setData} /> */}
-                {/* <FinancialReferences data={data} setData={setData} /> */}
-                {/*  <AcademicData data={data} setData={setData} /> */}
-                <MedicalData data={data} setData={setData} />
-                {/* <MedicalHistory data={data} setData={setData} /> */}
-                <div className='w-full flex justify-end md:col-span-2 max-w-screen-lg px-5 mx-auto my-8'>
-                    <button type='button' className='px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500'>
+
+
+                {forms[step]}
+
+                <div className='w-full flex justify-between md:col-span-2 max-w-screen-lg px-5 mx-auto my-8'>
+                    <button type='button' onClick={() => setStep(step - 1)}
+                        className={`px-5 rounded-md bg-teal-400 py-2 active:bg-sky-500 ${step === 0 && 'invisible'}`}>
+                        Anterior
+                    </button>
+                    <button
+                        type='button'
+                        onClick={() => setStep(step + 1)}
+                        className={`px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500 ${step === forms.length - 1 && 'hidden'}`}>
                         Siguiente
+                    </button>
+                    <button
+                        type='submit'
+                        className={`px-5 rounded-md bg-green-400 py-2 active:bg-sky-500 ${step !== forms.length - 1 && 'hidden'}`}>
+                        Enviar
                     </button>
                 </div>
             </form>
