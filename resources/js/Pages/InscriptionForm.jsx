@@ -5,8 +5,11 @@ import { MotherData } from '@/Components/InscriptionFormPartials/MotherData';
 import { FatherData } from '@/Components/InscriptionFormPartials/FatherData';
 import { TutorData } from '@/Components/InscriptionFormPartials/TutorData';
 import { SocioeconomicData } from '@/Components/InscriptionFormPartials/SocioeconomicData';
+import { FinancialReferences } from '@/Components/InscriptionFormPartials/FinancialReferences';
+import { AcademicData } from '@/Components/InscriptionFormPartials/AcademicData';
+import { MedicalData } from '@/Components/InscriptionFormPartials/MedicalData';
+import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHistory';
 
-const structural_integrity_option = ["Propia", "Arrendada", "Prestada", "Anticresis", "Con préstamo"]
 
 const InscriptionForm = () => {
     const cleanData = {
@@ -63,17 +66,61 @@ const InscriptionForm = () => {
             second_name: "",
             work_place: ""
         },
-        socioeconomic_data: { 
+        socioeconomic_data: {
             student_partners: [],
             siblings: [{ age: '', name: '', studying: false }]
         },
-        father: {},
-        mother: {},
-        student: {},
-        financial_references: {},
-        academic_data: {},
-        medical_data: {}
-
+        financial_references: {
+            father_incomes: "",
+            living_description: "",
+            mother_incomes: "",
+            other_incomes: "",
+            structural_integrity: "",
+            total_outcomes: ""
+        },
+        academic_data: {
+            achievements: "",
+            difficult_subjects: "",
+            entry_date: "",
+            extracurriculars: "",
+            participation: "",
+            preferred_subjects: "",
+            previous_institution: "",
+            repeated_years: "",
+        },
+        medical_data: {
+            allergies: "",
+            allergies_details: "",
+            attending_physician: "",
+            disability_details: "",
+            medical_condition_details: "",
+            medical_facility: "",
+            medical_facility_details: "",
+            medications: "",
+            specific_medical_condition: "",
+            student_disability: "",
+        },
+        medical_history: {
+            accidents_during_pregnancy: "",
+            birth_height: "",
+            birth_type: "",
+            birth_weight: "",
+            bottle_usage_age: "",
+            breastfeeding_period: "",
+            familyMedicalHistory: "",
+            first_wordsAge: "",
+            habitsAndActivities: "",
+            medications_during_pregnancy: "",
+            mother_age: "",
+            observations: "",
+            other_difficulties_during_pregnancy: "",
+            studentFatherRelationship: "",
+            studentMotherRelationship: "",
+            studentOthersRelationship: "",
+            studentSiblingsRelationship: "",
+            toilet_training_age: "",
+            walking_age: "",
+        }
     }
 
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
@@ -85,17 +132,6 @@ const InscriptionForm = () => {
         /*  console.log(data); */
 
         /* post(route('new.formcontact')); */
-    }
-
-    const setFinancialReferences = (e) => {
-
-        setData({ ...data, financial_references: { ...data.financial_references, [e.target.name]: e.target.value } })
-    }
-    const setAcademicData = (e) => {
-        setData({ ...data, academic_data: { ...data.academic_data, [e.target.name]: e.target.value } })
-    }
-    const setMedicalData = (e) => {
-        setData({ ...data, medical_data: { ...data.medical_data, [e.target.name]: e.target.value } })
     }
     const handleIdentificationData = (e) => {
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
@@ -129,7 +165,11 @@ const InscriptionForm = () => {
                 {/* <MotherData data={data} handleMotherData={handleMotherData} /> */}
                 {/* <FatherData data={data} handleFatherData={handleFatherData}/> */}
                 {/* <TutorData data={data} handleTutorData={handleTutorData} /> */}
-                <SocioeconomicData data={data} setData={setData} />
+                {/* <SocioeconomicData data={data} setData={setData} /> */}
+                {/* <FinancialReferences data={data} setData={setData} /> */}
+                {/*  <AcademicData data={data} setData={setData} /> */}
+                <MedicalData data={data} setData={setData} />
+                {/* <MedicalHistory data={data} setData={setData} /> */}
                 <div className='w-full flex justify-end md:col-span-2 max-w-screen-lg px-5 mx-auto my-8'>
                     <button type='button' className='px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500'>
                         Siguiente
