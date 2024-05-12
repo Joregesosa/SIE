@@ -43,9 +43,42 @@ class PersonController extends Controller
             return back();
         }
 
-        try {
+        
 
+        try {
+            /*DATOS DE IDENTIFICACIÓN*/
             $person = Person::create($request->all());
+
+            REQUEST()->merge(['people_id' => $person->id]);
+
+            foreach ($request->telefonos as $telefono) {
+                $telefono['people_id'] = $person->id;
+                Phone::create($telefono);
+            }
+
+            /*RELACION PADRES O TUTORES*/
+            foreach ($request->parents as $parent) {
+                $familiar = Parent::create($parent);
+
+                foreach ($parent->telefonos as $telefono) {
+                    $telefono['people_id'] = $familiar->id;
+                    Phone::create($telefono);
+                }
+
+                student_parent::create([
+                    'student_id' => $request->student_id,
+                    'parent_id' => $familiar->id,
+                    'parent_type_id' => $parent['parent_type_id'],
+                ]);
+            }
+
+
+            /*DATOS SOCIOECONÓMICOS*/
+            /*REFERENCIAS SOCIOECONÓMICAS GENERALES*/
+            $student = Student::create($request->all());
+            
+
+
             session()->put('msj', ['success' => 'Persona registrada correctamente.']);
             return back();
 
