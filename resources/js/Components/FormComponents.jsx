@@ -1,652 +1,588 @@
-export const Form1 = () => (
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg mx-auto bg-white bg-opacity-75 p-5 h-full'>
-        <div className="field">
-            <label htmlFor="level" className="font-bold text-xs">
-                Año Educativo al que ingresa el alumno Educación General Básica (EGB),o Bachillerato General Unificado (BGU)
-            </label>
+import { Dropdown } from "primereact/dropdown";
+import { InputText } from "primereact/inputtext";
+ 
+
+
+
+export const Form6 = () => {
+    <fieldset className='max-w-screen-lg w-full mx-auto p-6 grid grid-cols-2 gap-4 my-8'>
+        <legend className='text-2xl font-semibold col-span-2'>
+            REFERENCIAS SOCIOECONÓMICAS GENERALES
+            <span className='font-normal text-base'><br />Ingresos/egresos de los miembros de la familia, Condición de la vivienda, Servicios</span>
+        </legend>
+
+        <label htmlFor="father_incomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Ingresos de Padre
+            <span>*</span>
+            <InputText
+                id="father_incomes"
+                name="father_incomes"
+                value={data?.financial_references?.father_incomes}
+                type='number'
+                required
+                className='rounded-md w-full'
+                onChange={setFinancialReferences}
+                placeholder="Ingresos de Padre"
+            />
+        </label>
+        <label htmlFor="mother_incomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Ingresos de Madre
+            <span>*</span>
+            <InputText
+                id="mother_incomes"
+                name="mother_incomes"
+                value={data?.financial_references?.mother_incomes}
+                type='number'
+                required
+                className='rounded-md w-full'
+                onChange={setFinancialReferences}
+                placeholder="Ingresos de Madre"
+            />
+        </label>
+        <label htmlFor="other_incomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Otros Ingresos
+            <span>*</span>
+
+            <InputText
+                id="other_incomes"
+                name='other_incomes'
+                value={data?.financial_references?.other_incomes}
+                type='number'
+                required
+                className='rounded-md w-full'
+                onChange={setFinancialReferences}
+                placeholder="Ingrese el lugar que ocupa en la familia"
+            />
+        </label>
+        <label htmlFor="total_outcomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Total de Egresos
+            <span>*</span>
+
+            <InputText
+                id="total_outcomes"
+                name="total_outcomes"
+                value={data?.financial_references?.total_outcomes}
+                type='number'
+                required
+                className='rounded-md w-full'
+                onChange={setFinancialReferences}
+                placeholder="Total de Egresos"
+            />
+        </label>
+
+        <label htmlFor="structural_integrity" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Condición de la vivienda <span>*</span>
+
             <Dropdown
-                value={data?.level}
-                onChange={(e) => setData('level', (e.target.value))}
-                options={courseLevels}
-                optionLabel="level"
-                placeholder="Seleccione un nivel"
+                value={data?.financial_references.structural_integrity}
+                name='structural_integrity'
+                onChange={setFinancialReferences}
+                options={structural_integrity_option}
+                placeholder="Condición de la vivienda"
                 filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow"
-            />
-        </div>
-        <div>
-            <label htmlFor="firstName" className="font-bold text-xs">
-                Primer nombre <span>*</span>
-            </label>
+                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+        </label>
+        <label htmlFor="living_description" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Breve descripción de la vivienda: (casa, departamento, cuarto, etc.)
+            <span>*</span>
+
             <InputText
-                id="first_name"
-                value={data?.first_name}
+                id="living_description"
+                name='living_description'
+                value={data?.financial_references?.living_description}
+                type='text'
                 required
                 className='rounded-md w-full'
-                onChange={(e) => setData('first_name', e.target.value)}
-                placeholder="Ingrese el primer nombre"
+                onChange={setFinancialReferences}
+                placeholder="Descripción de la vivienda"
             />
-        </div>
-        <div>
-            <label htmlFor="second_Name" className="font-bold text-xs">
-                Segundo nombre
-            </label>
+        </label>
+
+    </fieldset>
+}
+
+export const Form7 = () => (
+    <fieldset className='max-w-screen-lg w-full mx-auto p-6 grid grid-cols-2 gap-4 my-8'>
+        <legend className='text-2xl font-semibold col-span-2'>
+            DATOS ACADÉMICOS/RENDIMIENTO ESCOLAR
+        </legend>
+        <label htmlFor="entry_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Fecha de ingreso a la institución por primera vez
+            <span>*</span>
             <InputText
-                id="second_Name"
-                value={data?.second_Name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('second_Name', e.target.value)}
-                placeholder="Ingrese el segundo nombre"
-            />
-        </div>
-        <div>
-            <label htmlFor="fLast_name" className="font-bold text-xs">
-                Primer Apellido <span>*</span>
-            </label>
-            <InputText
-                id="fLast_name"
-                value={data?.fLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('fLast_name', e.target.value)}
-                placeholder="Ingrese el primer apellido"
-            />
-        </div>
-        <div>
-            <label htmlFor="sLast_name" className="font-bold text-xs">
-                Segundo Apellido
-            </label>
-            <InputText
-                id="sLast_name"
-                value={data?.sLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('sLast_name', e.target.value)}
-                placeholder="Ingrese el segundo apellido"
-            />
-        </div>
-        <div>
-            <label htmlFor="birth_date" className="font-bold text-xs">
-                Fecha de nacimiento <span>*</span>
-            </label>
-            <InputText
-                id="birth_date"
-                value={data?.birth_date}
+                id="entry_date"
+                name="entry_date"
+                value={data?.academic_data?.entry_date}
                 type='date'
                 required
                 className='rounded-md w-full'
-                onChange={(e) => setData('birth_date', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
+                onChange={setAcademicData}
+                placeholder="Entry Date"
             />
-        </div>
-        <div>
-            <label htmlFor="birth_day_place" className="font-bold text-xs">
-                Lugar de nacimiento <span>*</span>
-            </label>
-            <InputText
-                id="birth_day_place"
-                value={data?.birth_day_place}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('birth_day_place', e.target.value)}
-                placeholder="Ingrese el lugar de nacimiento"
-            />
-        </div>
-        <div>
-            <label htmlFor="id_card" className="font-bold text-xs">
-                Número de cédula <span>*</span>
-            </label>
-            <InputText
-                id="id_card"
-                value={data?.id_card}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('id_card', e.target.value)}
-                placeholder="Ingrese el número de cédula"
-            />
-        </div>
-        <div>
-            <label htmlFor="id_card" className="font-bold text-xs">
-                Edad del alumno <span>*</span>
-            </label>
-            <InputText
-                id="id_card"
-                value={data?.id_card}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('id_card', e.target.value)}
-                placeholder="Ingrese la edad del alumno"
-            />
-        </div>
-        <div>
-            <label htmlFor="address_street" className="font-bold text-xs">
-                Dirección del domicilio (calles) <span>*</span>
-            </label>
-            <InputText
-                id="address_street"
-                value={data?.address_street}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('address_street', e.target.value)}
-                placeholder="Ingrese la dirección"
-            />
-        </div>
-        <div>
-            <label htmlFor="address_sector" className="font-bold text-xs">
-                Sector <span>*</span>
-            </label>
-            <InputText
-                id="address_sector"
-                value={data?.address_sector}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('address_sector', e.target.value)}
-                placeholder="Ingrese la dirección"
-            />
-        </div>
-        <div>
-            <label htmlFor="number" className="font-bold text-xs">
-                Número de teléfono <span>*</span>
-            </label>
-            <InputText
-                id="number"
-                value={data?.number}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('number', e.target.value)}
-                placeholder="Ingrese el número de teléfono"
-            />
-        </div>
-        <div>
-            <label htmlFor="reference" className="font-bold text-xs">
-                Referencia <span>*</span>
-            </label>
-            <InputText
-                id="number"
-                value={data?.reference}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('reference', e.target.value)}
-                placeholder="Ingrese el número de teléfono"
-            />
-        </div>
+        </label>
 
-        <div className='w-full flex justify-end md:col-span-2'>
-            <button type='button' className='px-5 rounded-md bg-sky-400 py-2'>Siguiente</button>
-        </div>
-    </div>
+        <label htmlFor="previous_institution" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Institución educativa de la que procede
+            <InputText
+                id="previous_institution"
+                name="previous_institution"
+                value={data?.academic_data.previous_institution}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Previous Institution"
+            />
+        </label>
+
+        <label htmlFor="repeated_years" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            El estudiante ha repetido años (especificar cuáles y razones)
+            <InputText
+                id="repeated_years"
+                name="repeated_years"
+                value={data?.academic_data.repeated_years}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Repeated Years"
+            />
+        </label>
+
+        <label htmlFor="preferred_subjects" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Asignaturas de preferencia del estudiante
+            <InputText
+                id="preferred_subjects"
+                name="preferred_subjects"
+                value={data?.academic_data.preferred_subjects}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Preferred Subjects"
+            />
+        </label>
+
+        <label htmlFor="difficult_subjects" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Asignaturas en las que ha tenido dificultad
+            <InputText
+                id="difficult_subjects"
+                name="difficult_subjects"
+                value={data?.academic_data.difficult_subjects}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Difficult Subjects"
+            />
+        </label>
+
+        <label htmlFor="achievements" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Dignidades alcanzadas
+            <InputText
+                id="achievements"
+                name="achievements"
+                value={data?.academic_data.achievements}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Achievements"
+            />
+        </label>
+
+        <label htmlFor="participation" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Logros académicos
+            <InputText
+                id="participation"
+                name="participation"
+                value={data?.academic_data.participation}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Participation"
+            />
+        </label>
+
+        <label htmlFor="extracurriculars" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Participación en Extracurriculares
+            <InputText
+                id="extracurriculars"
+                name="extracurriculars"
+                value={data?.academic_data.extracurriculars}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Extracurriculars"
+            />
+        </label>
+    </fieldset>
 )
 
-export const Form2 = () => (
-
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg mx-auto bg-white bg-opacity-75 p-5 h-full'>
-        <div>
-            <label htmlFor="first_name" className="font-bold text-xs">
-                Primer nombre <span>*</span>
-            </label>
-            <InputText
-                id="first_name"
-                value={data?.first_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('first_name', e.target.value)}
-                placeholder="Ingrese el primer nombre"
-            />
-        </div>
-        <div>
-            <label htmlFor="second_name" className="font-bold text-xs">
-                Segundo nombre
-            </label>
-            <InputText
-                id="second_name"
-                value={data?.second_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('second_name', e.target.value)}
-                placeholder="Ingrese el segundo nombre"
-            />
-        </div>
-        <div>
-            <label htmlFor="fLast_name" className="font-bold text-xs">
-                Primer Apellido <span>*</span>
-            </label>
-            <InputText
-                id="fLast_name"
-                value={data?.fLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('fLast_name', e.target.value)}
-                placeholder="Ingrese el primer apellido"
-            />
-        </div>
-        <div>
-            <label htmlFor="sLast_name" className="font-bold text-xs">
-                Segundo Apellido
-            </label>
-            <InputText
-                id="sLast_name"
-                value={data?.sLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('sLast_name', e.target.value)}
-                placeholder="Ingrese el segundo apellido"
-            />
-        </div>
-        <div>
-            <label htmlFor="birth_date" className="font-bold text-xs">
-                Fecha de nacimiento <span>*</span>
-            </label>
-            <InputText
-                id="birth_date"
-                value={data?.birth_date}
-                type='date'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('birth_date', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </div>
-        <div>
-            <label htmlFor="marital_status" className="font-bold text-xs">
-                Estado civil <span>*</span>
-            </label>
-            <Dropdown
-                value={data?.marital_status}
-                onChange={(e) => setData('marital_status', (e.target.value))}
-                options={maritalStatusOptions}
-                optionLabel="label"
-                placeholder="Seleccione un estado civil"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </div>
-        <div>
-            <label htmlFor="instruction_level" className="font-bold text-xs">
-                Nivel de Instrucción <span>*</span>
-            </label>
-            <Dropdown
-                value={data?.instruction_level}
-                onChange={(e) => setData('instruction_level', (e.target.value))}
-                options={instructionLevelOptions}
-                optionLabel="label"
-                placeholder="Seleccione un nivel de instrucción"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </div>
-
-        <div>
-            <label htmlFor="profession" className="font-bold text-xs">
-                Profesión/ocupación <span>*</span>
-            </label>
-            <InputText
-                id="profession"
-                value={data?.profession}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('profession', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </div>
-        <div>
-            <label htmlFor="work_place" className="font-bold text-xs">
-                Lugar de trabajo <span>*</span>
-            </label>
-            <InputText
-                id="work_place"
-                value={data?.work_place}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('work_place', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </div>
-        <div>
-            <label htmlFor="number" className="font-bold text-xs">
-                Teléfono de contacto <span>*</span>
-            </label>
-            <InputText
-                id="number"
-                value={data?.number}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('number', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </div>
-        <div>
-            <label htmlFor="email" className="font-bold text-xs">
-                Correo Electrónico <span>*</span>
-            </label>
-            <InputText
-                id="email"
-                value={data?.email}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('email', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </div>
+export const Form8 = () => (
+    <fieldset className='max-w-screen-lg w-full mx-auto p-6 grid grid-cols-2 gap-4 my-8'>
+        <legend className='text-2xl font-semibold col-span-2'>
+            DATOS MEDICOS
+        </legend>
 
 
-        <div className='w-full flex justify-end md:col-span-2'>
-            <button type='button' className='px-5 rounded-md bg-sky-400 py-2'>Siguiente</button>
-        </div>
+        <label htmlFor="student_disability" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            ¿El estudiante tiene algún tipo de discapacidad?
+            <select
+                id="student_disability"
+                name="student_disability"
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                value={data?.academic_data.student_disability}
+            >
+                <option value="yes">Sí</option>
+                <option value="no">No</option>
+            </select>
+        </label>
 
+        <label htmlFor="disability_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Determine qué discapacidad / porcentaje / número de identificación
+            <InputText
+                id="disability_details"
+                name="disability_details"
+                value={data?.academic_data.disability_details}
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                placeholder="Detalles de la discapacidad"
+            />
+        </label>
 
-    </div>
+        <label htmlFor="specific_medical_condition" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            ¿El estudiante tiene alguna condición médica específica?
+            <select
+                id="specific_medical_condition"
+                name="specific_medical_condition"
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                value={data?.academic_data.specific_medical_condition}
+            >
+                <option value="yes">Sí</option>
+                <option value="no">No</option>
+            </select>
+        </label>
+
+        <label htmlFor="medical_condition_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Determine qué condición médica
+            <InputText
+                id="medical_condition_details"
+                name="medical_condition_details"
+                value={data?.academic_data.medical_condition_details}
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                placeholder="Detalles de la condición médica"
+            />
+        </label>
+
+        <label htmlFor="allergies" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            ¿El estudiante tiene alguna alergia?
+            <select
+                id="allergies"
+                name="allergies"
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                value={data?.academic_data.allergies}
+            >
+                <option value="yes">Sí</option>
+                <option value="no">No</option>
+            </select>
+        </label>
+
+        <label htmlFor="allergies_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Determine qué alergias
+            <InputText
+                id="allergies_details"
+                name="allergies_details"
+                value={data?.academic_data.allergies_details}
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                placeholder="Detalles de las alergias"
+            />
+        </label>
+
+        <label htmlFor="medications" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Especifique los medicamentos utilizados por el estudiante
+            <InputText
+                id="medications"
+                name="medications"
+                value={data?.academic_data.medications}
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                placeholder="Medicamentos"
+            />
+        </label>
+
+        <label htmlFor="medical_facility" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            ¿Dónde recibe atención médica el estudiante?
+            <select
+                id="medical_facility"
+                name="medical_facility"
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                value={data?.academic_data.medical_facility}
+            >
+                <option value="health_center">Centro de Salud</option>
+                <option value="public_hospital">Hospital Público</option>
+                <option value="private_hospital">Hospital Privado</option>
+                <option value="other">Otro</option>
+            </select>
+        </label>
+
+        <label htmlFor="medical_facility_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Nombre y dirección de la institución médica
+            <InputText
+                id="medical_facility_details"
+                name="medical_facility_details"
+                value={data?.academic_data.medical_facility_details}
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                placeholder="Detalles de la institución médica"
+            />
+        </label>
+
+        <label htmlFor="attending_physician" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Nombre del médico tratante
+            <InputText
+                id="attending_physician"
+                name="attending_physician"
+                value={data?.academic_data.attending_physician}
+                className='rounded-md w-full'
+                onChange={setMedicalData}
+                placeholder="Médico tratante"
+            />
+        </label>
+
+    </fieldset>
 )
 
-export const Form3 = () => (
+export const Form9 = () => (
+    <fieldset className='max-w-screen-lg w-full mx-auto p-6 grid grid-cols-2 gap-4 my-8'>
+        <legend className='text-2xl font-semibold col-span-2'>
+            HISTORIA VITAL
+            <span className='font-normal text-base'><br />
+                Embarazo y parto, Datos del/la niño/a recién nacido, Enfermedades (desde la infancia hasta la actualidad):
+            </span>
+        </legend>
 
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg mx-auto bg-white bg-opacity-75 p-5 h-full'>
-        <div>
-            <label htmlFor="first_name" className="font-bold text-xs">
-                Primer nombre <span>*</span>
-            </label>
+        <label htmlFor="motherAge" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Edad de la madre durante el embarazo
             <InputText
-                id="first_name"
-                value={data?.first_name}
-                required
+                id="motherAge"
+                name="motherAge"
+                value={data?.academic_data.motherAge}
                 className='rounded-md w-full'
-                onChange={(e) => setData('first_name', e.target.value)}
-                placeholder="Ingrese el primer nombre"
+                onChange={setAcademicData}
+                placeholder="Edad de la madre durante el embarazo"
             />
-        </div>
-        <div>
-            <label htmlFor="second_name" className="font-bold text-xs">
-                Segundo nombre
-            </label>
-            <InputText
-                id="second_name"
-                value={data?.second_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('second_name', e.target.value)}
-                placeholder="Ingrese el segundo nombre"
-            />
-        </div>
-        <div>
-            <label htmlFor="fLast_name" className="font-bold text-xs">
-                Primer Apellido <span>*</span>
-            </label>
-            <InputText
-                id="fLast_name"
-                value={data?.fLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('fLast_name', e.target.value)}
-                placeholder="Ingrese el primer apellido"
-            />
-        </div>
-        <div>
-            <label htmlFor="sLast_name" className="font-bold text-xs">
-                Segundo Apellido
-            </label>
-            <InputText
-                id="sLast_name"
-                value={data?.sLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('sLast_name', e.target.value)}
-                placeholder="Ingrese el segundo apellido"
-            />
-        </div>
-        <div>
-            <label htmlFor="birth_date" className="font-bold text-xs">
-                Fecha de nacimiento <span>*</span>
-            </label>
-            <InputText
-                id="birth_date"
-                value={data?.birth_date}
-                type='date'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('birth_date', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </div>
-        <div>
-            <label htmlFor="marital_status" className="font-bold text-xs">
-                Estado civil <span>*</span>
-            </label>
-            <Dropdown
-                value={data?.marital_status}
-                onChange={(e) => setData('marital_status', (e.target.value))}
-                options={maritalStatusOptions}
-                optionLabel="label"
-                placeholder="Seleccione un estado civil"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </div>
-        <div>
-            <label htmlFor="instruction_level" className="font-bold text-xs">
-                Nivel de Instrucción <span>*</span>
-            </label>
-            <Dropdown
-                value={data?.instruction_level}
-                onChange={(e) => setData('instruction_level', (e.target.value))}
-                options={instructionLevelOptions}
-                optionLabel="label"
-                placeholder="Seleccione un nivel de instrucción"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </div>
+        </label>
 
-        <div>
-            <label htmlFor="profession" className="font-bold text-xs">
-                Profesión/ocupación <span>*</span>
-            </label>
+        <label htmlFor="accidentsDuringPregnancy" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Accidentes durante el embarazo
             <InputText
-                id="profession"
-                value={data?.profession}
-                type='text'
-                required
+                id="accidentsDuringPregnancy"
+                name="accidentsDuringPregnancy"
+                value={data?.academic_data.accidentsDuringPregnancy}
                 className='rounded-md w-full'
-                onChange={(e) => setData('profession', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
+                onChange={setAcademicData}
+                placeholder="Accidentes durante el embarazo"
             />
-        </div>
-        <div>
-            <label htmlFor="work_place" className="font-bold text-xs">
-                Lugar de trabajo <span>*</span>
-            </label>
+        </label>
+
+        <label htmlFor="medicationsDuringPregnancy" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Medicamentos durante el embarazo
             <InputText
-                id="work_place"
-                value={data?.work_place}
-                type='text'
-                required
+                id="medicationsDuringPregnancy"
+                name="medicationsDuringPregnancy"
+                value={data?.academic_data.medicationsDuringPregnancy}
                 className='rounded-md w-full'
-                onChange={(e) => setData('work_place', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
+                onChange={setAcademicData}
+                placeholder="Medicamentos durante el embarazo"
             />
-        </div>
-        <div>
-            <label htmlFor="number" className="font-bold text-xs">
-                Teléfono de contacto <span>*</span>
-            </label>
+        </label>
+
+        <label htmlFor="typeOfDelivery" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Tipo de parto
             <InputText
-                id="number"
-                value={data?.number}
-                type='text'
-                required
+                id="typeOfDelivery"
+                name="typeOfDelivery"
+                value={data?.academic_data.typeOfDelivery}
                 className='rounded-md w-full'
-                onChange={(e) => setData('number', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
+                onChange={setAcademicData}
+                placeholder="Tipo de parto"
             />
-        </div>
-        <div>
-            <label htmlFor="email" className="font-bold text-xs">
-                Correo Electrónico <span>*</span>
-            </label>
+        </label>
+
+        <label htmlFor="otherDifficultiesDuringPregnancy" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Especifique otras dificultades durante el embarazo (preeclampsia, hipoxia, etc.)
             <InputText
-                id="email"
-                value={data?.email}
-                type='text'
-                required
+                id="otherDifficultiesDuringPregnancy"
+                name="otherDifficultiesDuringPregnancy"
+                value={data?.academic_data.otherDifficultiesDuringPregnancy}
                 className='rounded-md w-full'
-                onChange={(e) => setData('email', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
+                onChange={setAcademicData}
+                placeholder="Especifique otras dificultades durante el embarazo"
             />
-        </div>
+        </label>
 
+        <label htmlFor="birthWeight" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Peso al nacer
+            <InputText
+                id="birthWeight"
+                name="birthWeight"
+                value={data?.academic_data.birthWeight}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Peso al nacer"
+            />
+        </label>
 
-        <div className='w-full flex justify-end md:col-span-2'>
-            <button type='button' className='px-5 rounded-md bg-sky-400 py-2'>Siguiente</button>
-        </div>
+        <label htmlFor="birthHeight" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Altura al nacer
+            <InputText
+                id="birthHeight"
+                name="birthHeight"
+                value={data?.academic_data.birthHeight}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Altura al nacer"
+            />
+        </label>
 
+        <label htmlFor="walkingAge" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Edad cuando comenzó a caminar
+            <InputText
+                id="walkingAge"
+                name="walkingAge"
+                value={data?.academic_data.walkingAge}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Edad cuando comenzó a caminar"
+            />
+        </label>
 
-    </div>
+        <label htmlFor="firstWordsAge" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Edad cuando pronunció las primeras palabras
+            <InputText
+                id="firstWordsAge"
+                name="firstWordsAge"
+                value={data?.academic_data.firstWordsAge}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Edad cuando pronunció las primeras palabras"
+            />
+        </label>
+
+        <label htmlFor="breastfeedingPeriod" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Período de lactancia
+            <InputText
+                id="breastfeedingPeriod"
+                name="breastfeedingPeriod"
+                value={data?.academic_data.breastfeedingPeriod}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Período de lactancia"
+            />
+        </label>
+
+        <label htmlFor="bottleUsageAge" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Edad hasta el uso del biberón
+            <InputText
+                id="bottleUsageAge"
+                name="bottleUsageAge"
+                value={data?.academic_data.bottleUsageAge}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Edad hasta el uso del biberón"
+            />
+        </label>
+
+        <label htmlFor="toiletTrainingAge" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Edad cuando aprendió el entrenamiento para ir al baño
+            <InputText
+                id="toiletTrainingAge"
+                name="toiletTrainingAge"
+                value={data?.academic_data.toiletTrainingAge}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Edad cuando aprendió el entrenamiento para ir al baño"
+            />
+        </label>
+
+        <label htmlFor="observations" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Observaciones
+            <InputText
+                id="observations"
+                name="observations"
+                value={data?.academic_data.observations}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Observaciones"
+            />
+        </label>
+
+        <label htmlFor="familyMedicalHistory" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Antecedentes médicos familiares
+            <InputText
+                id="familyMedicalHistory"
+                name="familyMedicalHistory"
+                value={data?.academic_data.familyMedicalHistory}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Antecedentes médicos familiares"
+            />
+        </label>
+
+        <label htmlFor="studentFatherRelationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            ¿Cómo describiría la relación del estudiante con el padre?
+            <InputText
+                id="studentFatherRelationship"
+                name="studentFatherRelationship"
+                value={data?.academic_data.studentFatherRelationship}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="¿Cómo describiría la relación del estudiante con el padre?"
+            />
+        </label>
+
+        <label htmlFor="studentMotherRelationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            ¿Cómo describiría la relación del estudiante con la madre?
+            <InputText
+                id="studentMotherRelationship"
+                name="studentMotherRelationship"
+                value={data?.academic_data.studentMotherRelationship}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="¿Cómo describiría la relación del estudiante con la madre?"
+            />
+        </label>
+
+        <label htmlFor="studentSiblingsRelationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            ¿Cómo describiría la relación del estudiante con los hermanos?
+            <InputText
+                id="studentSiblingsRelationship"
+                name="studentSiblingsRelationship"
+                value={data?.academic_data.studentSiblingsRelationship}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="¿Cómo describiría la relación del estudiante con los hermanos?"
+            />
+        </label>
+
+        <label htmlFor="studentOthersRelationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            ¿Cómo describiría la relación del estudiante con otras personas?
+            <InputText
+                id="studentOthersRelationship"
+                name="studentOthersRelationship"
+                value={data?.academic_data.studentOthersRelationship}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="¿Cómo describiría la relación del estudiante con otras personas?"
+            />
+        </label>
+
+        <label htmlFor="habitsAndActivities" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Hábitos y actividades (hábitos de sueño, hábitos alimenticios, actividades de ocio, amigos, tareas diarias y tiempo dedicado a ellas)
+            <InputText
+                id="habitsAndActivities"
+                name="habitsAndActivities"
+                value={data?.academic_data.habitsAndActivities}
+                className='rounded-md w-full'
+                onChange={setAcademicData}
+                placeholder="Hábitos y actividades"
+            />
+        </label>
+
+    </fieldset>
 )
-
-export const Form4 = () => (
-
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg mx-auto bg-white bg-opacity-75 p-5 h-full'>
-
-        <label htmlFor="first_name" className="font-bold text-xs">
-            Primer nombre <span>*</span>
-            <InputText
-                id="first_name"
-                value={data?.first_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('first_name', e.target.value)}
-                placeholder="Ingrese el primer nombre"
-            />
-        </label>
-
-        <label htmlFor="second_name" className="font-bold text-xs">
-            Segundo nombre
-            <InputText
-                id="second_name"
-                value={data?.second_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('second_name', e.target.value)}
-                placeholder="Ingrese el segundo nombre"
-            />
-        </label>
- 
-        <label htmlFor="fLast_name" className="font-bold text-xs">
-            Primer Apellido <span>*</span>
-            <InputText
-                id="fLast_name"
-                value={data?.fLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('fLast_name', e.target.value)}
-                placeholder="Ingrese el primer apellido"
-            />
-        </label>
- 
-        <label htmlFor="sLast_name" className="font-bold text-xs">
-            Segundo Apellido
-            <InputText
-                id="sLast_name"
-                value={data?.sLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('sLast_name', e.target.value)}
-                placeholder="Ingrese el segundo apellido"
-            />
-        </label>
-
-        <label htmlFor="birth_date" className="font-bold text-xs">
-            Fecha de nacimiento <span>*</span>
-            <InputText
-                id="birth_date"
-                value={data?.birth_date}
-                type='date'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('birth_date', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
-
-        <label htmlFor="marital_status" className="font-bold text-xs">
-            Estado civil <span>*</span>
-            <Dropdown
-                value={data?.marital_status}
-                onChange={(e) => setData('marital_status', (e.target.value))}
-                options={maritalStatusOptions}
-                optionLabel="label"
-                placeholder="Seleccione un estado civil"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </label>
-
-        <label htmlFor="instruction_level" className="font-bold text-xs">
-            Nivel de Instrucción <span>*</span>
-            <Dropdown
-                value={data?.instruction_level}
-                onChange={(e) => setData('instruction_level', (e.target.value))}
-                options={instructionLevelOptions}
-                optionLabel="label"
-                placeholder="Seleccione un nivel de instrucción"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </label>
- 
-        <label htmlFor="profession" className="font-bold text-xs">
-            Profesión/ocupación <span>*</span>
-            <InputText
-                id="profession"
-                value={data?.profession}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('profession', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
- 
-        <label htmlFor="work_place" className="font-bold text-xs">
-            Lugar de trabajo <span>*</span>
-            <InputText
-                id="work_place"
-                value={data?.work_place}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('work_place', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
- 
-        <label htmlFor="number" className="font-bold text-xs">
-            Teléfono de contacto <span>*</span>
-            <InputText
-                id="number"
-                value={data?.number}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('number', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
-
-        <label htmlFor="email" className="font-bold text-xs">
-            Correo Electrónico <span>*</span>
-            <InputText
-                id="email"
-                value={data?.email}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={(e) => setData('email', e.target.value)}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
- 
-        <div className='w-full flex justify-end md:col-span-2'>
-            <button type='button' className='px-5 rounded-md bg-sky-400 py-2'>Siguiente</button>
-        </div>
- 
-    </div>
-)
-
