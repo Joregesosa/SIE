@@ -169,72 +169,72 @@ export const MedicalHistory = ({ data, setData }) => {
                 />
             </label>
 
-            <label htmlFor="familyMedicalHistory" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="family_medical_history" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Antecedentes médicos familiares
                 <InputText
-                    id="familyMedicalHistory"
-                    name="familyMedicalHistory"
-                    value={data?.medical_history.familyMedicalHistory}
+                    id="family_medical_history"
+                    name="family_medical_history"
+                    value={data?.medical_history.family_medical_history}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Antecedentes médicos familiares"
                 />
             </label>
 
-            <label htmlFor="studentFatherRelationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="student_father_relationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 ¿Cómo describiría la relación del estudiante con el padre?
                 <InputText
-                    id="studentFatherRelationship"
-                    name="studentFatherRelationship"
-                    value={data?.medical_history.studentFatherRelationship}
+                    id="student_father_relationship"
+                    name="student_father_relationship"
+                    value={data?.medical_history.student_father_relationship}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con el padre?"
                 />
             </label>
 
-            <label htmlFor="studentMotherRelationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="student_mother_relationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 ¿Cómo describiría la relación del estudiante con la madre?
                 <InputText
-                    id="studentMotherRelationship"
-                    name="studentMotherRelationship"
-                    value={data?.medical_history.studentMotherRelationship}
+                    id="student_mother_relationship"
+                    name="student_mother_relationship"
+                    value={data?.medical_history.student_mother_relationship}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con la madre?"
                 />
             </label>
 
-            <label htmlFor="studentSiblingsRelationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="student_siblings_relationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 ¿Cómo describiría la relación del estudiante con los hermanos?
                 <InputText
-                    id="studentSiblingsRelationship"
-                    name="studentSiblingsRelationship"
-                    value={data?.medical_history.studentSiblingsRelationship}
+                    id="student_siblings_relationship"
+                    name="student_siblings_relationship"
+                    value={data?.medical_history.student_siblings_relationship}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con los hermanos?"
                 />
             </label>
 
-            <label htmlFor="studentOthersRelationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="student_others_relationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 ¿Cómo describiría la relación del estudiante con otras personas?
                 <InputText
-                    id="studentOthersRelationship"
-                    name="studentOthersRelationship"
-                    value={data?.medical_history.studentOthersRelationship}
+                    id="student_others_relationship"
+                    name="student_others_relationship"
+                    value={data?.medical_history.student_others_relationship}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con otras personas?"
                 />
             </label>
 
-            <label htmlFor="habitsAndActivities" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="habits_and_activities" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Hábitos y actividades (hábitos de sueño, hábitos alimenticios, actividades de ocio, amigos, tareas diarias y tiempo dedicado a ellas)
                 <InputText
-                    id="habitsAndActivities"
-                    name="habitsAndActivities"
-                    value={data?.medical_history.habitsAndActivities}
+                    id="habits_and_activities"
+                    name="habits_and_activities"
+                    value={data?.medical_history.habits_and_activities}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Hábitos y actividades"
