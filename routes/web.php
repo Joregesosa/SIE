@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\CheckPermission;
+use Illuminate\Support\Facades\Session;
 
 
 Route::get('/', function () {
@@ -20,7 +22,17 @@ Route::get('/', function () {
 });
 
 Route::get('/InscriptionForm', function () {
-    return Inertia::render('InscriptionForm');
+
+        $message = session('msj');
+        if ($message) {
+            Session::forget('msj');
+        }
+       
+        return Inertia::render('InscriptionForm', [
+
+            'msj' => $message
+        ]);
+  
 })->name('InscriptionForm');
 
 Route::get('/dashboard', function () {
@@ -39,12 +51,17 @@ Route::get('/AccessDenied', function () {
     return Inertia::render('AccessDenied');
 })->name('AccessDenied');
 
+Route::post('/roles', [PersonController::class, 'create'])->name('inscriptions.create');
 
 Route::middleware(['auth', CheckPermission::class])->group(function () {
+
+
+
     Route::get('/user', [ProfileController::class, 'index'])->name('users');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 
     Route::controller(PermissionController::class)->group(function () {
         Route::get('/permission', 'index')->name('permission');

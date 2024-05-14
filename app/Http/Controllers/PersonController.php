@@ -8,6 +8,7 @@ use App\Models\Phone;
 use App\Models\Student;
 use App\Models\student_parent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PersonController extends Controller
 {
@@ -25,17 +26,17 @@ class PersonController extends Controller
     public function create(Request $request)
     {       
 
-
+       
         $validator = validator($request->all(), [
-            'first_name' => 'required|string',
-            'second_name' => 'required|string',
-            'fLast_name' => 'required|string',
-            'sLast_name' => 'required|string',
-            'birth_date' => 'required|date',
-            'birth_place' => 'string',
-            'id_card' => 'unique:people,id_card',
-            'telefonos.*.number' => 'required|string',
-            'telefonos.*.phone_type_id' => 'required|exists:phone_types,id',
+            'identification_data.first_name' => 'required|string',
+            'identification_data.second_name' => 'required|string',
+            'identification_data.fLast_name' => 'required|string',
+            'identification_data.sLast_name' => 'required|string',
+            'identification_data.birth_date' => 'required|date',
+            'identification_data.birth_place' => 'string',
+            'identification_data.id_card' => 'unique:people,id_card',
+            'identification_data.telefonos.*.number' => 'required|string',
+            'identification_data.telefonos.*.phone_type_id' => 'required|exists:phone_types,id',
             
         /*  'parents.*.first_name' => 'required|string',
             'parents.*.second_name' => 'required|string',
@@ -105,12 +106,12 @@ class PersonController extends Controller
 
 
         ], [
-            'first_name.required' => 'El primer nombre es obligatorio.',
-            'second_name.required' => 'El segundo nombre es obligatorio.',
-            'fLast_name.required' => 'El primer apellido es obligatorio.',
-            'sLast_name.required' => 'El segundo apellido es obligatorio.',
-            'birth_date.required' => 'La fecha de nacimiento es obligatoria.',
-            'id_card.unique' => 'La cédula ya está registrada.',
+            'identification_data.first_name.required' => 'El primer nombre es obligatorio.',
+            'identification_data.second_name.required' => 'El segundo nombre es obligatorio.',
+            'identification_data.fLast_name.required' => 'El primer apellido es obligatorio.',
+            'identification_data.sLast_name.required' => 'El segundo apellido es obligatorio.',
+            'identification_data.birth_date.required' => 'La fecha de nacimiento es obligatoria.',
+            'identification_data.id_card.unique' => 'La cédula ya está registrada.',
         ]);
             
 
@@ -120,47 +121,54 @@ class PersonController extends Controller
         }
 
         
-
+       
         try {
+            DB::beginTransaction();
+
             /*DATOS DE IDENTIFICACIÓN*/
-            $person = Person::create($request->all());
+            $person = Person::create($request->identification_data);
+            $request['identification_data'] = ['person_id' => $person->id, ...$request->identification_data];
 
-            REQUEST()->merge(['people_id' => $person->id]);
+            Phone::create($request->identification_data);
 
-            foreach ($request->telefonos as $telefono) {
-                $telefono['people_id'] = $person->id;
-                Phone::create($telefono);
-            }
+            $siblingsJson = json_encode($request->socioeconomic_data['siblings']);
+           
+            $student_data = ['person_id' => $person->id, 'siblings' => $siblingsJson, ...$request->identification_data,...$request->academic_data, ...$request->medical_data, ...$request->medical_history];
+          
+            $student = Student::create($student_data);
 
+
+            Request()->merge(['student_id' => $student->id]);
+
+           
             /*RELACION PADRES O TUTORES*/
-            foreach ($request->parents as $parent) {
-                $familiar = Parents::create($parent);
+            foreach ([$request->father_data, $request->mother_data,$request->tutor_data ] as  $index => $parent) {
+                $parent['address_street'] =$request->identification_data['address_street'];
+                $parent['sector'] =$request->identification_data['sector'];
+                
+                $person = Person::create($parent);
+                $parent['person_id'] = $person->id;
 
-                foreach ($parent->telefonos as $telefono) {
-                    $telefono['people_id'] = $familiar->id;
-                    Phone::create($telefono);
-                }
+
+                Phone::create($parent);
+
+                $familiar = Parents::create($parent);
 
                 student_parent::create([
                     'student_id' => $request->student_id,
                     'parent_id' => $familiar->id,
-                    'parent_type_id' => $parent['parent_type_id'],
+                    'parent_type_id' => $index+1,
                 ]);
             }
 
 
-            /*DATOS SOCIOECONÓMICOS*/
-            /*REFERENCIAS SOCIOECONÓMICAS GENERALES*/
-            $student = Student::create($request->all());
-            
-
-
+            DB::commit();
             session()->put('msj', ['success' => 'Persona registrada correctamente.']);
             return back();
 
         } catch (\Throwable $th) {
-           
-            session()->put('msj', ['error' => 'Error al registrar la persona.']);
+            DB::rollBack();
+            session()->put('msj', ['error' => 'Error al registrar la persona.'.$th]);
             return back();
         }
 

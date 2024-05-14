@@ -5,11 +5,13 @@ import { MainFormFieldset } from './MainFormFieldset';
 
 const structural_integrity_option =
     [
-        "Propia",
-        "Arrendada",
-        "Prestada",
-        "Anticresis",
-        "Con préstamo"
+      
+        { id: 1, label: "Propia" },
+        { id: 2, label: "Arrendada" },
+        { id: 3, label: "Prestada" },
+        { id: 4, label: "Anticresis" },
+        { id: 5, label: "Con préstamo" }
+
     ]
 export const FinancialReferences = ({ data, setData }) => {
     const handleFinancialReferences = (e) => {
@@ -27,11 +29,18 @@ export const FinancialReferences = ({ data, setData }) => {
                 <InputText
                     id="father_incomes"
                     name="father_incomes"
-                    value={data?.financial_references?.father_incomes}
+                    value={data?.father_data?.incomes}
                     type='number'
                     required
                     className='rounded-md w-full'
-                    onChange={handleFinancialReferences}
+                   /*  onChange={handleFinancialReferences} */
+                    onChange={(e) => setData({
+                        ...data,
+                        father_data: {
+                          ...data.father_data,
+                          incomes: e.target.value
+                        }
+                      })}
                     placeholder="Ingresos de Padre"
                 />
             </label>
@@ -41,11 +50,18 @@ export const FinancialReferences = ({ data, setData }) => {
                 <InputText
                     id="mother_incomes"
                     name="mother_incomes"
-                    value={data?.financial_references?.mother_incomes}
+                    value={data?.mother_data?.incomes}
                     type='number'
                     required
                     className='rounded-md w-full'
-                    onChange={handleFinancialReferences}
+                    /* onChange={handleFinancialReferences} */
+                    onChange={(e) => setData({
+                        ...data,
+                        mother_data: {
+                          ...data.mother_data,
+                          incomes: e.target.value
+                        }
+                      })}
                     placeholder="Ingresos de Madre"
                 />
             </label>
@@ -55,11 +71,18 @@ export const FinancialReferences = ({ data, setData }) => {
                 <InputText
                     id="other_incomes"
                     name='other_incomes'
-                    value={data?.financial_references?.other_incomes}
+                    value={data?.tutor_data?.incomes}
                     type='number'
                     required
                     className='rounded-md w-full'
-                    onChange={handleFinancialReferences}
+                   /*  onChange={handleFinancialReferences} */
+                   onChange={(e) => setData({
+                    ...data,
+                    tutor_data: {
+                        ...data.tutor_data,
+                      incomes: e.target.value
+                    }
+                  })}
                     placeholder="Ingrese el lugar que ocupa en la familia"
                 />
             </label>
@@ -67,6 +90,7 @@ export const FinancialReferences = ({ data, setData }) => {
                 Total de Egresos <span>*</span>
 
                 <InputText
+                
                     id="total_outcomes"
                     name="total_outcomes"
                     value={data?.financial_references?.total_outcomes}
@@ -85,6 +109,7 @@ export const FinancialReferences = ({ data, setData }) => {
                     value={data?.financial_references.structural_integrity}
                     name='structural_integrity'
                     onChange={handleFinancialReferences}
+                    optionValue="id"
                     options={structural_integrity_option}
                     placeholder="Condición de la vivienda"
                     filter

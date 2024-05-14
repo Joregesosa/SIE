@@ -9,10 +9,11 @@ import { FinancialReferences } from '@/Components/InscriptionFormPartials/Financ
 import { AcademicData } from '@/Components/InscriptionFormPartials/AcademicData';
 import { MedicalData } from '@/Components/InscriptionFormPartials/MedicalData';
 import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHistory';
+import { Alert } from '@/Components/Alerts/Alert';
 
 const cleanData = {
     identification_data: {
-        address_sector: '',
+        sector: '',
         address_street: '',
         birth_date: '',
         birth_day_place: '',
@@ -23,7 +24,7 @@ const cleanData = {
         number: '',
         reference: '',
         sLast_name: '',
-        second_Name: ''
+        second_ame: ''
     },
     mother_data: {
         birth_date: "",
@@ -36,7 +37,8 @@ const cleanData = {
         profession: "",
         sLast_name: "",
         second_name: "",
-        work_place: ""
+        work_place: "",
+        income: 0
     },
     father_data: {
         birth_date: "",
@@ -49,7 +51,8 @@ const cleanData = {
         profession: "",
         sLast_name: "",
         second_name: "",
-        work_place: ""
+        work_place: "",
+        income: 0
     },
     tutor_data: {
         birth_date: "",
@@ -62,7 +65,8 @@ const cleanData = {
         profession: "",
         sLast_name: "",
         second_name: "",
-        work_place: ""
+        work_place: "",
+        income: 0
     },
     socioeconomic_data: {
         student_partners: [],
@@ -120,18 +124,25 @@ const cleanData = {
         walking_age: "",
     }
 }
-const InscriptionForm = () => {
+const InscriptionForm = ({msj }) => {
 
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
     const [step, setStep] = useState(0);
+    const [alert, setAlert] = useState(null);
+
+    useEffect(() => {
+        setAlert(msj);
+    }, [msj]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
          console.log(data);
 
-        /* post(route('new.formcontact')); */
+        post(route('inscriptions.create')); 
     }
+
+    
     const handleMotherData = (e) => {
         setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
     }
@@ -154,6 +165,7 @@ const InscriptionForm = () => {
     ];
     return (
         <div className='form_bg relative'>
+
             <header className='bg-[#9e1525] text-gray-100'>
                 <div className='md:flex md:items-center  max-w-screen-lg mx-auto py-5 md:gap-6'>
                     <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
@@ -164,6 +176,7 @@ const InscriptionForm = () => {
                 </div>
 
             </header>
+            <Alert alerta={alert} setAlert={setAlert} />
             <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto  '>
 
 
