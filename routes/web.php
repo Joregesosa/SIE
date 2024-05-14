@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,13 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+
+Route::post('/formcontact', [FormController::class, 'formContact'])->name('new.formcontact');
+
+Route::get('/ContactForm', function () {
+    return Inertia::render('ContactForm');
+})->name('ContactForm');
 
 Route::get('/InscriptionForm', function () {
         $message = session('msj');
