@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class FormController extends Controller
 {
@@ -64,6 +67,50 @@ class FormController extends Controller
 
     public function formContact(Request $request)
     {
-        return $request->all();
+       
+       try{ 
+             $validator = validator($request->all(), [
+                'email' => 'required|email',
+                'level' => 'required',
+
+            ], [
+                'email.required' => 'Es nesesario proporcionar un correo electronico',
+                'email.email' => 'El correo proporcionado no es valido',
+                'level.required' => 'Es nesesario proporcionar el nivel que desea aplicar',
+            ]   );
+
+
+            if ($validator->fails()) {
+                return redirect()->route('ContactForm')->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
+            }
+
+            Contact::create($request->all());   
+            return redirect()->route('ContactForm')->with('msj', ['success' => "El Formulario fue enviado satisfactoriamente"], 200);
+
+
+       }  catch (QueryException $e) {
+        // Manejar los errores de SQL
+        $errorCode = $e->errorInfo[1];
+
+        $errorMessage = $e->getMessage();
+        
+        // Buscar el nombre del campo en el mensaje de error
+        preg_match("/'([^']+)'/", $errorMessage, $matches);
+        $errorField = Arr::get($matches, 1, 'campo desconocido');
+
+        // Mensajes personalizados para diferentes códigos de error
+        $errorMessage = match ($errorCode) {
+            1048 => 'Por favor, complete todos los campos obligatorios.',
+            1062 => 'Ya existe un registro con los mismos valores únicos.',
+            // Agrega más casos según sea necesario...
+            default => 'Ha ocurrido un error al procesar su solicitud.',
+        };
+
+        $errorMessage = $errorMessage." Error en el campo '{$errorField}': "  ;
+
+        // Redireccionar con el mensaje de error personalizado
+        return back()->with('msj', ['error' => $errorMessage] );
+    }
+          
     }
 }

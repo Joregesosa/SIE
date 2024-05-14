@@ -167,7 +167,7 @@ class PersonController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            session()->put('msj', ['error' => 'Error al registrar la persona.'.$th]);
+            session()->put('msj', ['error' => 'Error al registrar la persona.']);
             return back();
         }
 

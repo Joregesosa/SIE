@@ -3,7 +3,6 @@ import { Dialog } from 'primereact/dialog'
 import React from 'react'
 
 export const Alert = ({ alerta, setAlert }) => {
-    console.log(alerta)
     return (
         <Dialog visible={alerta != null} onHide={()=>setAlert(null)} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Atención!" modal>
             <div className=" flex flex-col items-center">

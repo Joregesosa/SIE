@@ -26,17 +26,23 @@ Route::get('/', function () {
 Route::post('/formcontact', [FormController::class, 'formContact'])->name('new.formcontact');
 
 Route::get('/ContactForm', function () {
-    return Inertia::render('ContactForm');
+    $message = session('msj');
+    if ($message) {
+        Session::forget('msj');
+    }
+    return Inertia::render('ContactForm', [
+        'msj' => $message
+    ]);
 })->name('ContactForm');
 
 Route::get('/InscriptionForm', function () {
-        $message = session('msj');
-        if ($message) {
-            Session::forget('msj');
-        }
-        return Inertia::render('InscriptionForm', [
-            'msj' => $message
-        ]);
+    $message = session('msj');
+    if ($message) {
+        Session::forget('msj');
+    }
+    return Inertia::render('InscriptionForm', [
+        'msj' => $message
+    ]);
 })->name('InscriptionForm');
 
 Route::get('/dashboard', function () {

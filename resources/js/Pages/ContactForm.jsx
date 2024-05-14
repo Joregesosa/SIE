@@ -3,7 +3,10 @@ import { InputText } from 'primereact/inputtext';
 import { useForm } from '@inertiajs/react';
 import { Dropdown } from 'primereact/dropdown';
 import { FormActionButtons } from '@/Components/FormActionButtons';
+import { Alert } from '@/Components/Alerts/Alert';
+
 import '../../css/formbg.css';
+import { useEffect } from 'react';
 const courseLevels = [
     { id: 1, level: "Nivel Inicial 1" },
     { id: 2, level: "Nivel Inicial 2" },
@@ -23,20 +26,57 @@ const courseLevels = [
 ];
 
 
-const ContactForm = () => {
+const ContactForm = ({msj }) => {
     const cleanUser = {
-
-    }
+        first_name: '',
+        second_name: '',
+        fLast_name: '',
+        sLast_name: '',
+        id_card: '',
+        age: '',
+        number: '',
+        email: '',
+        last_institution: '',
+        behavior_qualification: '',
+        address: '',
+        level: '',
+        father_names: '',
+        father_phone: '',
+        father_occupation: '',
+        mother_names: '',
+        mother_phone: '',
+        mother_occupation: '',
+    };
+  
     const { data, setData, post, processing, errors, reset } = useForm(cleanUser);
+
+    const [alert, setAlert] = useState(null);
+
+    useEffect(() => {
+       
+        setAlert(msj);
+       
+        if (msj?.success) {
+            console.log(msj)
+           reset(); 
+          
+        }
+    }, [msj]);
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('new.formcontact'));
+
+        
+        post(route('new.formcontact'), {
+           
+        });
     };
 
     return (
-        <div className='form_bg'>
+        <div className='form_bg' >
+
+              <Alert alerta={alert} setAlert={setAlert} />
             <header className='bg-[#112757] text-gray-100'>
                 <div className='md:flex md:items-center  max-w-screen-lg mx-auto pt-5 md:gap-6'>
                     <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
@@ -50,29 +90,43 @@ const ContactForm = () => {
             </header>
             <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto  '>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg mx-auto bg-white bg-opacity-75 p-5 h-full'>
+                    
                     <div>
                         <label htmlFor="firstName" className="font-bold text-xs">
                             Primer nombre <span>*</span>
                         </label>
+
                         <InputText
                             id="first_name"
+                            type="text"
                             value={data?.first_name}
                             required
+                            onInvalid ={(event) => {
+                                if (event.target.value == "") {
+                                    return event.target.setCustomValidity(`Campo obligarotio`)
+                                }
+                                return event.target.setCustomValidity("")
+                            }}
                             className='rounded-md w-full'
                             onChange={(e) => setData('first_name', e.target.value)}
                             placeholder="Ingrese el primer nombre"
                         />
                     </div>
+
+
+
+
+
                     <div>
                         <label htmlFor="second_Name" className="font-bold text-xs">
                             Segundo nombre
                         </label>
                         <InputText
-                            id="second_Name"
-                            value={data?.second_Name}
+                            id="second_name"
+                            value={data?.second_name}
                             required
                             className='rounded-md w-full'
-                            onChange={(e) => setData('second_Name', e.target.value)}
+                            onChange={(e) => setData('second_name', e.target.value)}
                             placeholder="Ingrese el segundo nombre"
                         />
                     </div>
@@ -108,6 +162,8 @@ const ContactForm = () => {
                         </label>
                         <InputText
                             id="id_card"
+                            type='text'
+                           /*  pattern='[0-9]{10}' */
                             value={data?.id_card}
                             required
                             className='rounded-md w-full'
@@ -116,15 +172,18 @@ const ContactForm = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="id_card" className="font-bold text-xs">
+                        <label htmlFor="age" className="font-bold text-xs">
                             Edad del alumno <span>*</span>
                         </label>
                         <InputText
-                            id="id_card"
-                            value={data?.id_card}
+                            id="age"
+                            min={1}
+                            type='number'
+                            max={100}
+                            value={data?.age}
                             required
                             className='rounded-md w-full'
-                            onChange={(e) => setData('id_card', e.target.value)}
+                            onChange={(e) => setData('age', e.target.value)}
                             placeholder="Ingrese la edad del alumno"
                         />
                     </div>
@@ -134,6 +193,8 @@ const ContactForm = () => {
                         </label>
                         <InputText
                             id="number"
+                            type='tel'
+/*                          pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" */           
                             value={data?.number}
                             required
                             className='rounded-md w-full'
@@ -147,6 +208,7 @@ const ContactForm = () => {
                         </label>
                         <InputText
                             id="number"
+                            type='email'
                             value={data?.email}
                             required
                             className='rounded-md w-full'
@@ -176,7 +238,7 @@ const ContactForm = () => {
                             value={data?.behavior_qualification}
                             required
                             className='rounded-md w-full'
-                            onChange={(e) => setData('last_institution', e.target.value)}
+                            onChange={(e) => setData('behavior_qualification', e.target.value)}
                             placeholder="Ingrese la calificación comportamental del alumno"
                         />
                     </div>
@@ -197,14 +259,25 @@ const ContactForm = () => {
                         <label htmlFor="level" className="font-bold text-xs">
                             Año o nivel al que desea aplicar
                         </label>
+                        
                         <Dropdown
+                            
                             value={data?.level}
                             onChange={(e) => setData('level', (e.target.value))}
                             options={courseLevels}
                             optionLabel="level"
                             placeholder="Seleccione un nivel"
+                            optionValue="id"
                             filter
                             className="flex items-center border h-[42px] border-gray-500 flex-grow"
+                            required
+                            onInvalid ={(event) => {
+                               window.alert('Seleccione el año o nivel al que desea aplicar')
+                                if (event.target.value == "") {
+                                    return event.target.setCustomValidity(`Seleccione un nivel`)
+                                }
+                                return event.target.setCustomValidity("")
+                            }}
                         />
                     </div>
                     <div>
@@ -226,6 +299,7 @@ const ContactForm = () => {
                         </label>
                         <InputText
                             id="father_phone"
+                            type='tel'
                             value={data?.father_phone}
                             required
                             className='rounded-md w-full'
@@ -265,6 +339,7 @@ const ContactForm = () => {
                         </label>
                         <InputText
                             id="mother_phone"
+                            type='tel'
                             value={data?.mother_phone}
                             required
                             className='rounded-md w-full'
@@ -285,8 +360,10 @@ const ContactForm = () => {
                             placeholder="Ingrese la actividad económica de la madre"
                         />
                     </div >
+                    
+
                     <div className='w-full flex justify-end md:col-span-2'>
-                        <FormActionButtons />
+                        <FormActionButtons/>
                     </div>
                 </div>
 
