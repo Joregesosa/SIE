@@ -43,8 +43,7 @@ Route::get('/InscriptionForm', function (Request $request) {
     if ($message) {
         Session::forget('msj');
     }
-
-   
+    
     return Inertia::render('InscriptionForm', [
         'msj' => $message,
         'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->first()
