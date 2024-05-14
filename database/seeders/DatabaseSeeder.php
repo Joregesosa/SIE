@@ -87,14 +87,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('parent_types')->insert([
-            ['name' => 'Padres', 'description' => 'El padre y la madre biológicos del niño, quienes lo han concebido y son responsables de su crianza y cuidado.'],
-            ['name' => 'Abuelos', 'description' => 'Los padres de los padres del niño, que pueden desempeñar un papel importante en su vida y bienestar.'],
-            ['name' => 'Hermanos', 'description' => 'Los hermanos del niño, ya sean biológicos (hermanos de sangre) o no (hermanastros o hermanastros adoptivos), que comparten al menos uno de los mismos padres.'],
-            ['name' => 'Tíos y tías', 'description' => 'Los hermanos de los padres del niño, que también pueden tener una influencia significativa en su vida.'],
-            ['name' => 'Primos', 'description' => 'Los hijos de los tíos y tías del niño, que comparten al menos un abuelo en común.'],
-            ['name' => 'Padres adoptivos', 'description' => 'Las personas que han adoptado legalmente al niño y asumen la responsabilidad de su crianza y cuidado.'],
-            ['name' => 'Hermanos adoptivos', 'description' => 'Los niños que han sido adoptados por la misma familia y se consideran hermanos aunque no tengan parentesco biológico.'],
-            ['name' => 'Padres de crianza', 'description' => 'Las personas que proporcionan cuidado temporal a un niño cuando no pueden vivir con sus padres biológicos por diversas razones, como problemas de salud o seguridad.']
+            ['name' => 'Padre', 'description' => 'El padre biológico del niño, que lo ha concebido y es responsable de su crianza y cuidado.', 'status' => 0 ],
+            ['name' => 'Madre', 'description' => 'La madre biológica del niño, que lo ha concebido y es responsable de su crianza y cuidado.', 'status' => 0 ],
+            ['name' => 'Tutor', 'description' => 'Una persona legalmente responsable de la crianza y el cuidado de un niño, que puede ser un pariente, un amigo o un profesional designado por un tribunal.', 'status' => 0 ],
+           
+            ['name' => 'Padres', 'description' => 'El padre y la madre biológicos del niño, quienes lo han concebido y son responsables de su crianza y cuidado.','status' => 1],
+            ['name' => 'Abuelos', 'description' => 'Los padres de los padres del niño, que pueden desempeñar un papel importante en su vida y bienestar.','status' => 1],
+            ['name' => 'Hermanos', 'description' => 'Los hermanos del niño, ya sean biológicos (hermanos de sangre) o no (hermanastros o hermanastros adoptivos), que comparten al menos uno de los mismos padres.','status' => 1],
+            ['name' => 'Tíos y tías', 'description' => 'Los hermanos de los padres del niño, que también pueden tener una influencia significativa en su vida.','status' => 1],
+            ['name' => 'Primos', 'description' => 'Los hijos de los tíos y tías del niño, que comparten al menos un abuelo en común.','status' => 1],
+            ['name' => 'Padres adoptivos', 'description' => 'Las personas que han adoptado legalmente al niño y asumen la responsabilidad de su crianza y cuidado.','status' => 1],
+            ['name' => 'Hermanos adoptivos', 'description' => 'Los niños que han sido adoptados por la misma familia y se consideran hermanos aunque no tengan parentesco biológico.','status' => 1],
+            ['name' => 'Padres de crianza', 'description' => 'Las personas que proporcionan cuidado temporal a un niño cuando no pueden vivir con sus padres biológicos por diversas razones, como problemas de salud o seguridad.','status' => 1]
         ]);
     }
 }

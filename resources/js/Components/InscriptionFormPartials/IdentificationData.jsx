@@ -2,6 +2,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
+import { useEffect } from "react";
 
 const courseLevels = [
     { id: 1, level: "Nivel Inicial 1" },
@@ -23,14 +24,20 @@ const courseLevels = [
 export const IdentificationData = ({ data, setData }) => {
 
     const handleIdentificationData = (e) => {
+       
+         //const value = e.target.value.id ? e.target.value.id : e.target.value;
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
+    useEffect(() => {
+        console.log(data.identification_data)
+    }   , [data.identification_data])
 
     return (
         <MainFormFieldset legend="DATOS DE IDENTIFICACIÓN/INFORMACIÓN ESTUDIANTE">
 
             <label htmlFor="level" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Año Educativo al que ingresa el alumno Educación General Básica (EGB),o Bachillerato General Unificado (BGU)
+                
                 <Dropdown
                     id="level"
                     name="level"
@@ -38,6 +45,7 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     options={courseLevels}
                     optionLabel="level"
+                    optionValue="id"
                     placeholder="Seleccione un nivel"
                     className="flex items-center border h-[42px] border-gray-500 flex-grow"
                     filter
@@ -57,12 +65,12 @@ export const IdentificationData = ({ data, setData }) => {
                 />
             </label>
 
-            <label htmlFor="second_Name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="second_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Segundo nombre
                 <InputText
-                    id="second_Name"
-                    name="second_Name"
-                    value={data?.identification_data.second_Name}
+                    id="second_name"
+                    name="second_name"
+                    value={data?.identification_data.second_name}
                     required
                     className='rounded-md w-full'
                     onChange={handleIdentificationData}
@@ -163,12 +171,12 @@ export const IdentificationData = ({ data, setData }) => {
                 />
             </label>
 
-            <label htmlFor="address_sector" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="sector" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Sector <span>*</span>
                 <InputText
-                    id="address_sector"
-                    name="address_sector"
-                    value={data?.identification_data.address_sector}
+                    id="sector"
+                    name="sector"
+                    value={data?.identification_data.sector}
                     required
                     className='rounded-md w-full'
                     onChange={handleIdentificationData}
@@ -186,6 +194,7 @@ export const IdentificationData = ({ data, setData }) => {
                     className='rounded-md w-full'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el número de teléfono"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 />
             </label>
 

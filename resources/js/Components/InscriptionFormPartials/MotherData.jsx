@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 import { MainFormFieldset } from "./MainFormFieldset";
 
 const instructionLevelOptions = [
-    { label: 'Educación Primaria', value: 'educacion_primaria' },
-    { label: 'Educación Secundaria', value: 'educacion_secundaria' },
-    { label: 'Educación Técnica o Vocacional', value: 'educacion_tecnica_vocacional' },
-    { label: 'Educación Superior', value: 'educacion_superior' },
-    { label: 'Educación Profesional', value: 'educacion_profesional' }
+    { label: 'Educación Primaria', id: '1' },
+    { label: 'Educación Secundaria', id: '2' },
+    { label: 'Educación Técnica o 4', id: '3' },
+    { label: 'Educación Superior', id: '5' },
+    { label: 'Educación Profesional', id: '6' }
 ];
 const maritalStatusOptions = [
-    { label: 'Soltero/a', value: 'soltero' },
-    { label: 'Casado/a', value: 'casado' },
-    { label: 'Separado/a', value: 'separado' },
-    { label: 'Divorciado/a', value: 'divorciado' },
-    { label: 'Viudo/a', value: 'viudo' },
-    { label: 'Conviviente', value: 'conviviente' },
-    { label: 'Uniones civiles', value: 'union_civil' }
+    { label: 'Soltero/a', id: '1' },
+    { label: 'Casado/a', id: '2' },
+    { label: 'Separado/a', id: '3' },
+    { label: 'Divorciado/a', id: '4' },
+    { label: 'Viudo/a', id: '5' },
+    { label: 'Conviviente', id: '6' },
+    { label: 'Uniones civiles', id: '7' }
 ];
 
 export const MotherData = ({ data, handleMotherData }) => (
@@ -99,6 +99,7 @@ export const MotherData = ({ data, handleMotherData }) => (
                 onChange={handleMotherData}
                 options={maritalStatusOptions}
                 optionLabel="label"
+                optionValue="id"
                 placeholder="Seleccione un estado civil"
                 filter
                 className="flex items-center border h-[42px] border-gray-500 flex-grow" />
@@ -112,6 +113,7 @@ export const MotherData = ({ data, handleMotherData }) => (
                 onChange={handleMotherData}
                 options={instructionLevelOptions}
                 optionLabel="label"
+                optionValue="id"
                 placeholder="Seleccione un nivel de instrucción"
                 filter
                 className="flex items-center border h-[42px] border-gray-500 flex-grow" />
