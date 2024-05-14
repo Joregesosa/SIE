@@ -40,7 +40,7 @@ const cleanData = {
         sLast_name: "",
         second_name: "",
         work_place: "",
-        income: 0
+        incomes: 0
     },
     father_data: {
         birth_date: "",
@@ -54,7 +54,7 @@ const cleanData = {
         sLast_name: "",
         second_name: "",
         work_place: "",
-        income: 0
+        incomes: 0
     },
     tutor_data: {
         birth_date: "",
@@ -68,7 +68,7 @@ const cleanData = {
         sLast_name: "",
         second_name: "",
         work_place: "",
-        income: 0
+        incomes: 0
     },
     socioeconomic_data: {
         student_partners: [],

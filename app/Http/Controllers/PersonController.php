@@ -25,8 +25,7 @@ class PersonController extends Controller
      */
     public function create(Request $request)
     {       
-
-       
+              
         $validator = validator($request->all(), [
             'identification_data.first_name' => 'required|string',
             'identification_data.second_name' => 'required|string',
