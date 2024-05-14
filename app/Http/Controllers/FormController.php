@@ -69,14 +69,18 @@ class FormController extends Controller
     {
        
        try{ 
+            Request()->merge(['key' =>  bin2hex(random_bytes(10))]);
+
              $validator = validator($request->all(), [
                 'email' => 'required|email',
                 'level' => 'required',
-
+                'id_card' => 'required|unique:contacts',
             ], [
                 'email.required' => 'Es nesesario proporcionar un correo electronico',
                 'email.email' => 'El correo proporcionado no es valido',
                 'level.required' => 'Es nesesario proporcionar el nivel que desea aplicar',
+                'id_card.required' => 'Es nesesario proporcionar el numero de cedula',
+                'id_card.unique' => 'Ya existe un registro con el mismo numero de cedula',
             ]   );
 
 

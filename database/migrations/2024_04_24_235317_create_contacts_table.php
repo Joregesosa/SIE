@@ -14,6 +14,7 @@ return new class extends Migration
 
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->string('key');
             $table->string('first_name');
             $table->string('second_name');
             $table->string('fLast_name');
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->string('mother_phone');
             $table->string('mother_occupation');
             $table->integer('level');
+            $table->integer('status')->default(2);
             $table->timestamps();
         });
 

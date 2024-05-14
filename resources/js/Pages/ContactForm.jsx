@@ -272,8 +272,9 @@ const ContactForm = ({msj }) => {
                             className="flex items-center border h-[42px] border-gray-500 flex-grow"
                             required
                             onInvalid ={(event) => {
-                               window.alert('Seleccione el año o nivel al que desea aplicar')
+                               
                                 if (event.target.value == "") {
+                                    window.alert('Seleccione el año o nivel al que desea aplicar')
                                     return event.target.setCustomValidity(`Seleccione un nivel`)
                                 }
                                 return event.target.setCustomValidity("")
