@@ -15,10 +15,7 @@ export default function Authenticated({ user, header, alert, setAlert, children 
     const { theme } = useContext(ThemeContext)
     return (
         <div className="min-h-screen bg-gray-100">
-            <div className='w-full flex overflow-hidden'>
-                <SideBar />
-                <div className={`flex-grow bg-gray-300  rounded-md min-h-[calc(100vh-73px)] flex flex-col`}>
-                    <nav className={`bg-${theme}-primary `}>
+            <nav className={`bg-${theme}-primary `}>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex justify-between h-16">
                                 <div className="flex">
@@ -125,6 +122,10 @@ export default function Authenticated({ user, header, alert, setAlert, children 
                         </div>
 
                     </nav>
+            <div className='w-full flex overflow-hidden'>
+                <SideBar />
+                <div className={`flex-grow bg-gray-300  rounded-md min-h-[calc(100vh-73px)] flex flex-col`}>
+                    
                     {header && (
                         <header className={`shadow bg-${theme}-secondary text-${theme}-text rounded-t-md m-1`}>
                             <div className={`max-w-7xl mx-auto px-4 sm:px-4 lg:px-6 py-2`}>{header}</div>
