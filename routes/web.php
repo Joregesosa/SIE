@@ -22,22 +22,19 @@ Route::get('/', function () {
 });
 
 Route::get('/InscriptionForm', function () {
-
         $message = session('msj');
         if ($message) {
             Session::forget('msj');
         }
-       
         return Inertia::render('InscriptionForm', [
-
             'msj' => $message
         ]);
-  
 })->name('InscriptionForm');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 /* Route::get('/users', function () {
     return Inertia::render('Users');
 })->middleware(['auth', 'verified'])->name('users'); */
@@ -54,8 +51,6 @@ Route::get('/AccessDenied', function () {
 Route::post('/roles', [PersonController::class, 'create'])->name('inscriptions.create');
 
 Route::middleware(['auth', CheckPermission::class])->group(function () {
-
-
 
     Route::get('/user', [ProfileController::class, 'index'])->name('users');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
