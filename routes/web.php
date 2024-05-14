@@ -22,6 +22,9 @@ Route::get('/', function () {
 
 Route::post('/formcontact', [FormController::class, 'formContact'])->name('new.formcontact');
 
+Route::get('/ContactForm', function () {
+    return Inertia::render('ContactForm');
+})->name('ContactForm');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
