@@ -22,6 +22,19 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/levels', function () {
+    return Inertia::render('Levels');
+})->middleware(['auth', 'verified'])->name('levels');
+
+Route::get('/groups', function () {
+    return Inertia::render('Groups');
+})->middleware(['auth', 'verified'])->name('groups');
+
+Route::get('/contactsRequest', function () {
+    return Inertia::render('Applications/ContactsRequest');
+})->middleware(['auth', 'verified'])->name('contactsRequest');
+
 /* Route::get('/users', function () {
     return Inertia::render('Users');
 })->middleware(['auth', 'verified'])->name('users'); */
@@ -53,6 +66,7 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
         Route::put('/role/{id}', 'update')->name('role.update');
         Route::delete('/role/{id}', 'destroy')->name('role.delete');
     });
+    
 });
  
 require __DIR__ . '/auth.php';
