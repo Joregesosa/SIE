@@ -15,11 +15,11 @@ return new class extends Migration
             
             /*DATOS PERSONALES*/
             $table->id();
-            $table->unsignedBigInteger('people_id');
-            $table->foreign('people_id')->references('id')->on('people')->onDelete('cascade');
-            $table->string('address');
+            $table->unsignedBigInteger('person_id');
+            $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
+            $table->string('address_street');
             $table->string('sector');
-            $table->string('brothers');
+            $table->string('siblings')->nullable();
 
             /*DATOS SOCIOECONÓMICOS*/
             $table->integer('position_family')->nullable()->default(1);

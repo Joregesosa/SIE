@@ -1,0 +1,7 @@
+.form_bg{
+    background-image: url('https://cdn.forms.office.net/forms/images/aio/wave-pattern-v1.svg'), linear-gradient(180deg, rgba(17, 39, 87, 0.2) 0%, rgba(17, 39, 87, 0.8) 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+
+}
