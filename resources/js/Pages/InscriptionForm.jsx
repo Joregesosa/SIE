@@ -9,6 +9,7 @@ import { FinancialReferences } from '@/Components/InscriptionFormPartials/Financ
 import { AcademicData } from '@/Components/InscriptionFormPartials/AcademicData';
 import { MedicalData } from '@/Components/InscriptionFormPartials/MedicalData';
 import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHistory';
+import { Steps } from 'primereact/steps';
 
 const cleanData = {
     identification_data: {
@@ -120,8 +121,19 @@ const cleanData = {
         walking_age: "",
     }
 }
+const items = [
+    {
+        label: 'Personal Info'
+    },
+    {
+        label: 'Reservation'
+    },
+    {
+        label: 'Review'
+    }
+];
 const InscriptionForm = () => {
-
+    const scroll = document.getElementById('scroll');
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
     const [step, setStep] = useState(0);
 
@@ -130,7 +142,6 @@ const InscriptionForm = () => {
 
         console.log(data);
 
-        /* post(route('new.formcontact')); */
     }
     const handleMotherData = (e) => {
         setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
@@ -152,9 +163,16 @@ const InscriptionForm = () => {
         <MedicalData data={data} setData={setData} />,
         <MedicalHistory data={data} setData={setData} />,
     ];
+    useEffect(() => {
+        if (scroll) {
+            scroll.scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+    }, [step])
     return (
         <div className='form_bg relative bg-inscription-form bg-cover py-4'>
-            <header className='bg-[#9e1525] text-gray-100 max-w-screen-lg px-4 mx-auto rounded-t-md bg-opacity-80'>
+            <header id='scroll' className='bg-[#9e1525] text-gray-100 max-w-screen-lg px-4 mx-auto rounded-t-md bg-opacity-80'>
                 <div className='md:flex md:items-center  max-w-screen-lg mx-auto py-5 md:gap-6'>
                     <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
                         <img loading='lazy' src="https://lists.office.com/Images/9074fa55-8f43-42bd-9a40-0d7a38b9c66e/0fd61129-93f5-4eca-8c45-3e318953accd/T8REH8MB6WNIDPEDE9XWC501E7/d7cfebf9-81be-4890-823d-22781aa93638" alt="company logo" className='w-full' />
@@ -165,7 +183,11 @@ const InscriptionForm = () => {
                 </div>
 
             </header>
+
             <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto bg-white bg-opacity-75 rounded-b-md max-w-screen-lg w-full'>
+                <h6 className='text-gray-500 pt-6 pr-8 text-right text-lg'>
+                    {step + 1} / {forms.length}
+                </h6>
 
                 {forms[step]}
 
