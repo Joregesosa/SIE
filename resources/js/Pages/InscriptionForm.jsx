@@ -128,7 +128,7 @@ const InscriptionForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-         console.log(data);
+        console.log(data);
 
         /* post(route('new.formcontact')); */
     }
@@ -153,19 +153,19 @@ const InscriptionForm = () => {
         <MedicalHistory data={data} setData={setData} />,
     ];
     return (
-        <div className='form_bg relative'>
-            <header className='bg-[#9e1525] text-gray-100'>
+        <div className='form_bg relative bg-inscription-form bg-cover py-4'>
+            <header className='bg-[#9e1525] text-gray-100 max-w-screen-lg px-4 mx-auto rounded-t-md bg-opacity-80'>
                 <div className='md:flex md:items-center  max-w-screen-lg mx-auto py-5 md:gap-6'>
                     <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
                         <img loading='lazy' src="https://lists.office.com/Images/9074fa55-8f43-42bd-9a40-0d7a38b9c66e/0fd61129-93f5-4eca-8c45-3e318953accd/T8REH8MB6WNIDPEDE9XWC501E7/d7cfebf9-81be-4890-823d-22781aa93638" alt="company logo" className='w-full' />
                     </figure>
-                    <h1 className='text-center md:text-left md:text-4xl py-2 text-2xl font-semibold'>DATOS DE IDENTIFICACIÓN/INFORMACIÓN ESTUDIANTE
+                    <h1 className='text-center md:text-left md:text-4xl py-2 text-2xl font-semibold'>
+                        FORMULARIO DE INSCRIPCIÓN DE DATOS ALUMNOS THOMAS RUSELL CRAMPTON
                     </h1>
                 </div>
 
             </header>
-            <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto  '>
-
+            <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto bg-white bg-opacity-75 rounded-b-md max-w-screen-lg w-full'>
 
                 {forms[step]}
 

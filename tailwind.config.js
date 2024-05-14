@@ -12,6 +12,9 @@ export default {
 
     theme: {
         extend: {
+            backgroundImage: {
+                'inscription-form': "url('images/students2.0.jpg')",
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

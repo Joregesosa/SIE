@@ -26,7 +26,7 @@ export const MotherData = ({ data, handleMotherData }) => (
         description="Datos de la Madre">
 
         <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Primer nombre <span>*</span>
+            Primer nombre <span className=" w-full">*</span>
             <InputText
                 id="first_name"
                 name="first_name"
