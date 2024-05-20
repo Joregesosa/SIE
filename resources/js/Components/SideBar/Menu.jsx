@@ -12,7 +12,7 @@ const Accordion = ({ isMouseOver, theme }) => {
         !isMouseOver && setOpenIndex(null)
     }, [isMouseOver])
     return (
-        <div className='px-4 flex-grow'>
+        <div className='px-6 flex-grow'>
             {sections.map((section, index) => (
                 <div key={index} className='py-1 rounded-md'>
 

@@ -10,11 +10,8 @@ export default function SideBar({ user }) {
 
     return (
         <aside className={`flex flex-col min-h-screen h-full bg-${theme}-primary  mr-0 flex-shrink-0 ${width} transition-all duration-500 overflow-hidden  shadow border-r border-${theme}-active`} onMouseOver={() => handleMouseOverSidebar(true)} onMouseOut={() => handleMouseOverSidebar(false)}>
-            {/*  <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
-                <img loading='lazy' src="https://lists.office.com/Images/9074fa55-8f43-42bd-9a40-0d7a38b9c66e/0fd61129-93f5-4eca-8c45-3e318953accd/T8REH8MB6WNIDPEDE9XWC501E7/d7cfebf9-81be-4890-823d-22781aa93638" alt="company logo" className='w-full' />
-            </figure>
- */}
-            <div aria-roledescription='logo container' className={`w-full h-40 flex flex-col items-center justify-center shadow`} >
+    
+          <div aria-roledescription='logo container' className={`w-full h-40 flex flex-col items-center justify-center shadow`} >
                 <figure className='w-32 mx-auto md:mx-0 flex-shrink-0  '>
                     <img loading='lazy' src="https://lists.office.com/Images/9074fa55-8f43-42bd-9a40-0d7a38b9c66e/0fd61129-93f5-4eca-8c45-3e318953accd/T8REH8MB6WNIDPEDE9XWC501E7/d7cfebf9-81be-4890-823d-22781aa93638" alt="company logo" className='w-full' />
                 </figure>

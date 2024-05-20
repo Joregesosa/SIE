@@ -5,7 +5,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
-import { useTable } from '@/hooks/useTable'; 
+import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
 
@@ -74,7 +74,10 @@ export default function Groups({ auth, data, msj }) {
 
             <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
 
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+                <Toolbar
+                    left={RenderLeftToolbar}
+                    right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40"
+                />
 
                 <DataTable  {...tableConfig}>
 
