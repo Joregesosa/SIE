@@ -4,14 +4,15 @@ import React, { useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toolbar } from 'primereact/toolbar';
+import EditUser from '@/Components/Users/EditUser';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
+
+
 import NewUser from '@/Components/Users/New';
 import { useTable } from '@/hooks/useTable';
-import Edit from '@/Components/Users/Edit';
 
-export default function Users({ auth,currentUser, data, msj }) {
+export default function Users({ auth, data, msj }) {
 
-    console.log(currentUser)
     const {
         dt,
         alert,
@@ -34,10 +35,11 @@ export default function Users({ auth,currentUser, data, msj }) {
 
     /* Render users */
     const renderUserName = (rowData) => {
-        return <span>{rowData.person.first_name} {rowData.person.second_name} {rowData.person.fLast_name} {rowData.person.sLast_name}</span>
+        return <span>{rowData.firstName} {rowData.secondName} {rowData.fLastName} {rowData.sLastName}</span>
     }
 
     useEffect(() => {
+        console.log(data)
         setDataList(data)
         setAlert(msj)
     }, [data, msj])
@@ -55,13 +57,13 @@ export default function Users({ auth,currentUser, data, msj }) {
 
                     <Column field='id' header='ID' sortable className='py-2 ' />
 
-                    <Column field='person.first_name' header='Nombre' sortable className='py-2' body={renderUserName} />
+                    <Column field='firstName' header='Nombre' sortable className='py-2' body={renderUserName} />
 
-                    <Column field='user_name' header='usuario' sortable className='py-2' />
+                    <Column field='userName' header='usuario' sortable className='py-2' />
 
                     <Column field='email' header='Email' sortable className='py-2' />
 
-                    <Column field='role.role' header='Rol' sortable className='py-2' />
+                    <Column field='roles.role' header='Rol' sortable className='py-2' />
 
                     <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
@@ -70,12 +72,12 @@ export default function Users({ auth,currentUser, data, msj }) {
                 </DataTable>
             </div>
             {/* modal edit User */}
-            <Edit
-                selectedItem={selectedItem}
-                showDialog={editItemDialog}
-                hideDialog={onHideEditDialog}
-                endpoint='permission.update'
-            />
+            {/* <EditUser
+                user={selectedUser}
+                showDialog={editUserDialog}
+                actionFooter={renderUserDialogFooter(setEditUserDialog)}
+                hideDialog={() => setEditUserDialog(false)}
+            /> */}
             {/* modal delete User */}
 
             {/* 
@@ -87,7 +89,7 @@ export default function Users({ auth,currentUser, data, msj }) {
 
             <DeleteAlert
                 itemId={selectedItem.id}
-                value={selectedItem.user_name}
+                value={selectedItem.userName}
                 message={"el usuario"}
                 endpoint='role.delete'
                 showDialog={deleteItemDialog}
