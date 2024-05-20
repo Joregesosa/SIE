@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from '@inertiajs/react';
-import { sections } from './sections';
 const Accordion = ({ isMouseOver, theme }) => {
     const [openIndex, setOpenIndex] = useState(null);
 
@@ -12,9 +11,9 @@ const Accordion = ({ isMouseOver, theme }) => {
         !isMouseOver && setOpenIndex(null)
     }, [isMouseOver])
     return (
-        <div className='px-4 flex-grow'>
+        <div>
             {sections.map((section, index) => (
-                <div key={index} className='py-1 rounded-md'>
+                <div key={index} className='py-1 rounded-md  '>
 
                     <div onClick={() => handleItemClick(index)} className={`cursor-pointer flex gap-2  items-center text-${theme}-text  py-2  justify-center rounded-sm`} >
                         <i className={`pi ${section.icon}  ${mainIconSize} `}></i>
@@ -46,6 +45,32 @@ const Accordion = ({ isMouseOver, theme }) => {
     );
 };
 
+const sections = [
+    {
 
+        title: 'Usuarios',
+        icon: 'pi-users',
+        content: [
+            {
+                icon: 'pi-list',
+                title: 'Lista  de Usuarios',
+                url: 'users',
+                permission: 'edit_user'
+                
+            },
+            {
+                icon: 'pi-cog',
+                title: 'Roles',
+                url: 'roles'
+            },
+            ,
+            {
+                icon: 'pi-cog',
+                title: 'Permisos usuario',
+                url: 'permission'
+            }
+        ],
+    },
+];
 
 export default Accordion;

@@ -18,17 +18,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return [ 
-            'person_id' => 1,
-            'user_name' => fake()->name(),
-            'role_id' => 1,
+        return [
+            'firstName' => fake()->name(),
+            'secondName' => fake()->name(),
+            'fLastName' => fake()->name(),
+            'sLastName' => fake()->name(),
+            'userName' => fake()->name(),
             'email' => fake()->unique()->email(),
             'email_verified_at' => now(),
-            'password' => "admin",
-            'remember_token' => Str::random(10),
+            'password' => 'admin',
+
         ];
-        
-      
     }
 
     /**

@@ -22,18 +22,13 @@ class ProfileController extends Controller
         if ($message) {
             Session::forget('msj');
         }
-        $user = User::with('role', 'person')->get();
+        $user = User::with('roles')->get();
       
-        $currentUser = Auth::user()->load('role.permissions');
 
-
-    // Cargar los roles y permisos relacionados con el usuario actual
-
-            return Inertia::render('Users', [
-                'currentUser' => $currentUser ,
-                'msj' => $message,
-                'data' => $user
-            ]);
+        return Inertia::render('Users', [
+            'data' => $user,
+            'msj' => $message
+        ]);
     }
 
 

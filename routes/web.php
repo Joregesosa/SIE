@@ -7,8 +7,6 @@ use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Middleware\CheckPermission;
-
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -31,10 +29,7 @@ Route::get('/dashboard', function () {
 
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
 
-Route::get('/AccessDenied', function () {return Inertia::render('AccessDenied');})->name('AccessDenied');
-
-
-Route::middleware(['auth', CheckPermission::class])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/user', [ProfileController::class, 'index'])->name('users');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -54,5 +49,7 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
         Route::delete('/role/{id}', 'destroy')->name('role.delete');
     });
 });
- 
+
+
+
 require __DIR__ . '/auth.php';
