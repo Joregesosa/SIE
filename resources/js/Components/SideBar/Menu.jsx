@@ -7,8 +7,8 @@ const Accordion = ({ isMouseOver, theme }) => {
     const handleItemClick = (index) => {
         setOpenIndex(index === openIndex ? null : index);
     };
-    const mainIconSize = isMouseOver? 'text-2xl' : 'text-3xl';
-    useEffect(()=>{
+    const mainIconSize = isMouseOver ? 'text-2xl' : 'text-3xl';
+    useEffect(() => {
         !isMouseOver && setOpenIndex(null)
     }, [isMouseOver])
     return (
@@ -21,7 +21,7 @@ const Accordion = ({ isMouseOver, theme }) => {
                         {isMouseOver &&
                             <>
                                 <h3 className='text-base'>{section.title}</h3>
-                                <i className={`pi ${openIndex === index ? 'pi-angle-up' : 'pi-angle-down'} ml-auto`} /> 
+                                <i className={`pi ${openIndex === index ? 'pi-angle-up' : 'pi-angle-down'} ml-auto`} />
                             </>
                         }
 
@@ -45,7 +45,5 @@ const Accordion = ({ isMouseOver, theme }) => {
         </div>
     );
 };
-
-
 
 export default Accordion;
