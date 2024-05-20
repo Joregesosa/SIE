@@ -35,12 +35,13 @@ export default function Roles({ auth, data, msj, permissions }) {
             return (
                 <span className="text-sm flex flex-wrap gap-1 ">
                     {rowData.permissions.map((obj) => {
-                       
-                        return(
-                        <span className={`text-black px-1 text-nowrap rounded-md bg-${obj.color}`}>
-                            {obj.name}
-                        </span>
-                    )})}
+
+                        return (
+                            <span className={`text-black px-1 text-nowrap rounded-md bg-${obj.color}`}>
+                                {obj.name}
+                            </span>
+                        )
+                    })}
                 </span>
             );
         }
@@ -61,14 +62,19 @@ export default function Roles({ auth, data, msj, permissions }) {
         >
             <Head title="Lista de Usuarios" />
 
-            <div className="h-[calc(100vh-120px)]  bg-white rounded-b-md flex flex-col">
+            <div className="h-[calc(100vh-120px)] bg-transparent rounded-b-md flex flex-col">
                 <Toolbar
                     left={RenderLeftToolbar}
                     right={() => RenderRightToolbar(dt)}
-                    className="pt-3 pb-0 rounded-none"
+                    className="py-2 rounded-none bg-white bg-opacity-40"
                 />
                 <DataTable ref={dt} value={dataList} {...tableConfig}>
-                    <Column field="id" header="ID" sortable className="py-2" />
+                    <Column
+                        field="id"
+                        header="ID"
+                        sortable
+                        className="py-2"
+                    />
 
                     <Column
                         field="role"
