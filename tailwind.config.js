@@ -61,7 +61,7 @@ export default {
                     secondary: '#0288d1',
                     text: '#ffffff',
                     accent: '#4caf50',
-                    active: '#0277bd', // Un tono más material para el estado activo
+                    active: '#0277bd8f', // Un tono más material para el estado activo
                 },
                 // Tema 7: Paleta de Joyas
                 jewel: {
@@ -101,6 +101,8 @@ export default {
     safelist: [
         { pattern: /bg-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(primary|secondary|accent|active)/ },
         { pattern: /text-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(text|accent|active)/ },
+        { pattern: /border-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(primary|secondary|accent|active)/ },
+
 
     ],
     plugins: [forms],
