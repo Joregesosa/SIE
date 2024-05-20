@@ -30,7 +30,7 @@ export function Edit({ showDialog, hideDialog, permissions, selectedItem }) {
     const itemTemplate = (item) => {
         return (
             <div className="flex flex-col align-items-center gap-3">
-                <span className='font-semibold text-sky-700'>{item.permission}</span>
+                <span className='font-semibold text-sky-700'>{item.name}</span>
             </div>
         );
     };
