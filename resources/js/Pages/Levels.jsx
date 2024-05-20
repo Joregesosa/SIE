@@ -63,7 +63,7 @@ export default function Levels({ auth, currentUser, data, msj }) {
 
             <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
 
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" />
 
                 <DataTable  {...tableConfig}>
 

@@ -76,16 +76,18 @@ export const useTable = (data) => {
     };
 
     const RenderSearch = () => (
-        <div className="flex flex-wrap gap-2 align-items-center pl-8">
+        <div className="flex flex-wrap gap-2 align-items-center pl-8 bg-transparent">
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
-                <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
+                <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..."/>
             </span>
         </div>
     );
-
+    const pt = {
+        header: {className:"bg-white bg-opacity-40"},
+    }
     const tableConfig = {
-        ref: dt, value: dataList, dataKey: 'id', paginator: true, rows: 5, rowsPerPageOptions: [5, 10, 25], paginatorTemplate: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate: "Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: RenderSearch, scrollable: true, paginatorClassName: `bg-${theme}-secondary text-${theme}-text rounded-b-md`
+        ref: dt, value: dataList, dataKey: 'id', paginator: true, rows: 5, rowsPerPageOptions: [5, 10, 25], paginatorTemplate: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate: "Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: RenderSearch, scrollable: true, paginatorClassName: `bg-${theme}-secondary text-${theme}-text rounded-b-md `, pt:{pt}
     }
 
     return {
