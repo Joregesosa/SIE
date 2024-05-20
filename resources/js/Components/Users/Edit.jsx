@@ -86,7 +86,7 @@ export default function Edit({ selectedItem, showDialog, actionFooter, hideDialo
                         <label htmlFor="rol" className="font-bold text-xs">
                             Rol
                         </label>
-                        <Dropdown value={data.rol} onChange={(e) => setData('rol', (e.target.value === 'Activo'))} options={roles} optionLabel="rol" placeholder="Select a Role"
+                        <Dropdown value={data.rol} onChange={(e) => setData('rol', (e.target.value === 'Activo'))} options={roles} optionLabel="rol" optionValue="id" placeholder="Select a Role"
                             filter className="flex items-center border h-[42px] border-gray-500 flex-grow" />
                     </div>
 

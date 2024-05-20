@@ -79,8 +79,8 @@ return new class extends Migration
          /*TELEFONOS*/
          Schema::create('phones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('people_id')->nullable();
-            $table->foreign('people_id')->references('id')->on('people')->onDelete('cascade');
+            $table->unsignedBigInteger('person_id');
+            $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
             $table->string('number');
             $table->unsignedBigInteger('phone_type_id')->nullable();
             $table->foreign('phone_type_id')->references('id')->on('phone_types')->onDelete('set null');

@@ -6,8 +6,8 @@ const Accordion = ({ isMouseOver, theme }) => {
     const handleItemClick = (index) => {
         setOpenIndex(index === openIndex ? null : index);
     };
-    const mainIconSize = isMouseOver? 'text-2xl' : 'text-3xl';
-    useEffect(()=>{
+    const mainIconSize = isMouseOver ? 'text-2xl' : 'text-3xl';
+    useEffect(() => {
         !isMouseOver && setOpenIndex(null)
     }, [isMouseOver])
     return (
@@ -20,7 +20,7 @@ const Accordion = ({ isMouseOver, theme }) => {
                         {isMouseOver &&
                             <>
                                 <h3 className='text-base'>{section.title}</h3>
-                                <i className={`pi ${openIndex === index ? 'pi-angle-up' : 'pi-angle-down'} ml-auto`} /> 
+                                <i className={`pi ${openIndex === index ? 'pi-angle-up' : 'pi-angle-down'} ml-auto`} />
                             </>
                         }
 
@@ -56,7 +56,7 @@ const sections = [
                 title: 'Lista  de Usuarios',
                 url: 'users',
                 permission: 'edit_user'
-                
+
             },
             {
                 icon: 'pi-cog',
@@ -71,6 +71,59 @@ const sections = [
             }
         ],
     },
+    {
+
+        title: 'Cursos',
+        icon: 'pi-address-book',
+        content: [
+            {
+                icon: 'pi-graduation-cap',
+                title: 'Niveles',
+                url: 'levels',
+                permission: 'read_levels'
+
+            },
+            {
+                icon: 'pi-chart-pie',
+                title: 'Grupos',
+                url: 'groups',
+                permission: 'read_groups'
+            },
+            ,
+            {
+                icon: 'pi-cog',
+                title: 'Permisos usuario',
+                url: 'permission'
+            }
+        ],
+    },
+    {
+
+        title: 'Solicitudes',
+        icon: 'pi-address-book',
+        content: [
+            {
+                icon: 'pi-graduation-cap',
+                title: 'Solicitudes de Contacto',
+                url: 'contactsRequest',
+                permission: 'read_contactsRequest'
+
+            },
+            {
+                icon: 'pi-chart-pie',
+                title: 'Grupos',
+                url: 'groups',
+                permission: 'read_groups'
+            },
+            ,
+            {
+                icon: 'pi-cog',
+                title: 'Permisos usuario',
+                url: 'permission'
+            }
+        ],
+    },
+
 ];
 
 export default Accordion;
