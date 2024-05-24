@@ -9,7 +9,7 @@ export default function SideBar({ user }) {
     const width = isMouseOver ? 'w-72' : 'w-20';
 
     return (
-        <aside className={`flex flex-col min-h-screen h-full bg-${theme}-primary  mr-0 flex-shrink-0 ${width} transition-all duration-500 overflow-hidden  shadow border-r border-${theme}-active`} onMouseOver={() => handleMouseOverSidebar(true)} onMouseOut={() => handleMouseOverSidebar(false)}>
+        <aside className={`flex flex-col min-h-screen h-full bg-${theme}-primary  mr-0 flex-shrink-0 ${width} transition-all duration-500 overflow-hidden  shadow border-r border-${theme}-active print:hidden`} onMouseOver={() => handleMouseOverSidebar(true)} onMouseOut={() => handleMouseOverSidebar(false)}>
     
           <div aria-roledescription='logo container' className={`w-full h-40 flex flex-col items-center justify-center shadow`} >
                 <figure className='w-32 mx-auto md:mx-0 flex-shrink-0  '>

@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/react';
 export const Navbar = ({ user, theme , setShowThemeControl}) => {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     return (
-        <nav className={`bg-${theme}-primary `}>
+        <nav className={`bg-${theme}-primary print:hidden`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-end h-16">
 

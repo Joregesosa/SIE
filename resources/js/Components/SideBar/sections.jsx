@@ -29,7 +29,7 @@ export const sections = [
     {
 
         title: 'Cursos',
-        icon: 'pi-address-book',
+        icon: 'pi-graduation-cap',
         content: [
             {
                 icon: 'pi-graduation-cap',
@@ -43,39 +43,27 @@ export const sections = [
                 title: 'Grupos',
                 url: 'groups',
                 permission: 'read_groups'
-            },
-            ,
-            {
-                icon: 'pi-cog',
-                title: 'Permisos usuario',
-                url: 'permission'
             }
         ],
     },
     {
 
         title: 'Solicitudes',
-        icon: 'pi-address-book',
+        icon: 'pi-envelope',
         content: [
             {
-                icon: 'pi-graduation-cap',
-                title: 'Solicitudes de Contacto',
+                icon: 'pi-book',
+                title: 'Postulantes',
                 url: 'contactsRequest',
                 permission: 'read_contactsRequest'
 
             },
             {
-                icon: 'pi-chart-pie',
-                title: 'Grupos',
-                url: 'groups',
-                permission: 'read_groups'
-            },
-            ,
-            {
-                icon: 'pi-cog',
-                title: 'Permisos usuario',
-                url: 'permission'
-            }
+                icon: 'pi-receipt',
+                title: 'Matriculas',
+                url: 'enrollmentRequest',
+                permission: 'read_enrollmentRequest'
+            } 
         ],
     },
 

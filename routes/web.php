@@ -12,7 +12,6 @@ use Inertia\Inertia;
 use App\Http\Middleware\CheckPermission;
 use Illuminate\Support\Facades\Session;
 
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -62,12 +61,13 @@ Route::get('/contactsRequest', function () {
     return Inertia::render('Applications/ContactsRequest');
 })->middleware(['auth', 'verified'])->name('contactsRequest');
 
-/* Route::get('/users', function () {
-    return Inertia::render('Users');
-})->middleware(['auth', 'verified'])->name('users'); */
-/* Route::get('/roles', function () {
-    return Inertia::render('Roles');
-})->middleware(['auth', 'verified'])->name('roles'); */
+Route::get('/contactVerification', function () {
+    return Inertia::render('Applications/ContactVerification');
+})->middleware(['auth', 'verified'])->name('contactVerification');
+
+Route::get('/enrollmentRequest', function () {
+    return Inertia::render('Applications/EnrollmentRequest');
+})->middleware(['auth', 'verified'])->name('enrollmentRequest');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
 
