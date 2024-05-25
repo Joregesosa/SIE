@@ -14,14 +14,14 @@ export default function Authenticated({ user, header, alert, setAlert, children 
 
             <div className='w-full flex overflow-hidden'>
                 <SideBar user={user} />
-                <div className={`flex-grow bg-main bg-contain rounded-md min-h-[calc(100vh-73px)] flex flex-col`}>
+                <div className={`flex-grow bg-main bg-cover bg-no-repeat rounded-md min-h-[calc(100vh-73px)] flex flex-col`}>
                     <Navbar theme={theme} user={user} setShowThemeControl={setShowThemeControl} />
                     {header && (
-                        <header className={`shadow bg-${theme}-secondary text-${theme}-text rounded-t-md m-[2px]`}>
+                        <header className={`shadow bg-${theme}-secondary text-${theme}-text rounded-t-md m-[2px] print:hidden`}>
                             <div className={`max-w-7xl mx-auto px-4 sm:px-4 lg:px-6 py-2`}>{header}</div>
                         </header>
                     )}
-                    <main className='p-1 rounded-b-md flex-grow'>{children}</main>
+                    <main className='p-1 rounded-b-md flex-grow print:p-0 print:m-0'>{children}</main>
                 </div>
             </div>
             <ThemeControl
