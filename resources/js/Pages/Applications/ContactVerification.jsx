@@ -1,7 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { InputText } from 'primereact/inputtext';
-
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import ContactReport from '@/Reports/ContactReport';
 export default function ContactVerification({ auth, data, msj }) {
  
     return (
@@ -273,6 +274,13 @@ export default function ContactVerification({ auth, data, msj }) {
 
                         </fieldset>
                         <div className=" py-4 flex justify-end print:hidden">
+                            <PDFDownloadLink
+                                document={<ContactReport data={data} />}
+                                fileName="solicitud.pdf"
+                                className="bg-blue-500 text-white py-2 px-4 rounded-md mr-2">
+                                Descargar PDF
+                            </PDFDownloadLink>
+
                             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
                                 Actualizar
                             </button>
