@@ -43,7 +43,7 @@ Route::get('/InscriptionForm', function (Request $request) {
     if ($message) {
         Session::forget('msj');
     }
-    
+
     return Inertia::render('InscriptionForm', [
         'msj' => $message,
         'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->first()
@@ -54,7 +54,6 @@ Route::get('/InscriptionForm', function (Request $request) {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 Route::get('/levels', function () {
     return Inertia::render('Levels');
