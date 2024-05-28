@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
+use App\Models\Form;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -14,7 +14,9 @@ class FormController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('ContactsRequest',[
+            'data' => Form::all()
+        ]);
     }
 
     /**

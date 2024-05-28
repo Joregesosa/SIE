@@ -6,6 +6,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ContactFormController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,7 +33,7 @@ Route::get('/ContactForm', function () {
     if ($message) {
         Session::forget('msj');
     }
-    return Inertia::render('ContactForm', [
+    return Inertia::render('Applications/ContactForm', [
         'msj' => $message
     ]);
 })->name('ContactForm');
@@ -63,9 +64,7 @@ Route::get('/groups', function () {
     return Inertia::render('Groups');
 })->middleware(['auth', 'verified'])->name('groups');
 
-Route::get('/contactsRequest', function () {
-    return Inertia::render('Applications/ContactsRequest');
-})->middleware(['auth', 'verified'])->name('contactsRequest');
+
 
 /* Route::get('/users', function () {
     return Inertia::render('Users');
@@ -102,6 +101,14 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
         Route::post('/role', 'store')->name('role.store');
         Route::put('/role/{id}', 'update')->name('role.update');
         Route::delete('/role/{id}', 'destroy')->name('role.delete');
+    });
+
+    
+    Route::controller(ContactFormController::class)->group(function () {
+        Route::get('/contactsRequest', 'index')->name('contact');
+        //Route::post('/contacts', 'create')->name('contact.store');
+        Route::put('/contacts/{id}', 'update')->name('contact.update');
+        Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
     });
     
 });

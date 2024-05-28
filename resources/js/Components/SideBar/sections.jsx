@@ -60,7 +60,7 @@ export const sections = [
             {
                 icon: 'pi-graduation-cap',
                 title: 'Solicitudes de Contacto',
-                url: 'contactsRequest',
+                url: 'contact',
                 permission: 'read_contactsRequest'
 
             },

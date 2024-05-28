@@ -5,7 +5,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { FormActionButtons } from '@/Components/FormActionButtons';
 import { Alert } from '@/Components/Alerts/Alert';
 
-import '../../css/formbg.css';
+import '../../../css/formbg.css';
 import { useEffect } from 'react';
 const courseLevels = [
     { id: 1, level: "Nivel Inicial 1" },

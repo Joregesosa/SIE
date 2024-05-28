@@ -33,6 +33,11 @@ class PermissionSeeder extends Seeder
            ['Crear Roles','role.store', 'Crear roles','green-500','green-500'],
            ['Actualizar Roles','role.update', 'Actualizar roles','green-500','orange-500'],
            ['Eliminar Roles','role.delete', 'Eliminar roles','green-500','red-500'],
+
+            ['Ver Contactos','contact', 'Ver solicitudes de contacto','red-500','blue-500'],
+            ['Crear Contacto','contact.store', 'Crear solicitudes de contacto','red-500','green-500'],
+            ['Actualizar Contacto','contact.update', 'Actualizar solicitudes de contacto','red-500','orange-500'],
+            ['Eliminar Contacto','contact.delete', 'Eliminar solicitudes de contacto','red-500','red-500'],
           
        ];
 

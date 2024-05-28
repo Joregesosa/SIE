@@ -106,6 +106,7 @@ export default {
         { pattern: /bg-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(primary|secondary|accent|active)/ },
         { pattern: /text-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(text|accent|active)/ },
         { pattern: /border-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(primary|secondary|accent|active)/ },
+        { pattern: /bg-(red|green|blue|yellow|indigo|purple|pink|gray|white|black|transparent)-500/ },
 
 
     ],
