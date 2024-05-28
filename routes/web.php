@@ -10,6 +10,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\CheckPermission;
+use App\Models\Contact;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 
@@ -35,20 +37,23 @@ Route::get('/ContactForm', function () {
     ]);
 })->name('ContactForm');
 
-Route::get('/InscriptionForm', function () {
+Route::get('/InscriptionForm', function (Request $request) {
+
     $message = session('msj');
     if ($message) {
         Session::forget('msj');
     }
+
     return Inertia::render('InscriptionForm', [
-        'msj' => $message
+        'msj' => $message,
+        'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->first()
     ]);
+
 })->name('InscriptionForm');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 Route::get('/levels', function () {
     return Inertia::render('Levels');
