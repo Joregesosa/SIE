@@ -5,11 +5,13 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
-import { useTable } from '@/hooks/useTable'; 
+import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
 
-export default function Groups({ auth, data, msj }) {
+
+
+export default function ContactsRequest({ auth, data, msj }) {
 
     const {
         dt,
@@ -30,44 +32,53 @@ export default function Groups({ auth, data, msj }) {
         setShowNewDialog,
         onHideEditDialog
     } = useTable(data)
-   
-    useEffect(() => {
 
+    useEffect(() => {
+        
         data.forEach(element => {
-            element.teacher.name = element.teacher.person.first_name + ' ' + element.teacher.person.second_name + ' ' + element.teacher.person.fLast_name + ' ' + element.teacher.person.sLast_name;
+            element.name = element.first_name + ' ' + element.second_name + ' ' + element.fLast_name + ' ' + element.sLast_name;
+            element.requestDate = new Date(element.created_at).toLocaleDateString('es-DO');
         });
+
 
         setDataList(data)
         setAlert(msj)
     }, [data, msj])
 
+    const requestStatus = (rowData) => {
+        if (rowData.status == 0) {
+            return <span className="rounded-md bg-red-500 text-jewel-text py-1 px-2">Rechazada</span>
+        } else if (rowData.status == 1) {
+            return <span className="rounded-md bg-lime-500 text-jewel-text py-1 px-2">Aprobada</span>
+        } else{
+            return <span className="rounded-md bg-sky-500 text-jewel-text py-1 px-2">Pendiente</span>
+        }
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Groups</h2>}
+            header={<h2 className="font-semibold text-lg leading-tight">Solicitudes de contactos</h2>}
         >
-   
-            <Head title="Lista de Groups" />
+            <Head title="Solicitudes" />
 
             <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
 
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" />
+                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
 
                 <DataTable  {...tableConfig}>
 
                     <Column field='id' header='ID' sortable className='py-2 ' />
 
-                    <Column field='name' header='Grupo' sortable className='py-2' />
+                    <Column field='name' header='Nombre' sortable className='py-2 ' />
 
-                    <Column field='level.name' header='Nivel' sortable className='py-2 truncate max-w-64' />
+                    <Column field='email' header='Nivel' sortable className='py-2' />
 
-                    <Column field='max_students' header='Cupo máximo' sortable className='py-2' />
+                    <Column field='requestDate' header='Fecha de solicitud' sortable className='py-2' />
 
-                    <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-2' />
+                    <Column field='responseDate' header='Fecha de respuesta' sortable className='py-2' />
 
-                    <Column field='teacher.name' header='Profesor Titular' sortable className='py-2' />
-
-                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
+                    <Column field='status' header='Estatus' sortable className='py-2' body={requestStatus} />
 
                     <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2 min-w-36' />
 

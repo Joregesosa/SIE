@@ -10,26 +10,10 @@ import { useTable } from '@/hooks/useTable';
 import { Edit } from '@/Components/Levels/Edit';
 import { New } from '@/Components/Levels/New';
 
-
-const levelsData = [
-    { id: 1, level: "Nivel Inicial 1", status: 1 },
-    { id: 2, level: "Nivel Inicial 2", status: 1 },
-    { id: 3, level: "Primer Año de Educación Básica (1° EGB)", status: 1 },
-    { id: 4, level: "Segundo Año de Educación Básica (2° EGB)", status: 1 },
-    { id: 5, level: "Tercer Año de Educación Básica (3° EGB)", status: 1 },
-    { id: 6, level: "Cuarto Año de Educación Básica (4° EGB)", status: 1 },
-    { id: 7, level: "Quinto Año de Educación Básica (5° EGB)", status: 1 },
-    { id: 8, level: "Sexto Año de Educación Básica (6° EGB)", status: 1 },
-    { id: 9, level: "Séptimo Año de Educación Básica (7° EGB)", status: 1 },
-    { id: 10, level: "Octavo Año de Educación Básica (8° EGB)", status: 1 },
-    { id: 11, level: "Noveno Año de Educación Básica (9° EGB)", status: 1 },
-    { id: 12, level: "Décimo Año de Educación Básica (10° EGB)", status: 1 },
-    { id: 13, level: "Primer Año de Bachillerato (1° BGU)", status: 1 },
-    { id: 14, level: "Segundo Año de Bachillerato (2° BGU)", status: 1 },
-    { id: 15, level: "Tercer Año de Bachillerato (3° BGU)", status: 1 },
-]
 export default function Levels({ auth, currentUser, data, msj }) {
 
+
+    console.log(data)
     const {
         dt,
         alert,
@@ -48,12 +32,12 @@ export default function Levels({ auth, currentUser, data, msj }) {
         showNewDialog,
         setShowNewDialog,
         onHideEditDialog
-    } = useTable(levelsData)
+    } = useTable(data)
 
     useEffect(() => {
-        setDataList(levelsData)
+        setDataList(data)
         setAlert(msj)
-    }, [levelsData, msj])
+    }, [data, msj])
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -69,7 +53,7 @@ export default function Levels({ auth, currentUser, data, msj }) {
 
                     <Column field='id' header='ID' sortable className='py-2 ' />
 
-                    <Column field='level' header='Nivel' sortable className='py-2' />
+                    <Column field='name' header='Nivel' sortable className='py-2' />
                    
                     <Column field='description' header='Descripción' sortable className='py-2' />
                    

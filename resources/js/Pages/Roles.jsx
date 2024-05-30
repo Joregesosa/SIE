@@ -37,7 +37,7 @@ export default function Roles({ auth, data, msj, permissions }) {
                     {rowData.permissions.map((obj) => {
 
                         return (
-                            <span className={`text-black px-1 text-nowrap rounded-md bg-${obj.color}`}>
+                            <span className={`text-black px-1 text-nowrap rounded-md bg-${obj.color2}`}>
                                 {obj.name}
                             </span>
                         )

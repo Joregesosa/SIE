@@ -18,12 +18,12 @@ class PersonFactory extends Factory
     {
 
         return [
-            'first_name' => $this->faker->name(),
-            'second_name' => $this->faker->name(),
-            'fLast_name' => $this->faker->name(),
-            'sLast_name' => $this->faker->name(),
+            'first_name' => $this->faker->firstName(),
+            'second_name' => $this->faker->firstName(),
+            'fLast_name' => $this->faker->lastName(),
+            'sLast_name' => $this->faker->lastName(),
             'birth_date' => $this->faker->date(),
-            'birth_place' => $this->faker->name(),
+            'birth_place' => $this->faker->state(),
             'id_card' => $this->faker->unique()->name(),
         ];
         

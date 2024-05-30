@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(PersonSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(LevelSeeder::class);
 
         DB::table('phone_types')->insert([
             ['name' => 'Casa'],
