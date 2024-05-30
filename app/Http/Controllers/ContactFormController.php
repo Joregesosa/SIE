@@ -3,67 +3,98 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
-use App\Http\Requests\StoreContactFormRequest;
-use App\Http\Requests\UpdateContactFormRequest;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 
 class ContactFormController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create()
     {
-       
-            return Inertia::render('ContactsRequest',[
-                'data' => Contact::all()
-            ]);
+        return Inertia::render('Applications/ContactForm');
+    }
+
+    public function store(Request $request)
+    {
+        try{ 
+            Request()->merge(['key' =>  bin2hex(random_bytes(10))]);
+
+             $validator = validator($request->all(), [
+                'email' => 'required|email',
+                'level' => 'required',
+                'id_card' => 'required|unique:contacts',
+            ], [
+                'email.required' => 'Es nesesario proporcionar un correo electronico',
+                'email.email' => 'El correo proporcionado no es valido',
+                'level.required' => 'Es nesesario proporcionar el nivel que desea aplicar',
+                'id_card.required' => 'Es nesesario proporcionar el numero de cedula',
+                'id_card.unique' => 'Ya existe un registro con el mismo numero de cedula',
+            ]   );
+
+
+            if ($validator->fails()) {
+                return  back()->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
+            }
+
+            Contact::create($request->all());   
+            return redirect()->route('contact.create')->with('msj', ['success' => "El Formulario fue enviado satisfactoriamente"], 200);
+
+
+        }  catch (QueryException $e) {
+            // Manejar los errores de SQL
+            $errorCode = $e->errorInfo[1];
+
+            $errorMessage = $e->getMessage();
+            
+            // Buscar el nombre del campo en el mensaje de error
+            preg_match("/'([^']+)'/", $errorMessage, $matches);
+            $errorField = Arr::get($matches, 1, 'campo desconocido');
+
+            // Mensajes personalizados para diferentes códigos de error
+            $errorMessage = match ($errorCode) {
+                1048 => 'Por favor, complete todos los campos obligatorios.',
+                1062 => 'Ya existe un registro con los mismos valores únicos.',
+                // Agrega más casos según sea necesario...
+                default => 'Ha ocurrido un error al procesar su solicitud.',
+            };
+
+            $errorMessage = $errorMessage." Error en el campo '{$errorField}': "  ;
+
+            // Redireccionar con el mensaje de error personalizado
+            return back()->with('msj', ['error' => $errorMessage] );
+        }
+    }
+
+    public function index(){ 
+        return Inertia::render('ContactsRequest',[
+            'data' => Contact::all()
+        ]);
       
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function show($id){
+        try {
+            $contact = Contact::findOrFail($id);
+            return Inertia::render('EditContactForm', [
+                'contact' => $contact
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'La solicitud no existe '], 404);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error en la acción realizada'], 500);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreContactFormRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ContactForm $contactForm)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ContactForm $contactForm)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
         try {
             $mensajes = [
                 'required' => 'El campo :attribute es requerido',
                 'exists' => 'El campo :attribute no existe',
-
             ];
 
             $validator = validator($request->all(), [
@@ -105,9 +136,6 @@ class ContactFormController extends Controller
         return redirect(route('contact'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         

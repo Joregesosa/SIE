@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Person;
+use App\Models\Teacher;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +25,10 @@ class PersonSeeder extends Seeder
             'birth_place' => 'Bogotá',
             'id_card' => '123456789',
         ]);
+
+        Person::factory(10)->create();
+
+        Teacher::factory(4)->create(); 
 
         
     }

@@ -153,7 +153,7 @@ const InscriptionForm = ({msj, contact }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(data);
-        post(route('inscriptions.create')); 
+        post(route('inscription.create')); 
 
     }
 

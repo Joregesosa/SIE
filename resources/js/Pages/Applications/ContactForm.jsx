@@ -27,6 +27,7 @@ const courseLevels = [
 
 
 const ContactForm = ({msj }) => {
+
     const cleanUser = {
         first_name: '',
         second_name: '',
@@ -68,7 +69,7 @@ const ContactForm = ({msj }) => {
         e.preventDefault();
 
         
-        post(route('new.formcontact'), {
+        post(route('contact.create'), {
            
         });
     };

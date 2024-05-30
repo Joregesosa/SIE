@@ -14,14 +14,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $mensaje = session('msj');
-        if ($mensaje) {
-            Session::forget('msj');
-        }
-        $permissions = Permission::all();
         return Inertia::render('Permissions', [
-            'data' => $permissions,
-            'msj' => $mensaje
+            'data' => Permission::all(),
         ]);
     }
 

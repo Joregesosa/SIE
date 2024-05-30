@@ -7,11 +7,17 @@ use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\InscriptionController;
+use App\Http\Controllers\LevelController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SystemController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\CheckPermission;
 use App\Models\Contact;
+use Database\Seeders\LevelSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -25,70 +31,69 @@ Route::get('/', function () {
     ]);
 });
 
-
-Route::post('/formcontact', [FormController::class, 'formContact'])->name('new.formcontact');
-
-Route::get('/ContactForm', function () {
-    $message = session('msj');
-    if ($message) {
-        Session::forget('msj');
-    }
-    return Inertia::render('Applications/ContactForm', [
-        'msj' => $message
-    ]);
-})->name('ContactForm');
-
-Route::get('/InscriptionForm', function (Request $request) {
-
-    $message = session('msj');
-    if ($message) {
-        Session::forget('msj');
-    }
-
-    return Inertia::render('InscriptionForm', [
-        'msj' => $message,
-        'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->first()
-    ]);
-
-})->name('InscriptionForm');
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/levels', function () {
-    return Inertia::render('Levels');
-})->middleware(['auth', 'verified'])->name('levels');
-
-Route::get('/groups', function () {
-    return Inertia::render('Groups');
-})->middleware(['auth', 'verified'])->name('groups');
-
-
-
-/* Route::get('/users', function () {
-    return Inertia::render('Users');
-})->middleware(['auth', 'verified'])->name('users'); */
-/* Route::get('/roles', function () {
-    return Inertia::render('Roles');
-})->middleware(['auth', 'verified'])->name('roles'); */
-
 Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
 
-Route::get('/AccessDenied', function () {
-    return Inertia::render('AccessDenied');
-})->name('AccessDenied');
+Route::controller(ContactFormController::class)->group(function () {
+    Route::get('/ContactForm', 'create')->name('contact.create');
+    Route::post('/ContactForm', 'store')->name('contact.store');
+});
 
-Route::post('/roles', [PersonController::class, 'create'])->name('inscriptions.create');
+Route::controller(PersonController::class)->group(function () {
+    Route::get('/InscriptionForm', 'create')->name('inscription.create');
+    Route::post('/InscriptionForm', 'store')->name('inscription.store');
+});
+
+Route::controller(SystemController::class)->group(function () {
+    Route::get('/dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/AccessDenied', 'accessdenied')->name('AccessDenied');
+});
 
 Route::middleware(['auth', CheckPermission::class])->group(function () {
+    
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/user', 'index')->name('users');
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
 
-    Route::get('/user', [ProfileController::class, 'index'])->name('users');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::controller(ContactFormController::class)->group(function () {
+        Route::get('/contactsRequest', 'index')->name('contact');
+        Route::get('/contacts/{id}', 'edit')->name('contact.edit');
+        Route::put('/contacts', 'update')->name('contact.update');
+        Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
+    });
 
+    Route::controller(PersonController ::class)->group(function () {
+        Route::get('/person', 'index')->name('person');
+        Route::get('/person/{id}', 'edit')->name('person.edit');
+        Route::put('/person', 'update')->name('person.update');
+        Route::delete('/person/{id}', 'destroy')->name('person.delete');
+    });
 
+    Route::controller(StudentController::class)->group(function () {
+        Route::get('/students', 'index')->name('students');
+        Route::get('/students/{id}', 'edit')->name('students.edit');
+        Route::put('/students', 'update')->name('students.update');
+        Route::delete('/students/{id}', 'destroy')->name('students.delete');
+    });
+
+    Route::controller(GroupController::class)->group(function () {
+        Route::get('/groups', 'index')->name('groups');
+        Route::post('/groups', 'store')->name('groups.store');
+        Route::get('/groups/{id}', 'show')->name('groups.show');
+        Route::put('/groups', 'update')->name('groups.update');
+        Route::delete('/groups/{id}', 'destroy')->name('groups.delete');
+    });
+
+    Route::controller(LevelController::class)->group(function () {
+        Route::get('/levels', 'index')->name('levels');
+        Route::post('/levels', 'store')->name('levels.store');
+        Route::get('/levels/{id}', 'show')->name('levels.show');
+        Route::put('/levels', 'update')->name('levels.update');
+        Route::delete('/levels/{id}', 'destroy')->name('levels.delete');
+    });
+   
     Route::controller(PermissionController::class)->group(function () {
         Route::get('/permission', 'index')->name('permission');
         Route::post('/permission', 'store')->name('permission.store');
@@ -101,14 +106,6 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
         Route::post('/role', 'store')->name('role.store');
         Route::put('/role/{id}', 'update')->name('role.update');
         Route::delete('/role/{id}', 'destroy')->name('role.delete');
-    });
-
-    
-    Route::controller(ContactFormController::class)->group(function () {
-        Route::get('/contactsRequest', 'index')->name('contact');
-        //Route::post('/contacts', 'create')->name('contact.store');
-        Route::put('/contacts/{id}', 'update')->name('contact.update');
-        Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
     });
     
 });
