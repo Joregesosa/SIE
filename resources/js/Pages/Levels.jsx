@@ -57,11 +57,9 @@ export default function Levels({ auth, currentUser, data, msj }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Niveles</h2>}
+            header={"Cursos / Niveles"}
         >
             <Head title="Lista de Niveles" />
-
-            <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
 
                 <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" />
 
@@ -78,8 +76,7 @@ export default function Levels({ auth, currentUser, data, msj }) {
                     <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
 
                 </DataTable>
-
-            </div>
+ 
             {/* modal edit User */}
             <Edit
                 selectedItem={selectedItem}

@@ -87,7 +87,7 @@ export const useTable = (data) => {
         header: {className:"bg-white bg-opacity-40"},
     }
     const tableConfig = {
-        ref: dt, value: dataList, dataKey: 'id', paginator: true, rows: 5, rowsPerPageOptions: [5, 10, 25], paginatorTemplate: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate: "Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: RenderSearch, scrollable: true, paginatorClassName: `bg-${theme}-secondary text-${theme}-text rounded-b-md `, pt:{pt}
+        ref: dt, value: dataList, dataKey: 'id', paginator: true, rows: 5, rowsPerPageOptions: [5, 10, 25], paginatorTemplate: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate: "Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: RenderSearch, scrollable: true, paginatorClassName: `bg-${theme}-secondary text-${theme}-text rounded-b-md`
     }
 
     return {

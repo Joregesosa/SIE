@@ -1,37 +1,11 @@
 import React from 'react';
-import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { ReportHeader } from './ReportHeader';
 const styles = StyleSheet.create({
     page: {
         backgroundColor: '#ffffff',
         padding: 10,
         fontFamily: 'Helvetica',
-    },
-    logoContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    logo: {
-        width: '20%',
-        marginRight: 10,
-    },
-    info: {
-        width: '80%',
-        textAlign: 'right',
-    },
-    title: {
-        fontSize: 14,
-        width: '100%',
-        fontWeight: 'extrabold',
-    },
-    p: {
-        fontSize: 10,
-        width: '100%',
-    },
-    document: {
-        fontSize: '13',
-        padding: 10,
     },
     field_container: {
         display: 'flex',
@@ -119,21 +93,8 @@ const styles = StyleSheet.create({
 const ContactReport = ({ data }) => (
     <Document>
         <Page size="A4" style={styles.page}>
-            <View style={styles.logoContainer}>
-                <Image
-                    src={'images/log.png'}
-                    style={styles.logo}
-                />
-                <View style={styles.info}>
-                    <Text style={styles.title}>UNIDAD EDUCATIVA "THOMAS RUSSELL CRAMPTON"</Text>
-                    <Text style={styles.p}>Avenida Atahualpa E10 - 60 y Santiago. Sector San Nicolás</Text>
-                    <Text style={styles.p}>Teléfonos: 2361 723/2361 908 / 099 471 0524</Text>
-                    <Text style={styles.p}>Código AMIE: 17H02185</Text>
-                    <Text style={styles.p}>Distrito: 17D10 Cayambe - Pedro Moncayo</Text>
-                    <Text style={styles.p}>Circuito: 17D10C03 - Zona: 2</Text>
-                </View>
-            </View>
-            <Text style={styles.document}>Solicitud de contacto</Text>
+
+            <ReportHeader title="SOLICITUD DE CONTACTO" />
 
             <View style={styles.field_container}>
                 <Text style={styles.label}>Numero de solicitud:</Text>

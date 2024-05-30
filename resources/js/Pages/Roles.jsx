@@ -57,12 +57,11 @@ export default function Roles({ auth, data, msj, permissions }) {
             setAlert={setAlert}
             user={auth.user}
             header={
-                <h2 className="font-semibold text-lg leading-tight">Roles</h2>
+                "Usuarios / Roles"
             }
         >
             <Head title="Lista de Usuarios" />
 
-            <div className="h-[calc(100vh-120px)] bg-transparent rounded-b-md flex flex-col">
                 <Toolbar
                     left={RenderLeftToolbar}
                     right={() => RenderRightToolbar(dt)}
@@ -106,7 +105,6 @@ export default function Roles({ auth, data, msj, permissions }) {
                         className="py-2"
                     />
                 </DataTable>
-            </div>
 
             {/* modal delete User */}
 

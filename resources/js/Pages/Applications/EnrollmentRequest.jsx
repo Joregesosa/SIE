@@ -119,13 +119,11 @@ export default function EnrollmentRequest({ auth, data, msj }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Matriculas</h2>}
+            header={ "Solicitudes / Matricula" }
         >
             <Head title="Matriculas" />
 
-            <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
-
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='py-2  rounded-none' />
 
                 <DataTable  {...tableConfig}>
 
@@ -145,7 +143,7 @@ export default function EnrollmentRequest({ auth, data, msj }) {
 
                 </DataTable>
 
-            </div>
+      
 
             <Edit
                 selectedItem={selectedItem}

@@ -119,33 +119,30 @@ export default function ContactsRequest({ auth, data, msj }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Groups</h2>}
+            header={"Solicitudes / Postulantes "}
         >
-            <Head title="Lista de Groups" />
+            <Head title="Lista de Postulantes" />
 
-            <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
+            <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='py-2 rounded-none' />
 
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+              <DataTable  {...tableConfig}>
 
-                <DataTable  {...tableConfig}>
+                <Column field='id' header='ID' sortable className='py-2 ' />
 
-                    <Column field='id' header='ID' sortable className='py-2 ' />
+                <Column field='name' header='Nombre' sortable className='py-2' />
 
-                    <Column field='name' header='Nombre' sortable className='py-2' />
+                <Column field='email' header='Nivel' sortable className='py-2' />
 
-                    <Column field='email' header='Nivel' sortable className='py-2' />
+                <Column field='requestDate' header='Fecha de solicitud' sortable className='py-2' />
 
-                    <Column field='requestDate' header='Fecha de solicitud' sortable className='py-2' />
+                <Column field='responseDate' header='Fecha de respuesta' sortable className='py-2' />
 
-                    <Column field='responseDate' header='Fecha de respuesta' sortable className='py-2' />
+                <Column field='status' header='Estatus' sortable className='py-2' body={requestStatus} />
 
-                    <Column field='status' header='Estatus' sortable className='py-2' body={requestStatus} />
+                <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
+            </DataTable>
 
-                </DataTable>
-
-            </div>
             {/* modal edit User */}
             <Edit
                 selectedItem={selectedItem}
