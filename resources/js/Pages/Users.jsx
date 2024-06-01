@@ -56,19 +56,19 @@ export default function Users({ auth, currentUser, data, msj }) {
 
             <DataTable  {...tableConfig}>
 
-                <Column field='id' header='ID' sortable className='py-2 ' />
+                <Column field='id' header='ID' sortable className='h-fit ' />
 
-                <Column field='person.first_name' header='Nombre' sortable className='py-2' body={renderUserName} />
+                <Column field='person.first_name' header='Nombre' sortable className='h-fit' body={renderUserName} />
 
-                <Column field='user_name' header='usuario' sortable className='py-2' />
+                <Column field='user_name' header='usuario' sortable className='h-fit' />
 
-                <Column field='email' header='Email' sortable className='py-2' />
+                <Column field='email' header='Email' sortable className='h-fit' />
 
-                <Column field='role.role' header='Rol' sortable className='py-2' />
+                <Column field='role.role' header='Rol' sortable className='h-fit' />
 
-                <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
+                <Column field='status' header='Estatus' sortable body={RenderStatus} className='h-fit' />
 
-                <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
+                <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='h-fit' />
 
             </DataTable>
 

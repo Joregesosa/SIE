@@ -1,8 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { InputText } from 'primereact/inputtext';
-import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import ContactReport from '@/Reports/ContactReport';
 
 export default function ContactVerification({ auth, data, msj }) {
 
@@ -11,7 +9,7 @@ export default function ContactVerification({ auth, data, msj }) {
             user={auth.user}
             header={"Solicitudes / Procesar Solicitud"}
         >
-            <Head title="Procesar solicitud" />
+            <Head title="Procesar solicitud" /> 
 
             <div aria-roledescription='logo container' className={`w-full h-fit flex justify-between max-w-screen-lg mx-auto pb-4`} >
                 <figure className='w-full flex-shrink-0  max-w-32'>

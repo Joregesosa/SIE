@@ -54,15 +54,15 @@ export default function Permissions({ auth, data, msj }) {
                 />
                 <DataTable ref={dt} value={dataList} {...tableConfig} >
 
-                    <Column field='id' header='ID' sortable className='py-2' />
+                    <Column field='id' header='ID' sortable className='h-fit' />
 
-                    <Column field='name' header='Nombre' sortable className='py-2' />
+                    <Column field='name' header='Nombre' sortable className='h-fit' />
 
-                    <Column field='description' header='Descripción' sortable className='py-2' />
+                    <Column field='description' header='Descripción' sortable className='h-fit' />
 
-                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
+                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='h-fit' />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
+                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='h-fit' />
 
                 </DataTable>
        

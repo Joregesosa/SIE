@@ -69,8 +69,8 @@ export const useTable = (data) => {
     const RenderActionButtons = (rowData) => {
         return (
             <>
-                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editItem(rowData)} />
-                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => deleteItem(rowData)} />
+                <Button icon="pi pi-pencil" rounded outlined className="mr-2 h-fit" onClick={() => editItem(rowData)} />
+                <Button icon="pi pi-trash" rounded outlined severity="danger" className='h-fit' onClick={() => deleteItem(rowData)} />
             </>
         );
     };

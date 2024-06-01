@@ -77,19 +77,19 @@ export default function Groups({ auth, data, msj }) {
 
                 <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-2 ' />
+                    <Column field='id' header='ID' sortable className='h-fit ' />
 
-                    <Column field='group' header='Grupo' sortable className='py-2' />
+                    <Column field='group' header='Grupo' sortable className='h-fit' />
 
-                    <Column field='level' header='Nivel' sortable className='py-2 truncate max-w-64' />
+                    <Column field='level' header='Nivel' sortable className='h-fit truncate max-w-64' />
 
-                    <Column field='student_capacity' header='Cupo máximo' sortable className='py-2' />
+                    <Column field='student_capacity' header='Cupo máximo' sortable className='h-fit' />
 
-                    <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-2' />
+                    <Column field='capacity_available' header='Cupos Disponibles' sortable className='h-fit' />
 
-                    <Column field='full_professor' header='Profesor Titular' sortable className='py-2' />
+                    <Column field='full_professor' header='Profesor Titular' sortable className='h-fit' />
 
-                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
+                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='h-fit' />
 
                     <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
 

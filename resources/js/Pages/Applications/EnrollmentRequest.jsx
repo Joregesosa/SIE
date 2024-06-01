@@ -127,19 +127,19 @@ export default function EnrollmentRequest({ auth, data, msj }) {
 
                 <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-2 ' />
+                    <Column field='id' header='ID' sortable className='h-fit ' />
 
-                    <Column field='name' header='Nombre' sortable className='py-2' />
+                    <Column field='name' header='Nombre' sortable className='h-fit' />
 
-                    <Column field='email' header='Nivel' sortable className='py-2' />
+                    <Column field='email' header='Nivel' sortable className='h-fit' />
 
-                    <Column field='requestDate' header='Fecha de solicitud' sortable className='py-2' />
+                    <Column field='requestDate' header='Fecha de solicitud' sortable className='h-fit' />
 
-                    <Column field='responseDate' header='Fecha de respuesta' sortable className='py-2' />
+                    <Column field='responseDate' header='Fecha de respuesta' sortable className='h-fit' />
 
-                    <Column field='status' header='Estatus' sortable className='py-2' body={requestStatus} />
+                    <Column field='status' header='Estatus' sortable className='h-fit' body={requestStatus} />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
+                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='h-fit' />
 
                 </DataTable>
 

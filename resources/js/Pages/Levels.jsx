@@ -65,15 +65,15 @@ export default function Levels({ auth, currentUser, data, msj }) {
 
                 <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-2 ' />
+                    <Column field='id' header='ID' sortable className='h-fit ' />
 
-                    <Column field='level' header='Nivel' sortable className='py-2' />
+                    <Column field='level' header='Nivel' sortable className='h-fit' />
                    
-                    <Column field='description' header='Descripción' sortable className='py-2' />
+                    <Column field='description' header='Descripción' sortable className='h-fit' />
                    
-                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
+                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='h-fit' />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
+                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='h-fit' />
 
                 </DataTable>
  

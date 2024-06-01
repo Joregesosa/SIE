@@ -72,14 +72,14 @@ export default function Roles({ auth, data, msj, permissions }) {
                         field="id"
                         header="ID"
                         sortable
-                        className="py-2"
+                        className="h-fit"
                     />
 
                     <Column
                         field="role"
                         header="Role"
                         sortable
-                        className="py-2"
+                        className="h-fit"
                     />
 
                     <Column
@@ -87,7 +87,7 @@ export default function Roles({ auth, data, msj, permissions }) {
                         header="Permissions"
                         sortable
                         body={RenderPermissionList}
-                        className="py-2 max-w-80"
+                        className="h-fit max-w-80"
                     />
 
                     <Column
@@ -95,14 +95,14 @@ export default function Roles({ auth, data, msj, permissions }) {
                         header="Estatus"
                         sortable
                         body={RenderStatus}
-                        className="py-2"
+                        className="h-fit"
                     />
 
                     <Column
                         header="Acciones"
                         body={(rowData) => RenderActionButtons(rowData)}
                         exportable={false}
-                        className="py-2"
+                        className="h-fit"
                     />
                 </DataTable>
 
