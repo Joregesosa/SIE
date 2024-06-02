@@ -75,7 +75,7 @@ const contactsData = [
         responseDate: '',
     }
 ]
-export default function ContactsRequest({ auth, data, msj }) {
+export default function EnrollmentRequest({ auth, data, msj }) {
 
     const {
         dt,
@@ -119,13 +119,11 @@ export default function ContactsRequest({ auth, data, msj }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Groups</h2>}
+            header={ "Solicitudes / Matricula" }
         >
-            <Head title="Lista de Groups" />
+            <Head title="Matriculas" />
 
-            <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
-
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='py-2  rounded-none' />
 
                 <DataTable  {...tableConfig}>
 
@@ -145,8 +143,8 @@ export default function ContactsRequest({ auth, data, msj }) {
 
                 </DataTable>
 
-            </div>
-            {/* modal edit User */}
+      
+
             <Edit
                 selectedItem={selectedItem}
                 showDialog={editItemDialog}

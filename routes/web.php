@@ -21,7 +21,6 @@ use Database\Seeders\LevelSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),

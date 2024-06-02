@@ -45,11 +45,11 @@ export default function Permissions({ auth, data, msj }) {
             alert={alert}
             setAlert={setAlert}
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Permisos</h2>}
+            header={"Usuarios / Permisos"}
         >
             <Head title="Lista de Usuarios" />
 
-            <div className='h-[calc(100vh-120px)]  rounded-b-md flex flex-col'>
+ 
                 <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" 
                 />
                 <DataTable ref={dt} value={dataList} {...tableConfig} >
@@ -65,7 +65,7 @@ export default function Permissions({ auth, data, msj }) {
                     <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
 
                 </DataTable>
-            </div>
+       
 
             {/* modal delete User */}
 
