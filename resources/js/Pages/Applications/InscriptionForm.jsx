@@ -12,121 +12,6 @@ import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHist
 import { Steps } from 'primereact/steps';
 import { Alert } from '@/Components/Alerts/Alert';
 
-
-const cleanData = {
-    identification_data: {
-        sector: '',
-        address_street: '',
-        birth_date: '',
-        birth_day_place: '',
-        fLast_name: '',
-        first_name: '',
-        id_card: '',
-        level: null,
-        number: '',
-        reference: '',
-        sLast_name: '',
-        second_ame: ''
-    },
-    mother_data: {
-        birth_date: "",
-        email: "",
-        fLast_name: "",
-        first_name: "",
-        instruction_level: "",
-        marital_status: "",
-        number: "",
-        profession: "",
-        sLast_name: "",
-        second_name: "",
-        work_place: "",
-        incomes: 0
-    },
-    father_data: {
-        birth_date: "",
-        email: "",
-        fLast_name: "",
-        first_name: "",
-        instruction_level: "",
-        marital_status: "",
-        number: "",
-        profession: "",
-        sLast_name: "",
-        second_name: "",
-        work_place: "",
-        incomes: 0
-    },
-    tutor_data: {
-        birth_date: "",
-        email: "",
-        fLast_name: "",
-        first_name: "",
-        instruction_level: "",
-        marital_status: "",
-        number: "",
-        profession: "",
-        sLast_name: "",
-        second_name: "",
-        work_place: "",
-        incomes: 0
-    },
-    socioeconomic_data: {
-        student_partners: [],
-        siblings: [{ age: '', name: '', studying: false }]
-    },
-    financial_references: {
-        father_incomes: "",
-        living_description: "",
-        mother_incomes: "",
-        other_incomes: "",
-        structural_integrity: "",
-        total_outcomes: ""
-    },
-    academic_data: {
-        achievements: "",
-        difficult_subjects: "",
-        entry_date: "",
-        extracurriculars: "",
-        participation: "",
-        preferred_subjects: "",
-        previous_institution: "",
-        repeated_years: "",
-    },
-    medical_data: {
-        allergies: "",
-        allergies_details: "",
-        attending_physician: "",
-        disability_details: "",
-        medical_condition_details: "",
-        medical_facility: "",
-        medical_facility_details: "",
-        medications: "",
-        specific_medical_condition: "",
-        student_disability: "",
-    },
-    medical_history: {
-        accidents_during_pregnancy: "",
-        birth_height: "",
-        birth_type: "",
-        birth_weight: "",
-        bottle_usage_age: "",
-        breastfeeding_period: "",
-        family_medical_history: "",
-        first_wordsAge: "",
-        habits_and_activities: "",
-        medications_during_pregnancy: "",
-        mother_age: "",
-        observations: "",
-        other_difficulties_during_pregnancy: "",
-        student_father_relationship: "",
-        student_mother_relationship: "",
-        student_others_relationship: "",
-        student_siblings_relationship: "",
-        toilet_training_age: "",
-        walking_age: "",
-    }
-}
-
 const items = [
     {
         label: 'Personal Info'
@@ -139,7 +24,123 @@ const items = [
     }
 ];
 
-const InscriptionForm = ({msj }) => {
+const InscriptionForm = ({msj, contact }) => {
+
+    const cleanData = {
+        identification_data: {
+            sector: '',
+            address_street: contact?.address,
+            birth_date: '',
+            birth_day_place: '',
+            fLast_name: contact?.fLast_name,
+            first_name: contact?.first_name,
+            id_card: contact?.id_card,
+            level: contact?.level,
+            number: contact?.number,
+            reference: '',
+            sLast_name: contact?.sLast_name,
+            second_name: contact?.second_name
+        },
+        mother_data: {
+            birth_date: "",
+            email: "",
+            fLast_name: contact?.sLast_name,
+            first_name: contact?.mother_names.split(" ")[0],
+            instruction_level: "",
+            marital_status: "",
+            number: contact?.mother_phone,
+            profession: contact?.mother_occupation,
+            sLast_name: "",
+            second_name: "",
+            work_place: "",
+            incomes: 0
+        },
+        father_data: {
+            birth_date: "",
+            email: "",
+            fLast_name: contact?.fLast_name,
+            first_name: contact?.father_names.split(" ")[0],
+            instruction_level: "",
+            marital_status: "",
+            number: contact?.father_phone,
+            profession: contact?.father_occupation,
+            sLast_name: "",
+            second_name: "",
+            work_place: "",
+            incomes: 0
+        },
+        tutor_data: {
+            birth_date: "",
+            email: "",
+            fLast_name: "",
+            first_name: "",
+            instruction_level: "",
+            marital_status: "",
+            number: "",
+            profession: "",
+            sLast_name: "",
+            second_name: "",
+            work_place: "",
+            incomes: 0
+        },
+        socioeconomic_data: {
+            student_partners: [],
+            siblings: [{ age: '', name: '', studying: false }]
+        },
+        financial_references: {
+            father_incomes: "",
+            living_description: "",
+            mother_incomes: "",
+            other_incomes: "",
+            structural_integrity: "",
+            total_outcomes: ""
+        },
+        academic_data: {
+            achievements: "",
+            difficult_subjects: "",
+            entry_date: "",
+            extracurriculars: "",
+            participation: "",
+            preferred_subjects: "",
+            previous_institution: contact?.last_institution,
+            repeated_years: "",
+        },
+        medical_data: {
+            allergies: "",
+            allergies_details: "",
+            attending_physician: "",
+            disability_details: "",
+            medical_condition_details: "",
+            medical_facility: "",
+            medical_facility_details: "",
+            medications: "",
+            specific_medical_condition: "",
+            student_disability: "",
+        },
+        medical_history: {
+            accidents_during_pregnancy: "",
+            birth_height: "",
+            birth_type: "",
+            birth_weight: "",
+            bottle_usage_age: "",
+            breastfeeding_period: "",
+            family_medical_history: "",
+            first_wordsAge: "",
+            habits_and_activities: "",
+            medications_during_pregnancy: "",
+            mother_age: "",
+            observations: "",
+            other_difficulties_during_pregnancy: "",
+            student_father_relationship: "",
+            student_mother_relationship: "",
+            student_others_relationship: "",
+            student_siblings_relationship: "",
+            toilet_training_age: "",
+            walking_age: "",
+        }
+    }
+
+  
     const scroll = document.getElementById('scroll');
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
     const [step, setStep] = useState(0);
@@ -152,7 +153,7 @@ const InscriptionForm = ({msj }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(data);
-        post(route('inscriptions.create')); 
+        post(route('inscription.create')); 
 
     }
 

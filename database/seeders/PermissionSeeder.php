@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Permission;
+use Grupos;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -33,7 +34,23 @@ class PermissionSeeder extends Seeder
            ['Crear Roles','role.store', 'Crear roles','green-500','green-500'],
            ['Actualizar Roles','role.update', 'Actualizar roles','green-500','orange-500'],
            ['Eliminar Roles','role.delete', 'Eliminar roles','green-500','red-500'],
-          
+
+            ['Ver Contactos','contact', 'Ver solicitudes de contacto','red-500','blue-500'],
+            ['Crear Contacto','contact.store', 'Crear solicitudes de contacto','red-500','green-500'],
+            ['Actualizar Contacto','contact.update', 'Actualizar solicitudes de contacto','red-500','orange-500'],
+            ['Eliminar Contacto','contact.delete', 'Eliminar solicitudes de contacto','red-500','red-500'],
+
+            ['Ver Grupos','groups', 'Ver listado de grupos','purple-500','blue-500'],
+            ['Crear Grupos','groups.store', 'Crear grupos','purple-500','green-500'],
+            ['Actualizar Grupos','groups.update', 'Actualizar grupos','purple-500','orange-500'],
+            ['Eliminar Grupos','groups.delete', 'Eliminar grupos','purple-500','red-500'],
+
+            ['Ver Niveles','levels', 'Ver listado de niveles','indigo-500','blue-500'],
+            ['Crear Niveles','levels.store', 'Crear niveles','indigo-500','green-500'],
+            ['Actualizar Niveles','levels.update', 'Actualizar niveles','indigo-500','orange-500'],
+            ['Eliminar Niveles','levels.delete', 'Eliminar niveles','indigo-500','red-500'],
+
+           
        ];
 
       
