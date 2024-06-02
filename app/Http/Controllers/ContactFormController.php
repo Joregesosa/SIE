@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Level;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -15,15 +16,15 @@ class ContactFormController extends Controller
 {
     public function create()
     {
-        return Inertia::render('Applications/ContactForm');
+        return Inertia::render('Applications/ContactForm')->with('levels', Level::all());
     }
 
     public function store(Request $request)
     {
-        try{ 
+        try {
             Request()->merge(['key' =>  bin2hex(random_bytes(10))]);
 
-             $validator = validator($request->all(), [
+            $validator = validator($request->all(), [
                 'email' => 'required|email',
                 'level' => 'required',
                 'id_card' => 'required|unique:contacts',
@@ -33,23 +34,21 @@ class ContactFormController extends Controller
                 'level.required' => 'Es nesesario proporcionar el nivel que desea aplicar',
                 'id_card.required' => 'Es nesesario proporcionar el numero de cedula',
                 'id_card.unique' => 'Ya existe un registro con el mismo numero de cedula',
-            ]   );
+            ]);
 
 
             if ($validator->fails()) {
                 return  back()->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
             }
 
-            Contact::create($request->all());   
+            Contact::create($request->all());
             return redirect()->route('contact.create')->with('msj', ['success' => "El Formulario fue enviado satisfactoriamente"], 200);
-
-
-        }  catch (QueryException $e) {
+        } catch (QueryException $e) {
             // Manejar los errores de SQL
             $errorCode = $e->errorInfo[1];
 
             $errorMessage = $e->getMessage();
-            
+
             // Buscar el nombre del campo en el mensaje de error
             preg_match("/'([^']+)'/", $errorMessage, $matches);
             $errorField = Arr::get($matches, 1, 'campo desconocido');
@@ -58,25 +57,27 @@ class ContactFormController extends Controller
             $errorMessage = match ($errorCode) {
                 1048 => 'Por favor, complete todos los campos obligatorios.',
                 1062 => 'Ya existe un registro con los mismos valores únicos.',
-                // Agrega más casos según sea necesario...
+                    // Agrega más casos según sea necesario...
                 default => 'Ha ocurrido un error al procesar su solicitud.',
             };
 
-            $errorMessage = $errorMessage." Error en el campo '{$errorField}': "  ;
+            $errorMessage = $errorMessage . " Error en el campo '{$errorField}': ";
 
             // Redireccionar con el mensaje de error personalizado
-            return back()->with('msj', ['error' => $errorMessage] );
+            return back()->with('msj', ['error' => $errorMessage]);
         }
     }
 
-    public function index(){ 
-        return Inertia::render('ContactsRequest',[
-            'data' => Contact::all()
+    public function index()
+    {
+        return Inertia::render('ContactsRequest', [
+            'data' => Contact::all(),
+            'levels' => Level::all()
         ]);
-      
     }
 
-    public function show($id){
+    public function show($id)
+    {
         try {
             $contact = Contact::findOrFail($id);
             return Inertia::render('EditContactForm', [
@@ -138,12 +139,12 @@ class ContactFormController extends Controller
 
     public function destroy($id)
     {
-        
+
         try {
             $contact = Contact::findOrFail($id);
             $contact->status = 5;
             $contact->save();
-            
+
             session()->put('msj', ["success" => 'Solicitud eliminada con exito']);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'La solicitud no existe '], 404);

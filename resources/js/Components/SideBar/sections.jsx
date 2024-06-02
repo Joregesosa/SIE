@@ -54,7 +54,7 @@ export const sections = [
             {
                 icon: 'pi-book',
                 title: 'Postulantes',
-                url: 'contactsRequest',
+                url: 'contact',
                 permission: 'read_contactsRequest'
 
             },

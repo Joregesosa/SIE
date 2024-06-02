@@ -76,7 +76,6 @@ const contactsData = [
     }
 ]
 export default function ContactsRequest({ auth, data, msj }) {
-
     const {
         dt,
         alert,
@@ -95,47 +94,57 @@ export default function ContactsRequest({ auth, data, msj }) {
         showNewDialog,
         setShowNewDialog,
         onHideEditDialog
-    } = useTable(contactsData)
+    } = useTable(data)
 
     useEffect(() => {
-        setDataList(contactsData)
+        setDataList(data)
         setAlert(msj)
-    }, [contactsData, msj])
+    }, [data, msj])
+
+    const RenderName = (rowData) => {
+        return rowData.first_name + ' ' + rowData.fLast_name
+    }
 
     const requestStatus = (rowData) => {
-        if (rowData.status === "Pendiente") {
-            return <span className="rounded-md bg-sky-500 text-jewel-text py-1 px-2">{rowData.status}</span>
+        if (rowData.status === 2) {
+            return <span className="rounded-md bg-sky-500 text-jewel-text py-1 px-2">Pendiente</span>
         }
 
-        if (rowData.status === "Aprobada") {
-            return <span className="rounded-md bg-lime-500 text-jewel-text py-1 px-2">{rowData.status}</span>
+        if (rowData.status === 1) {
+            return <span className="rounded-md bg-lime-500 text-jewel-text py-1 px-2">Aprobada</span>
         }
 
-        if (rowData.status === "Rechazada") {
-            return <span className="rounded-md bg-red-500 text-jewel-text py-1 px-2">{rowData.status}</span>
+        if (rowData.status === 3) {
+            return <span className="rounded-md bg-red-500 text-jewel-text py-1 px-2">Rechazada</span>
         }
+    }
+
+    const getDate = (rowData) => {
+        const date = new Date(rowData.created_at)
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('es-ES', options)
     }
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Groups</h2>}
+            header="Solicitudes / Postulantes"
         >
-            <Head title="Lista de Groups" />
+            <Head title="Lista de Solicitudes" />
 
             <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
 
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='py-2 rounded-none' />
 
                 <DataTable  {...tableConfig}>
 
                     <Column field='id' header='ID' sortable className='py-2 ' />
 
-                    <Column field='name' header='Nombre' sortable className='py-2' />
+                    <Column  header='Nombre' sortable className='py-2' body={RenderName} />
 
                     <Column field='email' header='Nivel' sortable className='py-2' />
 
-                    <Column field='requestDate' header='Fecha de solicitud' sortable className='py-2' />
+                    <Column header='Fecha de solicitud' sortable className='py-2' body={getDate}/>
 
                     <Column field='responseDate' header='Fecha de respuesta' sortable className='py-2' />
 
