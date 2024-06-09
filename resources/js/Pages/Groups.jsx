@@ -55,21 +55,21 @@ export default function Groups({ auth, data, msj }) {
 
                 <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-2 ' />
+                    <Column field='id' header='ID' sortable className='py-0 ' />
 
-                    <Column field='name' header='Grupo' sortable className='py-2' />
+                    <Column field='name' header='Grupo' sortable className='py-0' />
 
-                    <Column field='level.name' header='Nivel' sortable className='py-2 truncate max-w-64' />
+                    <Column field='level.name' header='Nivel' sortable className='py-0 truncate max-w-64' />
 
-                    <Column field='max_students' header='Cupo máximo' sortable className='py-2' />
+                    <Column field='max_students' header='Cupo máximo' sortable className='py-0' />
 
-                    <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-2' />
+                    <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-0' />
 
-                    <Column field='teacher.name' header='Profesor Titular' sortable className='py-2' />
+                    <Column field='teacher.name' header='Profesor Titular' sortable className='py-0' />
 
-                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
+                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-0' />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2 min-w-36' />
+                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-0 min-w-36' />
 
                 </DataTable>
 

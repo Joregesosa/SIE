@@ -12,22 +12,19 @@ use Inertia\Inertia;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   
     public function index()
     {
         return Inertia::render('Students', [
-            'students' => Student::all()
+            'data' => Student::all()->with('person', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pregnancyType', 'pathologicalFamilyHistory','parents')->first()
         ]);
     }
 
-    
     public function show($id)
     {
         try {
             return Inertia::render('Students', [
-                'data' => Student::findOrFail($id)
+                'data' => Student::findOrFail($id)->with('person', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pregnancyType', 'pathologicalFamilyHistory','parents')->first()
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'El estudiante no existe'], 404);

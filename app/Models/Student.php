@@ -64,6 +64,41 @@ class Student extends Model
         'others_relationship',
         'customs_habits'
     ];
+ 
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
 
+    public function familyStructure()
+    {
+        return $this->belongsTo(FamilyStructure::class);
+    }
+
+    public function typeHouse()
+    {
+        return $this->belongsTo(TypeHouse::class);
+    }
+
+    public function medicalAttentionType()
+    {
+        return $this->belongsTo(MedicalAttentionType::class);
+    }
+
+    public function pregnancyType()
+    {
+        return $this->belongsTo(PregnancyType::class);
+    }
+
+    public function pathologicalFamilyHistory()
+    {
+        return $this->belongsTo(PathologicalFamilyHistory::class);
+    }
+
+    public function parents()
+    {
+        return $this->belongsToMany(Parents::class, 'student_parent', 'student_id', 'parents_id')->withPivot('parent_type_id');
+    }
+   
 
 }
