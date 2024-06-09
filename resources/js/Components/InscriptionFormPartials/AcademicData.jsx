@@ -1,6 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
+
 export const AcademicData = ({data, setData}) => {
     const handleAcademicData = (e) => {
         setData({ ...data, academic_data: { ...data.academic_data, [e.target.name]: e.target.value } })
@@ -29,7 +30,7 @@ export const AcademicData = ({data, setData}) => {
                 <InputText
                     id="previous_institution"
                     name="previous_institution"
-                    value={data?.academic_data.previous_institution}
+                    value={data?.academic_data?.previous_institution}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Previous Institution"
@@ -41,7 +42,7 @@ export const AcademicData = ({data, setData}) => {
                 <InputText
                     id="repeated_years"
                     name="repeated_years"
-                    value={data?.academic_data.repeated_years}
+                    value={data?.academic_data?.repeated_years}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Repeated Years"
@@ -53,7 +54,7 @@ export const AcademicData = ({data, setData}) => {
                 <InputText
                     id="preferred_subjects"
                     name="preferred_subjects"
-                    value={data?.academic_data.preferred_subjects}
+                    value={data?.academic_data?.preferred_subjects}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Preferred Subjects"
@@ -65,7 +66,7 @@ export const AcademicData = ({data, setData}) => {
                 <InputText
                     id="difficult_subjects"
                     name="difficult_subjects"
-                    value={data?.academic_data.difficult_subjects}
+                    value={data?.academic_data?.difficult_subjects}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Difficult Subjects"
@@ -77,7 +78,7 @@ export const AcademicData = ({data, setData}) => {
                 <InputText
                     id="achievements"
                     name="achievements"
-                    value={data?.academic_data.achievements}
+                    value={data?.academic_data?.achievements}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Achievements"
@@ -89,7 +90,7 @@ export const AcademicData = ({data, setData}) => {
                 <InputText
                     id="participation"
                     name="participation"
-                    value={data?.academic_data.participation}
+                    value={data?.academic_data?.participation}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Participation"
@@ -101,7 +102,7 @@ export const AcademicData = ({data, setData}) => {
                 <InputText
                     id="extracurriculars"
                     name="extracurriculars"
-                    value={data?.academic_data.extracurriculars}
+                    value={data?.academic_data?.extracurriculars}
                     className='rounded-md w-full'
                     onChange={handleAcademicData}
                     placeholder="Extracurriculars"

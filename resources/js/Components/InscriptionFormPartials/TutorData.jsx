@@ -30,7 +30,7 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="first_name"
                 name="first_name"
-                value={data?.tutor_data.first_name}
+                value={data?.tutor_data?.first_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleTutorData}
@@ -43,7 +43,7 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="second_name"
                 name="second_name"
-                value={data?.tutor_data.second_name}
+                value={data?.tutor_data?.second_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleTutorData}
@@ -56,7 +56,7 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="fLast_name"
                 name="fLast_name"
-                value={data?.tutor_data.fLast_name}
+                value={data?.tutor_data?.fLast_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleTutorData}
@@ -69,7 +69,7 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="sLast_name"
                 name="sLast_name"
-                value={data?.tutor_data.sLast_name}
+                value={data?.tutor_data?.sLast_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleTutorData}
@@ -82,7 +82,7 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="birth_date"
                 name="birth_date"
-                value={data?.tutor_data.birth_date}
+                value={data?.tutor_data?.birth_date}
                 type='date'
                 required
                 className='rounded-md w-full'
@@ -96,7 +96,7 @@ export const TutorData = ({ data, handleTutorData }) => (
             <Dropdown
                 id="marital_status"
                 name="marital_status"
-                value={data?.tutor_data.marital_status}
+                value={data?.tutor_data?.marital_status}
                 onChange={handleTutorData}
                 options={maritalStatusOptions}
                 optionLabel="label"
@@ -111,7 +111,7 @@ export const TutorData = ({ data, handleTutorData }) => (
             <Dropdown
                 id="instruction_level"
                 name="instruction_level"
-                value={data?.tutor_data.instruction_level}
+                value={data?.tutor_data?.instruction_level}
                 onChange={handleTutorData}
                 options={instructionLevelOptions}
                 optionLabel="label"
@@ -126,12 +126,12 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="profession"
                 name="profession"
-                value={data?.tutor_data.profession}
+                value={data?.tutor_data?.profession}
                 type='text'
                 required
                 className='rounded-md w-full'
                 onChange={handleTutorData}
-                placeholder="Ingrese la fecha de nacimiento"
+                placeholder="Ingrese la profesión/ocupación"
             />
         </label>
 
@@ -140,12 +140,12 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="work_place"
                 name="work_place"
-                value={data?.tutor_data.work_place}
+                value={data?.tutor_data?.work_place}
                 type='text'
                 required
                 className='rounded-md w-full'
                 onChange={handleTutorData}
-                placeholder="Ingrese la fecha de nacimiento"
+                placeholder="Ingrese el lugar de trabajo"
             />
         </label>
 
@@ -154,12 +154,12 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="number"
                 name="number"
-                value={data?.tutor_data.number}
+                value={data?.tutor_data?.number}
                 type='text'
                 required
                 className='rounded-md w-full'
                 onChange={handleTutorData}
-                placeholder="Ingrese la fecha de nacimiento"
+                placeholder="Ingrese el número de teléfono"
             />
         </label>
 
@@ -168,12 +168,12 @@ export const TutorData = ({ data, handleTutorData }) => (
             <InputText
                 id="email"
                 name="email"
-                value={data?.tutor_data.email}
+                value={data?.tutor_data?.email}
                 type='text'
                 required
                 className='rounded-md w-full'
                 onChange={handleTutorData}
-                placeholder="Ingrese la fecha de nacimiento"
+                placeholder="Ingrese el correo electrónico"
             />
         </label>
 

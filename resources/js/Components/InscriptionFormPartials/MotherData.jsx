@@ -30,7 +30,7 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="first_name"
                 name="first_name"
-                value={data?.mother_data.first_name}
+                value={data?.mother_data?.first_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleMotherData}
@@ -43,7 +43,7 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="second_name"
                 name="second_name"
-                value={data?.mother_data.second_name}
+                value={data?.mother_data?.second_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleMotherData}
@@ -56,7 +56,7 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="fLast_name"
                 name="fLast_name"
-                value={data?.mother_data.fLast_name}
+                value={data?.mother_data?.fLast_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleMotherData}
@@ -69,7 +69,7 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="sLast_name"
                 name="sLast_name"
-                value={data?.mother_data.sLast_name}
+                value={data?.mother_data?.sLast_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleMotherData}
@@ -82,7 +82,7 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="birth_date"
                 name="birth_date"
-                value={data?.mother_data.birth_date}
+                value={data?.mother_data?.birth_date}
                 type='date'
                 required
                 className='rounded-md w-full'
@@ -94,7 +94,7 @@ export const MotherData = ({ data, handleMotherData }) => (
         <label htmlFor="marital_status" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Estado civil <span>*</span>
             <Dropdown
-                value={data?.mother_data.marital_status}
+                value={data?.mother_data?.marital_status}
                 name="marital_status"
                 onChange={handleMotherData}
                 options={maritalStatusOptions}
@@ -108,7 +108,7 @@ export const MotherData = ({ data, handleMotherData }) => (
         <label htmlFor="instruction_level" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Nivel de Instrucción <span>*</span>
             <Dropdown
-                value={data?.mother_data.instruction_level}
+                value={data?.mother_data?.instruction_level}
                 name="instruction_level"
                 onChange={handleMotherData}
                 options={instructionLevelOptions}
@@ -124,12 +124,12 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="profession"
                 name="profession"
-                value={data?.mother_data.profession}
+                value={data?.mother_data?.profession}
                 type='text'
                 required
                 className='rounded-md w-full'
                 onChange={handleMotherData}
-                placeholder="Ingrese la fecha de nacimiento"
+                placeholder="Ingrese la profesión/ocupación"
             />
         </label>
 
@@ -138,12 +138,12 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="work_place"
                 name="work_place"
-                value={data?.mother_data.work_place}
+                value={data?.mother_data?.work_place}
                 type='text'
                 required
                 className='rounded-md w-full'
                 onChange={handleMotherData}
-                placeholder="Ingrese la fecha de nacimiento"
+                placeholder="Ingrese el lugar de trabajo"
             />
         </label>
 
@@ -152,12 +152,12 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="number"
                 name="number"
-                value={data?.mother_data.number}
+                value={data?.mother_data?.number}
                 type='text'
                 required
                 className='rounded-md w-full'
                 onChange={handleMotherData}
-                placeholder="Ingrese la fecha de nacimiento"
+                placeholder="Ingrese el número de teléfono"
             />
         </label>
 
@@ -166,12 +166,12 @@ export const MotherData = ({ data, handleMotherData }) => (
             <InputText
                 id="email"
                 name="email"
-                value={data?.mother_data.email}
+                value={data?.mother_data?.email}
                 type='text'
                 required
                 className='rounded-md w-full'
                 onChange={handleMotherData}
-                placeholder="Ingrese la fecha de nacimiento"
+                placeholder="Ingrese el correo electrónico"
             />
         </label>
 

@@ -90,7 +90,6 @@ export const FinancialReferences = ({ data, setData }) => {
                 Total de Egresos <span>*</span>
 
                 <InputText
-                
                     id="total_outcomes"
                     name="total_outcomes"
                     value={data?.financial_references?.total_outcomes}
@@ -102,11 +101,12 @@ export const FinancialReferences = ({ data, setData }) => {
                 />
             </label>
 
-            <label htmlFor="structural_integrity" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Condición de la vivienda <span>*</span>
 
                 <Dropdown
-                    value={data?.financial_references.structural_integrity}
+                id='structural_integrity'
+                    value={data?.financial_references?.structural_integrity}
                     name='structural_integrity'
                     onChange={handleFinancialReferences}
                     optionValue="id"

@@ -31,7 +31,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="first_name"
                 name="first_name"
-                value={data?.father_data.first_name}
+                value={data?.father_data?.first_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleFatherData}
@@ -44,7 +44,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="second_name"
                 name="second_name"
-                value={data?.father_data.second_name}
+                value={data?.father_data?.second_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleFatherData}
@@ -57,7 +57,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="fLast_name"
                 name="fLast_name"
-                value={data?.father_data.fLast_name}
+                value={data?.father_data?.fLast_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleFatherData}
@@ -70,7 +70,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="sLast_name"
                 name="sLast_name"
-                value={data?.father_data.sLast_name}
+                value={data?.father_data?.sLast_name}
                 required
                 className='rounded-md w-full'
                 onChange={handleFatherData}
@@ -83,7 +83,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="birth_date"
                 name="birth_date"
-                value={data?.father_data.birth_date}
+                value={data?.father_data?.birth_date}
                 type='date'
                 required
                 className='rounded-md w-full'
@@ -97,7 +97,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <Dropdown
                 id="marital_status"
                 name="marital_status"
-                value={data?.father_data.marital_status}
+                value={data?.father_data?.marital_status}
                 onChange={handleFatherData}
                 options={maritalStatusOptions}
                 optionLabel="label"
@@ -112,7 +112,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <Dropdown
                 id="instruction_level"
                 name="instruction_level"
-                value={data?.father_data.instruction_level}
+                value={data?.father_data?.instruction_level}
                 onChange={handleFatherData}
                 options={instructionLevelOptions}
                 optionLabel="label"
@@ -127,7 +127,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="profession"
                 name="profession"
-                value={data?.father_data.profession}
+                value={data?.father_data?.profession}
                 type='text'
                 required
                 className='rounded-md w-full'
@@ -141,7 +141,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="work_place"
                 name="work_place"
-                value={data?.father_data.work_place}
+                value={data?.father_data?.work_place}
                 type='text'
                 required
                 className='rounded-md w-full'
@@ -155,7 +155,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="number"
                 name="number"
-                value={data?.father_data.number}
+                value={data?.father_data?.number}
                 type='text'
                 required
                 className='rounded-md w-full'
@@ -169,7 +169,7 @@ export const FatherData = ({ data, handleFatherData }) => (
             <InputText
                 id="email"
                 name="email"
-                value={data?.father_data.email}
+                value={data?.father_data?.email}
                 type='text'
                 required
                 className='rounded-md w-full'

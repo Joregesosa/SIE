@@ -7,74 +7,9 @@ import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
-import { Edit } from '@/Components/Groups/Edit';
 
+/* import { Edit } from '@/Components/Groups/Edit'; */
 
-const contactsData = [
-    {
-        id: 1,
-        name: 'Juan',
-        email: 'juan@example.com',
-        comment: 'Hola, estoy interesado en obtener más información sobre el producto.',
-        status: "Pendiente",
-        requestDate: '2021-10-01',
-        responseDate: '',
-    },
-    {
-        id: 2,
-        name: 'María',
-        email: 'maria@example.com',
-        comment: 'Buenos días, quisiera solicitar una cotización para el servicio.',
-        status: "Aprobada",
-        requestDate: '2021-10-02',
-        responseDate: '2021-10-03',
-    },
-    {
-        id: 3,
-        name: 'Pedro',
-        email: 'pedro@example.com',
-        comment: 'Hola, necesito ayuda con un problema técnico en el sistema.',
-        status: "Pendiente",
-        requestDate: '2021-10-03',
-        responseDate: '',
-    },
-    {
-        id: 4,
-        name: 'Ana',
-        email: 'ana@example.com',
-        comment: 'Buenas tardes, quisiera agendar una reunión para discutir el proyecto.',
-        status: "Aprobada",
-        requestDate: '2021-10-04',
-        responseDate: '2021-10-05',
-    },
-    {
-        id: 5,
-        name: 'Carlos',
-        email: 'carlos@example.com',
-        comment: 'Hola, necesito información sobre los requisitos para la inscripción.',
-        status: "Pendiente",
-        requestDate: '2021-10-05',
-        responseDate: '',
-    },
-    {
-        id: 6,
-        name: 'Laura',
-        email: 'laura@example.com',
-        comment: 'Buenos días, quisiera solicitar una devolución del producto.',
-        status: "Rechazada",
-        requestDate: '2021-10-06',
-        responseDate: '2021-10-07',
-    },
-    {
-        id: 7,
-        name: 'Roberto',
-        email: 'roberto@example.com',
-        comment: 'Hola, tengo una pregunta sobre el proceso de pago.',
-        status: "Pendiente",
-        requestDate: '2021-10-07',
-        responseDate: '',
-    }
-]
 export default function ContactsRequest({ auth, data, msj }) {
     const {
         dt,
@@ -93,7 +28,8 @@ export default function ContactsRequest({ auth, data, msj }) {
         tableConfig,
         showNewDialog,
         setShowNewDialog,
-        onHideEditDialog
+        onHideEditDialog, 
+        RenderActionLinks
     } = useTable(data)
 
     useEffect(() => {
@@ -125,6 +61,10 @@ export default function ContactsRequest({ auth, data, msj }) {
         return date.toLocaleDateString('es-ES', options)
     }
 
+    const edit = (rowData) => {
+      
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -138,30 +78,30 @@ export default function ContactsRequest({ auth, data, msj }) {
 
                 <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-2 ' />
+                    <Column field='id' header='ID' sortable />
 
-                    <Column  header='Nombre' sortable className='py-2' body={RenderName} />
+                    <Column  header='Nombre' sortable body={RenderName} />
 
-                    <Column field='email' header='Nivel' sortable className='py-2' />
+                    <Column field='email' header='Nivel' sortable />
 
-                    <Column header='Fecha de solicitud' sortable className='py-2' body={getDate}/>
+                    <Column header='Fecha de solicitud' sortable body={getDate}/>
 
-                    <Column field='responseDate' header='Fecha de respuesta' sortable className='py-2' />
+                    <Column field='responseDate' header='Fecha de respuesta' sortable />
 
-                    <Column field='status' header='Estatus' sortable className='py-2' body={requestStatus} />
+                    <Column field='status' header='Estatus' sortable body={requestStatus} />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
+                    <Column header="Acciones" body={(rowData) => RenderActionLinks(rowData)} exportable={false} />
 
                 </DataTable>
 
             </div>
             {/* modal edit User */}
-            <Edit
+           {/*  <Edit
                 selectedItem={selectedItem}
                 showDialog={editItemDialog}
                 hideDialog={onHideEditDialog}
                 endpoint=''
-            />
+            /> */}
 
             <New
                 showDialog={showNewDialog}
