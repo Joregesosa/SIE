@@ -14,6 +14,7 @@ export default {
         extend: {
             backgroundImage: {
                 'inscription-form': "url('images/students2.0.jpg')",
+                'contact-form': "url('images/student.jpg')",
                 'main': "url('images/abc.jpg')",
             },
             fontFamily: {

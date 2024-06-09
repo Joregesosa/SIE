@@ -20,7 +20,12 @@ use App\Models\Contact;
 use Database\Seeders\LevelSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+/* borrar después */
+Route::get('/enrollmentRequest', function () {
+    return Inertia::render('Applications/EnrollmentRequest');
+})->middleware(['auth', 'verified'])->name('enrollmentRequest');
 
+/* ---------------------- */
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -58,7 +63,7 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
 
     Route::controller(ContactFormController::class)->group(function () {
         Route::get('/contactsRequest', 'index')->name('contact');
-        Route::get('/contacts/{id}', 'edit')->name('contact.edit');
+        Route::get('/contacts/{id}', 'show')->name('contact.show');
         Route::put('/contacts', 'update')->name('contact.update');
         Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
     });
@@ -75,7 +80,7 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
         Route::get('/students/{id}', 'edit')->name('students.edit');
         Route::put('/students', 'update')->name('students.update');
         Route::delete('/students/{id}', 'destroy')->name('students.delete');
-    });
+    }); 
 
     Route::controller(GroupController::class)->group(function () {
         Route::get('/groups', 'index')->name('groups');

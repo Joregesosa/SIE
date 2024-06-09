@@ -17,9 +17,7 @@ Route::middleware('guest')->group(function () {
                 ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']); */
-    Route::get('/contactForm', function () {
-        return Inertia::render('ContactForm');
-    })->name('users');
+
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
