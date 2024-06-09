@@ -1,10 +1,43 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { InputText } from 'primereact/inputtext';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import ContactReport from '@/Reports/ContactReport';
 
-export default function ContactVerification({ auth, data, msj }) {
+export default function ContactVerification({ auth, data: dataprop, msj }) {
+    const { data, setData, post, processing, errors, reset } = useForm(dataprop);
+    const request_no = (id) => {
+        let request_no = id.toString();
+        let length = request_no.length;
+        let zeros = 5 - length;
+        let request = '';
+        for (let i = 0; i < zeros; i++) {
+            request += '0';
+        }
+        request += request_no;
+        return request;
+    }
+    const date_format = (date) => {
+
+        let d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        let year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route('applications.update', data.id));
+    }
+    const handleChanges = (e) => {
+        const { name, value } = e.target;
+        setData(name, value);
+    }
 
     return (
         <AuthenticatedLayout
@@ -15,40 +48,41 @@ export default function ContactVerification({ auth, data, msj }) {
 
             <div aria-roledescription='logo container' className={`w-full h-fit flex justify-between max-w-screen-lg mx-auto pb-4`} >
                 <figure className='w-full flex-shrink-0  max-w-32'>
-                    <img loading='lazy' src="images/log.png" alt="company logo" className='w-full' />
+                    <img loading='lazy' src="/images/log.png" alt="company logo" className='w-full' />
                 </figure>
 
                 <div>
                     <h1 className='text-2xl font-bold print:text-xl'>UNIDAD EDUCATIVA "THOMAS RUSSELL CRAMPTON"</h1>
-                    <p className='text-right'>Avenida Atahualpa E10 - 60 y Santiago. Sector San Nicolás</p>
-                    <p className='text-right'>Teléfonos: 2361 723/2361 908 / 099 471 0524</p>
-                    <p className='text-right'>Código AMIE: 17H02185</p>
-                    <p className='text-right'>Distrito: 17D10 Cayambe - Pedro Moncayo</p>
-                    <p className='text-right'>Circuito: 17D10C03 - Zona: 2</p>
+                    <p className='text-right print:text-sm'>Avenida Atahualpa E10 - 60 y Santiago. Sector San Nicolás</p>
+                    <p className='text-right print:text-sm'>Teléfonos: 2361 723/2361 908 / 099 471 0524</p>
+                    <p className='text-right print:text-sm'>Código AMIE: 17H02185</p>
+                    <p className='text-right print:text-sm'>Distrito: 17D10 Cayambe - Pedro Moncayo</p>
+                    <p className='text-right print:text-sm'>Circuito: 17D10C03 - Zona: 2</p>
                 </div>
 
             </div>
 
             <div className=' rounded-b-md grid grid-cols-12  gap-x-4 max-w-screen-lg mx-auto' role='print'>
                 <h2 className='col-span-12 py-2 font-bold'>Solicitud de contacto</h2>
-                <label htmlFor="second_Name" className="font-bold text-xs col-span-3">
-                    Fecha de solicitud:
-                    <InputText
-                        id="second_name"
-                        value={data?.second_name}
-                        readOnly
-                        className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent' />
-                </label>
-                <label htmlFor="firstName" className="font-bold text-xs col-start-10 col-end-13 ">
+                <label htmlFor="request_no" className="font-bold text-xs col-span-3">
                     No Solicitud:
                     <InputText
-                        id="date"
-                        type="date"
-                        value={data?.created_at}
+                        id="request_no"
+                        type='text'
+                        value={request_no(data?.id)}
                         readOnly
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent' />
                 </label>
-                <label htmlFor="firstName" className="font-bold text-xs col-span-3">
+                <label htmlFor="request_date" className="font-bold text-xs col-start-10 col-end-13 ">
+                    Fecha de solicitud:
+                    <InputText
+                        id="request_date"
+                        type="date"
+                        value={date_format(data?.created_at)}
+                        readOnly
+                        className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent' />
+                </label>
+                <label htmlFor="first_name" className="font-bold text-xs col-span-3">
                     Primer nombre
                     <InputText
                         id="first_name"
@@ -57,7 +91,7 @@ export default function ContactVerification({ auth, data, msj }) {
                         readOnly
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent' />
                 </label>
-                <label htmlFor="second_Name" className="font-bold text-xs col-span-3">
+                <label htmlFor="second_name" className="font-bold text-xs col-span-3">
                     Segundo nombre
                     <InputText
                         id="second_name"
@@ -65,7 +99,7 @@ export default function ContactVerification({ auth, data, msj }) {
                         readOnly
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent' />
                 </label>
-                <label htmlFor="firstName" className="font-bold text-xs col-span-3">
+                <label htmlFor="fLast_name" className="font-bold text-xs col-span-3">
                     Primer Apellido
                     <InputText
                         id="fLast_name"
@@ -73,7 +107,7 @@ export default function ContactVerification({ auth, data, msj }) {
                         readOnly
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent' />
                 </label>
-                <label htmlFor="firstName" className="font-bold text-xs col-span-3">
+                <label htmlFor="sLast_name" className="font-bold text-xs col-span-3">
                     Segundo Apellido
                     <InputText
                         id="sLast_name"
@@ -88,7 +122,7 @@ export default function ContactVerification({ auth, data, msj }) {
                         type='text'
                         pattern='[0-9]{10}'
                         value={data?.id_card}
-                        required
+                        readOnly
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -100,7 +134,7 @@ export default function ContactVerification({ auth, data, msj }) {
                         type='number'
                         max={100}
                         value={data?.age}
-                        required
+                        readOnly
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -111,17 +145,17 @@ export default function ContactVerification({ auth, data, msj }) {
                         type='tel'
                         pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                         value={data?.number}
-                        required
+                        readOnly
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
                 <label htmlFor="email" className="font-bold text-xs col-span-5">
                     Correo electrónico
                     <InputText
-                        id="number"
+                        id="email"
                         type='email'
                         value={data?.email}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -130,7 +164,7 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="last_institution"
                         value={data?.last_institution}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -139,7 +173,7 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="behavior_qualification"
                         value={data?.behavior_qualification}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -148,7 +182,7 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="address"
                         value={data?.address}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -157,7 +191,7 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="level"
                         value={data?.level}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -166,7 +200,7 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="father_names"
                         value={data?.father_names}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -175,8 +209,9 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="father_phone"
                         type='tel'
+                        pattern='[0-9]{3}-[0-9]{2}-[0-9]{3}'
                         value={data?.father_phone}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -185,7 +220,7 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="father_occupation"
                         value={data?.father_occupation}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -194,7 +229,7 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="mother_names"
                         value={data?.mother_names}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -204,7 +239,7 @@ export default function ContactVerification({ auth, data, msj }) {
                         id="mother_phone"
                         type='tel'
                         value={data?.mother_phone}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
@@ -213,12 +248,12 @@ export default function ContactVerification({ auth, data, msj }) {
                     <InputText
                         id="mother_occupation"
                         value={data?.mother_occupation}
-                        required
+                        readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
 
-                <form className="col-span-12 mt-4">
+                <form className="col-span-12 mt-4" onSubmit={handleSubmit}>
                     <fieldset className='grid grid-cols-12'>
                         <fieldset className='font-semibold mb-2 col-span-12 gap-4'>Actualizar status de solicitud</fieldset>
 
@@ -227,6 +262,7 @@ export default function ContactVerification({ auth, data, msj }) {
                             <textarea
                                 id="comment"
                                 value={data?.comment}
+                                onChange={handleChanges}
                                 className="rounded-md w-full bg-transparent resize-none h-32"
                             />
                         </label>
@@ -238,6 +274,7 @@ export default function ContactVerification({ auth, data, msj }) {
                                 type="number"
                                 pattern='[0-9]{1,10}'
                                 value={data?.payment}
+                                onChange={handleChanges}
                                 className="rounded-md w-full bg-transparent"
                             />
                         </label>
@@ -246,6 +283,7 @@ export default function ContactVerification({ auth, data, msj }) {
                             <input
                                 id="payment_date"
                                 type="date"
+                                onChange={handleChanges}
                                 value={data?.payment_date}
                                 className="rounded-md w-full bg-transparent"
                             />
@@ -256,6 +294,7 @@ export default function ContactVerification({ auth, data, msj }) {
                                 id="payment_receipt"
                                 type="text"
                                 value={data?.payment_receipt}
+                                onChange={handleChanges}
                                 className="rounded-md w-full bg-transparent"
                             />
                         </label>
@@ -264,6 +303,7 @@ export default function ContactVerification({ auth, data, msj }) {
                             <select
                                 id="status"
                                 value={data?.status}
+                                onChange={handleChanges}
                                 className="rounded-md w-full bg-transparent"
                             >
                                 <option value="pending">Pendiente</option>
@@ -275,7 +315,7 @@ export default function ContactVerification({ auth, data, msj }) {
 
                     </fieldset>
                     <div className=" py-4 flex justify-end print:hidden">
-                        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
+                        <button disabled={processing} type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
                             Actualizar
                         </button>
                     </div>

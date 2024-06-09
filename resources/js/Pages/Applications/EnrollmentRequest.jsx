@@ -76,7 +76,7 @@ const contactsData = [
     }
 ]
 export default function EnrollmentRequest({ auth, data, msj }) {
-
+    console.log(data)
     const {
         dt,
         alert,

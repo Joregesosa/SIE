@@ -24,17 +24,21 @@ class ContactFormController extends Controller
         try {
             Request()->merge(['key' =>  bin2hex(random_bytes(10))]);
 
-            $validator = validator($request->all(), [
-                'email' => 'required|email',
-                'level' => 'required',
-                'id_card' => 'required|unique:contacts',
-            ], [
-                'email.required' => 'Es nesesario proporcionar un correo electronico',
-                'email.email' => 'El correo proporcionado no es valido',
-                'level.required' => 'Es nesesario proporcionar el nivel que desea aplicar',
-                'id_card.required' => 'Es nesesario proporcionar el numero de cedula',
-                'id_card.unique' => 'Ya existe un registro con el mismo numero de cedula',
-            ]);
+            $validator = validator(
+                $request->all(),
+                [
+                    'email' => 'required|email',
+                    'level' => 'required',
+                    'id_card' => 'required|unique:contacts',
+                ],
+                [
+                    'email.required' => 'Es necesario proporcionar un correo electrónico',
+                    'email.email' => 'El correo proporcionado no es valido',
+                    'level.required' => 'Es necesario proporcionar el nivel que desea aplicar',
+                    'id_card.required' => 'Es necesario proporcionar el numero de cédula',
+                    'id_card.unique' => 'Ya existe un registro con el mismo numero de cédula',
+                ]
+            );
 
 
             if ($validator->fails()) {
@@ -80,13 +84,13 @@ class ContactFormController extends Controller
     {
         try {
             $contact = Contact::findOrFail($id);
-            return Inertia::render('EditContactForm', [
-                'contact' => $contact
+            return Inertia::render('Applications/ContactVerification', [
+                'data' => $contact
             ]);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'La solicitud no existe '], 404);
+            return response()->json(['error' => 'La solicitud no existe ' + $e->getMessage()], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error en la acción realizada'], 500);
+            return response()->json(['error' => 'Error en la acción realizada' + $e->getMessage()], 500);
         }
     }
 

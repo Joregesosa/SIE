@@ -37,9 +37,10 @@ class PermissionSeeder extends Seeder
 
             ['Ver Contactos', 'contact', 'Ver solicitudes de contacto', 'red-500', 'blue-500'],
             ['Crear Contacto', 'contact.store', 'Crear solicitudes de contacto', 'red-500', 'green-500'],
+            ['Ver Contacto', 'contact.show', 'Ver solicitudes de contacto', 'red-500', 'blue-500'],
             ['Actualizar Contacto', 'contact.update', 'Actualizar solicitudes de contacto', 'red-500', 'orange-500'],
             ['Eliminar Contacto', 'contact.delete', 'Eliminar solicitudes de contacto', 'red-500', 'red-500'],
-
+            
             ['Ver Grupos', 'groups', 'Ver listado de grupos', 'purple-500', 'blue-500'],
             ['Crear Grupos', 'groups.store', 'Crear grupos', 'purple-500', 'green-500'],
             ['Actualizar Grupos', 'groups.update', 'Actualizar grupos', 'purple-500', 'orange-500'],
