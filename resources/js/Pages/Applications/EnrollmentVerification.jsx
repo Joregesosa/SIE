@@ -1,9 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Head, useForm } from '@inertiajs/react';
-import { InputText } from 'primereact/inputtext';
-import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import ContactReport from '@/Reports/ContactReport';
 import { AcademicData } from '@/Components/InscriptionFormPartials/AcademicData';
 import { FatherData } from '@/Components/InscriptionFormPartials/FatherData';
 import { MotherData } from '@/Components/InscriptionFormPartials/MotherData';
@@ -12,43 +9,24 @@ import { SocioeconomicData } from '@/Components/InscriptionFormPartials/Socioeco
 import { FinancialReferences } from '@/Components/InscriptionFormPartials/FinancialReferences';
 import { MedicalData } from '@/Components/InscriptionFormPartials/MedicalData';
 import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHistory';
+import { ThemeContext } from '@/Context/ThemeProvider';
+import { useContext } from 'react';
+import { IdentificationData } from '@/Components/InscriptionFormPartials/IdentificationData';
 
 
 export default function EnrollmentVerification({ auth, data: dataprop, msj }) {
     const { data, setData, post, processing, errors, reset } = useForm(dataprop);
-    const request_no = (id) => {
-        let request_no = id.toString();
-        let length = request_no.length;
-        let zeros = 5 - length;
-        let request = '';
-        for (let i = 0; i < zeros; i++) {
-            request += '0';
-        }
-        request += request_no;
-        return request;
-    }
-    const date_format = (date) => {
+    const { theme } = useContext(ThemeContext)
 
-        let d = new Date(date);
-        let month = '' + (d.getMonth() + 1);
-        let day = '' + d.getDate();
-        let year = d.getFullYear();
-
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        return [year, month, day].join('-');
-
-    }
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route('applications.update', data.id));
     }
-    const handleChanges = (e) => {
-        const { name, value } = e.target;
-        setData(name, value);
-    }
 
+    const pt = {
+        headerAction: { className: `bg-${theme}-secondary text-${theme}-text` },
+    }
+    
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -56,38 +34,38 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj }) {
         >
             <Head title="Procesar Matricula" />
 
-            <div className=' rounded-b-md gap-x-4 max-w-screen-lg mx-auto' role='print'>
-                <Accordion>
-                    <AccordionTab header="Datos del Estudiante">
-                        <AcademicData data={data} setData={setData} />
+            <form className='max-w-screen-lg py-8 mx-auto' onSubmit={handleSubmit}>
+                <Accordion activeIndex={0}>
+                    <AccordionTab pt={pt} header="Datos del estudiante">
+                        <IdentificationData data={data} setData={setData} />
                     </AccordionTab>
-                    <AccordionTab header="Datos del Padre">
-                        <FatherData data={data} setData={setData} handleFatherData={() => console.log('object')} />
+                    <AccordionTab pt={pt} header="Datos del Padre">
+                        <FatherData data={data} setData={setData} />
                     </AccordionTab>
-                    <AccordionTab header="Datos de la Madre">
-                        <MotherData data={data} setData={setData}    />
+                    <AccordionTab pt={pt} header="Datos de la Madre">
+                        <MotherData data={data} setData={setData} />
                     </AccordionTab>
-                    <AccordionTab header="Datos del Representante">
-                        <TutorData data={data} setData={setData} handleTutorData={() => console.log('object')} />
+                    <AccordionTab pt={pt} header="Datos del representante legal">
+                        <TutorData data={data} setData={setData} />
                     </AccordionTab>
-                    <AccordionTab header="Datos socioeconómicos">
+                    <AccordionTab pt={pt} header="Datos socioeconómicos">
                         <SocioeconomicData data={data} setData={setData} />
                     </AccordionTab>
-                    <AccordionTab header="Datos socioeconómicos">
+                    <AccordionTab pt={pt} header="Referencias socioeconómicos">
                         <FinancialReferences data={data} setData={setData} />
                     </AccordionTab>
-                    <AccordionTab header="Datos académicos">
+                    <AccordionTab pt={pt} header="Datos académicos">
                         <AcademicData data={data} setData={setData} />
                     </AccordionTab>
-                    <AccordionTab header="Datos medicos">
+                    <AccordionTab pt={pt} header="Datos medicos">
                         <MedicalData data={data} setData={setData} />
                     </AccordionTab>
-                    <AccordionTab header="Historia vital">
+                    <AccordionTab pt={pt} header="Historia vital">
                         <MedicalHistory data={data} setData={setData} />
                     </AccordionTab>
                 </Accordion>
 
-            </div>
+            </form>
 
         </AuthenticatedLayout>
     );

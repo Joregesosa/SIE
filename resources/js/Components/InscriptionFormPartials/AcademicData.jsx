@@ -19,7 +19,7 @@ export const AcademicData = ({data, setData}) => {
                     value={data?.academic_data?.entry_date}
                     type='date'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Entry Date"
                 />
@@ -31,7 +31,7 @@ export const AcademicData = ({data, setData}) => {
                     id="previous_institution"
                     name="previous_institution"
                     value={data?.academic_data?.previous_institution}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Previous Institution"
                 />
@@ -43,7 +43,7 @@ export const AcademicData = ({data, setData}) => {
                     id="repeated_years"
                     name="repeated_years"
                     value={data?.academic_data?.repeated_years}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Repeated Years"
                 />
@@ -55,7 +55,7 @@ export const AcademicData = ({data, setData}) => {
                     id="preferred_subjects"
                     name="preferred_subjects"
                     value={data?.academic_data?.preferred_subjects}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Preferred Subjects"
                 />
@@ -67,7 +67,7 @@ export const AcademicData = ({data, setData}) => {
                     id="difficult_subjects"
                     name="difficult_subjects"
                     value={data?.academic_data?.difficult_subjects}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Difficult Subjects"
                 />
@@ -79,7 +79,7 @@ export const AcademicData = ({data, setData}) => {
                     id="achievements"
                     name="achievements"
                     value={data?.academic_data?.achievements}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Achievements"
                 />
@@ -91,7 +91,7 @@ export const AcademicData = ({data, setData}) => {
                     id="participation"
                     name="participation"
                     value={data?.academic_data?.participation}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Participation"
                 />
@@ -103,7 +103,7 @@ export const AcademicData = ({data, setData}) => {
                     id="extracurriculars"
                     name="extracurriculars"
                     value={data?.academic_data?.extracurriculars}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Extracurriculars"
                 />

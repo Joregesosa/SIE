@@ -32,7 +32,7 @@ export const FinancialReferences = ({ data, setData }) => {
                     value={data?.father_data?.incomes}
                     type='number'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                    /*  onChange={handleFinancialReferences} */
                     onChange={(e) => setData({
                         ...data,
@@ -53,7 +53,7 @@ export const FinancialReferences = ({ data, setData }) => {
                     value={data?.mother_data?.incomes}
                     type='number'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     /* onChange={handleFinancialReferences} */
                     onChange={(e) => setData({
                         ...data,
@@ -74,7 +74,7 @@ export const FinancialReferences = ({ data, setData }) => {
                     value={data?.tutor_data?.incomes}
                     type='number'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                    /*  onChange={handleFinancialReferences} */
                    onChange={(e) => setData({
                     ...data,
@@ -95,7 +95,7 @@ export const FinancialReferences = ({ data, setData }) => {
                     value={data?.financial_references?.total_outcomes}
                     type='number'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleFinancialReferences}
                     placeholder="Total de Egresos"
                 />
@@ -124,7 +124,7 @@ export const FinancialReferences = ({ data, setData }) => {
                     value={data?.financial_references?.living_description}
                     type='text'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleFinancialReferences}
                     placeholder="Descripción de la vivienda"
                 />

@@ -19,7 +19,7 @@ export const MedicalData = ({ data, setData }) => {
                 <select
                     id="student_disability"
                     name="student_disability"
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     value={data?.medical_data?.student_disability}
                     defaultValue="0"
@@ -36,7 +36,7 @@ export const MedicalData = ({ data, setData }) => {
                     id="disability_details"
                     name="disability_details"
                     value={data?.medical_data?.student_disability === '0' ? "" : data?.medical_data?.disability_details}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de la discapacidad"
                 />
@@ -47,7 +47,7 @@ export const MedicalData = ({ data, setData }) => {
                 <select
                     id="specific_medical_condition"
                     name="specific_medical_condition"
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     value={data?.medical_data?.specific_medical_condition}
                     defaultValue="0"
@@ -64,7 +64,7 @@ export const MedicalData = ({ data, setData }) => {
                     id="medical_condition_details"
                     name="medical_condition_details"
                     value={data?.medical_data?.specific_medical_condition === '0' ? "" : data?.medical_data?.medical_condition_details}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de la condición médica"
                 />
@@ -75,7 +75,7 @@ export const MedicalData = ({ data, setData }) => {
                 <select
                     id="allergies"
                     name="allergies"
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     value={data?.medical_data?.allergies}
                     defaultValue="0"
@@ -92,7 +92,7 @@ export const MedicalData = ({ data, setData }) => {
                     id="allergies_details"
                     name="allergies_details"
                     value={data?.medical_data?.allergies === '0' ? "" :   data?.medical_data?.allergies_detailsa}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de las alergias"
                 />
@@ -104,7 +104,7 @@ export const MedicalData = ({ data, setData }) => {
                     id="medications"
                     name="medications"
                     value={data?.medical_data?.medications}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Medicamentos"
                 />
@@ -115,7 +115,7 @@ export const MedicalData = ({ data, setData }) => {
                 <select
                     id="medical_facility"
                     name="medical_facility"
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     value={data?.medical_data?.medical_facility}
 
@@ -134,7 +134,7 @@ export const MedicalData = ({ data, setData }) => {
                     id="medical_facility_details"
                     name="medical_facility_details"
                     value={data?.medical_data?.medical_facility_details}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de la institución médica"
                 />
@@ -146,7 +146,7 @@ export const MedicalData = ({ data, setData }) => {
                     id="attending_physician"
                     name="attending_physician"
                     value={data?.medical_data?.attending_physician}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Médico tratante"
                 />

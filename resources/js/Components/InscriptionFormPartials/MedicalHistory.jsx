@@ -19,7 +19,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="mother_age"
                     name="mother_age"
                     value={data?.medical_history?.mother_age}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Edad de la madre durante el embarazo"
                 />
@@ -31,7 +31,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="accidents_during_pregnancy"
                     name="accidents_during_pregnancy"
                     value={data?.medical_history?.accidents_during_pregnancy}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Accidentes durante el embarazo"
                 />
@@ -43,7 +43,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="medications_during_pregnancy"
                     name="medications_during_pregnancy"
                     value={data?.medical_history?.medications_during_pregnancy}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Medicamentos durante el embarazo"
                 />
@@ -55,7 +55,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="birth_type"
                     name="birth_type"
                     value={data?.medical_history?.birth_type}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Tipo de parto"
                 />
@@ -67,7 +67,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="other_difficulties_during_pregnancy"
                     name="other_difficulties_during_pregnancy"
                     value={data?.medical_history?.other_difficulties_during_pregnancy}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Especifique otras dificultades durante el embarazo"
                 />
@@ -79,7 +79,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="birth_weight"
                     name="birth_weight"
                     value={data?.medical_history?.birth_weight}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Peso al nacer"
                 />
@@ -91,7 +91,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="birth_height"
                     name="birth_height"
                     value={data?.medical_history?.birth_height}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Altura al nacer"
                 />
@@ -103,7 +103,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="walking_age"
                     name="walking_age"
                     value={data?.medical_history?.walking_age}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Edad cuando comenzó a caminar"
                 />
@@ -115,7 +115,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="first_wordsAge"
                     name="first_wordsAge"
                     value={data?.medical_history?.first_wordsAge}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Edad cuando pronunció las primeras palabras"
                 />
@@ -127,7 +127,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="breastfeeding_period"
                     name="breastfeeding_period"
                     value={data?.medical_history?.breastfeeding_period}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Período de lactancia"
                 />
@@ -139,7 +139,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="bottle_usage_age"
                     name="bottle_usage_age"
                     value={data?.medical_history?.bottle_usage_age}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Edad hasta el uso del biberón"
                 />
@@ -151,7 +151,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="toilet_training_age"
                     name="toilet_training_age"
                     value={data?.medical_history?.toilet_training_age}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Edad cuando aprendió el entrenamiento para ir al baño"
                 />
@@ -163,7 +163,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="observations"
                     name="observations"
                     value={data?.medical_history?.observations}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Observaciones"
                 />
@@ -175,7 +175,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="family_medical_history"
                     name="family_medical_history"
                     value={data?.medical_history?.family_medical_history}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Antecedentes médicos familiares"
                 />
@@ -187,7 +187,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="student_father_relationship"
                     name="student_father_relationship"
                     value={data?.medical_history?.student_father_relationship}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con el padre?"
                 />
@@ -199,7 +199,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="student_mother_relationship"
                     name="student_mother_relationship"
                     value={data?.medical_history?.student_mother_relationship}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con la madre?"
                 />
@@ -211,7 +211,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="student_siblings_relationship"
                     name="student_siblings_relationship"
                     value={data?.medical_history?.student_siblings_relationship}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con los hermanos?"
                 />
@@ -223,7 +223,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="student_others_relationship"
                     name="student_others_relationship"
                     value={data?.medical_history?.student_others_relationship}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con otras personas?"
                 />
@@ -235,7 +235,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     id="habits_and_activities"
                     name="habits_and_activities"
                     value={data?.medical_history?.habits_and_activities}
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Hábitos y actividades"
                 />

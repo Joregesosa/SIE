@@ -12,18 +12,7 @@ import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHist
 import { Steps } from 'primereact/steps';
 import { Alert } from '@/Components/Alerts/Alert';
 
-const items = [
-    {
-        label: 'Personal Info'
-    },
-    {
-        label: 'Reservation'
-    },
-    {
-        label: 'Review'
-    }
-];
-
+ 
 const InscriptionForm = ({msj, contact }) => {
 
     const cleanData = {
@@ -158,20 +147,13 @@ const InscriptionForm = ({msj, contact }) => {
     }
 
     
-    const handleMotherData = (e) => {
-        setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
-    }
-    const handleFatherData = (e) => {
-        setData({ ...data, father_data: { ...data.father_data, [e.target.name]: e.target.value } })
-    }
-    const handleTutorData = (e) => {
-        setData({ ...data, tutor_data: { ...data.tutor_data, [e.target.name]: e.target.value } })
-    }
+   
+    
     const forms = [
         <IdentificationData data={data} setData={setData} />,
-        <MotherData data={data} handleMotherData={handleMotherData} />,
-        <FatherData data={data} handleFatherData={handleFatherData} />,
-        <TutorData data={data} handleTutorData={handleTutorData} />,
+        <MotherData data={data} setData={setData} />,
+        <FatherData data={data} setData={setData} />,
+        <TutorData data={data} setData={setData} />,
         <SocioeconomicData data={data} setData={setData} />,
         <FinancialReferences data={data} setData={setData} />,
         <AcademicData data={data} setData={setData} />,

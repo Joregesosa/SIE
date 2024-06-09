@@ -24,24 +24,21 @@ const courseLevels = [
 export const IdentificationData = ({ data, setData }) => {
 
     const handleIdentificationData = (e) => {
-       
-         //const value = e.target.value.id ? e.target.value.id : e.target.value;
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
     useEffect(() => {
         console.log(data.identification_data)
-    }   , [data.identification_data])
+    }, [data.identification_data])
 
     return (
         <MainFormFieldset legend="DATOS DE IDENTIFICACIÓN/INFORMACIÓN ESTUDIANTE">
 
-            <label htmlFor="level" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Año Educativo al que ingresa el alumno Educación General Básica (EGB),o Bachillerato General Unificado (BGU)
-                
+            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Año Educativo al que ingresa el alumno
                 <Dropdown
                     id="level"
                     name="level"
-                    value={data?.identification_data.level}
+                    value={data?.identification_data?.level}
                     onChange={handleIdentificationData}
                     options={courseLevels}
                     optionLabel="level"
@@ -52,14 +49,14 @@ export const IdentificationData = ({ data, setData }) => {
                 />
             </label>
 
-            <label htmlFor="firstName" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Primer nombre <span>*</span>
                 <InputText
                     id="first_name"
                     name="first_name"
-                    value={data?.identification_data.first_name}
+                    value={data?.identification_data?.first_name}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el primer nombre"
                 />
@@ -70,9 +67,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="second_name"
                     name="second_name"
-                    value={data?.identification_data.second_name}
+                    value={data?.identification_data?.second_name}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el segundo nombre"
                 />
@@ -83,9 +80,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="fLast_name"
                     name="fLast_name"
-                    value={data?.identification_data.fLast_name}
+                    value={data?.identification_data?.fLast_name}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el primer apellido"
                 />
@@ -97,9 +94,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="sLast_name"
                     name="sLast_name"
-                    value={data?.identification_data.sLast_name}
+                    value={data?.identification_data?.sLast_name}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el segundo apellido"
                 />
@@ -110,10 +107,10 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="birth_date"
                     name="birth_date"
-                    value={data?.identification_data.birth_date}
+                    value={data?.identification_data?.birth_date}
                     type='date'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
@@ -124,9 +121,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="birth_day_place"
                     name="birth_day_place"
-                    value={data?.identification_data.birth_day_place}
+                    value={data?.identification_data?.birth_day_place}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el lugar de nacimiento"
                 />
@@ -137,9 +134,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="id_card"
                     name="id_card"
-                    value={data?.identification_data.id_card}
+                    value={data?.identification_data?.id_card}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el número de cédula"
                 />
@@ -150,9 +147,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="id_card"
                     name="id_card"
-                    value={data?.identification_data.id_card}
+                    value={data?.identification_data?.id_card}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la edad del alumno"
                 />
@@ -163,9 +160,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="address_street"
                     name="address_street"
-                    value={data?.identification_data.address_street}
+                    value={data?.identification_data?.address_street}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la dirección"
                 />
@@ -176,9 +173,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="sector"
                     name="sector"
-                    value={data?.identification_data.sector}
+                    value={data?.identification_data?.sector}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la dirección"
                 />
@@ -189,9 +186,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="number"
                     name="number"
-                    value={data?.identification_data.number}
+                    value={data?.identification_data?.number}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el número de teléfono"
                     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -203,9 +200,9 @@ export const IdentificationData = ({ data, setData }) => {
                 <InputText
                     id="reference"
                     name="reference"
-                    value={data?.identification_data.reference}
+                    value={data?.identification_data?.reference}
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el número de teléfono"
                 />
