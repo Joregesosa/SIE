@@ -4,13 +4,12 @@ import { useForm } from '@inertiajs/react';
 import { Dropdown } from 'primereact/dropdown';
 import { FormActionButtons } from '@/Components/FormActionButtons';
 import { Alert } from '@/Components/Alerts/Alert';
-
 import { useEffect } from 'react';
+import { Loading } from '@/Components/Loading';
 
 const ContactForm = ({ msj, levels }) => {
 
     const { data, setData, post, processing, errors, reset } = useForm(clear_form);
-
     const [alert, setAlert] = useState(null);
 
     const handleChanges = (e) => {
@@ -28,31 +27,38 @@ const ContactForm = ({ msj, levels }) => {
         }
     }, [msj]);
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
+        
 
-
-        post(route('contact.create'), {
-
-        });
+        post(route('contact.create'), { });
     };
 
     return (
-        <div className='bg-contact-form bg-no-repeat bg-cover bg-center'>
+        <div className='bg-contact-form bg-no-repeat bg-cover bg-center py-6'>
             <Alert alerta={alert} setAlert={setAlert} />
-            <header className='bg-[#112757] text-gray-100'>
-                <div className='md:flex md:items-center  max-w-screen-lg mx-auto pt-5 md:gap-6'>
-                    <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
-                        <img loading='lazy' src="images/log.png" alt="company logo" className='w-full' />
-                    </figure>
-                    <h1 className='text-center md:text-left md:text-4xl py-2 text-2xl font-semibold'>Contactos aspirantes</h1>
+         
+
+            <header id='scroll' className='bg-[#112757] text-gray-100 max-w-screen-lg px-8 mx-auto rounded-t-md bg-opacity-80 md:flex md:items-center md:flex-wrap py-6 '>
+
+                {/* <div className='md:flex md:flex-wrap md:items-center  max-w-screen-lg mx-auto py-5 md:gap-6'> */}
+
+                <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
+                    <img loading='lazy' src="/images/log.png" alt="company logo" className='w-full' />
+                </figure>
+                <div className='flex-grow text-center'>
+                    <h1 className='text-center md:text-4xl py-2 text-2xl font-semibold'>
+                        THOMAS RUSELL CRAMPTON
+                    </h1>
+                    <h2 className='text-2xl'>CONTACTO ASPIRANTES</h2>
                 </div>
-                <p className='px-3 py-5 mx-auto max-w-screen-lg'></p>
-                <p className='px-3 py-5 mx-auto max-w-screen-lg'>
+
+                <p className=' w-full py-1 text-justify'>
                     Bienvenidos a la Unidad Educativa Thomas Russell Crampton, un espacio donde la innovación y la excelencia educativa se encuentran para forjar el futuro de las nuevas generaciones. En nuestra institución, nos enorgullece ofrecer un entorno de aprendizaje único, diseñado para inspirar la curiosidad, el pensamiento crítico y la pasión por el conocimiento en cada uno de nuestros estudiantes. Al aspirar a formar parte de nuestra comunidad, te embarcas en un viaje educativo sin precedentes, donde cada experiencia está cuidadosamente elaborada para expandir tus horizontes y desafiar tus límites. Aquí, en Thomas Russell Crampton, no solo te preparamos para afrontar los desafíos del mañana, sino que te equipamos con las herramientas necesarias para ser un líder innovador y un ciudadano global responsable. Te invitamos a unirte a nosotros en esta aventura transformadora, donde tu potencial no conoce límites y tu pasión por aprender se enciende con cada nuevo día.
                 </p>
+ 
             </header>
+
             <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg mx-auto bg-white bg-opacity-75 p-5 h-full'>
 
@@ -298,6 +304,7 @@ const ContactForm = ({ msj, levels }) => {
                     </div>
                 </div>
             </form>
+            <Loading message="Enviando" status={processing} />
         </div>
     );
 };

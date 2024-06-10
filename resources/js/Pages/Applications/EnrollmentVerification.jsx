@@ -12,8 +12,6 @@ import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHist
 import { ThemeContext } from '@/Context/ThemeProvider';
 import { useContext } from 'react';
 import { IdentificationData } from '@/Components/InscriptionFormPartials/IdentificationData';
-import { ProgressSpinner } from 'primereact/progressspinner';
-import { Dialog } from '@headlessui/react';
 import { Loading } from '@/Components/Loading';
 
 
@@ -67,12 +65,9 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj }) {
                         <MedicalHistory data={data} setData={setData} />
                     </AccordionTab>
                 </Accordion>
-                 
-                 <Loading message="Enviando" status={processing} />
             </form>
            
-
-            
+            <Loading message="Enviando" status={processing} />
 
         </AuthenticatedLayout>
     );

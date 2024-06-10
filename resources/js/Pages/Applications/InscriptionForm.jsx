@@ -145,9 +145,6 @@ const InscriptionForm = ({msj, contact }) => {
         post(route('inscription.create')); 
 
     }
-
-    
-   
     
     const forms = [
         <IdentificationData data={data} setData={setData} />,
