@@ -48,7 +48,7 @@ Route::controller(SystemController::class)->group(function () {
     Route::get('/AccessDenied', 'accessdenied')->name('AccessDenied');
 });
 
-Route::middleware(['auth', CheckPermission::class])->group(function () {
+//Route::middleware(['auth', CheckPermission::class])->group(function () {
     
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/user', 'index')->name('users');
@@ -59,21 +59,21 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
 
     Route::controller(ContactFormController::class)->group(function () {
         Route::get('/contactsRequest', 'index')->name('contact');
-        Route::get('/contacts/{id}', 'edit')->name('contact.edit');
+        Route::get('/contacts/{id}', 'show')->name('contact.show');
         Route::put('/contacts', 'update')->name('contact.update');
         Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
     });
 
     Route::controller(PersonController ::class)->group(function () {
         Route::get('/person', 'index')->name('person');
-        Route::get('/person/{id}', 'edit')->name('person.edit');
+        Route::get('/person/{id}', 'show')->name('person.show');
         Route::put('/person', 'update')->name('person.update');
         Route::delete('/person/{id}', 'destroy')->name('person.delete');
     });
 
     Route::controller(StudentController::class)->group(function () {
         Route::get('/students', 'index')->name('students');
-        Route::get('/students/{id}', 'edit')->name('students.edit');
+        Route::get('/students/{id}', 'show')->name('students.show');
         Route::put('/students', 'update')->name('students.update');
         Route::delete('/students/{id}', 'destroy')->name('students.delete');
     });
@@ -108,6 +108,6 @@ Route::middleware(['auth', CheckPermission::class])->group(function () {
         Route::delete('/role/{id}', 'destroy')->name('role.delete');
     });
     
-});
+//});
 
 require __DIR__ . '/auth.php';

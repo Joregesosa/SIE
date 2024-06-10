@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicAchievement;
 use App\Models\Contact;
+use App\Models\DisabilityCondition;
+use App\Models\EducationLevel;
+use App\Models\FamilyStructure;
+use App\Models\Level;
+use App\Models\MaritalStatus;
+use App\Models\MedicalAttentionType;
+use App\Models\MedicalCondition;
 use App\Models\Parents;
+use App\Models\ParentType;
 use App\Models\Person;
 use App\Models\Phone;
+use App\Models\PhoneType;
+use App\Models\PregnancyType;
 use App\Models\Student;
-use App\Models\student_parent;
+use App\Models\StudentParent;
+use App\Models\TypeHouse;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -20,12 +32,24 @@ class PersonController extends Controller
     public function create(Request $request)
     {       
         return Inertia::render('Applications/InscriptionForm', [
-            'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->first()
+            'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->first(),
+            'information'  => [  
+                            'levels' => Level::all(),
+                            'marital_status' => MaritalStatus::all(),
+                            'education_levels' => EducationLevel::all(),
+                            'parent_types' => ParentType::where('status', 1)->get()->values(),
+                            'family_structures' => FamilyStructure::all(),
+                            'type_houses' => TypeHouse::all(),
+                            'medical_attention_types' => MedicalAttentionType::all(),
+                            ]
+
         ]);
     }
 
     public function store(Request $request){
-        $validator = validator($request->all(), [
+      
+    
+       $validator = validator($request->all(), [
             'identification_data.first_name' => 'required|string',
             'identification_data.second_name' => 'required|string',
             'identification_data.fLast_name' => 'required|string',
@@ -36,7 +60,7 @@ class PersonController extends Controller
             'identification_data.telefonos.*.number' => 'required|string',
             'identification_data.telefonos.*.phone_type_id' => 'required|exists:phone_types,id',
             
-        /*  'parents.*.first_name' => 'required|string',
+       /* 'parents.*.first_name' => 'required|string',
             'parents.*.second_name' => 'required|string',
             'parents.*.fLast_name' => 'required|string',
             'parents.*.sLast_name' => 'required|string',
@@ -49,58 +73,58 @@ class PersonController extends Controller
             'address' => 'string',
             'sector' => 'string',
             'brothers' => 'string',
-            'position_family' => 'integer',
+            'birth_order' => 'integer',
             'family_structure_id' => 'exists:family_structures,id',
-            'disability_in_family' => 'boolean',
+        
             'disability_description' => 'string',
-            'other_income' => 'integer',
+            'other_incomes' => 'integer',
             'expenditure' => 'integer',
             'type_house_id' => 'exists:type_houses,id',
-            'house_description' => 'string',
-            'date_first_entry' => 'date',
-            'institution_origin' => 'string',
+            'living_description' => 'string',
+            'entry_date' => 'date',
+            'previous_institution' => 'string',
             'repeated_years' => 'string',
             'preferred_subjects' => 'string',
             'difficult_subjects' => 'string',
-            'achieved_dignities' => 'string',
-            'academic_achievements' => 'string',
+            'achievements' => 'string',
+            'dignities' => 'string',
             'participation' => 'string',
             'extracurricular' => 'string',
-            'disability_condition' => 'boolean',
-            'disability_condition_description' => 'string',
+            'student_disability' => 'boolean',
+            'student_disability_details' => 'string',
             'disability_percentage' => 'string',
             'disability_carnet' => 'string',
             'medical_condition' => 'boolean',
-            'medical_condition_description' => 'string',
+            'medical_condition_details' => 'string',
             'allergies' => 'boolean',
             'allergies_description' => 'string',
-            'medicines' => 'string',
+            'medications' => 'string',
             'medical_attention_type_id' => 'exists:medical_attention_types,id',
             'medical_attention_name' => 'string',
             'medical_attention_address' => 'string',
             'medical_attention_doctor' => 'string',
             'pregnancy_mother_age' => 'integer',
             'pregnancy_accidents' => 'string',
-            'pregnancy_medicines' => 'string',
+            'pregnancy_medications' => 'string',
             'pregnancy_type_id' => 'exists:pregnancy_types,id',
             'pregnancy_difficulties' => 'string',
             'birth_weight' => 'string',
             'birth_height' => 'string',
-            'age_walk' => 'string',
-            'age_talk' => 'string',
+            'walking_age' => 'string',
+            'talking_age' => 'string',
             'breastfeeding_period' => 'string',
             'bottle_age' => 'string',
-            'age_control_sphincters' => 'string',
+            'toilet_age' => 'string',
             'observations' => 'string',
-            'pathological_family_history_id' => 'exists:pathological_family_histories,id',
+            'family_medical_history' => 'exists:pathological_family_histories,id',
             'father_relationship' => 'string',
             'mother_relationship' => 'string',
             'siblings_relationship' => 'string',
             'others_relationship' => 'string',
-            'customs_habits' => 'string',*/
+            'habits_and_activities' => 'string',
                 
             
-
+*/
 
 
         ], [
@@ -117,10 +141,11 @@ class PersonController extends Controller
             session()->put('msj', ['error' => array_values($validator->errors()->messages())]);
             return back();
         }
-
         
        
+       
         try {
+
             DB::beginTransaction();
 
             /*DATOS DE IDENTIFICACIÓN*/
@@ -129,10 +154,13 @@ class PersonController extends Controller
 
             Phone::create($request->identification_data);
 
-            $siblingsJson = json_encode($request->socioeconomic_data['siblings']);
+            $siblingsJson = json_encode($request->socioeconomic_data['siblings_data']);
+            $familyCompositionJson = json_encode($request->socioeconomic_data['family_composition_data']);
+            
            
-            $student_data = ['person_id' => $person->id, 'siblings' => $siblingsJson, ...$request->identification_data,...$request->academic_data, ...$request->medical_data, ...$request->medical_history];
-          
+            $student_data = ['person_id' => $person->id, 'siblings' => $siblingsJson, 'family_composition' => $familyCompositionJson, ...$request->identification_data,...$request->academic_data, ...$request->medical_data, ...$request->medical_history, ...$request->socioeconomic_data, ...$request->financial_references];
+           
+
             $student = Student::create($student_data);
 
 
@@ -152,7 +180,7 @@ class PersonController extends Controller
 
                 $familiar = Parents::create($parent);
 
-                student_parent::create([
+                StudentParent::create([
                     'student_id' => $request->student_id,
                     'parent_id' => $familiar->id,
                     'parent_type_id' => $index+1,
@@ -166,7 +194,7 @@ class PersonController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            session()->put('msj', ['error' => 'Error al registrar la persona.']);
+            session()->put('msj', ['error' => 'Error al registrar la persona.'.$th]);
             return back();
         }
 

@@ -2,25 +2,13 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import PropTypes from 'prop-types';
 import { MainFormFieldset } from "./MainFormFieldset";
+import { info } from "autoprefixer";
 
-const instructionLevelOptions = [
-    { label: 'Educación Primaria', id: '1' },
-    { label: 'Educación Secundaria', id: '2' },
-    { label: 'Educación Técnica o 4', id: '3' },
-    { label: 'Educación Superior', id: '5' },
-    { label: 'Educación Profesional', id: '6' }
-];
-const maritalStatusOptions = [
-    { label: 'Soltero/a', id: '1' },
-    { label: 'Casado/a', id: '2' },
-    { label: 'Separado/a', id: '3' },
-    { label: 'Divorciado/a', id: '4' },
-    { label: 'Viudo/a', id: '5' },
-    { label: 'Conviviente', id: '6' },
-    { label: 'Uniones civiles', id: '7' }
-];
 
-export const MotherData = ({ data, handleMotherData }) => (
+export const MotherData = ({ data, handleMotherData , information }) => {
+    
+    return (
+
     <MainFormFieldset
         legend="Datos familiares"
         description="Datos de la Madre">
@@ -91,28 +79,28 @@ export const MotherData = ({ data, handleMotherData }) => (
             />
         </label>
 
-        <label htmlFor="marital_status" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+        <label htmlFor="marital_status_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Estado civil <span>*</span>
             <Dropdown
-                value={data?.mother_data.marital_status}
-                name="marital_status"
+                value={data?.mother_data.marital_status_id}
+                name="marital_status_id"
                 onChange={handleMotherData}
-                options={maritalStatusOptions}
-                optionLabel="label"
+                options={information.marital_status}
+                optionLabel="name"
                 optionValue="id"
                 placeholder="Seleccione un estado civil"
                 filter
                 className="flex items-center border h-[42px] border-gray-500 flex-grow" />
         </label>
 
-        <label htmlFor="instruction_level" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+        <label htmlFor="education_level_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Nivel de Instrucción <span>*</span>
             <Dropdown
-                value={data?.mother_data.instruction_level}
-                name="instruction_level"
+                value={data?.mother_data.education_level_id}
+                name="education_level_id"
                 onChange={handleMotherData}
-                options={instructionLevelOptions}
-                optionLabel="label"
+                options={information.education_levels}
+                optionLabel="name"
                 optionValue="id"
                 placeholder="Seleccione un nivel de instrucción"
                 filter
@@ -176,7 +164,7 @@ export const MotherData = ({ data, handleMotherData }) => (
         </label>
 
     </MainFormFieldset>
-)
+)}
 MotherData.prototype = {
     data: PropTypes.object.isRequired,
     handleMotherData: PropTypes.func.isRequired

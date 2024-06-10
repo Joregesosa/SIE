@@ -24,30 +24,32 @@ const items = [
     }
 ];
 
-const InscriptionForm = ({msj, contact }) => {
+const InscriptionForm = ({msj, contact ,information }) => {
 
-    const cleanData = {
+   
+
+    const cleanData = { 
         identification_data: {
-            sector: '',
-            address_street: contact?.address,
+            level: contact?.level,
+            first_name: contact?.first_name,
+            second_name: contact?.second_name,
+            sLast_name: contact?.sLast_name,
+            fLast_name: contact?.fLast_name,
             birth_date: '',
             birth_day_place: '',
-            fLast_name: contact?.fLast_name,
-            first_name: contact?.first_name,
             id_card: contact?.id_card,
-            level: contact?.level,
+            sector: '',
+            address_street: contact?.address,
             number: contact?.number,
-            reference: '',
-            sLast_name: contact?.sLast_name,
-            second_name: contact?.second_name
+            reference: ''
         },
         mother_data: {
             birth_date: "",
             email: "",
             fLast_name: contact?.sLast_name,
             first_name: contact?.mother_names.split(" ")[0],
-            instruction_level: "",
-            marital_status: "",
+            education_level_id: "",
+            marital_status_id: "",
             number: contact?.mother_phone,
             profession: contact?.mother_occupation,
             sLast_name: "",
@@ -60,8 +62,8 @@ const InscriptionForm = ({msj, contact }) => {
             email: "",
             fLast_name: contact?.fLast_name,
             first_name: contact?.father_names.split(" ")[0],
-            instruction_level: "",
-            marital_status: "",
+            education_level_id: "",
+            marital_status_id: "",
             number: contact?.father_phone,
             profession: contact?.father_occupation,
             sLast_name: "",
@@ -74,8 +76,8 @@ const InscriptionForm = ({msj, contact }) => {
             email: "",
             fLast_name: "",
             first_name: "",
-            instruction_level: "",
-            marital_status: "",
+            education_level_id: "",
+            marital_status_id: "",
             number: "",
             profession: "",
             sLast_name: "",
@@ -84,16 +86,19 @@ const InscriptionForm = ({msj, contact }) => {
             incomes: 0
         },
         socioeconomic_data: {
-            student_partners: [],
-            siblings: [{ age: '', name: '', studying: false }]
+            family_composition_data: [],
+            siblings_data: [{ age: '', name: '', studying: false }],
+            birth_order : "",
+            disability_description: "",
+            
         },
         financial_references: {
             father_incomes: "",
             living_description: "",
             mother_incomes: "",
             other_incomes: "",
-            structural_integrity: "",
-            total_outcomes: ""
+            type_house_id: "",
+            expenditure: ""
         },
         academic_data: {
             achievements: "",
@@ -108,38 +113,39 @@ const InscriptionForm = ({msj, contact }) => {
         medical_data: {
             allergies: "",
             allergies_details: "",
-            attending_physician: "",
-            disability_details: "",
+            medical_attention_doctor: "",
+            student_disability_details: "",
             medical_condition_details: "",
-            medical_facility: "",
-            medical_facility_details: "",
+            medical_attention_type_id: "",
+            medical_attention_details: "",
             medications: "",
-            specific_medical_condition: "",
+            medical_condition: "",
             student_disability: "",
         },
         medical_history: {
-            accidents_during_pregnancy: "",
+            pregnancy_accidents: "",
             birth_height: "",
-            birth_type: "",
+            pregnancy_type_id: 1,
             birth_weight: "",
-            bottle_usage_age: "",
+            bottle_age: "",
             breastfeeding_period: "",
-            family_medical_history: "",
-            first_wordsAge: "",
+            family_medical_history: 1,
+            talking_age: "",
             habits_and_activities: "",
-            medications_during_pregnancy: "",
-            mother_age: "",
+            pregnancy_medications: "",
+            pregnancy_mother_age: "",
             observations: "",
-            other_difficulties_during_pregnancy: "",
-            student_father_relationship: "",
-            student_mother_relationship: "",
-            student_others_relationship: "",
-            student_siblings_relationship: "",
-            toilet_training_age: "",
+            pregnancy_difficulties: "",
+            father_relationship: "",
+            mother_relationship: "",
+            others_relationship: "",
+            siblings_relationship: "",
+            toilet_age: "",
             walking_age: "",
         }
     }
 
+ 
   
     const scroll = document.getElementById('scroll');
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
@@ -168,15 +174,15 @@ const InscriptionForm = ({msj, contact }) => {
         setData({ ...data, tutor_data: { ...data.tutor_data, [e.target.name]: e.target.value } })
     }
     const forms = [
-        <IdentificationData data={data} setData={setData} />,
-        <MotherData data={data} handleMotherData={handleMotherData} />,
-        <FatherData data={data} handleFatherData={handleFatherData} />,
-        <TutorData data={data} handleTutorData={handleTutorData} />,
-        <SocioeconomicData data={data} setData={setData} />,
-        <FinancialReferences data={data} setData={setData} />,
-        <AcademicData data={data} setData={setData} />,
-        <MedicalData data={data} setData={setData} />,
-        <MedicalHistory data={data} setData={setData} />,
+        <IdentificationData data={data} setData={setData} information={information} />,
+        <MotherData data={data} handleMotherData={handleMotherData}  information={information} />,
+        <FatherData data={data} handleFatherData={handleFatherData}  information={information} />,
+        <TutorData data={data} handleTutorData={handleTutorData}  information={information}/>,
+        <SocioeconomicData data={data} setData={setData}  information={information} />,
+        <FinancialReferences data={data} setData={setData}  information={information} />,
+        <AcademicData data={data} setData={setData}  information={information} />,
+        <MedicalData data={data} setData={setData}  information={information} />,
+        <MedicalHistory data={data} setData={setData}  information={information} />,
     ];
     useEffect(() => {
         if (scroll) {

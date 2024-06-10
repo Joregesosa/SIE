@@ -47,14 +47,14 @@ return new class extends Migration
             $table->foreign('education_level_id')->references('id')->on('education_levels')->onDelete('set null');
             $table->string('profession');
             $table->string('work_place');
-            $table->integer('income')->default(0);
+            $table->integer('incomes')->default(0);
             $table->string('email')->unique();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
 
         /*RELACION PADRES*/
-        Schema::create('student_parent', function (Blueprint $table) {
+        Schema::create('StudentParent', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
@@ -85,11 +85,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('parents');
-        Schema::dropIfExists('student_parent');
+        Schema::dropIfExists('StudentParent');
         Schema::dropIfExists('student_siblings');
         Schema::dropIfExists('parent_types');
         Schema::dropIfExists('education_levels');
-        Schema::dropIfExists('marital_statuses');
+        Schema::dropIfExists('marital_status');
         
     }
 };
