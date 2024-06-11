@@ -40,7 +40,7 @@ const ContactForm = ({ msj, levels }) => {
     return (
         <div className='bg-contact-form bg-no-repeat bg-cover bg-center py-6 min-h-screen'>
 
-            <FormHeader title="CONTACTO ASPIRANTES" desc={sended? '': desc} />
+            <FormHeader title="CONTACTO ASPIRANTES" desc={sended? '': desc} variant="contact"/>
             {!sended ?
                 <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto'>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg mx-auto bg-white bg-opacity-85 p-5 h-full'>

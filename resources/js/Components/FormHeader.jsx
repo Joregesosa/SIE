@@ -1,8 +1,9 @@
 import React from 'react'
 
-export const FormHeader = ({ title, desc }) => {
+export const FormHeader = ({ title, desc, variant }) => {
+    const bg = variant === 'contact' ? '112757' : '9e1525'
     return (
-        <header id='scroll' className='bg-[#112757] text-gray-100 max-w-screen-lg px-8 mx-auto rounded-t-md bg-opacity-80 md:flex md:items-center md:flex-wrap py-6 '>
+        <header id='scroll' className={`bg-[#${bg}] text-gray-100 max-w-screen-lg px-8 mx-auto rounded-t-md bg-opacity-80 md:flex md:items-center md:flex-wrap py-6`}>
 
             <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
                 <img loading='lazy' src="/images/logo.png" alt="company logo" className='w-full' />

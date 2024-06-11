@@ -11,6 +11,7 @@ import { MedicalData } from '@/Components/InscriptionFormPartials/MedicalData';
 import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHistory';
 import { Steps } from 'primereact/steps';
 import { Alert } from '@/Components/Alerts/Alert';
+import { FormHeader } from '@/Components/FormHeader';
 
  
 const InscriptionForm = ({msj, contact }) => {
@@ -166,18 +167,8 @@ const InscriptionForm = ({msj, contact }) => {
     }, [step])
     return (
         <div className='form_bg relative bg-inscription-form bg-cover py-4'>
-            <header id='scroll' className='bg-[#9e1525] text-gray-100 max-w-screen-lg px-4 mx-auto rounded-t-md bg-opacity-80'>
-
-                <div className='md:flex md:items-center  max-w-screen-lg mx-auto py-5 md:gap-6'>
-                    <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
-                        <img loading='lazy' src="https://lists.office.com/Images/9074fa55-8f43-42bd-9a40-0d7a38b9c66e/0fd61129-93f5-4eca-8c45-3e318953accd/T8REH8MB6WNIDPEDE9XWC501E7/d7cfebf9-81be-4890-823d-22781aa93638" alt="company logo" className='w-full' />
-                    </figure>
-                    <h1 className='text-center md:text-left md:text-4xl py-2 text-2xl font-semibold'>
-                        FORMULARIO DE INSCRIPCIÓN DE DATOS ALUMNOS THOMAS RUSELL CRAMPTON
-                    </h1>
-                </div>
-
-            </header>
+             
+            <FormHeader title='Formulario de Inscripción'  variant='inscription' />
 
             <Alert alerta={alert} setAlert={setAlert} />
       
