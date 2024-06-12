@@ -210,9 +210,9 @@ const ContactForm = ({ msj, levels }) => {
                         <label className="font-bold text-xs">
                             Año o nivel al que desea aplicar <span>*</span>
                             <Dropdown
-                                id='level'
-                                name='level'
-                                value={data?.level}
+                                id='level_id'
+                                name='level_id'
+                                value={data?.level_id}
                                 onChange={handleChanges}
                                 options={levels}
                                 optionLabel="description"
@@ -222,7 +222,7 @@ const ContactForm = ({ msj, levels }) => {
                                 className="flex items-center border h-[42px] border-gray-500 flex-grow"
 
                             />
-                            {errorHandling?.level && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                            {errorHandling?.level_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
                         </label>
 
                         <label htmlFor="father_names" className="font-bold text-xs">

@@ -23,7 +23,7 @@ const InscriptionForm = ({msj, contact ,information }) => {
 
     const cleanData = { 
         identification_data: {
-            level: contact?.level || '',
+            level_id: contact?.level_id || '',
             first_name: contact?.first_name || '',
             second_name: contact?.second_name || '',
             sLast_name: contact?.sLast_name|| '' ,
@@ -140,22 +140,31 @@ const InscriptionForm = ({msj, contact ,information }) => {
     const [errorHandling, setErrorHandling] = useState({});
     const [step, setStep] = useState(0);
     const [sended, setSended] = useState(false);
-    /*     const [alert, setAlert] = useState(null); */
+    const [alert, setAlert] = useState(null); 
 
-    /*   useEffect(() => {
-          setAlert(msj);
-      }, [msj]); */
+     useEffect(() => {
+        
+        if(msj?.success){
+
+            setSended(true);
+            reset();
+        }else{
+            setAlert(msj);
+        }
+      }, [msj]); 
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const emptyFields = fieldVerifier(data[form_keys[8]], requiredFields[form_keys[8]], setErrorHandling);
         if (Object.keys(emptyFields).length === 0) {
-            post(route('inscription.create'), {
+            post(route('inscription.store'), {
                 onSuccess: () => {
-                    setSended(true);
-                    reset();
+                    console.log(msj)
                 }, onError: () => {
+                    setAlert(msj);
                     console.log(errors)
+                    console.log(msj)
                 }
             });
         }
@@ -192,6 +201,7 @@ const InscriptionForm = ({msj, contact ,information }) => {
 
     return (
         <div className='form_bg relative bg-inscription-form bg-cover py-4 min-h-screen'>
+            <Alert alerta={alert} setAlert={setAlert} />
 
             <FormHeader title='Formulario de Inscripción' variant='inscription' />
 
@@ -238,7 +248,7 @@ const requiredFields = {
         'fLast_name',
         'first_name',
         'id_card',
-        'level',
+        'level_id',
         'number',
         'reference',
         'age',

@@ -61,7 +61,7 @@ export const sections = [
             {
                 icon: 'pi-receipt',
                 title: 'Matriculas',
-                url: 'enrollmentRequest',
+                url: 'students',
                 permission: 'read_enrollmentRequest'
             } 
         ],

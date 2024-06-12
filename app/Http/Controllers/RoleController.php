@@ -17,7 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Roles', [
+        return Inertia::render('Usuarios/Roles', [
             'data' => Role::with('permissions')->get(),
             'permissions' => Permission::all(),
         ]);

@@ -31,9 +31,6 @@ export const SocioeconomicData = ({ data, setData , information }) => {
         setData(newData)
     }
 
-    useEffect(() => {
-        console.log(data.socioeconomic_data)
-    }, [data])
 
     const newSibling = () => {
         const newSiblingData = { ...data }

@@ -186,11 +186,11 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />
                 </label>
-                <label htmlFor="level" className="font-bold text-xs col-span-12">
+                <label htmlFor="level_id" className="font-bold text-xs col-span-12">
                     Año o nivel al que desea aplicar
                     <InputText
-                        id="level"
-                        value={data?.level}
+                        id="level_id"
+                        value={data?.level_id}
                         readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent'
                     />

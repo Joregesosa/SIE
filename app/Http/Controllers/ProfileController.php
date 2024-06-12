@@ -18,7 +18,7 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return Inertia::render('Users', [
+        return Inertia::render('Usuarios/Users', [
             'currentUser' => Auth::user()->load('role.permissions'),
             'data' => User::with('role', 'person')->get(),
         ]);

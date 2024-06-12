@@ -31,7 +31,7 @@ export const contact_fields = {
     last_institution: '',
     behavior_qualification: '',
     address: '',
-    level: '',
+    level_id: '',
     father_names: '',
     father_phone: '',
     father_occupation: '',

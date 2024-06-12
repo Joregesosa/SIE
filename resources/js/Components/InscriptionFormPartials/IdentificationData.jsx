@@ -19,8 +19,8 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
                 Año Educativo al que ingresa el alumno
                 <Dropdown
                     id="id"
-                    name="level"
-                    value={data?.identification_data?.level}
+                    name="level_id"
+                    value={data?.identification_data?.level_id}
                     onChange={handleIdentificationData}
                     options={information.levels}
                     optionLabel="description"
@@ -29,7 +29,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
                     className="flex items-center border h-[42px] border-gray-500 flex-grow"
                     filter
                 />
-                {errorHandling?.level && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                {errorHandling?.level_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
              <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">

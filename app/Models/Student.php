@@ -16,9 +16,10 @@ class Student extends Model
         'sector',
         'siblings',
         'birth_order',
+        'level_id',
         'family_composition',
         'family_structure_id',
-
+        'status_id',
         'disability_description',
         'other_incomes',
         'expenditure',
@@ -70,6 +71,16 @@ class Student extends Model
         return $this->belongsTo(Person::class);
     }
 
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(StudentStatus::class);
+    }
+    
     public function familyStructure()
     {
         return $this->belongsTo(FamilyStructure::class);
@@ -99,6 +110,6 @@ class Student extends Model
     {
         return $this->belongsToMany(Parents::class, 'StudentParent', 'student_id', 'parent_id');
     }
-   
-
+    
+    
 }

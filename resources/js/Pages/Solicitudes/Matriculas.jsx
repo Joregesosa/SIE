@@ -10,7 +10,7 @@ import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
 
 
-const contactsData = [
+const data2 = [
     {
         id: 1,
         name: 'Juan',
@@ -75,7 +75,7 @@ const contactsData = [
         responseDate: '',
     }
 ]
-export default function EnrollmentRequest({ auth, data, msj }) {
+export default function Matriculas({ auth, data, msj }) {
     console.log(data)
     const {
         dt,
@@ -95,25 +95,15 @@ export default function EnrollmentRequest({ auth, data, msj }) {
         showNewDialog,
         setShowNewDialog,
         onHideEditDialog
-    } = useTable(contactsData)
+    } = useTable(data)
 
     useEffect(() => {
-        setDataList(contactsData)
+        setDataList(data)
         setAlert(msj)
-    }, [contactsData, msj])
+    }, [data, msj])
 
     const requestStatus = (rowData) => {
-        if (rowData.status === "Pendiente") {
-            return <span className="rounded-md bg-sky-500 text-jewel-text py-1 px-2">{rowData.status}</span>
-        }
-
-        if (rowData.status === "Aprobada") {
-            return <span className="rounded-md bg-lime-500 text-jewel-text py-1 px-2">{rowData.status}</span>
-        }
-
-        if (rowData.status === "Rechazada") {
-            return <span className="rounded-md bg-red-500 text-jewel-text py-1 px-2">{rowData.status}</span>
-        }
+            return <span className={`rounded-md bg-${rowData.status.color} text-jewel-text py-1 px-2`}>{rowData.status.name}</span>
     }
 
     return (
@@ -129,11 +119,11 @@ export default function EnrollmentRequest({ auth, data, msj }) {
 
                     <Column field='id' header='ID' sortable className='py-2 ' />
 
-                    <Column field='name' header='Nombre' sortable className='py-2' />
+                    <Column field='person.full_Name' header='Nombre' sortable className='py-2' />
 
-                    <Column field='email' header='Nivel' sortable className='py-2' />
+                    <Column field='level.name' header='Nivel' sortable className='py-2' />
 
-                    <Column field='requestDate' header='Fecha de solicitud' sortable className='py-2' />
+                    <Column field='previous_institution' header='Institucion de Origen' sortable className='py-2' />
 
                     <Column field='responseDate' header='Fecha de respuesta' sortable className='py-2' />
 

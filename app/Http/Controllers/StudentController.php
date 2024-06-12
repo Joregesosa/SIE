@@ -14,26 +14,34 @@ class StudentController extends Controller
 {
 
     public function index() {
+        
         $students = Student::all()->load(
             'person',
+            'level',
+            'status',
             'familyStructure', 
             'typeHouse', 
             'medicalAttentionType',
             'pregnancyType',
             'pathologicalFamilyHistory',
             'parents')->each(function ($student) {
-            $student->parents->load(['parentType' => function ($query) use ($student) {
+                $student->parents->load(['parentType' => function ($query) use ($student) {
                 $query->where('student_id', $student->id);
             }]);
         });
 
-        return $students;
+        return Inertia::render('Solicitudes/Matriculas', [
+            'data' => $students
+        ]);
+
+        
     }
 
     public function show($id)
     {
         return Student::with([
             'person',
+            'level',
             'familyStructure',
             'typeHouse',
             'medicalAttentionType',

@@ -74,7 +74,7 @@ class ContactFormController extends Controller
 
     public function index()
     {
-        return Inertia::render('ContactsRequest', [
+        return Inertia::render('Solicitudes/ContactsRequest', [
             'data' => Contact::all(),
             'levels' => Level::all()
         ]);

@@ -11,12 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('student_status', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->string('color')->default('red-500');
+            $table->boolean('status')->default(true);
+        });
+
         Schema::create('students', function (Blueprint $table) {
             
             /*DATOS PERSONALES*/
             $table->id();
             $table->unsignedBigInteger('person_id');
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
+            $table->unsignedBigInteger('status_id')->default(1);
+            $table->foreign('status_id')->references('id')->on('student_status')->onDelete('restrict');
+            $table->unsignedBigInteger('level_id');
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
             $table->string('address_street');
             $table->string('sector');
             $table->string('siblings')->nullable();
@@ -92,5 +104,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('students');
+        Schema::dropIfExists('students_status');
     }
 };
+

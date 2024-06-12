@@ -14,7 +14,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Permissions', [
+        return Inertia::render('Usuarios/Permissions', [
             'data' => Permission::all(),
         ]);
     }

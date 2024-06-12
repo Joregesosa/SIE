@@ -14,7 +14,7 @@ class LevelController extends Controller
  
     public function index()
     {
-        return Inertia::render('Levels', [
+        return Inertia::render('Cursos/Levels', [
             'data' => Level::all(),
         ]);
     }
