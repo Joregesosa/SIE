@@ -210,7 +210,7 @@ class PersonController extends Controller
         try {
             $person = Person::findOrFail($id);
             return Inertia::render('Persons', [
-                'contact' => $person
+                'data' => $person
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'La persona no existe '], 404);

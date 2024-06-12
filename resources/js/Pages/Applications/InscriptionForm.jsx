@@ -9,9 +9,13 @@ import { FinancialReferences } from '@/Components/InscriptionFormPartials/Financ
 import { AcademicData } from '@/Components/InscriptionFormPartials/AcademicData';
 import { MedicalData } from '@/Components/InscriptionFormPartials/MedicalData';
 import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHistory';
-import { Steps } from 'primereact/steps';
 import { Alert } from '@/Components/Alerts/Alert';
+import { FormHeader } from '@/Components/FormHeader';
+import { fieldVerifier } from '@/Helpers/Form.Verifier';
+import { Loading } from '@/Components/Loading';
+import { FormSubmitted } from '@/Components/FormSubmitted';
 
+<<<<<<< get_data_all
 const items = [
     {
         label: 'Personal Info'
@@ -25,11 +29,15 @@ const items = [
 ];
 
 const InscriptionForm = ({msj, contact ,information }) => {
+=======
+const InscriptionForm = ({ msj, contact }) => {
+>>>>>>> dev
 
    
 
     const cleanData = { 
         identification_data: {
+<<<<<<< get_data_all
             level: contact?.level,
             first_name: contact?.first_name,
             second_name: contact?.second_name,
@@ -42,34 +50,66 @@ const InscriptionForm = ({msj, contact ,information }) => {
             address_street: contact?.address,
             number: contact?.number,
             reference: ''
+=======
+            sector: '',
+            address_street: contact?.address || '',
+            birth_date: '',
+            birth_day_place: '',
+            fLast_name: contact?.fLast_name || '',
+            first_name: contact?.first_name || '',
+            id_card: contact?.id_card || '',
+            level: contact?.level || '',
+            number: contact?.number || '',
+            reference: '',
+            age: '',
+            sLast_name: contact?.sLast_name || '',
+            second_name: contact?.second_name || ''
+>>>>>>> dev
         },
         mother_data: {
             birth_date: "",
             email: "",
+<<<<<<< get_data_all
             fLast_name: contact?.sLast_name,
             first_name: contact?.mother_names.split(" ")[0],
             education_level_id: "",
             marital_status_id: "",
             number: contact?.mother_phone,
             profession: contact?.mother_occupation,
+=======
+            fLast_name: contact?.sLast_name || '',
+            first_name: contact?.mother_names.split(" ")[0] || '',
+            instruction_level: "",
+            marital_status: "",
+            number: contact?.mother_phone || '',
+            profession: contact?.mother_occupation || '',
+>>>>>>> dev
             sLast_name: "",
             second_name: "",
             work_place: "",
-            incomes: 0
         },
         father_data: {
             birth_date: "",
             email: "",
+<<<<<<< get_data_all
             fLast_name: contact?.fLast_name,
             first_name: contact?.father_names.split(" ")[0],
             education_level_id: "",
             marital_status_id: "",
             number: contact?.father_phone,
             profession: contact?.father_occupation,
+=======
+            fLast_name: contact?.fLast_name || '',
+            first_name: contact?.father_names.split(" ")[0] || '',
+            instruction_level: "",
+            marital_status: "",
+            number: contact?.father_phone || '',
+            profession: contact?.father_occupation || '',
+>>>>>>> dev
             sLast_name: "",
             second_name: "",
             work_place: "",
-            incomes: 0
+
         },
         tutor_data: {
             birth_date: "",
@@ -83,7 +123,6 @@ const InscriptionForm = ({msj, contact ,information }) => {
             sLast_name: "",
             second_name: "",
             work_place: "",
-            incomes: 0
         },
         socioeconomic_data: {
             family_composition_data: [],
@@ -107,7 +146,7 @@ const InscriptionForm = ({msj, contact ,information }) => {
             extracurriculars: "",
             participation: "",
             preferred_subjects: "",
-            previous_institution: contact?.last_institution,
+            previous_institution: contact?.last_institution || "",
             repeated_years: "",
         },
         medical_data: {
@@ -145,24 +184,39 @@ const InscriptionForm = ({msj, contact ,information }) => {
         }
     }
 
+<<<<<<< get_data_all
  
   
+=======
+
+>>>>>>> dev
     const scroll = document.getElementById('scroll');
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
+    const [errorHandling, setErrorHandling] = useState({});
     const [step, setStep] = useState(0);
-    const [alert, setAlert] = useState(null);
+    const [sended, setSended] = useState(false);
+    /*     const [alert, setAlert] = useState(null); */
 
-    useEffect(() => {
-        setAlert(msj);
-    }, [msj]);
+    /*   useEffect(() => {
+          setAlert(msj);
+      }, [msj]); */
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data);
-        post(route('inscription.create')); 
-
+        const emptyFields = fieldVerifier(data[form_keys[8]], requiredFields[form_keys[8]], setErrorHandling);
+        if (Object.keys(emptyFields).length === 0) {
+            post(route('inscription.create'), {
+                onSuccess: () => {
+                    setSended(true);
+                    reset();
+                }, onError: () => {
+                    console.log(errors)
+                }
+            });
+        }
     }
 
+<<<<<<< get_data_all
     
     const handleMotherData = (e) => {
         setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
@@ -184,58 +238,182 @@ const InscriptionForm = ({msj, contact ,information }) => {
         <MedicalData data={data} setData={setData}  information={information} />,
         <MedicalHistory data={data} setData={setData}  information={information} />,
     ];
+=======
+    const forms = {
+        identification_data: <IdentificationData data={data} setData={setData} errorHandling={errorHandling} />,
+        mother_data: <MotherData data={data} setData={setData} errorHandling={errorHandling} />,
+        father_data: <FatherData data={data} setData={setData} errorHandling={errorHandling} />,
+        tutor_data: <TutorData data={data} setData={setData} errorHandling={errorHandling} />,
+        socioeconomic_data: <SocioeconomicData data={data} setData={setData} errorHandling={errorHandling} />,
+        financial_references: <FinancialReferences data={data} setData={setData} errorHandling={errorHandling} />,
+        academic_data: <AcademicData data={data} setData={setData} errorHandling={errorHandling} />,
+        medical_data: <MedicalData data={data} setData={setData} errorHandling={errorHandling} />,
+        medical_history: <MedicalHistory data={data} setData={setData} errorHandling={errorHandling} />,
+    };
+
+    const form_keys = Object.keys(forms);
+
+>>>>>>> dev
     useEffect(() => {
         if (scroll) {
             scroll.scrollIntoView({ behavior: 'smooth' });
         }
-
-
     }, [step])
+
+    function next() {
+        const emptyFields = fieldVerifier(data[form_keys[step]], requiredFields[form_keys[step]], setErrorHandling);
+
+        if (Object.keys(emptyFields).length === 0) {
+            setStep(step + 1);
+        }
+    }
+
     return (
-        <div className='form_bg relative bg-inscription-form bg-cover py-4'>
-            <header id='scroll' className='bg-[#9e1525] text-gray-100 max-w-screen-lg px-4 mx-auto rounded-t-md bg-opacity-80'>
+        <div className='form_bg relative bg-inscription-form bg-cover py-4 min-h-screen'>
 
-                <div className='md:flex md:items-center  max-w-screen-lg mx-auto py-5 md:gap-6'>
-                    <figure className='w-44 h-44 mx-auto md:mx-0 flex-shrink-0'>
-                        <img loading='lazy' src="https://lists.office.com/Images/9074fa55-8f43-42bd-9a40-0d7a38b9c66e/0fd61129-93f5-4eca-8c45-3e318953accd/T8REH8MB6WNIDPEDE9XWC501E7/d7cfebf9-81be-4890-823d-22781aa93638" alt="company logo" className='w-full' />
-                    </figure>
-                    <h1 className='text-center md:text-left md:text-4xl py-2 text-2xl font-semibold'>
-                        FORMULARIO DE INSCRIPCIÓN DE DATOS ALUMNOS THOMAS RUSELL CRAMPTON
-                    </h1>
-                </div>
+            <FormHeader title='Formulario de Inscripción' variant='inscription' />
 
-            </header>
+            {!sended ?
+                <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto bg-white bg-opacity-75 rounded-b-md max-w-screen-lg w-full'>
+                    <h6 className='text-gray-500 pt-6 pr-8 text-right text-lg'>
+                        {step + 1} / {form_keys.length}
+                    </h6>
 
-            <Alert alerta={alert} setAlert={setAlert} />
-      
-            <form onSubmit={handleSubmit} className='flex flex-col gap-2 mx-auto bg-white bg-opacity-75 rounded-b-md max-w-screen-lg w-full'>
-                <h6 className='text-gray-500 pt-6 pr-8 text-right text-lg'>
-                    {step + 1} / {forms.length}
-                </h6>
+                    {forms[form_keys[step]]}
 
-                {forms[step]}
-
-                <div className='w-full flex justify-between md:col-span-2 max-w-screen-lg px-5 mx-auto my-8'>
-                    <button type='button' onClick={() => setStep(step - 1)}
-                        className={`px-5 rounded-md bg-teal-400 py-2 active:bg-sky-500 ${step === 0 && 'invisible'}`}>
-                        Anterior
-                    </button>
-                    <button
-                        type='button'
-                        onClick={() => setStep(step + 1)}
-                        className={`px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500 ${step === forms.length - 1 && 'hidden'}`}>
-                        Siguiente
-                    </button>
-                    <button
-                        type='submit'
-                        className={`px-5 rounded-md bg-green-400 py-2 active:bg-sky-500 ${step !== forms.length - 1 && 'hidden'}`}>
-                        Enviar
-                    </button>
-                </div>
-            </form>
+                    <div className='w-full flex justify-between md:col-span-2 max-w-screen-lg px-5 mx-auto my-8'>
+                        <button type='button' onClick={() => setStep(step - 1)}
+                            className={`px-5 rounded-md bg-teal-400 py-2 active:bg-sky-500 ${step === 0 && 'invisible'}`}>
+                            Anterior
+                        </button>
+                        <button
+                            type='button'
+                            onClick={next}
+                            className={`px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500 ${step === form_keys.length - 1 && 'hidden'}`}>
+                            Siguiente
+                        </button>
+                        <button
+                            type='submit'
+                            className={`px-5 rounded-md bg-green-400 py-2 active:bg-sky-500 ${step !== form_keys.length - 1 && 'hidden'}`}>
+                            Enviar
+                        </button>
+                    </div>
+                </form> :
+                <FormSubmitted title={title} message={message}/>}
+            <Loading message="Enviando" status={processing} />
         </div>
     );
 };
 
 export default InscriptionForm;
 
+const requiredFields = {
+    identification_data: [
+        'sector',
+        'address_street',
+        'birth_date',
+        'birth_day_place',
+        'fLast_name',
+        'first_name',
+        'id_card',
+        'level',
+        'number',
+        'reference',
+        'age',
+    ],
+    mother_data: [
+        'birth_date',
+        'email',
+        'fLast_name',
+        'first_name',
+        'instruction_level',
+        'marital_status',
+        'number',
+        'profession',
+        'work_place',
+    ],
+    father_data: [
+        'birth_date',
+        'email',
+        'fLast_name',
+        'first_name',
+        'instruction_level',
+        'marital_status',
+        'number',
+        'profession',
+        'work_place',
+    ],
+    tutor_data: [
+        'birth_date',
+        'email',
+        'fLast_name',
+        'first_name',
+        'instruction_level',
+        'marital_status',
+        'number',
+        'profession',
+        'work_place',
+    ],
+    socioeconomic_data: [
+    ],
+    financial_references: [
+        'father_incomes',
+        'living_description',
+        'mother_incomes',
+        'other_incomes',
+        'structural_integrity',
+        'total_outcomes'
+    ],
+    academic_data: [
+        'achievements',
+        'difficult_subjects',
+        'entry_date',
+        'extracurriculars',
+        'participation',
+        'preferred_subjects',
+        'previous_institution',
+        'repeated_years',
+    ],
+    medical_data: [
+        'allergies',
+        'allergies_details',
+        'attending_physician',
+        'disability_details',
+        'medical_condition_details',
+        'medical_facility',
+        'medical_facility_details',
+        'medications',
+        'specific_medical_condition',
+        'student_disability',
+    ],
+    medical_history: [
+        'accidents_during_pregnancy',
+        'birth_height',
+        'birth_type',
+        'birth_weight',
+        'bottle_usage_age',
+        'breastfeeding_period',
+        'family_medical_history',
+        'first_wordsAge',
+        'habits_and_activities',
+        'medications_during_pregnancy',
+        'mother_age',
+        'observations',
+        'other_difficulties_during_pregnancy',
+        'student_father_relationship',
+        'student_mother_relationship',
+        'student_others_relationship',
+        'student_siblings_relationship',
+        'toilet_training_age',
+        'walking_age',
+    ]
+
+
+
+
+
+}
+
+ 
+const title = '¡Gracias por tu inscripción!';
+const message = 'Pronto recibirás un correo de confirmación';

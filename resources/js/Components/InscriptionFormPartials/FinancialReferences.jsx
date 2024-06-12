@@ -3,7 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import PropTypes from 'prop-types';
 import { MainFormFieldset } from './MainFormFieldset';
 
-export const FinancialReferences = ({ data, setData, information }) => {
+
+export const FinancialReferences = ({ data, setData, errorHandling, information }) => {
 
     const handleFinancialReferences = (e) => {
 
@@ -23,17 +24,11 @@ export const FinancialReferences = ({ data, setData, information }) => {
                     value={data?.father_data?.incomes}
                     type='number'
                     required
-                    className='rounded-md w-full'
-                   /*  onChange={handleFinancialReferences} */
-                    onChange={(e) => setData({
-                        ...data,
-                        father_data: {
-                          ...data.father_data,
-                          incomes: e.target.value
-                        }
-                      })}
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFinancialReferences}
                     placeholder="Ingresos de Padre"
                 />
+                {errorHandling?.father_incomes && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
             <label htmlFor="mother_incomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Ingresos de Madre <span>*</span>
@@ -44,17 +39,11 @@ export const FinancialReferences = ({ data, setData, information }) => {
                     value={data?.mother_data?.incomes}
                     type='number'
                     required
-                    className='rounded-md w-full'
-                    /* onChange={handleFinancialReferences} */
-                    onChange={(e) => setData({
-                        ...data,
-                        mother_data: {
-                          ...data.mother_data,
-                          incomes: e.target.value
-                        }
-                      })}
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFinancialReferences}
                     placeholder="Ingresos de Madre"
                 />
+                {errorHandling?.mother_incomes && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
             <label htmlFor="other_incomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Otros Ingresos <span>*</span>
@@ -65,40 +54,36 @@ export const FinancialReferences = ({ data, setData, information }) => {
                     value={data?.tutor_data?.incomes}
                     type='number'
                     required
-                    className='rounded-md w-full'
-                   /*  onChange={handleFinancialReferences} */
-                   onChange={(e) => setData({
-                    ...data,
-                    tutor_data: {
-                        ...data.tutor_data,
-                      incomes: e.target.value
-                    }
-                  })}
-                    placeholder="Ingrese el lugar que ocupa en la familia"
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFinancialReferences}
+                    placeholder="Otros Ingresos"
                 />
+                {errorHandling?.other_incomes && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
             <label htmlFor="expenditure" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Total de Egresos <span>*</span>
 
                 <InputText
-                
                     id="expenditure"
                     name="expenditure"
                     value={data?.financial_references?.expenditure}
+
                     type='number'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleFinancialReferences}
                     placeholder="Total de Egresos"
                 />
             </label>
 
-            <label htmlFor="type_house_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Condición de la vivienda <span>*</span>
 
+            <label htmlFor="type_house_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+
+                Condición de la vivienda <span>*</span>
                 <Dropdown
-                    value={data?.financial_references.type_house_id}
+                    value={data?.financial_references?.type_house_id}
                     name='type_house_id'
+                    id='structural_integrity'
                     onChange={handleFinancialReferences}
                     optionValue="id"
                     optionLabel="name"
@@ -106,7 +91,9 @@ export const FinancialReferences = ({ data, setData, information }) => {
                     placeholder="Condición de la vivienda"
                     filter
                     className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                {errorHandling?.structural_integrity && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
+
             <label htmlFor="living_description" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Breve descripción de la vivienda: (casa, departamento, cuarto, etc.) <span>*</span>
 
@@ -116,10 +103,11 @@ export const FinancialReferences = ({ data, setData, information }) => {
                     value={data?.financial_references?.living_description}
                     type='text'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleFinancialReferences}
                     placeholder="Descripción de la vivienda"
                 />
+                {errorHandling?.living_description && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
         </MainFormFieldset>
     )

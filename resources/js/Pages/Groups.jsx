@@ -44,12 +44,11 @@ export default function Groups({ auth, data, msj }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Groups</h2>}
+            header={"Cursos / Grupos"}
         >
    
             <Head title="Lista de Groups" />
 
-            <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
 
                 <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" />
 
@@ -72,8 +71,7 @@ export default function Groups({ auth, data, msj }) {
                     <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-0 min-w-36' />
 
                 </DataTable>
-
-            </div>
+ 
             {/* modal edit User */}
             <Edit
                 selectedItem={selectedItem}

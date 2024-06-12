@@ -7,12 +7,10 @@ import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
-import { Edit } from '@/Components/Groups/Edit';
 
-
+/* import { Edit } from '@/Components/Groups/Edit'; */
 
 export default function ContactsRequest({ auth, data, msj }) {
-
     const {
         dt,
         alert,
@@ -30,68 +28,80 @@ export default function ContactsRequest({ auth, data, msj }) {
         tableConfig,
         showNewDialog,
         setShowNewDialog,
-        onHideEditDialog
+        onHideEditDialog, 
+        RenderActionLinks
     } = useTable(data)
 
     useEffect(() => {
-        
-        data.forEach(element => {
-            element.name = element.first_name + ' ' + element.second_name + ' ' + element.fLast_name + ' ' + element.sLast_name;
-            element.requestDate = new Date(element.created_at).toLocaleDateString('es-DO');
-        });
-
-
         setDataList(data)
         setAlert(msj)
     }, [data, msj])
 
+    const RenderName = (rowData) => {
+        return rowData.first_name + ' ' + rowData.fLast_name
+    }
+
     const requestStatus = (rowData) => {
-        if (rowData.status == 0) {
-            return <span className="rounded-md bg-red-500 text-jewel-text py-1 px-2">Rechazada</span>
-        } else if (rowData.status == 1) {
-            return <span className="rounded-md bg-lime-500 text-jewel-text py-1 px-2">Aprobada</span>
-        } else{
+        if (rowData.status === 2) {
             return <span className="rounded-md bg-sky-500 text-jewel-text py-1 px-2">Pendiente</span>
         }
+
+        if (rowData.status === 1) {
+            return <span className="rounded-md bg-lime-500 text-jewel-text py-1 px-2">Aprobada</span>
+        }
+
+        if (rowData.status === 3) {
+            return <span className="rounded-md bg-red-500 text-jewel-text py-1 px-2">Rechazada</span>
+        }
+    }
+
+    const getDate = (rowData) => {
+        const date = new Date(rowData.created_at)
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('es-ES', options)
+    }
+
+    const edit = (rowData) => {
+      
     }
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Solicitudes de contactos</h2>}
+            header="Solicitudes / Postulantes"
         >
-            <Head title="Solicitudes" />
+            <Head title="Lista de Solicitudes" />
 
             <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
 
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='pt-3 pb-0 rounded-none' />
+                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='py-2 rounded-none' />
 
                 <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-2 ' />
+                    <Column field='id' header='ID' sortable />
 
-                    <Column field='name' header='Nombre' sortable className='py-2 ' />
+                    <Column  header='Nombre' sortable body={RenderName} />
 
-                    <Column field='email' header='Nivel' sortable className='py-2' />
+                    <Column field='email' header='Nivel' sortable />
 
-                    <Column field='requestDate' header='Fecha de solicitud' sortable className='py-2' />
+                    <Column header='Fecha de solicitud' sortable body={getDate}/>
 
-                    <Column field='responseDate' header='Fecha de respuesta' sortable className='py-2' />
+                    <Column field='responseDate' header='Fecha de respuesta' sortable />
 
-                    <Column field='status' header='Estatus' sortable className='py-2' body={requestStatus} />
+                    <Column field='status' header='Estatus' sortable body={requestStatus} />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2 min-w-36' />
+                    <Column header="Acciones" body={(rowData) => RenderActionLinks(rowData)} exportable={false} />
 
                 </DataTable>
 
             </div>
             {/* modal edit User */}
-            <Edit
+           {/*  <Edit
                 selectedItem={selectedItem}
                 showDialog={editItemDialog}
                 hideDialog={onHideEditDialog}
                 endpoint=''
-            />
+            /> */}
 
             <New
                 showDialog={showNewDialog}

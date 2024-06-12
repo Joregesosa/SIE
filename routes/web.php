@@ -20,8 +20,16 @@ use App\Models\Contact;
 use Database\Seeders\LevelSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+/* borrar después */
+Route::get('/enrollmentRequest', function () {
+    return Inertia::render('Applications/EnrollmentRequest');
+})->middleware(['auth', 'verified'])->name('enrollmentRequest');
 
+Route::get('/enrollmentVerification', function () {
+    return Inertia::render('Applications/EnrollmentVerification');
+})->middleware(['auth', 'verified'])->name('enrollmentVerification');
 
+/* ---------------------- */
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -76,7 +84,7 @@ Route::controller(SystemController::class)->group(function () {
         Route::get('/students/{id}', 'show')->name('students.show');
         Route::put('/students', 'update')->name('students.update');
         Route::delete('/students/{id}', 'destroy')->name('students.delete');
-    });
+    }); 
 
     Route::controller(GroupController::class)->group(function () {
         Route::get('/groups', 'index')->name('groups');

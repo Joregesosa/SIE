@@ -44,35 +44,34 @@ export default function Users({ auth, currentUser, data, msj }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-lg leading-tight">Usuarios</h2>}
+            header={"Usuarios"}
         >
             <Head title="Lista de Usuarios" />
 
-            <div className='h-[calc(100vh-120px)] rounded-b-md flex flex-col'>
-                <Toolbar
-                    left={RenderLeftToolbar}
-                    right={() => RenderRightToolbar(dt)}
-                    className="py-2 rounded-none bg-white bg-opacity-40"
-                />
+            <Toolbar
+                left={RenderLeftToolbar}
+                right={() => RenderRightToolbar(dt)}
+                className="py-2 rounded-none bg-white bg-opacity-40"
+            />
 
-                <DataTable  {...tableConfig}>
+            <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-2 ' />
+                <Column field='id' header='ID' sortable className='py-2 ' />
 
-                    <Column field='person.first_name' header='Nombre' sortable className='py-2' body={renderUserName} />
+                <Column field='person.first_name' header='Nombre' sortable className='py-2' body={renderUserName} />
 
-                    <Column field='user_name' header='usuario' sortable className='py-2' />
+                <Column field='user_name' header='usuario' sortable className='py-2' />
 
-                    <Column field='email' header='Email' sortable className='py-2' />
+                <Column field='email' header='Email' sortable className='py-2' />
 
-                    <Column field='role.role' header='Rol' sortable className='py-2' />
+                <Column field='role.role' header='Rol' sortable className='py-2' />
 
-                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
+                <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
+                <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
 
-                </DataTable>
-            </div>
+            </DataTable>
+
             {/* modal edit User */}
             <Edit
                 selectedItem={selectedItem}

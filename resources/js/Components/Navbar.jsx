@@ -4,13 +4,15 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
-export const Navbar = ({ user, theme , setShowThemeControl}) => {
+export const Navbar = ({ user, theme, setShowThemeControl, header }) => {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     return (
-        <nav className={`bg-${theme}-primary `}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-end h-16">
+        <nav className={`bg-${theme}-primary print:hidden`}>
 
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div className="flex justify-between items-center h-16">
+                <h2 className={`text-${theme}-text font-semibold text-lg leading-tight`}>{header}</h2>
 
                     <div className="hidden sm:flex sm:items-center sm:ms-6">
                         <div className="ms-3 relative">
