@@ -256,7 +256,6 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                 <form className="col-span-12 mt-4" onSubmit={handleSubmit}>
                     <fieldset className='grid grid-cols-12'>
                         <fieldset className='font-semibold mb-2 col-span-12 gap-4'>Actualizar status de solicitud</fieldset>
-
                         <label htmlFor="comment" className="font-bold text-xs col-span-12">
                             Comentario
                             <textarea
@@ -266,7 +265,6 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                                 className="rounded-md w-full bg-transparent resize-none h-32"
                             />
                         </label>
-
                         <label htmlFor="payment" className="font-bold text-xs col-span-6 pr-4 mt-1">
                             Pago
                             <input
@@ -311,8 +309,6 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                                 <option value="rejected">Rechazado</option>
                             </select>
                         </label>
-
-
                     </fieldset>
                     <div className=" py-4 flex justify-end print:hidden">
                         <button disabled={processing} type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">

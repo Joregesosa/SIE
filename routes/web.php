@@ -25,6 +25,10 @@ Route::get('/enrollmentRequest', function () {
     return Inertia::render('Applications/EnrollmentRequest');
 })->middleware(['auth', 'verified'])->name('enrollmentRequest');
 
+Route::get('/enrollmentVerification', function () {
+    return Inertia::render('Applications/EnrollmentVerification');
+})->middleware(['auth', 'verified'])->name('enrollmentVerification');
+
 /* ---------------------- */
 Route::get('/', function () {
     return Inertia::render('Welcome', [

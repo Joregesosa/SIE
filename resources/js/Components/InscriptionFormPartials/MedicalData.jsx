@@ -2,10 +2,9 @@ import { InputText } from "primereact/inputtext";
 import PropTypes from 'prop-types';
 import { MainFormFieldset } from "./MainFormFieldset";
 import { useEffect } from "react";
-export const MedicalData = ({ data, setData }) => {
+export const MedicalData = ({ data, setData , errorHandling}) => {
 
-    const handleMedicalData = (e) => {
-        
+    const handleMedicalData = (e) => { 
         setData({ ...data, medical_data: { ...data.medical_data, [e.target.name]: e.target.value } })
     }
 
@@ -19,27 +18,29 @@ export const MedicalData = ({ data, setData }) => {
                 <select
                     id="student_disability"
                     name="student_disability"
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
-                    value={data?.medical_data.student_disability}
+                    value={data?.medical_data?.student_disability}
                     defaultValue="0"
                 >
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
+                {errorHandling?.student_disability && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="disability_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Determine qué discapacidad / porcentaje / número de identificación
                 <InputText
-                    disabled={data?.medical_data.student_disability === '0'}
+                    disabled={data?.medical_data?.student_disability === '0'}
                     id="disability_details"
                     name="disability_details"
-                    value={data?.medical_data.student_disability === '0' ? "" : data?.medical_data.disability_details}
-                    className='rounded-md w-full'
+                    value={data?.medical_data?.student_disability === '0' ? "" : data?.medical_data?.disability_details}
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de la discapacidad"
                 />
+                {errorHandling?.disability_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="specific_medical_condition" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -47,27 +48,29 @@ export const MedicalData = ({ data, setData }) => {
                 <select
                     id="specific_medical_condition"
                     name="specific_medical_condition"
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
-                    value={data?.medical_data.specific_medical_condition}
+                    value={data?.medical_data?.specific_medical_condition}
                     defaultValue="0"
                 >
                      <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
+                {errorHandling?.specific_medical_condition && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medical_condition_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Determine qué condición médica
                 <InputText
-                    disabled={data?.medical_data.specific_medical_condition === '0'}
+                    disabled={data?.medical_data?.specific_medical_condition === '0'}
                     id="medical_condition_details"
                     name="medical_condition_details"
-                    value={data?.medical_data.specific_medical_condition === '0' ? "" : data?.medical_data.medical_condition_details}
-                    className='rounded-md w-full'
+                    value={data?.medical_data?.specific_medical_condition === '0' ? "" : data?.medical_data?.medical_condition_details}
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de la condición médica"
                 />
+                {errorHandling?.medical_condition_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="allergies" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -75,27 +78,29 @@ export const MedicalData = ({ data, setData }) => {
                 <select
                     id="allergies"
                     name="allergies"
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
-                    value={data?.medical_data.allergies}
+                    value={data?.medical_data?.allergies}
                     defaultValue="0"
                 >
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
+                {errorHandling?.allergies && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="allergies_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Determine qué alergias
                 <InputText
-                    disabled={data?.medical_data.allergies === '0'}
+                    disabled={data?.medical_data?.allergies === '0'}
                     id="allergies_details"
                     name="allergies_details"
-                    value={data?.medical_data.allergies === '0' ? "" :   data?.medical_data.allergies_detailsa}
-                    className='rounded-md w-full'
+                    value={data?.medical_data?.allergies === '0' ? "" :   data?.medical_data?.allergies_details}
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de las alergias"
                 />
+                {errorHandling?.allergies_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medications" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -103,11 +108,12 @@ export const MedicalData = ({ data, setData }) => {
                 <InputText
                     id="medications"
                     name="medications"
-                    value={data?.medical_data.medications}
-                    className='rounded-md w-full'
+                    value={data?.medical_data?.medications}
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Medicamentos"
                 />
+                {errorHandling?.medications && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medical_facility" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -115,9 +121,9 @@ export const MedicalData = ({ data, setData }) => {
                 <select
                     id="medical_facility"
                     name="medical_facility"
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
-                    value={data?.medical_data.medical_facility}
+                    value={data?.medical_data?.medical_facility}
 
                 >
                     <option value="">Seleccionar centro de salud</option>
@@ -126,6 +132,7 @@ export const MedicalData = ({ data, setData }) => {
                     <option value="private_hospital">Hospital Privado</option>
                     <option value="other">Otro</option>
                 </select>
+                {errorHandling?.medical_facility && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medical_facility_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -133,11 +140,12 @@ export const MedicalData = ({ data, setData }) => {
                 <InputText
                     id="medical_facility_details"
                     name="medical_facility_details"
-                    value={data?.medical_data.medical_facility_details}
-                    className='rounded-md w-full'
+                    value={data?.medical_data?.medical_facility_details}
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de la institución médica"
                 />
+                {errorHandling?.medical_facility_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="attending_physician" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -145,11 +153,12 @@ export const MedicalData = ({ data, setData }) => {
                 <InputText
                     id="attending_physician"
                     name="attending_physician"
-                    value={data?.medical_data.attending_physician}
-                    className='rounded-md w-full'
+                    value={data?.medical_data?.attending_physician}
+                    className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Médico tratante"
                 />
+                {errorHandling?.attending_physician && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
         </MainFormFieldset>

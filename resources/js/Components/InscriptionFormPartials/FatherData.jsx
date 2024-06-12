@@ -20,167 +20,181 @@ const maritalStatusOptions = [
     { label: 'Uniones civiles', id: '7' }
 ];
 
-export const FatherData = ({ data, handleFatherData }) => (
+export const FatherData = ({ data, setData, errorHandling }) => {
+    const handleFatherData = (e) => {
+        setData({ ...data, father_data: { ...data.father_data, [e.target.name]: e.target.value } })
+    }
+    return (
+        <MainFormFieldset
+            legend="Datos familiares"
+            description="Datos del Padre">
 
-    <MainFormFieldset
-        legend="Datos familiares"
-        description="Datos del Padre">
+            <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Primer nombre <span>*</span>
+                <InputText
+                    id="first_name"
+                    name="first_name"
+                    value={data?.father_data?.first_name}
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese el primer nombre"
+                />
+                {errorHandling?.first_name && <span className="text-red-500 text-xs">Este campo es requerido</span>}
 
-        <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Primer nombre <span>*</span>
-            <InputText
-                id="first_name"
-                name="first_name"
-                value={data?.father_data.first_name}
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese el primer nombre"
-            />
-        </label>
+            </label>
 
-        <label htmlFor="second_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Segundo nombre
-            <InputText
-                id="second_name"
-                name="second_name"
-                value={data?.father_data.second_name}
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese el segundo nombre"
-            />
-        </label>
+            <label htmlFor="second_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Segundo nombre
+                <InputText
+                    id="second_name"
+                    name="second_name"
+                    value={data?.father_data?.second_name}
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese el segundo nombre"
+                />
+            </label>
 
-        <label htmlFor="fLast_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Primer Apellido <span>*</span>
-            <InputText
-                id="fLast_name"
-                name="fLast_name"
-                value={data?.father_data.fLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese el primer apellido"
-            />
-        </label>
+            <label htmlFor="fLast_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Primer Apellido <span>*</span>
+                <InputText
+                    id="fLast_name"
+                    name="fLast_name"
+                    value={data?.father_data?.fLast_name}
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese el primer apellido"
+                />
+                {errorHandling?.fLast_name && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
-        <label htmlFor="sLast_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Segundo Apellido
-            <InputText
-                id="sLast_name"
-                name="sLast_name"
-                value={data?.father_data.sLast_name}
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese el segundo apellido"
-            />
-        </label>
+            <label htmlFor="sLast_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Segundo Apellido
+                <InputText
+                    id="sLast_name"
+                    name="sLast_name"
+                    value={data?.father_data?.sLast_name}
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese el segundo apellido"
+                />
+            </label>
 
-        <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Fecha de nacimiento <span>*</span>
-            <InputText
-                id="birth_date"
-                name="birth_date"
-                value={data?.father_data.birth_date}
-                type='date'
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
+            <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Fecha de nacimiento <span>*</span>
+                <InputText
+                    id="birth_date"
+                    name="birth_date"
+                    value={data?.father_data?.birth_date}
+                    type='date'
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese la fecha de nacimiento"
+                />
+                {errorHandling?.birth_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
-        <label htmlFor="marital_status" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Estado civil <span>*</span>
-            <Dropdown
-                id="marital_status"
-                name="marital_status"
-                value={data?.father_data.marital_status}
-                onChange={handleFatherData}
-                options={maritalStatusOptions}
-                optionLabel="label"
-                optionValue="id"
-                placeholder="Seleccione un estado civil"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </label>
+            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Estado civil <span>*</span>
+                <Dropdown
+                    id="marital_status"
+                    name="marital_status"
+                    value={data?.father_data?.marital_status}
+                    onChange={handleFatherData}
+                    options={maritalStatusOptions}
+                    optionLabel="label"
+                    optionValue="id"
+                    placeholder="Seleccione un estado civil"
+                    filter
+                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                    {errorHandling?.marital_status && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
-        <label htmlFor="instruction_level" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Nivel de Instrucción <span>*</span>
-            <Dropdown
-                id="instruction_level"
-                name="instruction_level"
-                value={data?.father_data.instruction_level}
-                onChange={handleFatherData}
-                options={instructionLevelOptions}
-                optionLabel="label"
-                optionValue="id"
-                placeholder="Seleccione un nivel de instrucción"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </label>
+            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Nivel de Instrucción <span>*</span>
+                <Dropdown
+                    id="instruction_level"
+                    name="instruction_level"
+                    value={data?.father_data?.instruction_level}
+                    onChange={handleFatherData}
+                    options={instructionLevelOptions}
+                    optionLabel="label"
+                    optionValue="id"
+                    placeholder="Seleccione un nivel de instrucción"
+                    filter
+                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                    {errorHandling?.instruction_level && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
-        <label htmlFor="profession" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Profesión/ocupación <span>*</span>
-            <InputText
-                id="profession"
-                name="profession"
-                value={data?.father_data.profession}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
+            <label htmlFor="profession" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Profesión/ocupación <span>*</span>
+                <InputText
+                    id="profession"
+                    name="profession"
+                    value={data?.father_data?.profession}
+                    type='text'
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese la fecha de nacimiento"
+                />
+                {errorHandling?.profession && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
-        <label htmlFor="work_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Lugar de trabajo <span>*</span>
-            <InputText
-                id="work_place"
-                name="work_place"
-                value={data?.father_data.work_place}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
+            <label htmlFor="work_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Lugar de trabajo <span>*</span>
+                <InputText
+                    id="work_place"
+                    name="work_place"
+                    value={data?.father_data?.work_place}
+                    type='text'
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese la fecha de nacimiento"
+                />
+                {errorHandling?.work_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
-        <label htmlFor="number" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Teléfono de contacto <span>*</span>
-            <InputText
-                id="number"
-                name="number"
-                value={data?.father_data.number}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
+            <label htmlFor="number" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Teléfono de contacto <span>*</span>
+                <InputText
+                    id="number"
+                    name="number"
+                    value={data?.father_data?.number}
+                    type='text'
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese la fecha de nacimiento"
+                />
+                {errorHandling?.number && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
-        <label htmlFor="email" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Correo Electrónico <span>*</span>
-            <InputText
-                id="email"
-                name="email"
-                value={data?.father_data.email}
-                type='text'
-                required
-                className='rounded-md w-full'
-                onChange={handleFatherData}
-                placeholder="Ingrese la fecha de nacimiento"
-            />
-        </label>
+            <label htmlFor="email" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Correo Electrónico <span>*</span>
+                <InputText
+                    id="email"
+                    name="email"
+                    value={data?.father_data?.email}
+                    type='text'
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleFatherData}
+                    placeholder="Ingrese la fecha de nacimiento"
+                />
+                {errorHandling?.email && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
-    </MainFormFieldset>
-)
+        </MainFormFieldset>
+    )
+}
 FatherData.propTypes = {
     data: PropTypes.object.isRequired,
-    handleFatherData: PropTypes.func.isRequired
+    setData: PropTypes.func.isRequired
 }
