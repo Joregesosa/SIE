@@ -27,6 +27,7 @@ const ContactForm = ({ msj, levels }) => {
             post(route('contact.create'), {
                 onSuccess: () => {
                     setSended(true);
+                    reset();
                 },
                 onError: () => {
                     alert('Ha ocurrido un error, por favor intente de nuevo' + msj?.error);
@@ -316,7 +317,7 @@ const ContactForm = ({ msj, levels }) => {
                     </div>
                 </form>
                 :
-                <FormSubmitted />
+                <FormSubmitted title={title} message={message} />
             }
 
 
@@ -329,3 +330,5 @@ const ContactForm = ({ msj, levels }) => {
 export default ContactForm;
 
 
+const title = '¡Hemos recibido tu solicitud de contacto!';
+const message = 'Te estaremos contactando en 24 horas';

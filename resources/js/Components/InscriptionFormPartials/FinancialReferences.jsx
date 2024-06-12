@@ -5,7 +5,7 @@ import { MainFormFieldset } from './MainFormFieldset';
 
 const structural_integrity_option =
     [
-      
+
         { id: 1, label: "Propia" },
         { id: 2, label: "Arrendada" },
         { id: 3, label: "Prestada" },
@@ -13,7 +13,7 @@ const structural_integrity_option =
         { id: 5, label: "Con préstamo" }
 
     ]
-export const FinancialReferences = ({ data, setData }) => {
+export const FinancialReferences = ({ data, setData, errorHandling }) => {
     const handleFinancialReferences = (e) => {
 
         setData({ ...data, financial_references: { ...data.financial_references, [e.target.name]: e.target.value } })
@@ -33,16 +33,10 @@ export const FinancialReferences = ({ data, setData }) => {
                     type='number'
                     required
                     className='rounded-md w-full placeholder:font-normal'
-                   /*  onChange={handleFinancialReferences} */
-                    onChange={(e) => setData({
-                        ...data,
-                        father_data: {
-                          ...data.father_data,
-                          incomes: e.target.value
-                        }
-                      })}
+                    onChange={handleFinancialReferences}
                     placeholder="Ingresos de Padre"
                 />
+                {errorHandling?.father_incomes && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
             <label htmlFor="mother_incomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Ingresos de Madre <span>*</span>
@@ -54,16 +48,10 @@ export const FinancialReferences = ({ data, setData }) => {
                     type='number'
                     required
                     className='rounded-md w-full placeholder:font-normal'
-                    /* onChange={handleFinancialReferences} */
-                    onChange={(e) => setData({
-                        ...data,
-                        mother_data: {
-                          ...data.mother_data,
-                          incomes: e.target.value
-                        }
-                      })}
+                    onChange={handleFinancialReferences}
                     placeholder="Ingresos de Madre"
                 />
+                {errorHandling?.mother_incomes && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
             <label htmlFor="other_incomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Otros Ingresos <span>*</span>
@@ -75,16 +63,10 @@ export const FinancialReferences = ({ data, setData }) => {
                     type='number'
                     required
                     className='rounded-md w-full placeholder:font-normal'
-                   /*  onChange={handleFinancialReferences} */
-                   onChange={(e) => setData({
-                    ...data,
-                    tutor_data: {
-                        ...data.tutor_data,
-                      incomes: e.target.value
-                    }
-                  })}
-                    placeholder="Ingrese el lugar que ocupa en la familia"
+                    onChange={handleFinancialReferences}
+                    placeholder="Otros Ingresos"
                 />
+                {errorHandling?.other_incomes && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
             <label htmlFor="total_outcomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Total de Egresos <span>*</span>
@@ -101,11 +83,10 @@ export const FinancialReferences = ({ data, setData }) => {
                 />
             </label>
 
-            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Condición de la vivienda <span>*</span>
-
                 <Dropdown
-                id='structural_integrity'
+                    id='structural_integrity'
                     value={data?.financial_references?.structural_integrity}
                     name='structural_integrity'
                     onChange={handleFinancialReferences}
@@ -114,7 +95,9 @@ export const FinancialReferences = ({ data, setData }) => {
                     placeholder="Condición de la vivienda"
                     filter
                     className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                {errorHandling?.structural_integrity && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
+
             <label htmlFor="living_description" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Breve descripción de la vivienda: (casa, departamento, cuarto, etc.) <span>*</span>
 
@@ -128,6 +111,7 @@ export const FinancialReferences = ({ data, setData }) => {
                     onChange={handleFinancialReferences}
                     placeholder="Descripción de la vivienda"
                 />
+                {errorHandling?.living_description && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
         </MainFormFieldset>
     )

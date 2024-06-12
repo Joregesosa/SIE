@@ -21,15 +21,12 @@ const courseLevels = [
     { id: 14, level: "Segundo Año de Bachillerato (2° BGU)" },
     { id: 15, level: "Tercer Año de Bachillerato (3° BGU)" },
 ];
-export const IdentificationData = ({ data, setData }) => {
+export const IdentificationData = ({ data, setData, errorHandling }) => {
 
     const handleIdentificationData = (e) => {
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
-    useEffect(() => {
-        console.log(data.identification_data)
-    }, [data.identification_data])
-
+ 
     return (
         <MainFormFieldset legend="DATOS DE IDENTIFICACIÓN/INFORMACIÓN ESTUDIANTE">
 
@@ -47,9 +44,10 @@ export const IdentificationData = ({ data, setData }) => {
                     className="flex items-center border h-[42px] border-gray-500 flex-grow"
                     filter
                 />
+                {errorHandling?.level && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+             <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Primer nombre <span>*</span>
                 <InputText
                     id="first_name"
@@ -60,9 +58,10 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el primer nombre"
                 />
+                {errorHandling?.first_name && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="second_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+           <label htmlFor="second_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Segundo nombre
                 <InputText
                     id="second_name"
@@ -86,7 +85,7 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el primer apellido"
                 />
-
+                {errorHandling?.fLast_name && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="sLast_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -114,6 +113,7 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
+                    {errorHandling?.birth_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="birth_day_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -127,6 +127,7 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el lugar de nacimiento"
                 />
+                    {errorHandling?.birth_day_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="id_card" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -140,19 +141,21 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el número de cédula"
                 />
+                    {errorHandling?.id_card && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="id_card" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="age" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Edad del alumno <span>*</span>
                 <InputText
-                    id="id_card"
-                    name="id_card"
-                    value={data?.identification_data?.id_card}
+                    id="age"
+                    name="age"
+                    value={data?.identification_data?.age}
                     required
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la edad del alumno"
                 />
+                    {errorHandling?.age && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="address_street" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -166,6 +169,7 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la dirección"
                 />
+                {errorHandling?.address_street && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="sector" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -179,6 +183,7 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la dirección"
                 />
+                {errorHandling?.sector && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="number" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -193,6 +198,7 @@ export const IdentificationData = ({ data, setData }) => {
                     placeholder="Ingrese el número de teléfono"
                     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 />
+                {errorHandling?.number && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="reference" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -206,12 +212,14 @@ export const IdentificationData = ({ data, setData }) => {
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el número de teléfono"
                 />
-            </label>
+                {errorHandling?.reference && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>  
 
         </MainFormFieldset>
     )
 }
 IdentificationData.prototype = {
     data: PropTypes.object.isRequired,
-    setData: PropTypes.func.isRequired
+    setData: PropTypes.func.isRequired,
+    errorHandling: PropTypes.object.isRequired
 }

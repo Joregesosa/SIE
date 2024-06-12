@@ -20,7 +20,7 @@ const maritalStatusOptions = [
     { label: 'Uniones civiles', id: '7' }
 ];
 
-export const FatherData = ({ data, setData }) => {
+export const FatherData = ({ data, setData, errorHandling }) => {
     const handleFatherData = (e) => {
         setData({ ...data, father_data: { ...data.father_data, [e.target.name]: e.target.value } })
     }
@@ -40,6 +40,8 @@ export const FatherData = ({ data, setData }) => {
                     onChange={handleFatherData}
                     placeholder="Ingrese el primer nombre"
                 />
+                {errorHandling?.first_name && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+
             </label>
 
             <label htmlFor="second_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -66,6 +68,7 @@ export const FatherData = ({ data, setData }) => {
                     onChange={handleFatherData}
                     placeholder="Ingrese el primer apellido"
                 />
+                {errorHandling?.fLast_name && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="sLast_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -93,9 +96,10 @@ export const FatherData = ({ data, setData }) => {
                     onChange={handleFatherData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
+                {errorHandling?.birth_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="marital_status" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Estado civil <span>*</span>
                 <Dropdown
                     id="marital_status"
@@ -108,9 +112,10 @@ export const FatherData = ({ data, setData }) => {
                     placeholder="Seleccione un estado civil"
                     filter
                     className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                    {errorHandling?.marital_status && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="instruction_level" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Nivel de Instrucción <span>*</span>
                 <Dropdown
                     id="instruction_level"
@@ -123,6 +128,7 @@ export const FatherData = ({ data, setData }) => {
                     placeholder="Seleccione un nivel de instrucción"
                     filter
                     className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                    {errorHandling?.instruction_level && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="profession" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -137,6 +143,7 @@ export const FatherData = ({ data, setData }) => {
                     onChange={handleFatherData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
+                {errorHandling?.profession && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="work_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -151,6 +158,7 @@ export const FatherData = ({ data, setData }) => {
                     onChange={handleFatherData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
+                {errorHandling?.work_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="number" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -165,6 +173,7 @@ export const FatherData = ({ data, setData }) => {
                     onChange={handleFatherData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
+                {errorHandling?.number && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="email" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -179,6 +188,7 @@ export const FatherData = ({ data, setData }) => {
                     onChange={handleFatherData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
+                {errorHandling?.email && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
         </MainFormFieldset>

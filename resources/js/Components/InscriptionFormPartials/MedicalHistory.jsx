@@ -1,7 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import PropTypes from 'prop-types';
 import { MainFormFieldset } from "./MainFormFieldset";
-export const MedicalHistory = ({ data, setData }) => {
+export const MedicalHistory = ({ data, setData, errorHandling }) => {
 
     const handleAcademicData = (e) => {
         setData({ ...data, medical_history: { ...data.medical_history, [e.target.name]: e.target.value } })
@@ -23,6 +23,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Edad de la madre durante el embarazo"
                 />
+                {errorHandling?.mother_age && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="accidents_during_pregnancy" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -35,6 +36,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Accidentes durante el embarazo"
                 />
+                {errorHandling?.accidents_during_pregnancy && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medications_during_pregnancy" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -47,6 +49,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Medicamentos durante el embarazo"
                 />
+                {errorHandling?.medications_during_pregnancy && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="birth_type" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -59,6 +62,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Tipo de parto"
                 />
+                {errorHandling?.birth_type && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="other_difficulties_during_pregnancy" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -71,6 +75,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Especifique otras dificultades durante el embarazo"
                 />
+                {errorHandling?.other_difficulties_during_pregnancy && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="birth_weight" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -83,6 +88,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Peso al nacer"
                 />
+                {errorHandling?.birth_weight && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="birth_height" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -95,6 +101,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Altura al nacer"
                 />
+                {errorHandling?.birth_height && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="walking_age" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -107,6 +114,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Edad cuando comenzó a caminar"
                 />
+                {errorHandling?.walking_age && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="first_wordsAge" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -119,6 +127,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Edad cuando pronunció las primeras palabras"
                 />
+                {errorHandling?.first_wordsAge && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="breastfeeding_period" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -131,6 +140,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Período de lactancia"
                 />
+                {errorHandling?.breastfeeding_period && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="bottle_usage_age" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -143,6 +153,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Edad hasta el uso del biberón"
                 />
+                {errorHandling?.bottle_usage_age && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="toilet_training_age" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -155,6 +166,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Edad cuando aprendió el entrenamiento para ir al baño"
                 />
+                {errorHandling?.toilet_training_age && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="observations" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -167,6 +179,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Observaciones"
                 />
+                {errorHandling?.observations && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="family_medical_history" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -179,6 +192,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Antecedentes médicos familiares"
                 />
+                {errorHandling?.family_medical_history && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="student_father_relationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -191,6 +205,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con el padre?"
                 />
+                {errorHandling?.student_father_relationship && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="student_mother_relationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -203,6 +218,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con la madre?"
                 />
+                {errorHandling?.student_mother_relationship && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="student_siblings_relationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -215,6 +231,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con los hermanos?"
                 />
+                {errorHandling?.student_siblings_relationship && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="student_others_relationship" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -227,6 +244,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="¿Cómo describiría la relación del estudiante con otras personas?"
                 />
+                {errorHandling?.student_others_relationship && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="habits_and_activities" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -239,6 +257,7 @@ export const MedicalHistory = ({ data, setData }) => {
                     onChange={handleAcademicData}
                     placeholder="Hábitos y actividades"
                 />
+                {errorHandling?.habits_and_activities && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
         </MainFormFieldset>

@@ -2,7 +2,7 @@ import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
 
-export const AcademicData = ({data, setData}) => {
+export const AcademicData = ({data, setData, errorHandling}) => {
     const handleAcademicData = (e) => {
         setData({ ...data, academic_data: { ...data.academic_data, [e.target.name]: e.target.value } })
     }
@@ -23,6 +23,7 @@ export const AcademicData = ({data, setData}) => {
                     onChange={handleAcademicData}
                     placeholder="Entry Date"
                 />
+                {errorHandling?.entry_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="previous_institution" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -35,6 +36,7 @@ export const AcademicData = ({data, setData}) => {
                     onChange={handleAcademicData}
                     placeholder="Previous Institution"
                 />
+                {errorHandling?.previous_institution && <span className="text-red-500 text-xs">Este campo es requerido</span> }
             </label>
 
             <label htmlFor="repeated_years" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -47,6 +49,7 @@ export const AcademicData = ({data, setData}) => {
                     onChange={handleAcademicData}
                     placeholder="Repeated Years"
                 />
+                {errorHandling?.repeated_years && <span className="text-red-500 text-xs">Este campo es requerido</span> }
             </label>
 
             <label htmlFor="preferred_subjects" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -59,6 +62,7 @@ export const AcademicData = ({data, setData}) => {
                     onChange={handleAcademicData}
                     placeholder="Preferred Subjects"
                 />
+                {errorHandling?.preferred_subjects && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="difficult_subjects" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -71,6 +75,7 @@ export const AcademicData = ({data, setData}) => {
                     onChange={handleAcademicData}
                     placeholder="Difficult Subjects"
                 />
+                {errorHandling?.difficult_subjects && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="achievements" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -83,6 +88,7 @@ export const AcademicData = ({data, setData}) => {
                     onChange={handleAcademicData}
                     placeholder="Achievements"
                 />
+                {errorHandling?.achievements && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="participation" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -95,6 +101,7 @@ export const AcademicData = ({data, setData}) => {
                     onChange={handleAcademicData}
                     placeholder="Participation"
                 />
+                {errorHandling?.participation && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="extracurriculars" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -107,6 +114,7 @@ export const AcademicData = ({data, setData}) => {
                     onChange={handleAcademicData}
                     placeholder="Extracurriculars"
                 />
+                {errorHandling?.extracurriculars && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
         </MainFormFieldset>
     )

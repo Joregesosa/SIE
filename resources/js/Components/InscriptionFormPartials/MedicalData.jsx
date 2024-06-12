@@ -2,10 +2,9 @@ import { InputText } from "primereact/inputtext";
 import PropTypes from 'prop-types';
 import { MainFormFieldset } from "./MainFormFieldset";
 import { useEffect } from "react";
-export const MedicalData = ({ data, setData }) => {
+export const MedicalData = ({ data, setData , errorHandling}) => {
 
-    const handleMedicalData = (e) => {
-        
+    const handleMedicalData = (e) => { 
         setData({ ...data, medical_data: { ...data.medical_data, [e.target.name]: e.target.value } })
     }
 
@@ -27,6 +26,7 @@ export const MedicalData = ({ data, setData }) => {
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
+                {errorHandling?.student_disability && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="disability_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -40,6 +40,7 @@ export const MedicalData = ({ data, setData }) => {
                     onChange={handleMedicalData}
                     placeholder="Detalles de la discapacidad"
                 />
+                {errorHandling?.disability_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="specific_medical_condition" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -55,6 +56,7 @@ export const MedicalData = ({ data, setData }) => {
                      <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
+                {errorHandling?.specific_medical_condition && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medical_condition_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -68,6 +70,7 @@ export const MedicalData = ({ data, setData }) => {
                     onChange={handleMedicalData}
                     placeholder="Detalles de la condición médica"
                 />
+                {errorHandling?.medical_condition_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="allergies" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -83,6 +86,7 @@ export const MedicalData = ({ data, setData }) => {
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
+                {errorHandling?.allergies && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="allergies_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -91,11 +95,12 @@ export const MedicalData = ({ data, setData }) => {
                     disabled={data?.medical_data?.allergies === '0'}
                     id="allergies_details"
                     name="allergies_details"
-                    value={data?.medical_data?.allergies === '0' ? "" :   data?.medical_data?.allergies_detailsa}
+                    value={data?.medical_data?.allergies === '0' ? "" :   data?.medical_data?.allergies_details}
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de las alergias"
                 />
+                {errorHandling?.allergies_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medications" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -108,6 +113,7 @@ export const MedicalData = ({ data, setData }) => {
                     onChange={handleMedicalData}
                     placeholder="Medicamentos"
                 />
+                {errorHandling?.medications && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medical_facility" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -126,6 +132,7 @@ export const MedicalData = ({ data, setData }) => {
                     <option value="private_hospital">Hospital Privado</option>
                     <option value="other">Otro</option>
                 </select>
+                {errorHandling?.medical_facility && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="medical_facility_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -138,6 +145,7 @@ export const MedicalData = ({ data, setData }) => {
                     onChange={handleMedicalData}
                     placeholder="Detalles de la institución médica"
                 />
+                {errorHandling?.medical_facility_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="attending_physician" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -150,6 +158,7 @@ export const MedicalData = ({ data, setData }) => {
                     onChange={handleMedicalData}
                     placeholder="Médico tratante"
                 />
+                {errorHandling?.attending_physician && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
         </MainFormFieldset>
