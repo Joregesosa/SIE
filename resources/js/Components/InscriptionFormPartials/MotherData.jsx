@@ -5,16 +5,8 @@ import { MainFormFieldset } from "./MainFormFieldset";
 import { info } from "autoprefixer";
 
 
-<<<<<<< get_data_all
-export const MotherData = ({ data, handleMotherData , information }) => {
-    
-    return (
 
-    <MainFormFieldset
-        legend="Datos familiares"
-        description="Datos de la Madre">
-=======
-export const MotherData = ({ data, setData, errorHandling }) => {
+export const MotherData = ({ data, setData, errorHandling, information }) => {
     const handleMotherData = (e) => {
         setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
     }
@@ -22,7 +14,6 @@ export const MotherData = ({ data, setData, errorHandling }) => {
         <MainFormFieldset
             legend="Datos familiares"
             description="Datos de la Madre">
->>>>>>> dev
 
             <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Primer nombre <span className=" w-full">*</span>
@@ -79,35 +70,6 @@ export const MotherData = ({ data, setData, errorHandling }) => {
                 />
             </label>
 
-<<<<<<< get_data_all
-        <label htmlFor="marital_status_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Estado civil <span>*</span>
-            <Dropdown
-                value={data?.mother_data.marital_status_id}
-                name="marital_status_id"
-                onChange={handleMotherData}
-                options={information.marital_status}
-                optionLabel="name"
-                optionValue="id"
-                placeholder="Seleccione un estado civil"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </label>
-
-        <label htmlFor="education_level_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-            Nivel de Instrucción <span>*</span>
-            <Dropdown
-                value={data?.mother_data.education_level_id}
-                name="education_level_id"
-                onChange={handleMotherData}
-                options={information.education_levels}
-                optionLabel="name"
-                optionValue="id"
-                placeholder="Seleccione un nivel de instrucción"
-                filter
-                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </label>
-=======
             <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Fecha de nacimiento <span>*</span>
                 <InputText
@@ -123,38 +85,37 @@ export const MotherData = ({ data, setData, errorHandling }) => {
                 {errorHandling?.birth_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Estado civil <span>*</span>
-                <Dropdown
-                    value={data?.mother_data?.marital_status}
-                    id="marital_status"
-                    name="marital_status"
-                    onChange={handleMotherData}
-                    options={maritalStatusOptions}
-                    optionLabel="label"
-                    optionValue="id"
-                    placeholder="Seleccione un estado civil"
-                    filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-                     {errorHandling?.marital_status && <span className="text-red-500 text-xs">Este campo es requerido</span>}
-            </label>
->>>>>>> dev
+        <label htmlFor="marital_status_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Estado civil <span>*</span>
+            <Dropdown
+                value={data?.mother_data?.marital_status_id}
+                name="marital_status_id"
+                onChange={handleMotherData}
+                options={information.marital_status}
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Seleccione un estado civil"
+                filter
+                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                {errorHandling?.marital_status_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+        </label>
 
-            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Nivel de Instrucción <span>*</span>
-                <Dropdown
-                    value={data?.mother_data?.instruction_level}
-                    id="instruction_level"
-                    name="instruction_level"
-                    onChange={handleMotherData}
-                    options={instructionLevelOptions}
-                    optionLabel="label"
-                    optionValue="id"
-                    placeholder="Seleccione un nivel de instrucción"
-                    filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-                    {errorHandling?.instruction_level && <span className="text-red-500 text-xs">Este campo es requerido</span>}
-            </label>
+
+            
+            <label htmlFor="education_level_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Nivel de Instrucción <span>*</span>
+            <Dropdown
+                value={data?.mother_data.education_level_id}
+                name="education_level_id"
+                onChange={handleMotherData}
+                options={information.education_levels}
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Seleccione un nivel de instrucción"
+                filter
+                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                {errorHandling?.education_level_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+        </label>
 
             <label htmlFor="profession" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Profesión/ocupación <span>*</span>
@@ -201,10 +162,7 @@ export const MotherData = ({ data, setData, errorHandling }) => {
                 {errorHandling?.number && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-<<<<<<< get_data_all
-    </MainFormFieldset>
-)}
-=======
+
             <label htmlFor="email" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Correo Electrónico <span>*</span>
                 <InputText
@@ -223,7 +181,7 @@ export const MotherData = ({ data, setData, errorHandling }) => {
         </MainFormFieldset>
     )
 }
->>>>>>> dev
+
 MotherData.prototype = {
     data: PropTypes.object.isRequired,
     setData: PropTypes.func.isRequired

@@ -73,7 +73,10 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleFinancialReferences}
                     placeholder="Total de Egresos"
+
                 />
+                {errorHandling?.expenditure && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+
             </label>
 
 
@@ -83,7 +86,7 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
                 <Dropdown
                     value={data?.financial_references?.type_house_id}
                     name='type_house_id'
-                    id='structural_integrity'
+                    id='type_house_id'
                     onChange={handleFinancialReferences}
                     optionValue="id"
                     optionLabel="name"
@@ -91,7 +94,7 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
                     placeholder="Condición de la vivienda"
                     filter
                     className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-                {errorHandling?.structural_integrity && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                {errorHandling?.type_house_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="living_description" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">

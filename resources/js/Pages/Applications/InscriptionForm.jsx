@@ -15,75 +15,36 @@ import { fieldVerifier } from '@/Helpers/Form.Verifier';
 import { Loading } from '@/Components/Loading';
 import { FormSubmitted } from '@/Components/FormSubmitted';
 
-<<<<<<< get_data_all
-const items = [
-    {
-        label: 'Personal Info'
-    },
-    {
-        label: 'Reservation'
-    },
-    {
-        label: 'Review'
-    }
-];
+
 
 const InscriptionForm = ({msj, contact ,information }) => {
-=======
-const InscriptionForm = ({ msj, contact }) => {
->>>>>>> dev
 
-   
+ 
 
     const cleanData = { 
         identification_data: {
-<<<<<<< get_data_all
-            level: contact?.level,
-            first_name: contact?.first_name,
-            second_name: contact?.second_name,
-            sLast_name: contact?.sLast_name,
-            fLast_name: contact?.fLast_name,
+            level: contact?.level || '',
+            first_name: contact?.first_name || '',
+            second_name: contact?.second_name || '',
+            sLast_name: contact?.sLast_name|| '' ,
+            fLast_name: contact?.fLast_name || '',
             birth_date: '',
             birth_day_place: '',
-            id_card: contact?.id_card,
-            sector: '',
-            address_street: contact?.address,
-            number: contact?.number,
-            reference: ''
-=======
+            id_card: contact?.id_card || '',
             sector: '',
             address_street: contact?.address || '',
-            birth_date: '',
-            birth_day_place: '',
-            fLast_name: contact?.fLast_name || '',
-            first_name: contact?.first_name || '',
-            id_card: contact?.id_card || '',
-            level: contact?.level || '',
             number: contact?.number || '',
-            reference: '',
-            age: '',
-            sLast_name: contact?.sLast_name || '',
-            second_name: contact?.second_name || ''
->>>>>>> dev
+            reference: ''
         },
         mother_data: {
             birth_date: "",
             email: "",
-<<<<<<< get_data_all
-            fLast_name: contact?.sLast_name,
-            first_name: contact?.mother_names.split(" ")[0],
-            education_level_id: "",
-            marital_status_id: "",
-            number: contact?.mother_phone,
-            profession: contact?.mother_occupation,
-=======
             fLast_name: contact?.sLast_name || '',
             first_name: contact?.mother_names.split(" ")[0] || '',
-            instruction_level: "",
-            marital_status: "",
+            education_level_id: "",
+            marital_status_id: "",
             number: contact?.mother_phone || '',
             profession: contact?.mother_occupation || '',
->>>>>>> dev
             sLast_name: "",
             second_name: "",
             work_place: "",
@@ -91,25 +52,15 @@ const InscriptionForm = ({ msj, contact }) => {
         father_data: {
             birth_date: "",
             email: "",
-<<<<<<< get_data_all
-            fLast_name: contact?.fLast_name,
-            first_name: contact?.father_names.split(" ")[0],
-            education_level_id: "",
-            marital_status_id: "",
-            number: contact?.father_phone,
-            profession: contact?.father_occupation,
-=======
             fLast_name: contact?.fLast_name || '',
             first_name: contact?.father_names.split(" ")[0] || '',
-            instruction_level: "",
-            marital_status: "",
+            education_level_id: "",
+            marital_status_id: "",
             number: contact?.father_phone || '',
             profession: contact?.father_occupation || '',
->>>>>>> dev
             sLast_name: "",
             second_name: "",
             work_place: "",
-
         },
         tutor_data: {
             birth_date: "",
@@ -150,7 +101,7 @@ const InscriptionForm = ({ msj, contact }) => {
             repeated_years: "",
         },
         medical_data: {
-            allergies: "",
+            allergies: 1,
             allergies_details: "",
             medical_attention_doctor: "",
             student_disability_details: "",
@@ -158,8 +109,8 @@ const InscriptionForm = ({ msj, contact }) => {
             medical_attention_type_id: "",
             medical_attention_details: "",
             medications: "",
-            medical_condition: "",
-            student_disability: "",
+            medical_condition: 1,
+            student_disability: 1,
         },
         medical_history: {
             pregnancy_accidents: "",
@@ -184,12 +135,6 @@ const InscriptionForm = ({ msj, contact }) => {
         }
     }
 
-<<<<<<< get_data_all
- 
-  
-=======
-
->>>>>>> dev
     const scroll = document.getElementById('scroll');
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
     const [errorHandling, setErrorHandling] = useState({});
@@ -216,44 +161,21 @@ const InscriptionForm = ({ msj, contact }) => {
         }
     }
 
-<<<<<<< get_data_all
-    
-    const handleMotherData = (e) => {
-        setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
-    }
-    const handleFatherData = (e) => {
-        setData({ ...data, father_data: { ...data.father_data, [e.target.name]: e.target.value } })
-    }
-    const handleTutorData = (e) => {
-        setData({ ...data, tutor_data: { ...data.tutor_data, [e.target.name]: e.target.value } })
-    }
-    const forms = [
-        <IdentificationData data={data} setData={setData} information={information} />,
-        <MotherData data={data} handleMotherData={handleMotherData}  information={information} />,
-        <FatherData data={data} handleFatherData={handleFatherData}  information={information} />,
-        <TutorData data={data} handleTutorData={handleTutorData}  information={information}/>,
-        <SocioeconomicData data={data} setData={setData}  information={information} />,
-        <FinancialReferences data={data} setData={setData}  information={information} />,
-        <AcademicData data={data} setData={setData}  information={information} />,
-        <MedicalData data={data} setData={setData}  information={information} />,
-        <MedicalHistory data={data} setData={setData}  information={information} />,
-    ];
-=======
+
     const forms = {
-        identification_data: <IdentificationData data={data} setData={setData} errorHandling={errorHandling} />,
-        mother_data: <MotherData data={data} setData={setData} errorHandling={errorHandling} />,
-        father_data: <FatherData data={data} setData={setData} errorHandling={errorHandling} />,
-        tutor_data: <TutorData data={data} setData={setData} errorHandling={errorHandling} />,
-        socioeconomic_data: <SocioeconomicData data={data} setData={setData} errorHandling={errorHandling} />,
-        financial_references: <FinancialReferences data={data} setData={setData} errorHandling={errorHandling} />,
-        academic_data: <AcademicData data={data} setData={setData} errorHandling={errorHandling} />,
-        medical_data: <MedicalData data={data} setData={setData} errorHandling={errorHandling} />,
-        medical_history: <MedicalHistory data={data} setData={setData} errorHandling={errorHandling} />,
+        identification_data: <IdentificationData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
+        mother_data: <MotherData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
+        father_data: <FatherData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
+        tutor_data: <TutorData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
+        socioeconomic_data: <SocioeconomicData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
+        financial_references: <FinancialReferences data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
+        academic_data: <AcademicData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
+        medical_data: <MedicalData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
+        medical_history: <MedicalHistory data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
     };
 
     const form_keys = Object.keys(forms);
 
->>>>>>> dev
     useEffect(() => {
         if (scroll) {
             scroll.scrollIntoView({ behavior: 'smooth' });
@@ -326,8 +248,8 @@ const requiredFields = {
         'email',
         'fLast_name',
         'first_name',
-        'instruction_level',
-        'marital_status',
+        'education_level_id',
+        'marital_status_id',
         'number',
         'profession',
         'work_place',
@@ -337,8 +259,8 @@ const requiredFields = {
         'email',
         'fLast_name',
         'first_name',
-        'instruction_level',
-        'marital_status',
+        'education_level_id',
+        'marital_status_id',
         'number',
         'profession',
         'work_place',
@@ -348,8 +270,8 @@ const requiredFields = {
         'email',
         'fLast_name',
         'first_name',
-        'instruction_level',
-        'marital_status',
+        'education_level_id',
+        'marital_status_id',
         'number',
         'profession',
         'work_place',
@@ -361,51 +283,48 @@ const requiredFields = {
         'living_description',
         'mother_incomes',
         'other_incomes',
-        'structural_integrity',
-        'total_outcomes'
+        'type_house_id',
+        'expenditure'
     ],
     academic_data: [
-        'achievements',
-        'difficult_subjects',
         'entry_date',
-        'extracurriculars',
-        'participation',
-        'preferred_subjects',
         'previous_institution',
         'repeated_years',
+        'preferred_subjects',
+        'difficult_subjects',
+        'achievements',
+        'dignities',
+        'extracurriculars',
     ],
     medical_data: [
-        'allergies',
-        'allergies_details',
-        'attending_physician',
-        'disability_details',
+        'student_disability_details',
         'medical_condition_details',
-        'medical_facility',
-        'medical_facility_details',
+        'allergies_details',
         'medications',
-        'specific_medical_condition',
-        'student_disability',
+        'medical_attention_type_id',
+        'medical_attention_details',
+        'medical_attention_doctor',
     ],
     medical_history: [
-        'accidents_during_pregnancy',
-        'birth_height',
-        'birth_type',
+        'pregnancy_mother_age',
+        'pregnancy_accidents',
+        'pregnancy_medications',
+        'pregnancy_type_id',
+        'pregnancy_difficulties',
         'birth_weight',
-        'bottle_usage_age',
-        'breastfeeding_period',
-        'family_medical_history',
-        'first_wordsAge',
-        'habits_and_activities',
-        'medications_during_pregnancy',
-        'mother_age',
-        'observations',
-        'other_difficulties_during_pregnancy',
-        'student_father_relationship',
-        'student_mother_relationship',
-        'student_others_relationship',
-        'student_siblings_relationship',
-        'toilet_training_age',
+        'birth_height',
         'walking_age',
+        'talking_age',
+        'breastfeeding_period',
+        'bottle_age',
+        'toilet_age',
+        'observations',
+        'family_medical_history',
+        'father_relationship',
+        'mother_relationship',
+        'siblings_relationship',
+        'others_relationship',
+        'habits_and_activities',
     ]
 
 

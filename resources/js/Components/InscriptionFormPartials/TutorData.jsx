@@ -2,29 +2,10 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
-<<<<<<< get_data_all
 
 
-export const TutorData = ({ data, handleTutorData, information  }) => (
-=======
-const instructionLevelOptions = [
-    { label: 'Educación Primaria', id: '1' },
-    { label: 'Educación Secundaria', id: '2' },
-    { label: 'Educación Técnica o 4', id: '3' },
-    { label: 'Educación Superior', id: '5' },
-    { label: 'Educación Profesional', id: '6' }
-];
-const maritalStatusOptions = [
-    { label: 'Soltero/a', id: '1' },
-    { label: 'Casado/a', id: '2' },
-    { label: 'Separado/a', id: '3' },
-    { label: 'Divorciado/a', id: '4' },
-    { label: 'Viudo/a', id: '5' },
-    { label: 'Conviviente', id: '6' },
-    { label: 'Uniones civiles', id: '7' }
-];
 
-export const TutorData = ({ data, setData, errorHandling }) => {
+export const TutorData = ({ data, setData, errorHandling , information}) => {
     const handleTutorData = (e) => {
         setData({ ...data, tutor_data: { ...data.tutor_data, [e.target.name]: e.target.value } })
     }
@@ -32,7 +13,7 @@ export const TutorData = ({ data, setData, errorHandling }) => {
         <MainFormFieldset
             legend="Datos familiares"
             description="Datos del Representante (En caso de no ser uno de los progenitores) caso contrario escriba nada el los casilleros">
->>>>>>> dev
+
 
             <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Primer nombre <span>*</span>
@@ -103,24 +84,7 @@ export const TutorData = ({ data, setData, errorHandling }) => {
                 {errorHandling?.birth_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Estado civil <span>*</span>
-                <Dropdown
-                    id="marital_status"
-                    name="marital_status"
-                    value={data?.tutor_data?.marital_status}
-                    onChange={handleTutorData}
-                    options={maritalStatusOptions}
-                    optionLabel="label"
-                    optionValue="id"
-                    placeholder="Seleccione un estado civil"
-                    filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-                    {errorHandling?.marital_status && <span className="text-red-500 text-xs">Este campo es requerido</span>}
-            </label>
-
-<<<<<<< get_data_all
-        <label htmlFor="marital_status_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="marital_status_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Estado civil <span>*</span>
             <Dropdown
                 id="marital_status_id"
@@ -133,7 +97,8 @@ export const TutorData = ({ data, setData, errorHandling }) => {
                 placeholder="Seleccione un estado civil"
                 filter
                 className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-        </label>
+                {errorHandling?.marital_status_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+            </label>
 
         <label htmlFor="education_level_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Nivel de Instrucción <span>*</span>
@@ -148,23 +113,10 @@ export const TutorData = ({ data, setData, errorHandling }) => {
                 placeholder="Seleccione un nivel de instrucción"
                 filter
                 className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                {errorHandling?.education_level_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
         </label>
-=======
-            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Nivel de Instrucción <span>*</span>
-                <Dropdown
-                    id="instruction_level"
-                    name="instruction_level"
-                    value={data?.tutor_data?.instruction_level}
-                    onChange={handleTutorData}
-                    options={instructionLevelOptions}
-                    optionLabel="label"
-                    optionValue="id"
-                    placeholder="Seleccione un nivel de instrucción"
-                    filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
-                    {errorHandling?.instruction_level && <span className="text-red-500 text-xs">Este campo es requerido</span>}
-            </label>
+
+           
 
             <label htmlFor="profession" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Profesión/ocupación <span>*</span>
@@ -180,7 +132,7 @@ export const TutorData = ({ data, setData, errorHandling }) => {
                 />
                 {errorHandling?.profession && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
->>>>>>> dev
+
 
             <label htmlFor="work_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Lugar de trabajo <span>*</span>

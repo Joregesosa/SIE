@@ -4,40 +4,14 @@ import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
 import { useEffect } from "react";
 
-<<<<<<< get_data_all
 
-export const IdentificationData = ({ data, setData , information }) => {
-
-    const handleIdentificationData = (e) => {
-         //const value = e.target.value.id ? e.target.value.id : e.target.value;
-        setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
-    }
-
-=======
-const courseLevels = [
-    { id: 1, level: "Nivel Inicial 1" },
-    { id: 2, level: "Nivel Inicial 2" },
-    { id: 3, level: "Primer Año de Educación Básica (1° EGB)" },
-    { id: 4, level: "Segundo Año de Educación Básica (2° EGB)" },
-    { id: 5, level: "Tercer Año de Educación Básica (3° EGB)" },
-    { id: 6, level: "Cuarto Año de Educación Básica (4° EGB)" },
-    { id: 7, level: "Quinto Año de Educación Básica (5° EGB)" },
-    { id: 8, level: "Sexto Año de Educación Básica (6° EGB)" },
-    { id: 9, level: "Séptimo Año de Educación Básica (7° EGB)" },
-    { id: 10, level: "Octavo Año de Educación Básica (8° EGB)" },
-    { id: 11, level: "Noveno Año de Educación Básica (9° EGB)" },
-    { id: 12, level: "Décimo Año de Educación Básica (10° EGB)" },
-    { id: 13, level: "Primer Año de Bachillerato (1° BGU)" },
-    { id: 14, level: "Segundo Año de Bachillerato (2° BGU)" },
-    { id: 15, level: "Tercer Año de Bachillerato (3° BGU)" },
-];
-export const IdentificationData = ({ data, setData, errorHandling }) => {
+export const IdentificationData = ({ data, setData, errorHandling , information }) => {
 
     const handleIdentificationData = (e) => {
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
  
->>>>>>> dev
+
     return (
         <MainFormFieldset legend="DATOS DE IDENTIFICACIÓN/INFORMACIÓN ESTUDIANTE">
 

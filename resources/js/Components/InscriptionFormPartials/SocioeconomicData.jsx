@@ -58,11 +58,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             name="family_composition_data"
                             value={family.id}
                             onChange={handleSocioeconomicData}
-<<<<<<< get_data_all
                             checked={data.socioeconomic_data.family_composition_data.includes(family.id)}
-=======
-                            checked={data?.socioeconomic_data?.student_partners.includes(partner.key)}
->>>>>>> dev
                             className='mr-2'
                         />
                         <b> {family.name}</b>: {family.description}
@@ -84,13 +80,8 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                                 id={`name_${index}`}
                                 name="name"
                                 required
-<<<<<<< get_data_all
                                 className='rounded-md w-full'
-                                value={data.socioeconomic_data.siblings_data[index]?.name}
-=======
-                                className='rounded-md w-full placeholder:font-normal'
-                                value={data?.socioeconomic_data?.siblings[index]?.name}
->>>>>>> dev
+                                value={data.socioeconomic_data?.siblings_data[index]?.name}
                                 onChange={(e) => setSiblingData('name', index, e.target.value)}
                                 placeholder="Ingrese el nombre completo"
                             />
@@ -103,13 +94,8 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                                 name={`age_${index}`}
                                 type="number"
                                 required
-<<<<<<< get_data_all
                                 className='rounded-md w-full'
-                                value={data.socioeconomic_data.siblings_data[index]?.age}
-=======
-                                className='rounded-md w-full placeholder:font-normal'
-                                value={data?.socioeconomic_data?.siblings[index]?.age}
->>>>>>> dev
+                                value={data.socioeconomic_data?.siblings_data[index]?.age}
                                 onChange={(e) => setSiblingData('age', index, e.target.value)}
                                 placeholder="Ingrese la edad"
                             />
@@ -119,11 +105,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             <Checkbox
                                 id={`studying_${index}`}
                                 className='mr-2 '
-<<<<<<< get_data_all
                                 checked={data.socioeconomic_data?.siblings_data[index]?.studying}
-=======
-                                checked={data?.socioeconomic_data?.siblings[index]?.studying}
->>>>>>> dev
                                 onChange={(e) => setSiblingData('studying', index, e.target.checked)}
                             />
                             Actualmente estudia en esta institución
@@ -161,15 +143,9 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                     id={`disability_description`}
                     name="disability_description" // Add name attribute
                     required
-<<<<<<< get_data_all
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal'
                     value={data?.socioeconomic_data?.disability_description}
                     onChange={(e) => setData({ ...data, socioeconomic_data: { ...data.socioeconomic_data, disability_description: e.target.value } })}
-=======
-                    className='rounded-md w-full placeholder:font-normal'
-                    value={data?.socioeconomic_data?.disabled}
-                    onChange={(e) => setData({ ...data, socioeconomic_data: { ...data.socioeconomic_data, disabled: e.target.value } })}
->>>>>>> dev
                     placeholder="Determinar quién y la discapacidad con porcentaje"
                 />
             </label>
@@ -185,7 +161,6 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             required
                             id={index}
                             type='radio'
-<<<<<<< get_data_all
                             name='family_structure_id'
                             value={family.id}
                             className='mr-2'
@@ -193,15 +168,6 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             onChange={handleSocioeconomicData}
                         />
                         <b>{family.name}</b>: {family.description}
-=======
-                            name='family'
-                            value={family?.label}
-                            className='mr-2'
-                            checked={data?.socioeconomic_data?.family === family?.label}
-                            onChange={handleSocioeconomicData}
-                        />
-                        <b>{family?.label}</b>: {family?.description}
->>>>>>> dev
                     </label>
 
                 )
