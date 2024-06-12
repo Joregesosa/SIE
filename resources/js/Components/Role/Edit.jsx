@@ -47,7 +47,7 @@ export function Edit({ showDialog, hideDialog, permissions, selectedItem }) {
         setData(selectedItem);
     }, [selectedItem])
     return (
-        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Permiso" modal className="p-fluid" onHide={hideDialog} >
+        <Dialog visible={showDialog} style={{ width: '60rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Permiso2" modal className="p-fluid" onHide={hideDialog} >
 
             <form onSubmit={submit} className='flex flex-col gap-2'>
                 <div className='flex flex-col gap-3'>
