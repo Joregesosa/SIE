@@ -3,17 +3,9 @@ import { InputText } from 'primereact/inputtext';
 import PropTypes from 'prop-types';
 import { MainFormFieldset } from './MainFormFieldset';
 
-const structural_integrity_option =
-    [
 
-        { id: 1, label: "Propia" },
-        { id: 2, label: "Arrendada" },
-        { id: 3, label: "Prestada" },
-        { id: 4, label: "Anticresis" },
-        { id: 5, label: "Con préstamo" }
+export const FinancialReferences = ({ data, setData, errorHandling, information }) => {
 
-    ]
-export const FinancialReferences = ({ data, setData, errorHandling }) => {
     const handleFinancialReferences = (e) => {
 
         setData({ ...data, financial_references: { ...data.financial_references, [e.target.name]: e.target.value } })
@@ -68,13 +60,14 @@ export const FinancialReferences = ({ data, setData, errorHandling }) => {
                 />
                 {errorHandling?.other_incomes && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
-            <label htmlFor="total_outcomes" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="expenditure" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Total de Egresos <span>*</span>
 
                 <InputText
-                    id="total_outcomes"
-                    name="total_outcomes"
-                    value={data?.financial_references?.total_outcomes}
+                    id="expenditure"
+                    name="expenditure"
+                    value={data?.financial_references?.expenditure}
+
                     type='number'
                     required
                     className='rounded-md w-full placeholder:font-normal'
@@ -83,15 +76,18 @@ export const FinancialReferences = ({ data, setData, errorHandling }) => {
                 />
             </label>
 
-            <label className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+
+            <label htmlFor="type_house_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+
                 Condición de la vivienda <span>*</span>
                 <Dropdown
+                    value={data?.financial_references?.type_house_id}
+                    name='type_house_id'
                     id='structural_integrity'
-                    value={data?.financial_references?.structural_integrity}
-                    name='structural_integrity'
                     onChange={handleFinancialReferences}
                     optionValue="id"
-                    options={structural_integrity_option}
+                    optionLabel="name"
+                    options={information.type_houses}
                     placeholder="Condición de la vivienda"
                     filter
                     className="flex items-center border h-[42px] border-gray-500 flex-grow" />

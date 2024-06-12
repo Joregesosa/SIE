@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class student_parent extends Model
+
+class StudentParent extends Pivot
 {
     use HasFactory;
 
-    protected $table = 'student_parent';
+    protected $table = 'StudentParent';
     
     protected $fillable = [
         'student_id',
@@ -27,5 +29,9 @@ class student_parent extends Model
         return $this->belongsTo(Parents::class);
     }
 
+    public function parentType()
+    {
+        return $this->belongsTo(ParentType::class,'parent_type_id');
+    }
    
 }

@@ -4,6 +4,16 @@ import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
 import { useEffect } from "react";
 
+<<<<<<< get_data_all
+
+export const IdentificationData = ({ data, setData , information }) => {
+
+    const handleIdentificationData = (e) => {
+         //const value = e.target.value.id ? e.target.value.id : e.target.value;
+        setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
+    }
+
+=======
 const courseLevels = [
     { id: 1, level: "Nivel Inicial 1" },
     { id: 2, level: "Nivel Inicial 2" },
@@ -27,18 +37,19 @@ export const IdentificationData = ({ data, setData, errorHandling }) => {
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
  
+>>>>>>> dev
     return (
         <MainFormFieldset legend="DATOS DE IDENTIFICACIÓN/INFORMACIÓN ESTUDIANTE">
 
             <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Año Educativo al que ingresa el alumno
                 <Dropdown
-                    id="level"
+                    id="id"
                     name="level"
                     value={data?.identification_data?.level}
                     onChange={handleIdentificationData}
-                    options={courseLevels}
-                    optionLabel="level"
+                    options={information.levels}
+                    optionLabel="description"
                     optionValue="id"
                     placeholder="Seleccione un nivel"
                     className="flex items-center border h-[42px] border-gray-500 flex-grow"

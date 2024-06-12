@@ -9,61 +9,96 @@ class Student extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'person_id',
         'address_street',
         'sector',
         'siblings',
-        'position_family',
+        'birth_order',
+        'family_composition',
         'family_structure_id',
-        'disability_in_family',
+
         'disability_description',
-        'other_income',
+        'other_incomes',
         'expenditure',
         'type_house_id',
-        'house_description',
-        'date_first_entry',
-        'institution_origin',
+        'living_description',
+        'entry_date',
+        'previous_institution',
         'repeated_years',
         'preferred_subjects',
         'difficult_subjects',
-        'achieved_dignities',
-        'academic_achievements',
-        'participation',
-        'extracurricular',
-        'disability_condition',
-        'disability_condition_description',
+        'dignities',
+        'achievements',
+        'extracurriculars',
+        'student_disability',
+        'student_disability_details',
         'disability_percentage',
         'disability_carnet',
         'medical_condition',
-        'medical_condition_description',
+        'medical_condition_details',
         'allergies',
         'allergies_description',
-        'medicines',
+        'medications',
         'medical_attention_type_id',
-        'medical_attention_name',
-        'medical_attention_address',
+        'medical_attention_details',
         'medical_attention_doctor',
         'pregnancy_mother_age',
         'pregnancy_accidents',
-        'pregnancy_medicines',
+        'pregnancy_medications',
         'pregnancy_type_id',
         'pregnancy_difficulties',
         'birth_weight',
         'birth_height',
-        'age_walk',
-        'age_talk',
+        'walking_age',
+        'talking_age',
         'breastfeeding_period',
         'bottle_age',
-        'age_control_sphincters',
+        'toilet_age',
         'observations',
-        'pathological_family_history_id',
+        'family_medical_history',
         'father_relationship',
         'mother_relationship',
         'siblings_relationship',
         'others_relationship',
-        'customs_habits'
+        'habits_and_activities'
     ];
+ 
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
 
+    public function familyStructure()
+    {
+        return $this->belongsTo(FamilyStructure::class);
+    }
+
+    public function typeHouse()
+    {
+        return $this->belongsTo(TypeHouse::class);
+    }
+
+    public function medicalAttentionType()
+    {
+        return $this->belongsTo(MedicalAttentionType::class);
+    }
+
+    public function pathologicalFamilyHistory()
+    {
+        return $this->belongsTo(PathologicalFamilyHistory::class);
+    }
+
+    public function pregnancyType()
+    {
+        return $this->belongsTo(pregnancyType::class);
+    }
+
+    public function parents()
+    {
+        return $this->belongsToMany(Parents::class, 'StudentParent', 'student_id', 'parent_id');
+    }
+   
 
 }

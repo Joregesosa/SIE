@@ -2,24 +2,18 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import PropTypes from 'prop-types';
 import { MainFormFieldset } from "./MainFormFieldset";
+import { info } from "autoprefixer";
 
-const instructionLevelOptions = [
-    { label: 'Educación Primaria', id: '1' },
-    { label: 'Educación Secundaria', id: '2' },
-    { label: 'Educación Técnica o 4', id: '3' },
-    { label: 'Educación Superior', id: '5' },
-    { label: 'Educación Profesional', id: '6' }
-];
-const maritalStatusOptions = [
-    { label: 'Soltero/a', id: '1' },
-    { label: 'Casado/a', id: '2' },
-    { label: 'Separado/a', id: '3' },
-    { label: 'Divorciado/a', id: '4' },
-    { label: 'Viudo/a', id: '5' },
-    { label: 'Conviviente', id: '6' },
-    { label: 'Uniones civiles', id: '7' }
-];
 
+<<<<<<< get_data_all
+export const MotherData = ({ data, handleMotherData , information }) => {
+    
+    return (
+
+    <MainFormFieldset
+        legend="Datos familiares"
+        description="Datos de la Madre">
+=======
 export const MotherData = ({ data, setData, errorHandling }) => {
     const handleMotherData = (e) => {
         setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
@@ -28,6 +22,7 @@ export const MotherData = ({ data, setData, errorHandling }) => {
         <MainFormFieldset
             legend="Datos familiares"
             description="Datos de la Madre">
+>>>>>>> dev
 
             <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Primer nombre <span className=" w-full">*</span>
@@ -84,6 +79,35 @@ export const MotherData = ({ data, setData, errorHandling }) => {
                 />
             </label>
 
+<<<<<<< get_data_all
+        <label htmlFor="marital_status_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Estado civil <span>*</span>
+            <Dropdown
+                value={data?.mother_data.marital_status_id}
+                name="marital_status_id"
+                onChange={handleMotherData}
+                options={information.marital_status}
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Seleccione un estado civil"
+                filter
+                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+        </label>
+
+        <label htmlFor="education_level_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            Nivel de Instrucción <span>*</span>
+            <Dropdown
+                value={data?.mother_data.education_level_id}
+                name="education_level_id"
+                onChange={handleMotherData}
+                options={information.education_levels}
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Seleccione un nivel de instrucción"
+                filter
+                className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+        </label>
+=======
             <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Fecha de nacimiento <span>*</span>
                 <InputText
@@ -114,6 +138,7 @@ export const MotherData = ({ data, setData, errorHandling }) => {
                     className="flex items-center border h-[42px] border-gray-500 flex-grow" />
                      {errorHandling?.marital_status && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
+>>>>>>> dev
 
             <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Nivel de Instrucción <span>*</span>
@@ -176,6 +201,10 @@ export const MotherData = ({ data, setData, errorHandling }) => {
                 {errorHandling?.number && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
+<<<<<<< get_data_all
+    </MainFormFieldset>
+)}
+=======
             <label htmlFor="email" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Correo Electrónico <span>*</span>
                 <InputText
@@ -194,6 +223,7 @@ export const MotherData = ({ data, setData, errorHandling }) => {
         </MainFormFieldset>
     )
 }
+>>>>>>> dev
 MotherData.prototype = {
     data: PropTypes.object.isRequired,
     setData: PropTypes.func.isRequired

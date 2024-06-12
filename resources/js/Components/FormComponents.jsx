@@ -22,26 +22,26 @@ import { InputText } from "primereact/inputtext";
             </select>
         </label>
 
-        <label htmlFor="disability_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+        <label htmlFor="student_disability_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Determine qué discapacidad / porcentaje / número de identificación
             <InputText
-                id="disability_details"
-                name="disability_details"
-                value={data?.academic_data.disability_details}
+                id="student_disability_details"
+                name="student_disability_details"
+                value={data?.academic_data.student_disability_details}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Detalles de la discapacidad"
             />
         </label>
 
-        <label htmlFor="specific_medical_condition" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+        <label htmlFor="medical_condition" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             ¿El estudiante tiene alguna condición médica específica?
             <select
-                id="specific_medical_condition"
-                name="specific_medical_condition"
+                id="medical_condition"
+                name="medical_condition"
                 className='rounded-md w-full'
                 onChange={setMedicalData}
-                value={data?.academic_data.specific_medical_condition}
+                value={data?.academic_data.medical_condition}
             >
                 <option value="yes">Sí</option>
                 <option value="no">No</option>
@@ -98,14 +98,14 @@ import { InputText } from "primereact/inputtext";
             />
         </label>
 
-        <label htmlFor="medical_facility" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+        <label htmlFor="medical_attention_type_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             ¿Dónde recibe atención médica el estudiante?
             <select
-                id="medical_facility"
-                name="medical_facility"
+                id="medical_attention_type_id"
+                name="medical_attention_type_id"
                 className='rounded-md w-full'
                 onChange={setMedicalData}
-                value={data?.academic_data.medical_facility}
+                value={data?.academic_data.medical_attention_type_id}
             >
                 <option value="health_center">Centro de Salud</option>
                 <option value="public_hospital">Hospital Público</option>
@@ -114,24 +114,24 @@ import { InputText } from "primereact/inputtext";
             </select>
         </label>
 
-        <label htmlFor="medical_facility_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+        <label htmlFor="medical_attention_details" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Nombre y dirección de la institución médica
             <InputText
-                id="medical_facility_details"
-                name="medical_facility_details"
-                value={data?.academic_data.medical_facility_details}
+                id="medical_attention_details"
+                name="medical_attention_details"
+                value={data?.academic_data.medical_attention_details}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Detalles de la institución médica"
             />
         </label>
 
-        <label htmlFor="attending_physician" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+        <label htmlFor="medical_attention_doctor" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Nombre del médico tratante
             <InputText
-                id="attending_physician"
-                name="attending_physician"
-                value={data?.academic_data.attending_physician}
+                id="medical_attention_doctor"
+                name="medical_attention_doctor"
+                value={data?.academic_data.medical_attention_doctor}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Médico tratante"
