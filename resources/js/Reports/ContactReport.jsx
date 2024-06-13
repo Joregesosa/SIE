@@ -85,12 +85,22 @@ const styles = StyleSheet.create({
         height: '100px',
         padding: 6,
     },
-
-
-
 });
+const date_format = (date) => {
 
+    let d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    let year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [day, month, year ].join(' - ');
+
+}
 const ContactReport = ({ data }) => (
+
     <Document>
         <Page size="A4" style={styles.page}>
 
@@ -101,8 +111,8 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label}>Fecha:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value}>00012024</Text>
-                <Text style={styles.value}>12/24/2024</Text>
+                <Text style={styles.value}>{data?.id}</Text>
+                <Text style={styles.value}>{date_format(data.created_at)}</Text>
             </View>
 
             <View style={styles.field_container}>
@@ -112,10 +122,10 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label}>Segundo apellido:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value}>Jorge</Text>
-                <Text style={styles.value}>Luis</Text>
-                <Text style={styles.value}>Sosa</Text>
-                <Text style={styles.value}>Núñez</Text>
+                <Text style={styles.value}>{data?.first_name}</Text>
+                <Text style={styles.value}>{data?.second_name}</Text>
+                <Text style={styles.value}>{data?.fLast_name}</Text>
+                <Text style={styles.value}>{data?.s_Last_name}</Text>
             </View>
 
             <View style={styles.field_container}>
@@ -124,9 +134,9 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label_3}>Número de teléfono:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value_3}>1723456789</Text>
-                <Text style={styles.value_3}>10</Text>
-                <Text style={styles.value_3}>0987654321</Text>
+                <Text style={styles.value_3}>{data?.id_card}</Text>
+                <Text style={styles.value_3}>{data?.age}</Text>
+                <Text style={styles.value_3}>{data?.number}</Text>
             </View>
 
             <View style={styles.field_container}>
@@ -134,8 +144,8 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label_2}>Nombre de la Institución Educativa:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value}>data@pruebagmai.com </Text>
-                <Text style={styles.value_2}> tomas rodrigo fungencio</Text>
+                <Text style={styles.value}>{data?.email}</Text>
+                <Text style={styles.value_2}>{data?.last_institution}</Text>
             </View>
 
             <View style={styles.field_container}>
@@ -143,15 +153,15 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label_2}>Dirección:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value}>Bueno</Text>
-                <Text style={styles.value_2}>Calle 1 y Calle 2</Text>
+                <Text style={styles.value}>{data?.behavior_qualification}</Text>
+                <Text style={styles.value_2}>{data?.address}</Text>
             </View>
 
             <View style={styles.field_container}>
                 <Text style={styles.label_full}>Año o nivel al que desea aplicar:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value_full}>1ero de básica</Text>
+                <Text style={styles.value_full}>{data?.level}</Text>
             </View>
 
             <View style={styles.field_container}>
@@ -160,9 +170,9 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label_3}>Actividad económica del Padre:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value_3}>Jorge Sosa</Text>
-                <Text style={styles.value_3}>0987654321</Text>
-                <Text style={styles.value_3}>Empleado</Text>
+                <Text style={styles.value_3}>{data?.father_names}</Text>
+                <Text style={styles.value_3}>{data?.father_phone}</Text>
+                <Text style={styles.value_3}>{data?.father_occupation}</Text>
             </View>
 
             <View style={styles.field_container}>
@@ -171,9 +181,9 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label_3}>Actividad económica de la madre:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value_3}>Maria Núñez</Text>
-                <Text style={styles.value_3}>0987654321</Text>
-                <Text style={styles.value_3}>Empleado</Text>
+                <Text style={styles.value_3}>{data?.mother_names}</Text>
+                <Text style={styles.value_3}>{data?.mother_phone}</Text>
+                <Text style={styles.value_3}>{data?.mother_occupation}</Text>
             </View>
 
             <View style={styles.field_container}>
@@ -181,7 +191,7 @@ const ContactReport = ({ data }) => (
             </View>
             <View style={styles.field_container}>
                 <Text style={styles.text_a}>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam magnam possimus quaerat sapiente assumenda architecto facilis. Quaerat excepturi, alias adipisci consequuntur blanditiis ut commodi iure! Dicta, sapiente. Dolorum distinctio, nam omnis quod voluptatem quidem facilis doloremque, cupiditate cum illo consequuntur at eum ipsam eius vitae culpa fugit? Maxime omnis eos enim placeat pariatur illum nostrum ea culpa earum qui sunt expedita dolorum officia saepe minima fugit fugiat, sequi ex accusamus veritatis. Recusandae perferendis nam ratione optio iste ipsa sunt vel quod consectetur voluptatibus! Enim amet fuga commodi alias maiores ipsam accusantium debitis eum dolorum facilis illo architecto porro, ipsa sit!
+                    {data?.comment}
                 </Text>
             </View>
 
@@ -190,16 +200,16 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label_middle}>Fecha de pago:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value_middle}>$ 100.00</Text>
-                <Text style={styles.value_middle}>12/24/2024</Text>
+                <Text style={styles.value_middle}>${data?.payment}</Text>
+                <Text style={styles.value_middle}>{data?.payment_date}</Text>
             </View>
             <View style={styles.field_container}>
                 <Text style={styles.label_middle}>Número de comprobante de pago:</Text>
                 <Text style={styles.label_middle}>Estado de la solicitud:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value_middle}>00012024</Text>
-                <Text style={styles.value_middle}>Aprobado</Text>
+                <Text style={styles.value_middle}>{data?.payment_receipt}</Text>
+                <Text style={styles.value_middle}>{data?.status}</Text>
             </View>
 
         </Page>
