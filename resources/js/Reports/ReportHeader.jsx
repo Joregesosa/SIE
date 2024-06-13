@@ -34,7 +34,7 @@ export const ReportHeader = ({ title }) => {
         <>
             <View style={styles.logoContainer}>
                 <Image
-                    src={'images/log.png'}
+                    src={'/images/logo.png'}
                     style={styles.logo}
                 />
                 <View style={styles.info}>
