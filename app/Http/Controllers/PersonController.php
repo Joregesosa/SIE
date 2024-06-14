@@ -56,7 +56,8 @@ class PersonController extends Controller
     }
 
     public function store(Request $request){
-     
+        
+        dd($request->all());
      /* 
        $validator = validator($request->all(), [
             'identification_data.first_name' => 'required|string',
@@ -196,6 +197,7 @@ class PersonController extends Controller
                 $student->save();
             }
 
+            Contact::findOrFail($request->contact_id)->update(['status' => 2]);
 
             DB::commit();
             session()->put('msj', ['success' => 'Persona registrada correctamente.']);

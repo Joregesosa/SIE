@@ -34,11 +34,11 @@ export default function ContactsRequest({ auth, data, msj }) {
     }
 
     const requestStatus = (rowData) => {
-        if (rowData.status === 2) {
+        if (rowData.status === 1) {
             return <span className="rounded-md bg-sky-500 text-jewel-text py-1 px-2">Pendiente</span>
         }
 
-        if (rowData.status === 1) {
+        if (rowData.status === 2) {
             return <span className="rounded-md bg-lime-500 text-jewel-text py-1 px-2">Aprobada</span>
         }
 

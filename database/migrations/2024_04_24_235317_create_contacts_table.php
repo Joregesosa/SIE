@@ -34,7 +34,7 @@ return new class extends Migration
             $table->unsignedBigInteger('level_id');
             $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
 
-            $table->integer('status')->default(2);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
 
