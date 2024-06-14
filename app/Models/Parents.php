@@ -22,7 +22,7 @@ class Parents extends Model
         'status'
     ];
 
-    protected $with = ['person', 'maritalStatus', 'educationLevel'];
+    protected $with = ['person','telephones', 'maritalStatus', 'educationLevel'];
 
     public function person()
     {
@@ -39,6 +39,10 @@ class Parents extends Model
         return $this->belongsTo(EducationLevel::class);
     }
 
+    public function telephones()
+    {
+        return $this->hasMany(Phone::class, 'person_id','person_id');
+    }
    
    
 }

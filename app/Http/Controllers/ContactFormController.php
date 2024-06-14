@@ -21,6 +21,8 @@ class ContactFormController extends Controller
 
     public function store(Request $request)
     {
+       
+
         try {
             Request()->merge(['key' =>  bin2hex(random_bytes(10))]);
 
@@ -28,13 +30,14 @@ class ContactFormController extends Controller
                 $request->all(),
                 [
                     'email' => 'required|email',
-                    'level' => 'required',
+                    'level_id' => 'required|exists:levels,id',
                     'id_card' => 'required|unique:contacts',
                 ],
                 [
                     'email.required' => 'Es necesario proporcionar un correo electrónico',
                     'email.email' => 'El correo proporcionado no es valido',
-                    'level.required' => 'Es necesario proporcionar el nivel que desea aplicar',
+                    'level_id.required' => 'Es necesario proporcionar el nivel que desea aplicar',
+                    'level_id.exists' => 'El nivel seleccionado no existe',
                     'id_card.required' => 'Es necesario proporcionar el numero de cédula',
                     'id_card.unique' => 'Ya existe un registro con el mismo numero de cédula',
                 ]

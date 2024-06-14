@@ -68,7 +68,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                 Nombres de hermanos/as y edades:
             </legend>
             <>
-                {data.socioeconomic_data?.siblings_data.map((_, index) => (
+                {data.socioeconomic_data?.siblings_data?.map((_, index) => (
                     <div key={index} className="grid grid-cols-2 md:grid-cols-5  gap-4 col-span-2 justify-between mt-2">
 
                         <label htmlFor={`name_${index}`} className="font-bold text-xs col-span-2 md:col-span-2">

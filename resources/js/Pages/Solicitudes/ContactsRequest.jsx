@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import React, { useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -47,6 +47,14 @@ export default function ContactsRequest({ auth, data, msj }) {
         }
     }
 
+    const link = (rowData) => {
+             
+             return <Link href={route('inscription.create',{ contact: rowData.key, card: rowData.id_card })} className="cursor-pointer rounded-md bg-red-500 text-jewel-text py-1 px-2">
+                        Click
+                    </Link>
+    }
+
+
     const getDate = (rowData) => {
         const date = new Date(rowData.created_at)
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -78,7 +86,7 @@ export default function ContactsRequest({ auth, data, msj }) {
 
                     <Column header='Fecha de solicitud' sortable body={getDate}/>
 
-                    <Column field='responseDate' header='Fecha de respuesta' sortable />
+                    <Column field='responseDate' header='Provisional-Matriculacion' sortable body={link} />
 
                     <Column field='status' header='Estatus' sortable body={requestStatus} />
 

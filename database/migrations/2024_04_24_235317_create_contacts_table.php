@@ -31,7 +31,9 @@ return new class extends Migration
             $table->string('mother_names');
             $table->string('mother_phone');
             $table->string('mother_occupation');
-            $table->integer('level');
+            $table->unsignedBigInteger('level_id');
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
+
             $table->integer('status')->default(2);
             $table->timestamps();
         });

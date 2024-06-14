@@ -4,10 +4,23 @@ import { MainFormFieldset } from "./MainFormFieldset";
 import { useEffect } from "react";
 export const MedicalData = ({ data, setData , errorHandling,  information}) => {
 
+    useEffect(() => {
+        console.log(data.medical_data)
+    }, [data])
+
     const handleMedicalData = (e) => { 
+
+        if (["student_disability", "medical_condition", "allergies"].includes(e.target.name) && e.target.value == "0") {
+            setData({ ...data, medical_data: {
+                ...data.medical_data,
+                [`${e.target.name}_details`]: '',
+                [e.target.name]: e.target.value
+            } });
+            return;
+        }
+
         setData({ ...data, medical_data: { ...data.medical_data, [e.target.name]: e.target.value } })
     }
-
     return (
         <MainFormFieldset legend="DATOS MEDICOS">
             <label
@@ -35,11 +48,11 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                 Determine qué discapacidad / porcentaje / número de
                 identificación
                 <InputText
-                    disabled={data?.medical_data.student_disability === "0"}
+                    disabled={data?.medical_data.student_disability == "0"}
                     id="student_disability_details"
                     name="student_disability_details"
                     value={
-                        data?.medical_data.student_disability === "0"
+                        data?.medical_data.student_disability == "0"
                             ? ""
                             : data?.medical_data.student_disability_details
                     }
@@ -47,7 +60,7 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                     onChange={handleMedicalData}
                     placeholder="Detalles de la discapacidad"
                 />
-                {errorHandling?.student_disability_details && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                {errorHandling?.student_disability_details  && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label
@@ -75,12 +88,12 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                 Determine qué condición médica
                 <InputText
                     disabled={
-                        data?.medical_data.medical_condition === "0"
+                        data?.medical_data.medical_condition == "0"
                     }
                     id="medical_condition_details"
                     name="medical_condition_details"
                     value={
-                        data?.medical_data.medical_condition === "0"
+                        data?.medical_data.medical_condition == "0"
                             ? ""
                             : data?.medical_data.medical_condition_details
                     }
@@ -115,10 +128,10 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
             >
                 Determine qué alergias
                 <InputText
-                    disabled={data?.medical_data?.allergies === '0'}
+                    disabled={data?.medical_data?.allergies == '0'}
                     id="allergies_details"
                     name="allergies_details"
-                    value={data?.medical_data?.allergies === '0' ? "" :   data?.medical_data?.allergies_details}
+                    value={data?.medical_data?.allergies == '0' ? "" :   data?.medical_data?.allergies_details}
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     placeholder="Detalles de las alergias"

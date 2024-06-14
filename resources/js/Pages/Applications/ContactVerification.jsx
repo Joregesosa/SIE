@@ -11,6 +11,8 @@ import { ExportMenu } from '@/Reports/ExportMenu';
 export default function ContactVerification({ auth, data: dataprop, msj }) {
     const { data, setData, post, processing, errors, reset } = useForm(dataprop);
 
+    console.log(dataprop)
+    
     const request_no = (id) => {
         let request_no = id.toString();
         let length = request_no.length;

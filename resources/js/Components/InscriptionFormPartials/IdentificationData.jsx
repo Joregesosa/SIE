@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 export const IdentificationData = ({ data, setData, errorHandling , information }) => {
 
+    
     const handleIdentificationData = (e) => {
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
@@ -101,18 +102,18 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
                     {errorHandling?.birth_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="birth_day_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="birth_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Lugar de nacimiento <span>*</span>
                 <InputText
-                    id="birth_day_place"
-                    name="birth_day_place"
-                    value={data?.identification_data?.birth_day_place}
+                    id="birth_place"
+                    name="birth_place"
+                    value={data?.identification_data?.birth_place}
                     required
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el lugar de nacimiento"
                 />
-                    {errorHandling?.birth_day_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                    {errorHandling?.birth_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="id_card" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">

@@ -28,11 +28,12 @@ use Inertia\Inertia;
 
 class PersonController extends Controller
 {
-   
+ 
     public function create(Request $request)
-    {       
-        return Inertia::render('Applications/InscriptionForm', [
-            'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->first(),
+    {          
+        try{
+             return Inertia::render('Applications/InscriptionForm', [
+            'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->firstOrFail(),
             'information'  => [  
                             'levels' => Level::all(),
                             'marital_status' => MaritalStatus::all(),
@@ -45,7 +46,13 @@ class PersonController extends Controller
                             'pregnancy_types' => PregnancyType::all(),
                             ]
 
-        ]);
+            ]);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error' => 'La solicitud no existe '], 404);
+        }catch(Exception $e){
+            return response()->json(['error' => 'Error en la acción realizada'], 500);
+        }
+        
     }
 
     public function store(Request $request){
