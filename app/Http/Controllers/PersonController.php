@@ -28,11 +28,12 @@ use Inertia\Inertia;
 
 class PersonController extends Controller
 {
-   
+ 
     public function create(Request $request)
-    {       
-        return Inertia::render('Applications/InscriptionForm', [
-            'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->first(),
+    {          
+        try{
+             return Inertia::render('Applications/InscriptionForm', [
+            'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->firstOrFail(),
             'information'  => [  
                             'levels' => Level::all(),
                             'marital_status' => MaritalStatus::all(),
@@ -45,11 +46,18 @@ class PersonController extends Controller
                             'pregnancy_types' => PregnancyType::all(),
                             ]
 
-        ]);
+            ]);
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error' => 'La solicitud no existe '], 404);
+        }catch(Exception $e){
+            return response()->json(['error' => 'Error en la acción realizada'], 500);
+        }
+        
     }
 
     public function store(Request $request){
-     
+        
+        dd($request->all());
      /* 
        $validator = validator($request->all(), [
             'identification_data.first_name' => 'required|string',
@@ -170,6 +178,10 @@ class PersonController extends Controller
            
             /*RELACION PADRES O TUTORES*/
             foreach ([$request->father_data, $request->mother_data,$request->tutor_data ] as  $index => $parent) {
+                if($parent == null){
+                    continue;
+                }
+                
                 $parent['address_street'] =$request->identification_data['address_street'];
                 $parent['sector'] =$request->identification_data['sector'];
                 
@@ -189,6 +201,7 @@ class PersonController extends Controller
                 $student->save();
             }
 
+            Contact::findOrFail($request->contact_id)->update(['status' => 2]);
 
             DB::commit();
             session()->put('msj', ['success' => 'Persona registrada correctamente.']);

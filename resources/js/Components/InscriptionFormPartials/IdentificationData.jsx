@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 export const IdentificationData = ({ data, setData, errorHandling , information }) => {
 
+    
     const handleIdentificationData = (e) => {
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
@@ -17,6 +18,9 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
             <label htmlFor="level_id"  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Año Educativo al que ingresa el alumno
                 <Dropdown
+
+                    disabled
+                    id="id"
                     inputId="level_id"
                     name="level_id"
                     value={data?.identification_data?.level_id}
@@ -34,6 +38,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
              <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Primer nombre <span>*</span>
                 <InputText
+                    disabled
                     id="first_name"
                     name="first_name"
                     value={data?.identification_data?.first_name}
@@ -47,7 +52,8 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
 
            <label htmlFor="second_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Segundo nombre
-                <InputText
+                <InputText  
+                    disabled
                     id="second_name"
                     name="second_name"
                     value={data?.identification_data?.second_name}
@@ -61,6 +67,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
             <label htmlFor="fLast_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Primer Apellido <span>*</span>
                 <InputText
+                    disabled
                     id="fLast_name"
                     name="fLast_name"
                     value={data?.identification_data?.fLast_name}
@@ -75,6 +82,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
             <label htmlFor="sLast_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Segundo Apellido
                 <InputText
+                    disabled
                     id="sLast_name"
                     name="sLast_name"
                     value={data?.identification_data?.sLast_name}
@@ -83,6 +91,21 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el segundo apellido"
                 />
+            </label>
+
+            <label htmlFor="id_card" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+                Número de cédula <span>*</span>
+                <InputText
+                disabled
+                    id="id_card"
+                    name="id_card"
+                    value={data?.identification_data?.id_card}
+                    required
+                    className='rounded-md w-full placeholder:font-normal'
+                    onChange={handleIdentificationData}
+                    placeholder="Ingrese el número de cédula"
+                />
+                    {errorHandling?.id_card && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
@@ -100,33 +123,21 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
                     {errorHandling?.birth_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="birth_day_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="birth_place" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Lugar de nacimiento <span>*</span>
                 <InputText
-                    id="birth_day_place"
-                    name="birth_day_place"
-                    value={data?.identification_data?.birth_day_place}
+                    id="birth_place"
+                    name="birth_place"
+                    value={data?.identification_data?.birth_place}
                     required
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleIdentificationData}
                     placeholder="Ingrese el lugar de nacimiento"
                 />
-                    {errorHandling?.birth_day_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                    {errorHandling?.birth_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="id_card" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Número de cédula <span>*</span>
-                <InputText
-                    id="id_card"
-                    name="id_card"
-                    value={data?.identification_data?.id_card}
-                    required
-                    className='rounded-md w-full placeholder:font-normal'
-                    onChange={handleIdentificationData}
-                    placeholder="Ingrese el número de cédula"
-                />
-                    {errorHandling?.id_card && <span className="text-red-500 text-xs">Este campo es requerido</span>}
-            </label>
+           
 
             <label htmlFor="age" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Edad del alumno <span>*</span>

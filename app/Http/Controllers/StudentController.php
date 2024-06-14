@@ -27,8 +27,6 @@ class StudentController extends Controller
 
         $students = Student::all();
 
-        return $students;
-        
         return Inertia::render('Solicitudes/Matriculas', [
             'data' => $students
         ]);
@@ -55,7 +53,7 @@ class StudentController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'El estudiante no existe'], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error en la acción realizada'], 500);
+            return response()->json(['error' => 'Error en la acción realizada'.$e], 500);
         }
     }
 

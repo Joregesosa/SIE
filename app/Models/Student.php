@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,8 @@ class Student extends Model
         'family_structure_id',
         'status_id',
         'disability_description',
+        'father_incomes',
+        'mother_incomes',
         'other_incomes',
         'expenditure',
         'type_house_id',
@@ -43,7 +46,7 @@ class Student extends Model
         'medical_condition',
         'medical_condition_details',
         'allergies',
-        'allergies_description',
+        'allergies_details',
         'medications',
         'medical_attention_type_id',
         'medical_attention_details',
@@ -73,7 +76,7 @@ class Student extends Model
 
     ];
 
-    protected $with = ['person', 'level', 'status', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pathologicalFamilyHistory', 'pregnancyType', 'father', 'mother', 'tutor'];
+    protected $with = ['person', 'telephones' ,'level', 'status', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pathologicalFamilyHistory', 'pregnancyType', 'father', 'mother', 'tutor'];
  
     public function person()
     {
@@ -115,6 +118,11 @@ class Student extends Model
         return $this->belongsTo(pregnancyType::class);
     }
 
+    public function telephones()
+    {
+        return $this->hasMany(Phone::class, 'person_id','person_id');
+    }
+
     public function father()
     {
         return $this->belongsTo(Parents::class, 'father_id');
@@ -130,30 +138,32 @@ class Student extends Model
         return $this->belongsTo(Parents::class, 'tutor_id');
     }
 
+
     
     public function toArray()
     {
         return [    
            
-            
+            'id' => $this->id,
+            'person' => $this->person ?  $this->person->toArray() : null,
             'identification_data' => [
-                'id' => $this->id,
-                'person' => $this->person ?  $this->person->toArray() : null,
                 'first_name' => $this->person->first_name ?? '',
                 'second_name' => $this->person->second_name ?? '',
                 'sLast_name' => $this->person->sLast_name ?? '',
                 'fLast_name' => $this->person->fLast_name ?? '',
                 'birth_date' => $this->person->birth_date ?? '',
-                'birth_day_place' => $this->person->birth_place ?? '',
+                'age' => $this->person->birth_date ? Carbon::parse($this->person->birth_date)->age : null,
+                'birth_place' => $this->person->birth_place ?? '',
                 'id_card' => $this->person->id_card ?? '',
                 'sector' => $this->sector ?? '',
                 'address_street' => $this->address_street ?? '',
-                'number' => $this->number ?? '',
+                'number' => $this->telephones->first() ? $this->telephones->first()->number : '',
                 'reference' => $this->reference ?? '',
                 'level_id' => $this->level_id,
                 'level' => $this->level ? $this->level->toArray() : null,
                 'status_id' => $this->status_id ?? '',
                 'status' => $this->status ? $this->status->toArray() : null,
+                
             ],
             'mother_data' => [
                 'person' => $this->mother->person ? $this->mother->person->toArray() : null, 
@@ -165,7 +175,7 @@ class Student extends Model
                 'education_level' => $this->mother->educationLevel ? $this->mother->educationLevel->toArray() : null,
                 'marital_status_id' => $this->mother->marital_status_id ?? '',
                 'marital_status' => $this->mother->maritalStatus ? $this->mother->maritalStatus->toArray() : null,
-                'number' => $this->mother->number ?? '',
+                'number' => $this->mother->telephones->first() ? $this->mother->telephones->first()->number : '',
                 'profession' => $this->mother->profession ?? '',
                 'sLast_name' => $this->mother->person->sLast_name ?? '',
                 'second_name' => $this->mother->person->second_name ?? '',
@@ -181,7 +191,7 @@ class Student extends Model
                 'education_level' => $this->father->educationLevel ? $this->father->educationLevel->toArray() : null,
                 'marital_status_id' => $this->father->marital_status_id ?? '',
                 'marital_status' => $this->father->maritalStatus ? $this->father->maritalStatus->toArray() : null,
-                'number' => $this->father->number ?? '',
+                'number' => $this->father->telephones->first() ? $this->father->telephones->first()->number : '',
                 'profession' => $this->father->profession ?? '',
                 'sLast_name' => $this->father->person->sLast_name ?? '',
                 'second_name' => $this->father->person->second_name ?? '',
@@ -197,7 +207,7 @@ class Student extends Model
                 'education_level' => $this->tutor->educationLevel ? $this->tutor->educationLevel->toArray() : null,
                 'marital_status_id' => $this->tutor->marital_status_id ?? '',
                 'marital_status' => $this->tutor->maritalStatus ? $this->tutor->maritalStatus->toArray() : null,
-                'number' => $this->tutor->number ?? '',
+                'number' => $this->tutor->telephones->first() ? $this->tutor->telephones->first()->number : '',
                 'profession' => $this->tutor->profession ?? '',
                 'sLast_name' => $this->tutor->person->sLast_name ?? '',
                 'second_name' => $this->tutor->person->second_name ?? '',
@@ -205,16 +215,17 @@ class Student extends Model
             ],
             'socioeconomic_data' => [
                 'family_composition_data' => $this->family_composition ?? '',
-                'siblings_data' => $this->siblings ?? [],
+                'siblings_data' => $this->siblings ? json_decode($this->siblings, true) : [],
                 'birth_order' => $this->birth_order ?? '',
                 'disability_description' => $this->disability_description ?? '',
+                'family_structure_id' => $this->family_structure_id ?? '',
             ],
             'financial_references' => [
                 'father_incomes' => $this->father_incomes ?? '',
-                'living_description' => $this->living_description ?? '',
                 'mother_incomes' => $this->mother_incomes ?? '',
                 'other_incomes' => $this->other_incomes ?? '',
                 'type_house_id' => $this->type_house_id ?? '',
+                'living_description' => $this->living_description ?? '',
                 'type_house' => $this->typeHouse ? $this->typeHouse->toArray() : null,
                 'expenditure' => $this->expenditure ?? '',
             ],

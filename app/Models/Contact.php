@@ -28,7 +28,8 @@ class Contact extends Model
         'mother_names',
         'mother_phone',
         'mother_occupation',
-        'level',
-        'key'
+        'level_id',
+        'key',
+        'status',
     ];
 }

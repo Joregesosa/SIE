@@ -15,10 +15,9 @@ import { fieldVerifier } from '@/Helpers/Form.Verifier';
 import { Loading } from '@/Components/Loading';
 import { FormSubmitted } from '@/Components/FormSubmitted';
 
-
-
-const InscriptionForm = ({ msj, contact, information }) => {
-    const cleanData = {
+const InscriptionForm = ({msj, contact ,information }) => {
+    const cleanData = { 
+        contact_id: contact?.id || '',
         identification_data: {
             level_id: contact?.level_id || '',
             first_name: contact?.first_name || '',
@@ -26,7 +25,7 @@ const InscriptionForm = ({ msj, contact, information }) => {
             sLast_name: contact?.sLast_name || '',
             fLast_name: contact?.fLast_name || '',
             birth_date: '',
-            birth_day_place: '',
+            birth_place: '',
             id_card: contact?.id_card || '',
             sector: '',
             age: '',
@@ -252,7 +251,7 @@ const requiredFields = {
         'sector',
         'address_street',
         'birth_date',
-        'birth_day_place',
+        'birth_place',
         'fLast_name',
         'first_name',
         'id_card',

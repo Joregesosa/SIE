@@ -47,6 +47,8 @@ return new class extends Migration
             $table->string('disability_description')->nullable();
 
             /*REFERENCIAS SOCIOECONÓMICAS GENERALES*/
+            $table->integer('father_incomes')->nullable()->default(0);
+            $table->integer('mother_incomes')->nullable()->default(0);
             $table->integer('other_incomes')->nullable()->default(0);
             $table->integer('expenditure')->nullable()->default(0);
             $table->unsignedBigInteger('type_house_id')->nullable();
