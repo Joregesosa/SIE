@@ -178,6 +178,10 @@ class PersonController extends Controller
            
             /*RELACION PADRES O TUTORES*/
             foreach ([$request->father_data, $request->mother_data,$request->tutor_data ] as  $index => $parent) {
+                if($parent == null){
+                    continue;
+                }
+                
                 $parent['address_street'] =$request->identification_data['address_street'];
                 $parent['sector'] =$request->identification_data['sector'];
                 
