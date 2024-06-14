@@ -26,6 +26,8 @@ class StudentController extends Controller
     {
 
         $students = Student::all();
+
+        return $students;
         
         return Inertia::render('Solicitudes/Matriculas', [
             'data' => $students

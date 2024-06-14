@@ -16,7 +16,7 @@ import { Loading } from '@/Components/Loading';
  
 export default function EnrollmentVerification({ auth, data: dataprop, msj, information }) {
 
-    console.log(dataprop.father)
+    console.log(JSON.stringify(dataprop))
     const cleanData = { 
         identification_data: {
             level_id: dataprop?.level_id || '',
@@ -130,7 +130,6 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj, info
             walking_age: dataprop?.walking_age || '',
         }
     }
-    console.log(dataprop)
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
     const { theme } = useContext(ThemeContext)
 
