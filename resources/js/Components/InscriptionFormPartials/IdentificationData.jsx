@@ -11,14 +11,13 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
  
-
     return (
         <MainFormFieldset legend="DATOS DE IDENTIFICACIÓN/INFORMACIÓN ESTUDIANTE">
 
-            <label  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="level_id"  className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Año Educativo al que ingresa el alumno
                 <Dropdown
-                    id="id"
+                    inputId="level_id"
                     name="level_id"
                     value={data?.identification_data?.level_id}
                     onChange={handleIdentificationData}
@@ -206,5 +205,6 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
 IdentificationData.prototype = {
     data: PropTypes.object.isRequired,
     setData: PropTypes.func.isRequired,
-    errorHandling: PropTypes.object.isRequired
+    errorHandling: PropTypes.object.isRequired,
+    information: PropTypes.object.isRequired
 }

@@ -29,6 +29,7 @@ const InscriptionForm = ({msj, contact ,information }) => {
             birth_day_place: '',
             id_card: contact?.id_card || '',
             sector: '',
+            age: '',
             address_street: contact?.address || '',
             number: contact?.number || '',
             reference: ''

@@ -142,11 +142,11 @@ export const AcademicData = ({ data, setData, errorHandling }) => {
                 {errorHandling?.extracurriculars && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-
         </MainFormFieldset>
     );
 };
 AcademicData.prototype = {
     data: PropTypes.object.isRequired,
     setData: PropTypes.func.isRequired,
+    errorHandling: PropTypes.object.isRequired
 };
