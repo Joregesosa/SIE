@@ -18,9 +18,6 @@ import { FormSubmitted } from '@/Components/FormSubmitted';
 
 
 const InscriptionForm = ({msj, contact ,information }) => {
-
- 
-
     const cleanData = { 
         identification_data: {
             level_id: contact?.level_id || '',

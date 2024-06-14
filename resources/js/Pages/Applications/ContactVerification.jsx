@@ -1,24 +1,15 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm } from '@inertiajs/react';
 import { InputText } from 'primereact/inputtext';
-import { BlobProvider, PDFDownloadLink, renderToStream, } from '@react-pdf/renderer';
 import ContactReport from '@/Reports/ContactReport';
 import { Toolbar } from 'primereact/toolbar';
 
 import { useContext } from 'react';
 import { ThemeContext } from '@/Context/ThemeProvider';
 import { ExportMenu } from '@/Reports/ExportMenu';
-let items = [
-    { label: 'Print', icon: 'pi pi-print' },
-    { label: 'Download', icon: 'pi pi-file-pdf' }
-];
-
-
-
 
 export default function ContactVerification({ auth, data: dataprop, msj }) {
     const { data, setData, post, processing, errors, reset } = useForm(dataprop);
-    const { theme } = useContext(ThemeContext);
 
     const request_no = (id) => {
         let request_no = id.toString();

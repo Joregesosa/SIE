@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\EducationLevel;
+use App\Models\FamilyStructure;
+use App\Models\Level;
+use App\Models\MaritalStatus;
+use App\Models\MedicalAttentionType;
+use App\Models\ParentType;
+use App\Models\TypeHouse;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -13,33 +20,33 @@ use Inertia\Inertia;
 class StudentController extends Controller
 {
 
-    public function index() {
-        
+    public function index()
+    {
+
         $students = Student::all()->load(
             'person',
             'level',
             'status',
-            'familyStructure', 
-            'typeHouse', 
+            'familyStructure',
+            'typeHouse',
             'medicalAttentionType',
             'pregnancyType',
             'pathologicalFamilyHistory',
-            'parents')->each(function ($student) {
-                $student->parents->load(['parentType' => function ($query) use ($student) {
+            'parents'
+        )->each(function ($student) {
+            $student->parents->load(['parentType' => function ($query) use ($student) {
                 $query->where('student_id', $student->id);
             }]);
         });
 
         return Inertia::render('Solicitudes/Matriculas', [
-            'data' => $students
+            'data' => $students 
         ]);
-
-        
     }
 
     public function show($id)
     {
-        return Student::with([
+        $data = Student::with([
             'person',
             'level',
             'familyStructure',
@@ -53,8 +60,17 @@ class StudentController extends Controller
         ])->findOrFail($id);
 
         try {
-            return Inertia::render('Students', [
-                'data' => Student::findOrFail($id)->with('person', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pregnancyType', 'pathologicalFamilyHistory', 'parents.parentType')->first()
+            return Inertia::render('Applications/EnrollmentVerification', [
+                'data' => $data,
+                'information'  => [
+                    'levels' => Level::all(),
+                    'marital_status' => MaritalStatus::all(),
+                    'education_levels' => EducationLevel::all(),
+                    'parent_types' => ParentType::where('status', 1)->get()->values(),
+                    'family_structures' => FamilyStructure::all(),
+                    'type_houses' => TypeHouse::all(),
+                    'medical_attention_types' => MedicalAttentionType::all(),
+                ]
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'El estudiante no existe'], 404);

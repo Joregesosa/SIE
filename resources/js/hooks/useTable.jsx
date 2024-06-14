@@ -76,10 +76,10 @@ export const useTable = (data) => {
         );
     };
 
-    const RenderActionLinks = (rowData) => {
+    const RenderActionLinks = (rowData, path) => {
         return (
             <>
-                <Link href={route('contact.show', rowData.id)} className="p-button-rounded p-button-outlined p-button-primary" ><i className='pi pi-pencil'></i></Link>
+                <Link href={route(path, rowData.id)} className="p-button-rounded p-button-outlined p-button-primary" ><i className='pi pi-pencil'></i></Link>
                 <Button icon="pi pi-trash" rounded outlined className='h-fit' severity="danger" onClick={() => deleteItem(rowData)} />
             </>
         );

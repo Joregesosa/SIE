@@ -8,27 +8,19 @@ import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
 
-/* import { Edit } from '@/Components/Groups/Edit'; */
-
 export default function ContactsRequest({ auth, data, msj }) {
     const {
         dt,
-        alert,
         setAlert,
-        RenderStatus,
         RenderRightToolbar,
         RenderLeftToolbar,
-        RenderActionButtons,
-        dataList,
         setDataList,
         selectedItem,
-        editItemDialog,
         deleteItemDialog,
         hideDeleteDialog,
         tableConfig,
         showNewDialog,
         setShowNewDialog,
-        onHideEditDialog, 
         RenderActionLinks
     } = useTable(data)
 
@@ -82,7 +74,7 @@ export default function ContactsRequest({ auth, data, msj }) {
 
                     <Column  header='Nombre' sortable body={RenderName} />
 
-                    <Column field='email' header='Nivel' sortable />
+                    <Column field='email' header='Email' sortable />
 
                     <Column header='Fecha de solicitud' sortable body={getDate}/>
 
@@ -90,19 +82,12 @@ export default function ContactsRequest({ auth, data, msj }) {
 
                     <Column field='status' header='Estatus' sortable body={requestStatus} />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionLinks(rowData)} exportable={false} />
+                    <Column header="Acciones" body={(rowData) => RenderActionLinks(rowData , 'contact.show')} exportable={false} />
 
                 </DataTable>
 
             </div>
-            {/* modal edit User */}
-           {/*  <Edit
-                selectedItem={selectedItem}
-                showDialog={editItemDialog}
-                hideDialog={onHideEditDialog}
-                endpoint=''
-            /> */}
-
+    
             <New
                 showDialog={showNewDialog}
                 hideDialog={() => setShowNewDialog(false)}
@@ -111,8 +96,8 @@ export default function ContactsRequest({ auth, data, msj }) {
 
             <DeleteAlert
                 itemId={selectedItem.id}
-                value={selectedItem.group}
-                message={"el grupo"}
+                value={selectedItem.email}
+                message={"el estudiante"}
                 endpoint=''
                 showDialog={deleteItemDialog}
                 hideDialog={hideDeleteDialog}
