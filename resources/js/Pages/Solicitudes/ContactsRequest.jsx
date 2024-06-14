@@ -50,7 +50,7 @@ export default function ContactsRequest({ auth, data, msj }) {
     const link = (rowData) => {
              
              return <Link href={route('inscription.create',{ contact: rowData.key, card: rowData.id_card })} className="cursor-pointer rounded-md bg-red-500 text-jewel-text py-1 px-2">
-                        Click
+                        Ir al Formulario ->
                     </Link>
     }
 
