@@ -86,8 +86,8 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
                 Condición de la vivienda <span>*</span>
                 <Dropdown
                     value={data?.financial_references?.type_house_id}
+                    inputId='type_house_id'
                     name='type_house_id'
-                    id='type_house_id'
                     onChange={handleFinancialReferences}
                     optionValue="id"
                     optionLabel="name"

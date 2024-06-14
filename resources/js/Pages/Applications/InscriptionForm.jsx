@@ -15,8 +15,6 @@ import { fieldVerifier } from '@/Helpers/Form.Verifier';
 import { Loading } from '@/Components/Loading';
 import { FormSubmitted } from '@/Components/FormSubmitted';
 
-
-
 const InscriptionForm = ({msj, contact ,information }) => {
     const cleanData = { 
         contact_id: contact?.id || '',
@@ -24,12 +22,13 @@ const InscriptionForm = ({msj, contact ,information }) => {
             level_id: contact?.level_id || '',
             first_name: contact?.first_name || '',
             second_name: contact?.second_name || '',
-            sLast_name: contact?.sLast_name|| '' ,
+            sLast_name: contact?.sLast_name || '',
             fLast_name: contact?.fLast_name || '',
             birth_date: '',
             birth_place: '',
             id_card: contact?.id_card || '',
             sector: '',
+            age: '',
             address_street: contact?.address || '',
             number: contact?.number || '',
             reference: ''
@@ -76,9 +75,9 @@ const InscriptionForm = ({msj, contact ,information }) => {
         socioeconomic_data: {
             family_composition_data: [],
             siblings_data: [{ age: '', name: '', studying: false }],
-            birth_order : "",
+            birth_order: "",
             disability_description: "",
-            
+
         },
         financial_references: {
             father_incomes: "",
@@ -91,6 +90,7 @@ const InscriptionForm = ({msj, contact ,information }) => {
         academic_data: {
             achievements: "",
             difficult_subjects: "",
+            dignities: "",
             entry_date: "",
             extracurriculars: "",
             participation: "",
@@ -138,22 +138,22 @@ const InscriptionForm = ({msj, contact ,information }) => {
     const [errorHandling, setErrorHandling] = useState({});
     const [step, setStep] = useState(0);
     const [sended, setSended] = useState(false);
-    const [alert, setAlert] = useState(null); 
+    const [alert, setAlert] = useState(null);
 
-     useEffect(() => {
-        
-        if(msj?.success){
+    useEffect(() => {
+
+        if (msj?.success) {
 
             setSended(true);
             reset();
-        }else{
+        } else {
             setAlert(msj);
         }
-      }, [msj]); 
+    }, [msj]);
 
 
     const handleSubmit = (e) => {
-        
+
         e.preventDefault();
         const emptyFields = fieldVerifier(data[form_keys[8]], requiredFields[form_keys[8]], setErrorHandling);
         if (Object.keys(emptyFields).length === 0) {
@@ -172,14 +172,14 @@ const InscriptionForm = ({msj, contact ,information }) => {
 
     const forms = {
         identification_data: <IdentificationData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
-        mother_data: <MotherData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
-        father_data: <FatherData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
-        tutor_data: <TutorData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
+        mother_data: <MotherData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
+        father_data: <FatherData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
+        tutor_data: <TutorData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
         socioeconomic_data: <SocioeconomicData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
-        financial_references: <FinancialReferences data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
-        academic_data: <AcademicData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
-        medical_data: <MedicalData data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
-        medical_history: <MedicalHistory data={data} setData={setData} errorHandling={errorHandling} information={information}/>,
+        financial_references: <FinancialReferences data={data} setData={setData} errorHandling={errorHandling} information={information} />,
+        academic_data: <AcademicData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
+        medical_data: <MedicalData data={data} setData={setData} errorHandling={errorHandling} information={information} />,
+        medical_history: <MedicalHistory data={data} setData={setData} errorHandling={errorHandling} information={information} />,
     };
 
     const form_keys = Object.keys(forms);
@@ -217,12 +217,20 @@ const InscriptionForm = ({msj, contact ,information }) => {
                             className={`px-5 rounded-md bg-teal-400 py-2 active:bg-sky-500 ${step === 0 && 'invisible'}`}>
                             Anterior
                         </button>
-                        <button
-                            type='button'
-                            onClick={next}
-                            className={`px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500 ${step === form_keys.length - 1 && 'hidden'}`}>
-                            Siguiente
-                        </button>
+                        <div className='flex gap-6'>
+                            <button
+                                type='button'
+                                onClick={() => setStep(step + 1)}
+                                className={`px-5 rounded-md bg-blue-500 py-2 active:bg-blue-400 ${step != 3 && 'hidden'}`}>
+                                Omitir
+                            </button>
+                            <button
+                                type='button'
+                                onClick={next}
+                                className={`px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500 ${step === form_keys.length - 1 && 'hidden'}`}>
+                                Siguiente
+                            </button>
+                        </div>
                         <button
                             type='submit'
                             className={`px-5 rounded-md bg-green-400 py-2 active:bg-sky-500 ${step !== form_keys.length - 1 && 'hidden'}`}>
@@ -230,7 +238,7 @@ const InscriptionForm = ({msj, contact ,information }) => {
                         </button>
                     </div>
                 </form> :
-                <FormSubmitted title={title} message={message}/>}
+                <FormSubmitted title={title} message={message} />}
             <Loading message="Enviando" status={processing} />
         </div>
     );
@@ -342,6 +350,6 @@ const requiredFields = {
 
 }
 
- 
+
 const title = '¡Gracias por tu inscripción!';
 const message = 'Pronto recibirás un correo de confirmación';

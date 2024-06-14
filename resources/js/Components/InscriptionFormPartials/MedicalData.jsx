@@ -34,7 +34,6 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     value={data?.medical_data?.student_disability}
-                    defaultValue="1"
                 >
                     <option value="1">Sí</option>
                     <option value="0">No</option>
@@ -62,7 +61,7 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                 />
                 {errorHandling?.student_disability_details  && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
-
+            
             <label
                 htmlFor="medical_condition"
                 className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
@@ -74,7 +73,6 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                     className="rounded-md w-full"
                     onChange={handleMedicalData}
                     value={data?.medical_data.medical_condition}
-                    defaultValue="1"
                 >
                     <option value="1">Sí</option>
                     <option value="0">No</option>
@@ -115,7 +113,6 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMedicalData}
                     value={data?.medical_data?.allergies}
-                    defaultValue="1"
                 >
                     <option value="1">Sí</option>
                     <option value="0">No</option>
