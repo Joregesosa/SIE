@@ -11,6 +11,7 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
         setData({ ...data, financial_references: { ...data.financial_references, [e.target.name]: e.target.value } })
     }
 
+   
     return (
         <MainFormFieldset
             legend="REFERENCIAS SOCIOECONÓMICAS GENERALES"
@@ -21,7 +22,7 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
                 <InputText
                     id="father_incomes"
                     name="father_incomes"
-                    value={data?.father_data?.incomes}
+                    value={data?.financial_references?.father_incomes}
                     type='number'
                     required
                     className='rounded-md w-full placeholder:font-normal'
@@ -36,7 +37,7 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
                 <InputText
                     id="mother_incomes"
                     name="mother_incomes"
-                    value={data?.mother_data?.incomes}
+                    value={data?.financial_references?.mother_incomes}
                     type='number'
                     required
                     className='rounded-md w-full placeholder:font-normal'
@@ -51,7 +52,7 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
                 <InputText
                     id="other_incomes"
                     name='other_incomes'
-                    value={data?.tutor_data?.incomes}
+                    value={data?.financial_references?.other_incomes}
                     type='number'
                     required
                     className='rounded-md w-full placeholder:font-normal'
@@ -85,8 +86,8 @@ export const FinancialReferences = ({ data, setData, errorHandling, information 
                 Condición de la vivienda <span>*</span>
                 <Dropdown
                     value={data?.financial_references?.type_house_id}
+                    inputId='type_house_id'
                     name='type_house_id'
-                    id='type_house_id'
                     onChange={handleFinancialReferences}
                     optionValue="id"
                     optionLabel="name"

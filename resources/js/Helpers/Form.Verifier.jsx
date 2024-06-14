@@ -8,7 +8,21 @@
 export function fieldVerifier(obj, requiredFields, callback) {
     const emptyFields = {};
     for (const iterator of requiredFields) {
-        if (!obj[iterator]) {
+
+        if (iterator == "student_disability_details" && obj["student_disability"] == "0") {
+            continue;
+        }
+        if (iterator == "medical_condition_details" && obj["medical_condition"] == "0") {
+            continue;
+        }
+        if (iterator == "allergies_details" && obj["allergies"] == "0") {
+            continue;
+        }
+      
+
+        if (!obj[iterator]) {   
+          
+                
             emptyFields[iterator] = true;
         }
     }

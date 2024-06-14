@@ -2,7 +2,7 @@ import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
 
-export const AcademicData = ({data, setData, errorHandling}) => {
+export const AcademicData = ({ data, setData, errorHandling }) => {
     const handleAcademicData = (e) => {
         setData({
             ...data,
@@ -47,7 +47,7 @@ export const AcademicData = ({data, setData, errorHandling}) => {
                     onChange={handleAcademicData}
                     placeholder="Previous Institution"
                 />
-                {errorHandling?.previous_institution && <span className="text-red-500 text-xs">Este campo es requerido</span> }
+                {errorHandling?.previous_institution && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label
@@ -63,7 +63,7 @@ export const AcademicData = ({data, setData, errorHandling}) => {
                     onChange={handleAcademicData}
                     placeholder="Repeated Years"
                 />
-                {errorHandling?.repeated_years && <span className="text-red-500 text-xs">Este campo es requerido</span> }
+                {errorHandling?.repeated_years && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label
@@ -102,34 +102,32 @@ export const AcademicData = ({data, setData, errorHandling}) => {
                 htmlFor="dignities"
                 className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
             >
-                Logros académicos
-                <InputText
+                Dignidades alcanzadas
+                < InputText
                     id="dignities"
                     name="dignities"
-                    value={data?.academic_data.dignities}
+                    value={data?.academic_data?.dignities}
                     className="rounded-md w-full"
                     onChange={handleAcademicData}
-                    placeholder="Dignities"
+                    placeholder="Dignidades alcanzadas"
                 />
-                 {errorHandling?.dignities && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                {errorHandling?.dignities && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="achievements" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Dignidades alcanzadas
+            Logros académicos
                 <InputText
                     id="achievements"
                     name="achievements"
                     value={data?.academic_data?.achievements}
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleAcademicData}
-                    placeholder="Achievements"
+                    placeholder="Logros académicos alcanzados"
                 />
                 {errorHandling?.achievements && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-
-            <label
-                htmlFor="extracurriculars"
+            <label htmlFor="extracurriculars"
                 className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
             >
                 Participación en Extracurriculares
@@ -144,11 +142,11 @@ export const AcademicData = ({data, setData, errorHandling}) => {
                 {errorHandling?.extracurriculars && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-                
         </MainFormFieldset>
     );
 };
 AcademicData.prototype = {
     data: PropTypes.object.isRequired,
     setData: PropTypes.func.isRequired,
+    errorHandling: PropTypes.object.isRequired
 };

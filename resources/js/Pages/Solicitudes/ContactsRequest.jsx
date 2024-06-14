@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import React, { useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -8,27 +8,19 @@ import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
 
-/* import { Edit } from '@/Components/Groups/Edit'; */
-
 export default function ContactsRequest({ auth, data, msj }) {
     const {
         dt,
-        alert,
         setAlert,
-        RenderStatus,
         RenderRightToolbar,
         RenderLeftToolbar,
-        RenderActionButtons,
-        dataList,
         setDataList,
         selectedItem,
-        editItemDialog,
         deleteItemDialog,
         hideDeleteDialog,
         tableConfig,
         showNewDialog,
         setShowNewDialog,
-        onHideEditDialog, 
         RenderActionLinks
     } = useTable(data)
 
@@ -42,11 +34,11 @@ export default function ContactsRequest({ auth, data, msj }) {
     }
 
     const requestStatus = (rowData) => {
-        if (rowData.status === 2) {
+        if (rowData.status === 1) {
             return <span className="rounded-md bg-sky-500 text-jewel-text py-1 px-2">Pendiente</span>
         }
 
-        if (rowData.status === 1) {
+        if (rowData.status === 2) {
             return <span className="rounded-md bg-lime-500 text-jewel-text py-1 px-2">Aprobada</span>
         }
 
@@ -54,6 +46,14 @@ export default function ContactsRequest({ auth, data, msj }) {
             return <span className="rounded-md bg-red-500 text-jewel-text py-1 px-2">Rechazada</span>
         }
     }
+
+    const link = (rowData) => {
+             
+             return <Link href={route('inscription.create',{ contact: rowData.key, card: rowData.id_card })} className="cursor-pointer rounded-md bg-red-500 text-jewel-text py-1 px-2">
+                        Ir al Formulario ->
+                    </Link>
+    }
+
 
     const getDate = (rowData) => {
         const date = new Date(rowData.created_at)
@@ -82,27 +82,20 @@ export default function ContactsRequest({ auth, data, msj }) {
 
                     <Column  header='Nombre' sortable body={RenderName} />
 
-                    <Column field='email' header='Nivel' sortable />
+                    <Column field='email' header='Email' sortable />
 
                     <Column header='Fecha de solicitud' sortable body={getDate}/>
 
-                    <Column field='responseDate' header='Fecha de respuesta' sortable />
+                    <Column field='responseDate' header='Provisional-Matriculacion' sortable body={link} />
 
                     <Column field='status' header='Estatus' sortable body={requestStatus} />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionLinks(rowData)} exportable={false} />
+                    <Column header="Acciones" body={(rowData) => RenderActionLinks(rowData , 'contact.show')} exportable={false} />
 
                 </DataTable>
 
             </div>
-            {/* modal edit User */}
-           {/*  <Edit
-                selectedItem={selectedItem}
-                showDialog={editItemDialog}
-                hideDialog={onHideEditDialog}
-                endpoint=''
-            /> */}
-
+    
             <New
                 showDialog={showNewDialog}
                 hideDialog={() => setShowNewDialog(false)}
@@ -111,8 +104,8 @@ export default function ContactsRequest({ auth, data, msj }) {
 
             <DeleteAlert
                 itemId={selectedItem.id}
-                value={selectedItem.group}
-                message={"el grupo"}
+                value={selectedItem.email}
+                message={"el estudiante"}
                 endpoint=''
                 showDialog={deleteItemDialog}
                 hideDialog={hideDeleteDialog}

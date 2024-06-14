@@ -35,7 +35,6 @@ export const TutorData = ({ data, setData, errorHandling , information}) => {
                     id="second_name"
                     name="second_name"
                     value={data?.tutor_data?.second_name}
-                    required
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleTutorData}
                     placeholder="Ingrese el segundo nombre"
@@ -62,7 +61,6 @@ export const TutorData = ({ data, setData, errorHandling , information}) => {
                     id="sLast_name"
                     name="sLast_name"
                     value={data?.tutor_data?.sLast_name}
-                    required
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleTutorData}
                     placeholder="Ingrese el segundo apellido"
@@ -87,9 +85,9 @@ export const TutorData = ({ data, setData, errorHandling , information}) => {
             <label htmlFor="marital_status_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Estado civil <span>*</span>
             <Dropdown
-                id="marital_status_id"
+                inputId="marital_status_id"
                 name="marital_status_id"
-                value={data?.tutor_data.marital_status_id}
+                value={data?.tutor_data?.marital_status_id}
                 onChange={handleTutorData}
                 options={information.marital_status}
                 optionLabel="name"
@@ -103,9 +101,9 @@ export const TutorData = ({ data, setData, errorHandling , information}) => {
         <label htmlFor="education_level_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Nivel de Instrucción <span>*</span>
             <Dropdown
-                id="education_level_id"
+                inputId="education_level_id"
                 name="education_level_id"
-                value={data?.tutor_data.education_level_id}
+                value={data?.tutor_data?.education_level_id}
                 onChange={handleTutorData}
                 options={information.education_levels}
                 optionLabel="name"

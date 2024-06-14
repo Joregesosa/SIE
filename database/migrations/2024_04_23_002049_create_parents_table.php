@@ -32,7 +32,6 @@ return new class extends Migration
             $table->id();
             $table->string('name'); 
             $table->string('description');
-
             $table->boolean('status')->default(true);
         });
 
@@ -53,30 +52,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        /*RELACION PADRES*/
-        Schema::create('StudentParent', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->unsignedBigInteger('parent_id');
-            $table->foreign('parent_id')->references('id')->on('parents')->onDelete('cascade');
-            $table->unsignedBigInteger('parent_type_id')->nullable();
-            $table->foreign('parent_type_id')->references('id')->on('parent_types')->onDelete('set null');
-            $table->timestamps();
-        });
-
-        /*RELACION HERMANOS*/
-        Schema::create('student_siblings', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->unsignedBigInteger('sibling_id');
-            $table->foreign('sibling_id')->references('id')->on('students')->onDelete('cascade');
-            $table->unsignedBigInteger('parent_type_id')->nullable();
-            $table->foreign('parent_type_id')->references('id')->on('parent_types')->onDelete('set null');
-            $table->timestamps();
-        });
-
     }
 
     /**
@@ -85,8 +60,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('parents');
-        Schema::dropIfExists('StudentParent');
-        Schema::dropIfExists('student_siblings');
         Schema::dropIfExists('parent_types');
         Schema::dropIfExists('education_levels');
         Schema::dropIfExists('marital_status');

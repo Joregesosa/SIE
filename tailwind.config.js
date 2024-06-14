@@ -13,7 +13,7 @@ export default {
     theme: {
         extend: {
             backgroundImage: {
-                'inscription-form': "url('i/mages/students2.0.jpg')",
+                'inscription-form': "url('/images/students2.0.jpg')",
                 'contact-form': "url('/images/student.jpg')",
                 'main': "url('/images/abc.jpg')",
             },

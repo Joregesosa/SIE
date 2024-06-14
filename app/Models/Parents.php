@@ -22,6 +22,8 @@ class Parents extends Model
         'status'
     ];
 
+    protected $with = ['person','telephones', 'maritalStatus', 'educationLevel'];
+
     public function person()
     {
         return $this->belongsTo(Person::class);
@@ -37,9 +39,10 @@ class Parents extends Model
         return $this->belongsTo(EducationLevel::class);
     }
 
-    public function parentType()
+    public function telephones()
     {
-        return $this->belongsToMany(ParentType::class, 'StudentParent','parent_id', 'parent_type_id')->withPivot('student_id');
+        return $this->hasMany(Phone::class, 'person_id','person_id');
     }
+   
    
 }

@@ -13,9 +13,9 @@ import { ThemeContext } from '@/Context/ThemeProvider';
 import { useContext } from 'react';
 import { IdentificationData } from '@/Components/InscriptionFormPartials/IdentificationData';
 import { Loading } from '@/Components/Loading';
+ 
+export default function EnrollmentVerification({ auth, data: dataprop, msj, information }) {
 
-
-export default function EnrollmentVerification({ auth, data: dataprop, msj }) {
     const { data, setData, post, processing, errors, reset } = useForm(dataprop);
     const { theme } = useContext(ThemeContext)
 
@@ -28,6 +28,7 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj }) {
         headerAction: { className: `bg-${theme}-secondary text-${theme}-text` },
     }
 
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -38,31 +39,31 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj }) {
             <form className='max-w-screen-lg py-8 mx-auto' onSubmit={handleSubmit}>
                 <Accordion activeIndex={0}>
                     <AccordionTab pt={pt} header="Datos del estudiante">
-                        <IdentificationData data={data} setData={setData} />
+                        <IdentificationData data={data} setData={setData} information={information} />
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Datos del Padre">
-                        <FatherData data={data} setData={setData} />
+                        <FatherData data={data} setData={setData} information={information} />
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Datos de la Madre">
-                        <MotherData data={data} setData={setData} />
+                        <MotherData data={data} setData={setData} information={information} />
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Datos del representante legal">
-                        <TutorData data={data} setData={setData} />
+                        <TutorData data={data} setData={setData} information={information} />
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Datos socioeconómicos">
-                        <SocioeconomicData data={data} setData={setData} />
+                        <SocioeconomicData data={data} setData={setData} information={information} />
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Referencias socioeconómicos">
-                        <FinancialReferences data={data} setData={setData} />
+                        <FinancialReferences data={data} setData={setData} information={information} />
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Datos académicos">
-                        <AcademicData data={data} setData={setData} />
+                        <AcademicData data={data} setData={setData} information={information} />
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Datos medicos">
-                        <MedicalData data={data} setData={setData} />
+                        <MedicalData data={data} setData={setData} information={information} />
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Historia vital">
-                        <MedicalHistory data={data} setData={setData} />
+                        <MedicalHistory data={data} setData={setData} information={information} />
                     </AccordionTab>
                 </Accordion>
             </form>

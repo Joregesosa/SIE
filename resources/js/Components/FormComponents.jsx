@@ -15,7 +15,7 @@ import { InputText } from "primereact/inputtext";
                 name="student_disability"
                 className='rounded-md w-full'
                 onChange={setMedicalData}
-                value={data?.academic_data.student_disability}
+                value={data?.academic_data?.student_disability}
             >
                 <option value="yes">Sí</option>
                 <option value="no">No</option>
@@ -27,7 +27,7 @@ import { InputText } from "primereact/inputtext";
             <InputText
                 id="student_disability_details"
                 name="student_disability_details"
-                value={data?.academic_data.student_disability_details}
+                value={data?.academic_data?.student_disability_details}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Detalles de la discapacidad"
@@ -41,7 +41,7 @@ import { InputText } from "primereact/inputtext";
                 name="medical_condition"
                 className='rounded-md w-full'
                 onChange={setMedicalData}
-                value={data?.academic_data.medical_condition}
+                value={data?.academic_data?.medical_condition}
             >
                 <option value="yes">Sí</option>
                 <option value="no">No</option>
@@ -53,7 +53,7 @@ import { InputText } from "primereact/inputtext";
             <InputText
                 id="medical_condition_details"
                 name="medical_condition_details"
-                value={data?.academic_data.medical_condition_details}
+                value={data?.academic_data?.medical_condition_details}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Detalles de la condición médica"
@@ -67,7 +67,7 @@ import { InputText } from "primereact/inputtext";
                 name="allergies"
                 className='rounded-md w-full'
                 onChange={setMedicalData}
-                value={data?.academic_data.allergies}
+                value={data?.academic_data?.allergies}
             >
                 <option value="yes">Sí</option>
                 <option value="no">No</option>
@@ -79,7 +79,7 @@ import { InputText } from "primereact/inputtext";
             <InputText
                 id="allergies_details"
                 name="allergies_details"
-                value={data?.academic_data.allergies_details}
+                value={data?.academic_data?.allergies_details}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Detalles de las alergias"
@@ -91,7 +91,7 @@ import { InputText } from "primereact/inputtext";
             <InputText
                 id="medications"
                 name="medications"
-                value={data?.academic_data.medications}
+                value={data?.academic_data?.medications}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Medicamentos"
@@ -105,7 +105,7 @@ import { InputText } from "primereact/inputtext";
                 name="medical_attention_type_id"
                 className='rounded-md w-full'
                 onChange={setMedicalData}
-                value={data?.academic_data.medical_attention_type_id}
+                value={data?.academic_data?.medical_attention_type_id}
             >
                 <option value="health_center">Centro de Salud</option>
                 <option value="public_hospital">Hospital Público</option>
@@ -119,7 +119,7 @@ import { InputText } from "primereact/inputtext";
             <InputText
                 id="medical_attention_details"
                 name="medical_attention_details"
-                value={data?.academic_data.medical_attention_details}
+                value={data?.academic_data?.medical_attention_details}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Detalles de la institución médica"
@@ -131,7 +131,7 @@ import { InputText } from "primereact/inputtext";
             <InputText
                 id="medical_attention_doctor"
                 name="medical_attention_doctor"
-                value={data?.academic_data.medical_attention_doctor}
+                value={data?.academic_data?.medical_attention_doctor}
                 className='rounded-md w-full'
                 onChange={setMedicalData}
                 placeholder="Médico tratante"
@@ -155,7 +155,7 @@ export const Form9 = () => (
             <InputText
                 id="motherAge"
                 name="motherAge"
-                value={data?.academic_data.motherAge}
+                value={data?.academic_data?.motherAge}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Edad de la madre durante el embarazo"
@@ -167,7 +167,7 @@ export const Form9 = () => (
             <InputText
                 id="accidentsDuringPregnancy"
                 name="accidentsDuringPregnancy"
-                value={data?.academic_data.accidentsDuringPregnancy}
+                value={data?.academic_data?.accidentsDuringPregnancy}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Accidentes durante el embarazo"
@@ -179,7 +179,7 @@ export const Form9 = () => (
             <InputText
                 id="medicationsDuringPregnancy"
                 name="medicationsDuringPregnancy"
-                value={data?.academic_data.medicationsDuringPregnancy}
+                value={data?.academic_data?.medicationsDuringPregnancy}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Medicamentos durante el embarazo"
@@ -191,7 +191,7 @@ export const Form9 = () => (
             <InputText
                 id="typeOfDelivery"
                 name="typeOfDelivery"
-                value={data?.academic_data.typeOfDelivery}
+                value={data?.academic_data?.typeOfDelivery}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Tipo de parto"
@@ -203,7 +203,7 @@ export const Form9 = () => (
             <InputText
                 id="otherDifficultiesDuringPregnancy"
                 name="otherDifficultiesDuringPregnancy"
-                value={data?.academic_data.otherDifficultiesDuringPregnancy}
+                value={data?.academic_data?.otherDifficultiesDuringPregnancy}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Especifique otras dificultades durante el embarazo"
@@ -215,7 +215,7 @@ export const Form9 = () => (
             <InputText
                 id="birthWeight"
                 name="birthWeight"
-                value={data?.academic_data.birthWeight}
+                value={data?.academic_data?.birthWeight}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Peso al nacer"
@@ -227,7 +227,7 @@ export const Form9 = () => (
             <InputText
                 id="birthHeight"
                 name="birthHeight"
-                value={data?.academic_data.birthHeight}
+                value={data?.academic_data?.birthHeight}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Altura al nacer"
@@ -239,7 +239,7 @@ export const Form9 = () => (
             <InputText
                 id="walkingAge"
                 name="walkingAge"
-                value={data?.academic_data.walkingAge}
+                value={data?.academic_data?.walkingAge}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Edad cuando comenzó a caminar"
@@ -251,7 +251,7 @@ export const Form9 = () => (
             <InputText
                 id="firstWordsAge"
                 name="firstWordsAge"
-                value={data?.academic_data.firstWordsAge}
+                value={data?.academic_data?.firstWordsAge}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Edad cuando pronunció las primeras palabras"
@@ -263,7 +263,7 @@ export const Form9 = () => (
             <InputText
                 id="breastfeedingPeriod"
                 name="breastfeedingPeriod"
-                value={data?.academic_data.breastfeedingPeriod}
+                value={data?.academic_data?.breastfeedingPeriod}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Período de lactancia"
@@ -275,7 +275,7 @@ export const Form9 = () => (
             <InputText
                 id="bottleUsageAge"
                 name="bottleUsageAge"
-                value={data?.academic_data.bottleUsageAge}
+                value={data?.academic_data?.bottleUsageAge}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Edad hasta el uso del biberón"
@@ -287,7 +287,7 @@ export const Form9 = () => (
             <InputText
                 id="toiletTrainingAge"
                 name="toiletTrainingAge"
-                value={data?.academic_data.toiletTrainingAge}
+                value={data?.academic_data?.toiletTrainingAge}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Edad cuando aprendió el entrenamiento para ir al baño"
@@ -299,7 +299,7 @@ export const Form9 = () => (
             <InputText
                 id="observations"
                 name="observations"
-                value={data?.academic_data.observations}
+                value={data?.academic_data?.observations}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Observaciones"
@@ -311,7 +311,7 @@ export const Form9 = () => (
             <InputText
                 id="familyMedicalHistory"
                 name="familyMedicalHistory"
-                value={data?.academic_data.familyMedicalHistory}
+                value={data?.academic_data?.familyMedicalHistory}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Antecedentes médicos familiares"
@@ -323,7 +323,7 @@ export const Form9 = () => (
             <InputText
                 id="studentFatherRelationship"
                 name="studentFatherRelationship"
-                value={data?.academic_data.studentFatherRelationship}
+                value={data?.academic_data?.studentFatherRelationship}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="¿Cómo describiría la relación del estudiante con el padre?"
@@ -335,7 +335,7 @@ export const Form9 = () => (
             <InputText
                 id="studentMotherRelationship"
                 name="studentMotherRelationship"
-                value={data?.academic_data.studentMotherRelationship}
+                value={data?.academic_data?.studentMotherRelationship}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="¿Cómo describiría la relación del estudiante con la madre?"
@@ -347,7 +347,7 @@ export const Form9 = () => (
             <InputText
                 id="studentSiblingsRelationship"
                 name="studentSiblingsRelationship"
-                value={data?.academic_data.studentSiblingsRelationship}
+                value={data?.academic_data?.studentSiblingsRelationship}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="¿Cómo describiría la relación del estudiante con los hermanos?"
@@ -359,7 +359,7 @@ export const Form9 = () => (
             <InputText
                 id="studentOthersRelationship"
                 name="studentOthersRelationship"
-                value={data?.academic_data.studentOthersRelationship}
+                value={data?.academic_data?.studentOthersRelationship}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="¿Cómo describiría la relación del estudiante con otras personas?"
@@ -371,7 +371,7 @@ export const Form9 = () => (
             <InputText
                 id="habitsAndActivities"
                 name="habitsAndActivities"
-                value={data?.academic_data.habitsAndActivities}
+                value={data?.academic_data?.habitsAndActivities}
                 className='rounded-md w-full'
                 onChange={setAcademicData}
                 placeholder="Hábitos y actividades"

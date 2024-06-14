@@ -55,7 +55,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             name="family_composition_data"
                             value={family.id}
                             onChange={handleSocioeconomicData}
-                            checked={data.socioeconomic_data.family_composition_data.includes(family.id)}
+                            checked={data.socioeconomic_data?.family_composition_data.includes(family.id)}
                             className='mr-2'
                         />
                         <b> {family.name}</b>: {family.description}
@@ -68,7 +68,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                 Nombres de hermanos/as y edades:
             </legend>
             <>
-                {data.socioeconomic_data?.siblings_data.map((_, index) => (
+                {data.socioeconomic_data?.siblings_data?.map((_, index) => (
                     <div key={index} className="grid grid-cols-2 md:grid-cols-5  gap-4 col-span-2 justify-between mt-2">
 
                         <label htmlFor={`name_${index}`} className="font-bold text-xs col-span-2 md:col-span-2">
@@ -161,7 +161,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             name='family_structure_id'
                             value={family.id}
                             className='mr-2'
-                            checked={ parseInt(data.socioeconomic_data.family_structure_id) == family.id}
+                            checked={ parseInt(data.socioeconomic_data?.family_structure_id) == family.id}
                             onChange={handleSocioeconomicData}
                         />
                         <b>{family.name}</b>: {family.description}
