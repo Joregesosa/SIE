@@ -13,6 +13,7 @@ use App\Models\MedicalAttentionType;
 use App\Models\MedicalCondition;
 use App\Models\Parents;
 use App\Models\ParentType;
+use App\Models\PathologicalFamilyHistory;
 use App\Models\Person;
 use App\Models\Phone;
 use App\Models\PhoneType;
@@ -41,6 +42,8 @@ class PersonController extends Controller
                             'family_structures' => FamilyStructure::all(),
                             'type_houses' => TypeHouse::all(),
                             'medical_attention_types' => MedicalAttentionType::all(),
+                            'pathological_family_histories' => PathologicalFamilyHistory::all(),
+                            'pregnancy_types' => PregnancyType::all(),
                             ]
 
         ]);

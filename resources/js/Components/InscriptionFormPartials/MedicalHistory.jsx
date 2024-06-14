@@ -1,7 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import PropTypes from "prop-types";
 import { MainFormFieldset } from "./MainFormFieldset";
-export const MedicalHistory = ({ data, setData, errorHandling }) => {
+export const MedicalHistory = ({ data, setData, errorHandling, information }) => {
 
     const handleAcademicData = (e) => {
         setData({

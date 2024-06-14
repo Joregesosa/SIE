@@ -11,6 +11,8 @@ use App\Models\Level;
 use App\Models\MaritalStatus;
 use App\Models\MedicalAttentionType;
 use App\Models\ParentType;
+use App\Models\PathologicalFamilyHistory;
+use App\Models\PregnancyType;
 use App\Models\TypeHouse;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -40,13 +42,13 @@ class StudentController extends Controller
         });
 
         return Inertia::render('Solicitudes/Matriculas', [
-            'data' => $students 
+            'data' => $students
         ]);
     }
 
     public function show($id)
     {
-        $data = Student::with([
+        return Student::with([
             'person',
             'level',
             'familyStructure',
@@ -54,6 +56,7 @@ class StudentController extends Controller
             'medicalAttentionType',
             'pregnancyType',
             'pathologicalFamilyHistory',
+            'parents.person',
             'parents.parentType' => function ($query) use ($id) {
                 $query->where('student_id', $id);
             }
@@ -61,7 +64,7 @@ class StudentController extends Controller
 
         try {
             return Inertia::render('Applications/EnrollmentVerification', [
-                'data' => $data,
+             /*    'data' => $data, */
                 'information'  => [
                     'levels' => Level::all(),
                     'marital_status' => MaritalStatus::all(),
@@ -70,6 +73,8 @@ class StudentController extends Controller
                     'family_structures' => FamilyStructure::all(),
                     'type_houses' => TypeHouse::all(),
                     'medical_attention_types' => MedicalAttentionType::all(),
+                    'pathological_family_histories' => PathologicalFamilyHistory::all(),
+                    'pregnancy_types' => PregnancyType::all(),
                 ]
             ]);
         } catch (ModelNotFoundException $e) {
