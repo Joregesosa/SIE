@@ -87,7 +87,7 @@ export const TutorData = ({ data, setData, errorHandling , information}) => {
             <Dropdown
                 inputId="marital_status_id"
                 name="marital_status_id"
-                value={data?.tutor_data.marital_status_id}
+                value={data?.tutor_data?.marital_status_id}
                 onChange={handleTutorData}
                 options={information.marital_status}
                 optionLabel="name"
@@ -103,7 +103,7 @@ export const TutorData = ({ data, setData, errorHandling , information}) => {
             <Dropdown
                 inputId="education_level_id"
                 name="education_level_id"
-                value={data?.tutor_data.education_level_id}
+                value={data?.tutor_data?.education_level_id}
                 onChange={handleTutorData}
                 options={information.education_levels}
                 optionLabel="name"

@@ -57,19 +57,20 @@ class PersonController extends Controller
 
     public function store(Request $request){
         
-        dd($request->all());
-     /* 
+       
+     
        $validator = validator($request->all(), [
+        'identification_data.id_card' => 'unique:people,id_card',
+           /*  
             'identification_data.first_name' => 'required|string',
             'identification_data.second_name' => 'required|string',
             'identification_data.fLast_name' => 'required|string',
             'identification_data.sLast_name' => 'required|string',
             'identification_data.birth_date' => 'required|date',
             'identification_data.birth_place' => 'string',
-            'identification_data.id_card' => 'unique:people,id_card',
+         
             'identification_data.telefonos.*.number' => 'required|string',
             'identification_data.telefonos.*.phone_type_id' => 'required|exists:phone_types,id',
-            
             'parents.*.first_name' => 'required|string',
             'parents.*.second_name' => 'required|string',
             'parents.*.fLast_name' => 'required|string',
@@ -133,7 +134,7 @@ class PersonController extends Controller
             'others_relationship' => 'string',
             'habits_and_activities' => 'string',
                 
-            
+            */
 
 
         ], [
@@ -149,7 +150,7 @@ class PersonController extends Controller
         if ($validator->fails()) {
             session()->put('msj', ['error' => array_values($validator->errors()->messages())]);
             return back();
-        }*/
+        }
         
        
        

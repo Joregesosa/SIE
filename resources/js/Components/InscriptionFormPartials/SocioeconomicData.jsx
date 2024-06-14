@@ -55,7 +55,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             name="family_composition_data"
                             value={family.id}
                             onChange={handleSocioeconomicData}
-                            checked={data.socioeconomic_data.family_composition_data.includes(family.id)}
+                            checked={data.socioeconomic_data?.family_composition_data.includes(family.id)}
                             className='mr-2'
                         />
                         <b> {family.name}</b>: {family.description}
@@ -161,7 +161,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             name='family_structure_id'
                             value={family.id}
                             className='mr-2'
-                            checked={ parseInt(data.socioeconomic_data.family_structure_id) == family.id}
+                            checked={ parseInt(data.socioeconomic_data?.family_structure_id) == family.id}
                             onChange={handleSocioeconomicData}
                         />
                         <b>{family.name}</b>: {family.description}

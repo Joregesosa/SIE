@@ -35,7 +35,7 @@ export default function Matriculas({ auth, data, msj }) {
     }, [data, msj])
 
 
-
+    console.log(data)
     const requestStatus = (rowData) => {
         return <span className={`rounded-md bg-${rowData.identification_data.status.color} text-jewel-text py-1 px-2`}>{rowData.identification_data.status.name}</span>   
     }

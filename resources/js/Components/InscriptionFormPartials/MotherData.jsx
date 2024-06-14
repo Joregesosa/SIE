@@ -104,7 +104,7 @@ export const MotherData = ({ data, setData, errorHandling, information }) => {
             <label htmlFor="education_level_id" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
             Nivel de Instrucción <span>*</span>
             <Dropdown
-                value={data?.mother_data.education_level_id}
+                value={data?.mother_data?.education_level_id}
                 inputId="education_level_id"
                 name="education_level_id"
                 onChange={handleMotherData}

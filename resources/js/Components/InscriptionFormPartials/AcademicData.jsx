@@ -106,7 +106,7 @@ export const AcademicData = ({ data, setData, errorHandling }) => {
                 < InputText
                     id="dignities"
                     name="dignities"
-                    value={data?.academic_data.dignities}
+                    value={data?.academic_data?.dignities}
                     className="rounded-md w-full"
                     onChange={handleAcademicData}
                     placeholder="Dignidades alcanzadas"

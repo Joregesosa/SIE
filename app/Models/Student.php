@@ -165,7 +165,7 @@ class Student extends Model
                 'status' => $this->status ? $this->status->toArray() : null,
                 
             ],
-            'mother_data' => [
+            'mother_data' => $this->mother ?  [
                 'person' => $this->mother->person ? $this->mother->person->toArray() : null, 
                 'birth_date' => $this->mother->person->birth_date ?? '',
                 'email' => $this->mother->email ?? '',
@@ -180,8 +180,8 @@ class Student extends Model
                 'sLast_name' => $this->mother->person->sLast_name ?? '',
                 'second_name' => $this->mother->person->second_name ?? '',
                 'work_place' => $this->mother->work_place ?? '',
-            ],
-            'father_data' => [
+            ] : null,
+            'father_data' => $this->father ? [
                 'person' => $this->father->person ? $this->father->person->toArray() : null, 
                 'birth_date' => $this->father->person->birth_date ?? '',
                 'email' => $this->father->email ?? '',
@@ -196,8 +196,8 @@ class Student extends Model
                 'sLast_name' => $this->father->person->sLast_name ?? '',
                 'second_name' => $this->father->person->second_name ?? '',
                 'work_place' => $this->father->work_place ?? '',
-            ],
-            'tutor_data' => [
+            ] : null,
+            'tutor_data' => $this->tutor ? [
                 'person' => $this->tutor->person ? $this->tutor->person->toArray() : null,
                 'birth_date' => $this->tutor->person->birth_date ?? '',
                 'email' => $this->tutor->email ?? '',
@@ -212,7 +212,7 @@ class Student extends Model
                 'sLast_name' => $this->tutor->person->sLast_name ?? '',
                 'second_name' => $this->tutor->person->second_name ?? '',
                 'work_place' => $this->tutor->work_place ?? '',
-            ],
+            ] : null,
             'socioeconomic_data' => [
                 'family_composition_data' => $this->family_composition ?? '',
                 'siblings_data' => $this->siblings ? json_decode($this->siblings, true) : [],

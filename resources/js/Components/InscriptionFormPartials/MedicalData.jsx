@@ -47,13 +47,13 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                 Determine qué discapacidad / porcentaje / número de
                 identificación
                 <InputText
-                    disabled={data?.medical_data.student_disability == "0"}
+                    disabled={data?.medical_data?.student_disability == "0"}
                     id="student_disability_details"
                     name="student_disability_details"
                     value={
-                        data?.medical_data.student_disability == "0"
+                        data?.medical_data?.student_disability == "0"
                             ? ""
-                            : data?.medical_data.student_disability_details
+                            : data?.medical_data?.student_disability_details
                     }
                     className="rounded-md w-full"
                     onChange={handleMedicalData}
@@ -72,7 +72,7 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                     name="medical_condition"
                     className="rounded-md w-full"
                     onChange={handleMedicalData}
-                    value={data?.medical_data.medical_condition}
+                    value={data?.medical_data?.medical_condition}
                 >
                     <option value="1">Sí</option>
                     <option value="0">No</option>
@@ -86,14 +86,14 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                 Determine qué condición médica
                 <InputText
                     disabled={
-                        data?.medical_data.medical_condition == "0"
+                        data?.medical_data?.medical_condition == "0"
                     }
                     id="medical_condition_details"
                     name="medical_condition_details"
                     value={
-                        data?.medical_data.medical_condition == "0"
+                        data?.medical_data?.medical_condition == "0"
                             ? ""
-                            : data?.medical_data.medical_condition_details
+                            : data?.medical_data?.medical_condition_details
                     }
                     className="rounded-md w-full"
                     onChange={handleMedicalData}
@@ -162,7 +162,7 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                     name="medical_attention_type_id"
                     className="rounded-md w-full"
                     onChange={handleMedicalData}
-                    value={data?.medical_data.medical_attention_type_id}
+                    value={data?.medical_data?.medical_attention_type_id}
                 >
                     <option disabled value="">Seleccionar centro de salud</option>
                     {information.medical_attention_types.map(
@@ -184,7 +184,7 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                 <InputText
                     id="medical_attention_details"
                     name="medical_attention_details"
-                    value={data?.medical_data.medical_attention_details}
+                    value={data?.medical_data?.medical_attention_details}
                     className="rounded-md w-full"
                     onChange={handleMedicalData}
                     placeholder="Detalles de la institución médica"
@@ -200,7 +200,7 @@ export const MedicalData = ({ data, setData , errorHandling,  information}) => {
                 <InputText
                     id="medical_attention_doctor"
                     name="medical_attention_doctor"
-                    value={data?.medical_data.medical_attention_doctor}
+                    value={data?.medical_data?.medical_attention_doctor}
                     className="rounded-md w-full"
                     onChange={handleMedicalData}
                     placeholder="Médico tratante"
