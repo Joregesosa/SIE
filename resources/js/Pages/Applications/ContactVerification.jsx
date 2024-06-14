@@ -3,9 +3,6 @@ import { Head, useForm } from '@inertiajs/react';
 import { InputText } from 'primereact/inputtext';
 import ContactReport from '@/Reports/ContactReport';
 import { Toolbar } from 'primereact/toolbar';
-
-import { useContext } from 'react';
-import { ThemeContext } from '@/Context/ThemeProvider';
 import { ExportMenu } from '@/Reports/ExportMenu';
 
 export default function ContactVerification({ auth, data: dataprop, msj }) {

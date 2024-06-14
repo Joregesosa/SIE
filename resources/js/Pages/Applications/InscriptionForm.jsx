@@ -90,6 +90,7 @@ const InscriptionForm = ({msj, contact ,information }) => {
         academic_data: {
             achievements: "",
             difficult_subjects: "",
+            dignities: "",
             entry_date: "",
             extracurriculars: "",
             participation: "",
