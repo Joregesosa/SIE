@@ -152,6 +152,7 @@ const InscriptionForm = ({msj, contact ,information }) => {
 
 
     const handleSubmit = (e) => {
+        
         e.preventDefault();
         const emptyFields = fieldVerifier(data[form_keys[8]], requiredFields[form_keys[8]], setErrorHandling);
         if (Object.keys(emptyFields).length === 0) {

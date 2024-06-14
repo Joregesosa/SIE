@@ -25,22 +25,8 @@ class StudentController extends Controller
     public function index()
     {
 
-        $students = Student::all()->load(
-            'person',
-            'level',
-            'status',
-            'familyStructure',
-            'typeHouse',
-            'medicalAttentionType',
-            'pregnancyType',
-            'pathologicalFamilyHistory',
-            'parents'
-        )->each(function ($student) {
-            $student->parents->load(['parentType' => function ($query) use ($student) {
-                $query->where('student_id', $student->id);
-            }]);
-        });
-
+        $students = Student::all();
+        
         return Inertia::render('Solicitudes/Matriculas', [
             'data' => $students
         ]);
@@ -48,23 +34,10 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        return Student::with([
-            'person',
-            'level',
-            'familyStructure',
-            'typeHouse',
-            'medicalAttentionType',
-            'pregnancyType',
-            'pathologicalFamilyHistory',
-            'parents.person',
-            'parents.parentType' => function ($query) use ($id) {
-                $query->where('student_id', $id);
-            }
-        ])->findOrFail($id);
-
+       
         try {
             return Inertia::render('Applications/EnrollmentVerification', [
-             /*    'data' => $data, */
+              'data' => Student::findOrFail($id),
                 'information'  => [
                     'levels' => Level::all(),
                     'marital_status' => MaritalStatus::all(),
@@ -83,6 +56,7 @@ class StudentController extends Controller
             return response()->json(['error' => 'Error en la acción realizada'], 500);
         }
     }
+
 
     public function update(Request $request)
     {

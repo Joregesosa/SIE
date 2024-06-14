@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 
 class Student extends Model
 {
@@ -63,8 +66,14 @@ class Student extends Model
         'mother_relationship',
         'siblings_relationship',
         'others_relationship',
-        'habits_and_activities'
+        'habits_and_activities',
+        'father_id' ,
+        'mother_id',
+        'tutor_id'
+
     ];
+
+    protected $with = ['person', 'level', 'status', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pathologicalFamilyHistory', 'pregnancyType', 'father', 'mother', 'tutor'];
  
     public function person()
     {
@@ -106,10 +115,21 @@ class Student extends Model
         return $this->belongsTo(pregnancyType::class);
     }
 
-    public function parents()
+    public function father()
     {
-        return $this->belongsToMany(Parents::class, 'StudentParent', 'student_id', 'parent_id');
+        return $this->belongsTo(Parents::class, 'father_id');
     }
-    
-    
+
+    public function mother()
+    {
+        return $this->belongsTo(Parents::class, 'mother_id');
+    }
+
+    public function tutor()
+    {
+        return $this->belongsTo(Parents::class, 'tutor_id');
+    }
+
+ 
+
 }

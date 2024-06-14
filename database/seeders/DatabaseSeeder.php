@@ -88,10 +88,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('parent_types')->insert([
-            ['name' => 'Padre', 'description' => 'El padre biológico del niño, que lo ha concebido y es responsable de su crianza y cuidado.', 'status' => 0 ],
+           /* ['name' => 'Padre', 'description' => 'El padre biológico del niño, que lo ha concebido y es responsable de su crianza y cuidado.', 'status' => 0 ],
             ['name' => 'Madre', 'description' => 'La madre biológica del niño, que lo ha concebido y es responsable de su crianza y cuidado.', 'status' => 0 ],
             ['name' => 'Tutor', 'description' => 'Una persona legalmente responsable de la crianza y el cuidado de un niño, que puede ser un pariente, un amigo o un profesional designado por un tribunal.', 'status' => 0 ],
-            
+            */
             ['name' => 'Padres', 'description' => 'Los progenitores biológicos o adoptivos del niño, quienes tienen la responsabilidad primaria de cuidarlo, educarlo y proporcionarle apoyo emocional y material.', 'status' => 1 ],
             ['name' => 'Hijos', 'description' => 'Los niños que forman parte de la familia, ya sean biológicos o adoptivos.', 'status' => 1 ],
             ['name' => 'Abuelos', 'description' => 'Los padres de los padres del niño, quienes pueden tener un papel importante en la crianza y el apoyo familiar.', 'status' => 1 ],

@@ -15,6 +15,8 @@ import { IdentificationData } from '@/Components/InscriptionFormPartials/Identif
 import { Loading } from '@/Components/Loading';
  
 export default function EnrollmentVerification({ auth, data: dataprop, msj, information }) {
+
+    console.log(dataprop.father)
     const cleanData = { 
         identification_data: {
             level_id: dataprop?.level_id || '',
