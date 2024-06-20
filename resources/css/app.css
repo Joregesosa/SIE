@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.p-datatable-wrapper{
+     max-height: calc(100vh - 262px);
+     min-height: calc(100vh - 262px);
+     background-color: white;
+}
+
+/*Aceso denegado*/
+@keyframes show {
+     100% {
+         opacity: 1;
+     }
+ }
+ 
+  @-webkit-keyframes flip-in-hor-bottom {
+     0% {
+       -webkit-transform: rotateX(80deg);
+               transform: rotateX(80deg);
+       opacity: 0;
+     }
+     100% {
+       -webkit-transform: rotateX(0);
+               transform: rotateX(0);
+       opacity: 1;
+     }
+   }
+   @keyframes flip-in-hor-bottom {
+     0% {
+       -webkit-transform: rotateX(80deg);
+               transform: rotateX(80deg);
+       opacity: 0;
+     }
+     100% {
+       -webkit-transform: rotateX(0);
+               transform: rotateX(0);
+       opacity: 1;
+     }
+   }
+ 
+ 
+ @keyframes bounce-in-top {
+     0% {
+       transform: translateY(-500px);
+       animation-timing-function: ease-in;
+       opacity: 0;
+     }
+     38% {
+       transform: translateY(0);
+       animation-timing-function: ease-out;
+       opacity: 1;
+     }
+     55% {
+       transform: translateY(-65px);
+       animation-timing-function: ease-in;
+     }
+     72% {
+       transform: translateY(0);
+       animation-timing-function: ease-out;
+     }
+     81% {
+       transform: translateY(-28px);
+       animation-timing-function: ease-in;
+     }
+     90% {
+       transform: translateY(0);
+       animation-timing-function: ease-out;
+     }
+     95% {
+       transform: translateY(-8px);
+       animation-timing-function: ease-in;
+     }
+     100% {
+       transform: translateY(0);
+       animation-timing-function: ease-out;
+     }
+   }
+  
+   
+.acceso-403 {
+     -webkit-animation: flip-in-hor-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+              animation: flip-in-hor-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+             animation-delay: .5s;
+     @apply text-[14vw] leading-[20rem] font-light   uppercase text-center text-[#ca3074]  block m-0 relative z-0;
+ 
+ }
+ 
+ 
+ .acceso-403::before {
+     @apply absolute top-[-6vw] right-[37%] scale-y-75 font-extrabold transform rotate-180 text-[8vw] text-[#f6c667] -z-[1] text-center;
+     content: "U";
+    
+ }
+ 
+ .acceso-denegado {
+     @apply text-[#ca3074]  uppercase text-center text-[2vw] block m-0 ;
+     animation:  bounce-in-top 1.1s both;
+     animation-delay: 1.5s;
+ }
+ 
+ 
+ .acceso-home {
+     @apply absolute bottom-5 text-[#ca3074]  uppercase text-center text-[2vw] opacity-0 transition-all duration-500 ease-in-out ;
+     animation:  show 1.1s forwards;
+     animation-delay: 3.5s;
+ }
+ 
+ .acceso-home:hover {
+   @apply transform translate-x-2 ;
+ }
+ 
+ .acceso-home::before {
+   @apply absolute transition-all duration-500 ease-in-out;
+   content: "";
+ }
+ 
+ .acceso-home:hover::before {
+   content: "🢀";
+   @apply transform translate-x-[-3rem];
+ }
+ /*fin aceso denegado*/
+
+
+ /* Scroll */
+
+ 
+/* body {
+  --sb-track-color: #989898;
+  --sb-thumb-color: #121212;
+  --sb-size: 8px;
+}
+
+body::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 11px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 11px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+} */
