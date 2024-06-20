@@ -94,7 +94,7 @@ return new class extends Migration
             $table->string('toilet_age')->nullable();
             $table->string('observations')->nullable();
             $table->string('family_medical_history')->nullable();
-            $table->foreign('family_medical_history')->references('id')->on('pathological_family_histories')->onDelete('set null');
+
 
             /*RELACION INTRA FAMILIAR*/
             $table->string('father_relationship')->nullable();
