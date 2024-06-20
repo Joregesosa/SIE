@@ -15,8 +15,12 @@ export const SocioeconomicData = ({ data, setData , information }) => {
      * @param {Event} e - The event object triggered by the change.
      */
     const handleSocioeconomicData = (e) => {
-
+        
         const newData = { ...data }
+        if( typeof newData.socioeconomic_data?.family_composition_data === 'string'){
+            newData.socioeconomic_data.family_composition_data = JSON.parse(newData.socioeconomic_data?.family_composition_data)
+        }
+   
         if (e.target.name === 'family_composition_data') {
             if (e.target.checked) {
                 newData.socioeconomic_data.family_composition_data = [...newData.socioeconomic_data.family_composition_data, parseInt(e.target.value)]
