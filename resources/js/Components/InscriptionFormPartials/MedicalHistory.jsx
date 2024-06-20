@@ -8,7 +8,6 @@ export const MedicalHistory = ({ data, setData, errorHandling, information }) =>
         const new_medical_history = { ...data };
         let nmh = JSON.parse(new_medical_history.medical_history.family_medical_history);
         
-
         if (e.target.name === 'family_medical_history') {
             if (e.target.checked) {
                 nmh.push(parseInt(e.target.value));

@@ -93,7 +93,7 @@ return new class extends Migration
             $table->string('bottle_age')->nullable();
             $table->string('toilet_age')->nullable();
             $table->string('observations')->nullable();
-            $table->unsignedBigInteger('family_medical_history')->nullable();
+            $table->string('family_medical_history')->nullable();
             $table->foreign('family_medical_history')->references('id')->on('pathological_family_histories')->onDelete('set null');
 
             /*RELACION INTRA FAMILIAR*/
