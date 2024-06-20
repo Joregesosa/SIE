@@ -32,8 +32,11 @@ class PersonController extends Controller
     public function create(Request $request)
     {
         try {
+           
+
             return Inertia::render('Applications/InscriptionForm', [
-                'contact' =>  Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->firstOrFail(),
+              
+                'contact' =>   Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->where('status','>',1)->firstOrFail(),
                 'information'  => [
                     'levels' => Level::all(),
                     'marital_status' => MaritalStatus::all(),

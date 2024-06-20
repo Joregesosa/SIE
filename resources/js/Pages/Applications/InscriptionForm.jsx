@@ -15,7 +15,7 @@ import { fieldVerifier } from "@/Helpers/Form.Verifier";
 import { Loading } from "@/Components/Loading";
 import { FormSubmitted } from "@/Components/FormSubmitted";
 
-const InscriptionForm = ({ msj, contact, information }) => {
+const InscriptionForm = ({ msj, contact, information  }) => {
     const cleanData = {
         contact_id: contact?.id || "",
         identification_data: {
@@ -131,17 +131,18 @@ const InscriptionForm = ({ msj, contact, information }) => {
             walking_age: "",
         },
     };
-
+   
     const Parents_data = ["father_data", "mother_data", "tutor_data"];
 
-
-   
+    const message = contact?.status == 2? "Pronto recibirás un correo de confirmación" : '';
+    const title = contact?.status == 2? "¡Gracias por tu inscripción!" : "Esta solicitud ya ha sido enviada";
+    
     const scroll = document.getElementById("scroll");
     const { data, setData, post, processing, errors, reset } =
         useForm(cleanData);
     const [errorHandling, setErrorHandling] = useState({});
     const [step, setStep] = useState(0);
-    const [sended, setSended] = useState(false);
+    const [sended, setSended] = useState(contact?.status != 2);
     const [alert, setAlert] = useState(null);
 
     useEffect(() => {
@@ -453,5 +454,5 @@ const requiredFields = {
     ],
 };
 
-const title = "¡Gracias por tu inscripción!";
-const message = "Pronto recibirás un correo de confirmación";
+
+
