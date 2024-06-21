@@ -5,7 +5,7 @@ import { ThemeContext } from '@/Context/ThemeProvider';
 import { Alert } from '@/Components/Alerts/Alert';
 import { Navbar } from '@/Components/Navbar';
 
-export default function Authenticated({ user, header, alert, setAlert, children }) {
+export default function Authenticated({ user, header, alert, setAlert = () => {}, children }) {
 
     const [showThemeControl, setShowThemeControl] = useState(false)
     const { theme } = useContext(ThemeContext)
@@ -28,3 +28,4 @@ export default function Authenticated({ user, header, alert, setAlert, children 
         </div>
     );
 }
+{/* <div id='print' className='h-[calc(100vh-72px)] bg-white bg-opacity-95 p-10 overflow-y-auto print:py-0 print:h-full '></div> */}

@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\CorreoController;
+use App\Http\Controllers\GraphController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\LevelController;
@@ -19,6 +22,7 @@ use App\Http\Middleware\CheckPermission;
 use App\Models\Contact;
 use Database\Seeders\LevelSeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 /* borrar después */
@@ -50,6 +54,8 @@ Route::controller(ContactFormController::class)->group(function () {
 Route::controller(PersonController::class)->group(function () {
     Route::get('/InscriptionForm', 'create')->name('inscription.create');
     Route::post('/InscriptionForm', 'store')->name('inscription.store');
+    Route::post('/InscriptionSent', 'sent')->name('inscription.sent');
+
 });
 
 Route::controller(SystemController::class)->group(function () {
@@ -58,7 +64,12 @@ Route::controller(SystemController::class)->group(function () {
 });
 
 //Route::middleware(['auth', CheckPermission::class])->group(function () {
-    
+     
+    Route::controller(GraphController::class)->group(function () {
+        Route::get('/correos', 'index')->name('correo.index');
+        Route::post('/correos', 'store')->name('correo.store');
+    });
+
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/user', 'index')->name('users');
         Route::get('/profile', 'edit')->name('profile.edit');
@@ -71,6 +82,7 @@ Route::controller(SystemController::class)->group(function () {
         Route::get('/contacts/{id}', 'show')->name('contact.show');
         Route::put('/contacts', 'update')->name('contact.update');
         Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
+        Route::post('/contacts/{id}', 'enviado')->name('contact.enviado');
     });
 
     Route::controller(PersonController ::class)->group(function () {

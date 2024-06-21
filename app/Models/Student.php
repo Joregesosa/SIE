@@ -18,6 +18,7 @@ class Student extends Model
         'person_id',
         'address_street',
         'sector',
+        'academic_email',
         'siblings',
         'birth_order',
         'level_id',
@@ -147,6 +148,7 @@ class Student extends Model
             'id' => $this->id,
             'person' => $this->person ?  $this->person->toArray() : null,
             'identification_data' => [
+                'academic_email' => $this->academic_email ?? '',
                 'first_name' => $this->person->first_name ?? '',
                 'second_name' => $this->person->second_name ?? '',
                 'sLast_name' => $this->person->sLast_name ?? '',

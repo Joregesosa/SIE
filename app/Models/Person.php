@@ -16,9 +16,8 @@ class Person extends Model
         'sLast_name',
         'birth_date',
         'birth_place',
-        'id_card',
-        /* 'status' */
-    ];
+        'id_card'
+        ];
 
     protected $appends = ['full_Name'];
 

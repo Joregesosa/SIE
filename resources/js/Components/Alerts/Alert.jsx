@@ -3,27 +3,42 @@ import { Dialog } from 'primereact/dialog'
 import React from 'react'
 
 export const Alert = ({ alerta, setAlert }) => {
-    return (
-        <Dialog visible={alerta != null} onHide={()=>setAlert(null)} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Atención!" modal>
-            <div className=" flex flex-col items-center">
+    const renderMessage = (message) => {
+        if (!message) return null;
+        const lines = message.split('\n');
 
-                <i className={`pi ${alerta?.success ? 'pi-verified text-green-500' : 'pi-exclamation-triangle text-red-500'} mr-3 `} style={{ fontSize: '4rem' }} />
-        
+        return (
+            <div>
+                {lines.map((line, index) => (
+                    <span key={index}>{line}<br /></span>
+                ))}
+            </div>
+        );
+    };
+
+    return (
+        <Dialog visible={alerta != null} onHide={() => setAlert(null)} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Atención!" modal>
+            <div className="flex flex-col items-center">
+                <i className={`pi ${alerta?.success ? 'pi-verified text-green-500' : 'pi-exclamation-triangle text-red-500'} mr-3`} style={{ fontSize: '4rem' }} />
+
                 <span className={`py-4 w-full ${alerta?.success ? 'text-center' : 'text-start' } block`}>
-                    {alerta?.success}
-                    
-                    {(alerta?.error && Array.isArray(alerta?.error) && alerta.error.length > 1) ? (
+                    {alerta?.success && renderMessage(alerta.success)}
+
+                    {alerta?.error && Array.isArray(alerta?.error) && alerta.error.length > 1 ? (
                         <ul className='list-disc list-inside'>
-                           {alerta.error.length}
+                            {alerta.error.map((err, index) => (
+                                <li key={index}>{renderMessage(err)}</li>
+                            ))}
                         </ul>
                     ) : alerta?.error ? (
-                        <span>{alerta.error}</span>
+                        <span>{renderMessage(alerta.error)}</span>
                     ) : null}
-                    
                 </span>
-                <Button onClick={() => setAlert(null)} type='button' label="Aceptar" icon="pi pi-check" className='mx-3  self-end' />
-            </div>
 
+                <Button onClick={() => setAlert(null)} type='button' label="Aceptar" icon="pi pi-check" className='mx-3 self-end' />
+            </div>
         </Dialog>
-    )
-}
+    );
+};
+
+export default Alert;

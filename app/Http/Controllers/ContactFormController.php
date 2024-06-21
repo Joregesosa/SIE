@@ -160,4 +160,19 @@ class ContactFormController extends Controller
         }
         return redirect(route('contact'));
     }
+
+    public function enviado($id)
+    {
+
+        try {
+            $contact = Contact::findOrFail($id);
+            $contact->status = 3;
+            $contact->save();
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'La solicitud no existe '], 404);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error en la acción realizada'], 500);
+        }
+        return back(    );
+    }
 }

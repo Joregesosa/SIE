@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Models\EducationLevel;
 use App\Models\FamilyStructure;
 use App\Models\Level;
 use App\Models\MaritalStatus;
 use App\Models\MedicalAttentionType;
+use App\Models\ParentType;
+use App\Models\PathologicalFamilyHistory;
+use App\Models\PregnancyType;
+use App\Models\TypeHouse;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use App\Models\Parents;
 use App\Models\ParentType;
 use App\Models\PathologicalFamilyHistory;
@@ -67,62 +76,127 @@ class StudentController extends Controller
 
     public function update(Request $request)
     {
- 
         try {
+           /* $mensajes = [
+                'required' => 'El campo :attribute es requerido',
+                'exists' => 'El campo :attribute no existe',
+            ];
 
-            DB::beginTransaction();
+            $validator = validator($request->all(), [
+                'id' => 'required|exists:students,id',
+                'person_id' => 'required|exists:people,id',
+                'address_street' => 'required',
+                'sector' => 'required',
+                'siblings' => 'required',
+                'birth_order' => 'required',
+                'family_structure_id' => 'required',
 
-            if (!User::where('person_id', $request->person['id'])->exists() && isset($request->user['email'])) {
-                $this->createAccount($request);
+                'disability_description' => 'required',
+                'other_incomes' => 'required',
+                'expenditure' => 'required',
+                'type_house_id' => 'required',
+                'living_description' => 'required',
+                'entry_date' => 'required',
+                'previous_institution' => 'required',
+                'repeated_years' => 'required',
+                'preferred_subjects' => 'required',
+                'difficult_subjects' => 'required',
+                'achievements' => 'required',
+                'dignities' => 'required',
+                'participation' => 'required',
+                'extracurricular' => 'required',
+                'student_disability' => 'required',
+                'student_disability_details' => 'required',
+                'disability_percentage' => 'required',
+                'disability_carnet' => 'required',
+                'medical_condition' => 'required',
+                'medical_condition_details' => 'required',
+                'allergies' => 'required',
+                'allergies_description' => 'required',
+                'medications' => 'required',
+                'medical_attention_type_id' => 'required',
+                'medical_attention_name' => 'required',
+                'medical_attention_address' => 'required',
+                'medical_attention_doctor' => 'required',
+                'pregnancy_mother_age' => 'required',
+                'pregnancy_accidents' => 'required',
+                'pregnancy_medications' => 'required',
+                'pregnancy_type_id' => 'required',
+                'pregnancy_difficulties' => 'required',
+                'birth_weight' => 'required',
+                'birth_height' => 'required',
+                'walking_age' => 'required',
+                'talking_age' => 'required',
+                'breastfeeding_period' => 'required',
+                'bottle_age' => 'required'
+            ], $mensajes);
+
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->errors()], 400);
             }
+*/
+        
 
-            $person = Person::findOrFail($request->person['id']);
-
-            $person->update($request->identification_data);
-
-            $phone = Phone::where('person_id', $person['id'])->first();
-            $phone->update($request->identification_data);
-
-            $student = Student::where('person_id', $person['id'])->first();
-
-            /*DATOS DE IDENTIFICACIÓN*/
-            $familyCompositionJson =  $request->socioeconomic_data['family_composition_data'];
-            $siblingsJson = json_encode($request->socioeconomic_data['siblings_data']);
-
-            if (!is_string($familyCompositionJson)) {
-                $familyCompositionJson = json_encode($familyCompositionJson);
-            }
-
-
-            $student_data = ['person_id' => $person->id, 'siblings' => $siblingsJson, /* 'family_composition' => $familyCompositionJson, */ ...$request->identification_data, ...$request->academic_data, ...$request->medical_data, ...$request->medical_history, ...$request->socioeconomic_data, ...$request->financial_references];
-
-            $student->update($student_data);
-
-            /*RELACIÓN PADRES O TUTORES*/
-            foreach ([$request->father_data, $request->mother_data, $request->tutor_data] as  $index => $parent) {
-                if ($parent == null) {
-                    continue;
+                DB::beginTransaction();
+    
+                if (!User::where('person_id', $request->person['id'])->exists() && isset($request->user['email'])) {
+                    $this->createAccount($request);
                 }
-
-                $parent['address_street'] = $request->identification_data['address_street'];
-                $parent['sector'] = $request->identification_data['sector'];
-
-                $parent_person = Person::findOrFail($parent['person']['id']);
-                $parent_person->update($parent);
-
-                $parent_phone = Phone::where('person_id', $parent['person']['id'])->first();
-                $parent_phone->update($parent);
+    
+                $person = Person::findOrFail($request->person['id']);
+    
+                $person->update($request->identification_data);
+    
+                $phone = Phone::where('person_id', $person['id'])->first();
+                $phone->update($request->identification_data);
+    
+                $student = Student::where('person_id', $person['id'])->first();
+    
+                /*DATOS DE IDENTIFICACIÓN*/
+                $familyCompositionJson =  $request->socioeconomic_data['family_composition_data'];
+                $siblingsJson = json_encode($request->socioeconomic_data['siblings_data']);
+    
+                if (!is_string($familyCompositionJson)) {
+                    $familyCompositionJson = json_encode($familyCompositionJson);
+                }
+    
+    
+                $student_data = ['person_id' => $person->id, 'siblings' => $siblingsJson, /* 'family_composition' => $familyCompositionJson, */ ...$request->identification_data, ...$request->academic_data, ...$request->medical_data, ...$request->medical_history, ...$request->socioeconomic_data, ...$request->financial_references];
+    
+                $student->update($student_data);
+    
+                /*RELACIÓN PADRES O TUTORES*/
+                foreach ([$request->father_data, $request->mother_data, $request->tutor_data] as  $index => $parent) {
+                    if ($parent == null) {
+                        continue;
+                    }
+    
+                    $parent['address_street'] = $request->identification_data['address_street'];
+                    $parent['sector'] = $request->identification_data['sector'];
+    
+                    $parent_person = Person::findOrFail($parent['person']['id']);
+                    $parent_person->update($parent);
+    
+                    $parent_phone = Phone::where('person_id', $parent['person']['id'])->first();
+                    $parent_phone->update($parent);
+                }
+    
+                DB::commit();
+                session()->put('msj', ['success' => 'Persona actualizada correctamente.']);
+                return back();
+            } catch (\Throwable $th) {
+                DB::rollBack();
+    
+                session()->put('msj', ['error' => 'Error al registrar la persona.' . $th]);
+                return back();
             }
 
-            DB::commit();
-            session()->put('msj', ['success' => 'Persona actualizada correctamente.']);
-            return back();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-
-            session()->put('msj', ['error' => 'Error al registrar la persona.' . $th]);
-            return back();
-        }
+        } catch (ModelNotFoundException $e) {
+            session()->put('msj', ['error' => 'El estudiante no existe.']);
+        } catch (Exception $e) {
+            session()->put('msj', ['error' => 'Error al actualizar el estudiante.']);
+ 
+        
     }
 
     public function destroy($id)

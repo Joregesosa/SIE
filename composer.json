@@ -11,6 +11,8 @@
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "league/oauth2-client": "^2.7",
+        "microsoft/microsoft-graph": "*",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
