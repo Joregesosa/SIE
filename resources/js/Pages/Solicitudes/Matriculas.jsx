@@ -8,7 +8,6 @@ import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
-
 export default function Matriculas({ auth, data, msj }) {
     const {
         dt,
@@ -30,7 +29,6 @@ export default function Matriculas({ auth, data, msj }) {
     } = useTable(data)
 
     useEffect(() => {
-        console.log(msj)
         setDataList(data)
         setAlert(msj)
     }, [data, msj])

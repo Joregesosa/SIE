@@ -231,10 +231,11 @@ export default function ContactsRequest({ auth, data, msj }) {
                 itemId={selectedItem.id}
                 value={selectedItem.email}
                 message={"el estudiante"}
-                endpoint=""
+                endpoint=''
                 showDialog={deleteItemDialog}
                 hideDialog={hideDeleteDialog}
             />
+
         </AuthenticatedLayout>
     );
 }

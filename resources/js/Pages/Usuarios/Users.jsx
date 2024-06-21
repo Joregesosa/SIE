@@ -34,8 +34,7 @@ export default function Users({ auth, currentUser, data, msj }) {
 
     /* Render users */
     const renderUserName = (rowData) => {
-        return null;
-         {/* <span>{rowData?.person?.first_name} {rowData?.person?.second_name} {rowData?.person?.fLast_name} {rowData?.person?.sLast_name}</span> */}
+        return <span>{rowData.person.first_name} {rowData.person.second_name} {rowData.person.fLast_name} {rowData.person.sLast_name}</span>
     }
 
     useEffect(() => {

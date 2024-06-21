@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { useEffect } from "react";
 
 
-export const IdentificationData = ({ data, setData, errorHandling , information }) => {
-
+export const IdentificationData = ({ data, setData, errorHandling , information, disable }) => {
+ 
     
     const handleIdentificationData = (e) => {
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
@@ -19,7 +19,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
                 Año Educativo al que ingresa el alumno
                 <Dropdown
 
-                    disabled
+                    disabled={disable}
                     id="id"
                     inputId="level_id"
                     name="level_id"
@@ -38,7 +38,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information 
              <label htmlFor="first_name" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Primer nombre <span>*</span>
                 <InputText
-                    disabled
+                    disabled={!disable}
                     id="first_name"
                     name="first_name"
                     value={data?.identification_data?.first_name}

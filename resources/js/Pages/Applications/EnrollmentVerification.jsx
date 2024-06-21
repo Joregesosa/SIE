@@ -10,28 +10,43 @@ import { FinancialReferences } from '@/Components/InscriptionFormPartials/Financ
 import { MedicalData } from '@/Components/InscriptionFormPartials/MedicalData';
 import { MedicalHistory } from '@/Components/InscriptionFormPartials/MedicalHistory';
 import { ThemeContext } from '@/Context/ThemeProvider';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IdentificationData } from '@/Components/InscriptionFormPartials/IdentificationData';
 import { Loading } from '@/Components/Loading';
- 
-export default function EnrollmentVerification({ auth, data: dataprop, msj, information }) {
+import { FormActionButtons } from '@/Components/FormActionButtons';
+import New from '@/Components/Users/New';
 
-    const { data, setData, post, processing, errors, reset } = useForm(dataprop);
+export default function EnrollmentVerification({ auth, data: dataprop, msj, information, disable }) {
+    
+    const { data, setData, put, processing, errors, reset } = useForm(dataprop);
+    const [alert, setAlert] = useState(null)
     const { theme } = useContext(ThemeContext)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('applications.update', data.id));
+        put(route('students.update', data.id));
     }
+    
+    useEffect(() => {
+        setData({...data, disable: disable})
+    },[disable])
+
+    useEffect(() => {
+        if (msj) {
+            setAlert(msj)
+        }
+    }, 
+    [msj])
 
     const pt = {
         headerAction: { className: `bg-${theme}-secondary text-${theme}-text` },
     }
 
-
     return (
         <AuthenticatedLayout
             user={auth.user}
+            alert={alert}
+            setAlert={setAlert}
             header={"Solicitudes / Procesar Matricula"}
         >
             <Head title="Procesar Matricula" />
@@ -39,7 +54,7 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj, info
             <form className='max-w-screen-lg py-8 mx-auto' onSubmit={handleSubmit}>
                 <Accordion activeIndex={0}>
                     <AccordionTab pt={pt} header="Datos del estudiante">
-                        <IdentificationData data={data} setData={setData} information={information} />
+                        <IdentificationData data={data} setData={setData} information={information} disable={disable}/>
                     </AccordionTab>
                     <AccordionTab pt={pt} header="Datos del Padre">
                         <FatherData data={data} setData={setData} information={information} />
@@ -65,9 +80,18 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj, info
                     <AccordionTab pt={pt} header="Historia vital">
                         <MedicalHistory data={data} setData={setData} information={information} />
                     </AccordionTab>
+                    {auth.user.role_id === 1 &&
+                        <AccordionTab pt={pt} header="Usuario">
+                            <New data={data} roles={information.roles} setData={setData}/>
+                        </AccordionTab>
+                    }
                 </Accordion>
+
+                <div className="w-full flex justify-end md:col-span-2">
+                    <FormActionButtons accept_lbl={'Actualizar'} />
+                </div>
             </form>
-           
+
             <Loading message="Enviando" status={processing} />
 
         </AuthenticatedLayout>

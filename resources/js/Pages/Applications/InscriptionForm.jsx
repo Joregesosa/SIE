@@ -15,7 +15,7 @@ import { fieldVerifier } from "@/Helpers/Form.Verifier";
 import { Loading } from "@/Components/Loading";
 import { FormSubmitted } from "@/Components/FormSubmitted";
 
-const InscriptionForm = ({ msj, contact, information  }) => {
+const InscriptionForm = ({ msj, contact, information }) => {
     const cleanData = {
         contact_id: contact?.id || "",
         identification_data: {
@@ -116,7 +116,7 @@ const InscriptionForm = ({ msj, contact, information  }) => {
             birth_weight: "",
             bottle_age: "",
             breastfeeding_period: "",
-            family_medical_history: 1,
+            family_medical_history: JSON.stringify([]),
             talking_age: "",
             habits_and_activities: "",
             pregnancy_medications: "",
@@ -135,14 +135,15 @@ const InscriptionForm = ({ msj, contact, information  }) => {
     const Parents_data = ["father_data", "mother_data", "tutor_data"];
 
     const message = contact?.status == 3? "Pronto recibirás un correo de confirmación" : '';
-    const title = contact?.status == 2? "¡Esta solicitud aun no se ah enviado al aspirante!" :   contact?.status == 3? "¡Gracias por  inscripción!" : "Esta solicitud ya ha sido enviada";
+    const title = contact?.status == 2? "¡Esta solicitud aun no se ah enviado al aspirante!" : contact?.status == 3? "¡Gracias por  inscripción!" : "Esta solicitud ya ha sido enviada";
     
     const scroll = document.getElementById("scroll");
-    const { data, setData, post, processing, errors, reset } =
-        useForm(cleanData);
+    const { data, setData, post, processing, errors, reset } = useForm(cleanData);
     const [errorHandling, setErrorHandling] = useState({});
     const [step, setStep] = useState(0);
     const [sended, setSended] = useState(contact?.status != 3);
+
+ 
     const [alert, setAlert] = useState(null);
 
     useEffect(() => {
@@ -154,9 +155,6 @@ const InscriptionForm = ({ msj, contact, information  }) => {
         }
     }, [msj]);
 
-    console.log(data)
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const emptyFields = fieldVerifier(
@@ -165,9 +163,9 @@ const InscriptionForm = ({ msj, contact, information  }) => {
             setErrorHandling
         );
 
-       
-     if(Parents_data.every((parent) => data[parent] == null )  ){
-            setAlert({'error': 'Debe completar al menos un formulario de padre, madre o tutor'});
+
+        if (Parents_data.every((parent) => data[parent] == null)) {
+            setAlert({ 'error': 'Debe completar al menos un formulario de padre, madre o tutor' });
             return;
         }
 
@@ -304,9 +302,8 @@ const InscriptionForm = ({ msj, contact, information  }) => {
                         <button
                             type="button"
                             onClick={() => setStep(step - 1)}
-                            className={`px-5 rounded-md bg-teal-400 py-2 active:bg-sky-500 ${
-                                step === 0 && "invisible"
-                            }`}
+                            className={`px-5 rounded-md bg-teal-400 py-2 active:bg-sky-500 ${step === 0 && "invisible"
+                                }`}
                         >
                             Anterior
                         </button>
@@ -317,30 +314,27 @@ const InscriptionForm = ({ msj, contact, information  }) => {
                                     setStep(step + 1);
                                     setData({
                                         ...data,
-                                        [Parents_data[step-1]]: null,
+                                        [Parents_data[step - 1]]: null,
                                     });
                                 }}
-                                className={`px-5 rounded-md bg-blue-500 py-2 active:bg-blue-400 ${
-                                   ![1,2,3].includes(step) && "hidden"
-                                }`}
+                                className={`px-5 rounded-md bg-blue-500 py-2 active:bg-blue-400 ${![1, 2, 3].includes(step) && "hidden"
+                                    }`}
                             >
                                 Omitir
                             </button>
                             <button
                                 type="button"
                                 onClick={next}
-                                className={`px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500 ${
-                                    step === form_keys.length - 1 && "hidden"
-                                }`}
+                                className={`px-5 rounded-md bg-sky-400 py-2 active:bg-sky-500 ${step === form_keys.length - 1 && "hidden"
+                                    }`}
                             >
                                 Siguiente
                             </button>
                         </div>
                         <button
                             type="submit"
-                            className={`px-5 rounded-md bg-green-400 py-2 active:bg-sky-500 ${
-                                step !== form_keys.length - 1 && "hidden"
-                            }`}
+                            className={`px-5 rounded-md bg-green-400 py-2 active:bg-sky-500 ${step !== form_keys.length - 1 && "hidden"
+                                }`}
                         >
                             Enviar
                         </button>
