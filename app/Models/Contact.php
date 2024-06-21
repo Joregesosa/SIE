@@ -32,4 +32,10 @@ class Contact extends Model
         'key',
         'status',
     ];
+
+    protected $appends = ['full_Name'];
+
+    public function getFullNameAttribute() {
+        return $this->first_name . ' ' . $this->second_name . ' ' . $this->fLast_name . ' ' . $this->sLast_name;
+    }
 }

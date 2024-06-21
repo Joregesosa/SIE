@@ -216,7 +216,7 @@ class PersonController extends Controller
                 $student->save();
             }
 
-            Contact::findOrFail($request->contact_id)->update(['status' => 2]);
+            Contact::findOrFail($request->contact_id)->update(['status' => 4]);
 
             DB::commit();
             session()->put('msj', ['success' => 'Persona registrada correctamente.']);
@@ -227,6 +227,32 @@ class PersonController extends Controller
             return back();
         }
     }
+
+    
+    public function sent(Request $request) {
+        try {
+            $host = $_SERVER['HTTP_HOST'];
+            $dir = dirname($_SERVER['REQUEST_URI']);
+            $id_card = urlencode($request->id_card);  // codificar el id_card
+            $key = urlencode($request->key);          // codificar el key
+            $url = "http://" . $host . $dir . "InscriptionForm?card={$id_card}&contact={$key}";
+            $whatsappMessage = "Estimado(a) {$request->first_name} {$request->second_name} {$request->fLast_name} {$request->sLast_name},\n\nHemos recibido su solicitud de inscripción y nos complace informarle que ha sido aprobada. Puede acceder al formulario de inscripción a través del siguiente enlace: \n{$url} \n\nSaludos cordiales.";
+           
+            //eliminar todos los espacios en blanco y simbolos , solo dejar numeros
+            $phone = preg_replace('/[^0-9]/', '', $request->father_phone ?? $request->mother_phone ?? $request->number);
+            if (!$phone) {
+                throw new \Exception('No se ha proporcionado un número de teléfono válido.');
+            }
+
+            $whatsappLink = "https://wa.me/+" . urlencode($phone) . "?text=" . urlencode($whatsappMessage);
+          
+            return back()->with('msj', ['success' => 'Enlace de WhatsApp generado correctamente.', 'whatsappLink' => $whatsappLink]);
+
+        } catch (\Throwable $e) {
+            return back()->with('msj', ['error' => "Error al procesar formulario. \n ".$e->getMessage()]);
+        }
+    }
+    
 
     public function index()
     {

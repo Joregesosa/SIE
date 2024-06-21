@@ -12,9 +12,7 @@ class SystemController extends Controller
 
     public function dashboard()
     {
-        return Inertia::render('Dashboard', [
-            'data' => $this->loadViewData()
-        ]);
+        return Inertia::render('Dashboard');
 
     }
 

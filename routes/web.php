@@ -54,6 +54,8 @@ Route::controller(ContactFormController::class)->group(function () {
 Route::controller(PersonController::class)->group(function () {
     Route::get('/InscriptionForm', 'create')->name('inscription.create');
     Route::post('/InscriptionForm', 'store')->name('inscription.store');
+    Route::post('/InscriptionSent', 'sent')->name('inscription.sent');
+
 });
 
 Route::controller(SystemController::class)->group(function () {
@@ -80,6 +82,7 @@ Route::controller(SystemController::class)->group(function () {
         Route::get('/contacts/{id}', 'show')->name('contact.show');
         Route::put('/contacts', 'update')->name('contact.update');
         Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
+        Route::post('/contacts/{id}', 'enviado')->name('contact.enviado');
     });
 
     Route::controller(PersonController ::class)->group(function () {

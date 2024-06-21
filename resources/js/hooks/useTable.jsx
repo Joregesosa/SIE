@@ -117,6 +117,8 @@ export const useTable = (data) => {
         showNewDialog,
         setShowNewDialog,
         onHideEditDialog,
-        RenderActionLinks
+        RenderActionLinks,
+        setSelectedItem,
+
     }
 }

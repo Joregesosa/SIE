@@ -35,6 +35,7 @@ export default function Matriculas({ auth, data, msj }) {
         setAlert(msj)
     }, [data, msj])
 
+    
    
     function random(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -80,6 +81,8 @@ export default function Matriculas({ auth, data, msj }) {
         >
             <Head title="Matriculas" />
 
+            
+
                 <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='py-2  rounded-none' />
 
                 <DataTable  {...tableConfig}>
@@ -102,7 +105,6 @@ export default function Matriculas({ auth, data, msj }) {
    
                 </DataTable>
 
-      
 
             <Edit
                 selectedItem={selectedItem}
