@@ -5,11 +5,7 @@ import { Dropdown } from "primereact/dropdown";
 import { FormActionButtons } from "@/Components/FormActionButtons";
 import { Loading } from "@/Components/Loading";
 import { FormHeader } from "@/Components/FormHeader";
-import {
-    required_fields,
-    desc,
-    contact_fields,
-} from "@/Helpers/Contact.Form-Statics";
+import {  required_fields,desc,contact_fields,} from "@/Helpers/Contact.Form-Statics";
 import { fieldVerifier } from "@/Helpers/Form.Verifier";
 import { FormSubmitted } from "@/Components/FormSubmitted";
 import { useEffect } from "react";

@@ -16,6 +16,7 @@ export default {
                 'inscription-form': "url('/images/students2.0.jpg')",
                 'contact-form': "url('/images/student.jpg')",
                 'main': "url('/images/abc.jpg')",
+                'index': "url('/images/students2.0.jpg')",
             },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
