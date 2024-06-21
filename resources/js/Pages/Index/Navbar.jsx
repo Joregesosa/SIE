@@ -5,7 +5,7 @@ const Navbar = ({ auth, canLogin, canRegister }) => {
   return (
     <nav className="bg-gray-800 p-4 fixed w-full top-0">
       <div className="container mx-auto flex justify-between items-center">
-        <a href="/" className="text-white text-2xl font-bold">Mi TRC</a>
+        <a href="/" className="text-white text-2xl font-bold">Mi SIE</a>
         <div className="flex space-x-4">
           {canLogin ? (
             <>
