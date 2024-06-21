@@ -70,7 +70,7 @@ class ContactFormController extends Controller
 
             $errorMessage = $errorMessage . " Error en el campo '{$errorField}': ";
 
-            // Redireccionar con el mensaje de error personalizado
+            // Redirection con el mensaje de error personalizado
             return back()->with('msj', ['error' => $errorMessage]);
         }
     }
