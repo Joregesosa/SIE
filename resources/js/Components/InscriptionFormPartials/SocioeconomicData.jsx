@@ -41,12 +41,20 @@ export const SocioeconomicData = ({ data, setData , information }) => {
         newSiblingData.socioeconomic_data.siblings_data.push(baseSibling);
         setData(newSiblingData);
     };
+
     const setSiblingData = (item, index, value) => {
         const newSiblingData = { ...data }
         newSiblingData.socioeconomic_data.siblings_data[index][item] = value;
 
         setData(newSiblingData)
     }
+    
+    const removeSibling = (index) => {
+        const newSiblingData = { ...data }
+        newSiblingData.socioeconomic_data.siblings_data.splice(index, 1);
+        setData(newSiblingData)
+    }  
+    
     return (
         <MainFormFieldset legend="Datos socioeconómicos del estudiante">
 
@@ -73,9 +81,9 @@ export const SocioeconomicData = ({ data, setData , information }) => {
             </legend>
             <>
                 {data.socioeconomic_data?.siblings_data?.map((_, index) => (
-                    <div key={index} className="grid grid-cols-2 md:grid-cols-5  gap-4 col-span-2 justify-between mt-2">
+                    <div key={index} className="grid grid-cols-2 md:grid-cols-12  gap-4 col-span-2 justify-between mt-2 items-center">
 
-                        <label htmlFor={`name_${index}`} className="font-bold text-xs col-span-2 md:col-span-2">
+                        <label htmlFor={`name_${index}`} className="font-bold text-xs col-span-2 md:col-span-4">
                             Nombre completo <span>*</span>
                             <InputText
                                 id={`name_${index}`}
@@ -88,7 +96,7 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             />
                         </label>
 
-                        <label htmlFor={`age_${index}`} className="font-bold text-xs col-span-2 md:col-span-1">
+                        <label htmlFor={`age_${index}`} className="font-bold text-xs col-span-2 md:col-span-2">
                             Edad <span>*</span>
                             <InputText
                                 id={`age_${index}`}
@@ -101,8 +109,9 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                                 placeholder="Ingrese la edad"
                             />
                         </label>
+                       
 
-                        <label htmlFor={`studying_${index}`} className='w-full md:mt-2 col-span-2 md:col-span-2 flex items-center'>
+                        <label htmlFor={`studying_${index}`} className='w-full md:mt-2 col-span-2 md:col-span-5 flex items-center'>
                             <Checkbox
                                 id={`studying_${index}`}
                                 className='mr-2 '
@@ -111,6 +120,10 @@ export const SocioeconomicData = ({ data, setData , information }) => {
                             />
                             Actualmente estudia en esta institución
                         </label>
+
+                        <button onClick={()=>removeSibling(index)} className="w-fit px-3 rounded-md pb-1 border text-3xl p-0 hover:bg-red-500 hover:text-white col-span-1" type="button">
+                            &times;
+                        </button>
                     </div>
                 ))}
 
