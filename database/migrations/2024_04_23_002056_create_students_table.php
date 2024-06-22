@@ -95,7 +95,6 @@ return new class extends Migration
             $table->string('observations')->nullable();
             $table->string('family_medical_history')->nullable();
 
-
             /*RELACION INTRA FAMILIAR*/
             $table->string('father_relationship')->nullable();
             $table->string('mother_relationship')->nullable();
