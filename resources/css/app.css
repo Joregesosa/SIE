@@ -9,6 +9,36 @@
      background-color: white;
 }
 
+
+@keyframes moveBackground {
+  0% {
+    background-position: 100% 0;
+  }
+ 
+  100% {
+    background-position: -100% 0; 
+  }
+} 
+
+.background {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 1000%; 
+  height: 100%; 
+  background-image: url('/images/fondo_bucle.png');
+  background-size: auto 100%; 
+  background-repeat: repeat-x; 
+  animation: moveBackground 2000s linear infinite; 
+}
+
+.animate-paused {
+  animation-play-state: paused !important;
+}
+
+
 /*Aceso denegado*/
 @keyframes show {
      100% {

@@ -1,8 +1,11 @@
 import React from "react";
 
 const Hero = () => {
+
     return (
-      <div className="bg-cover bg-center bg-index h-full flex p-10 ">
+      <div className="relative  w-screen overflow-hidden h-full flex p-10   ">
+        <div className="background "></div>
+        
       <div className="bg-black bg-opacity-50 p-5 w-full flex flex-col justify-center items-center text-center my-auto">
         <h1 className="text-white text-5xl font-bold mb-4">
           Educación a otro nivel

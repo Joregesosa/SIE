@@ -34,9 +34,8 @@ Route::get('/enrollmentVerification', function () {
     return Inertia::render('Applications/EnrollmentVerification');
 })->middleware(['auth', 'verified'])->name('enrollmentVerification');
 
-/* ---------------------- */
+
 Route::get('/', function () {
-    
     return Inertia::render('Index/index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -45,7 +44,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
+Route::post('/register', [RegisterUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
 
 Route::controller(ContactFormController::class)->group(function () {
     Route::get('/ContactForm', 'create')->name('contact.create');
