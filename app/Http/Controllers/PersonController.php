@@ -20,10 +20,16 @@ use App\Models\PhoneType;
 use App\Models\PregnancyType;
 use App\Models\Student;
 use App\Models\TypeHouse;
+use App\Models\User;
+use App\Notifications\NewUserNotification;
+use App\Providers\GraphHelper;
+use App\Services\UserService;
 use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class PersonController extends Controller
@@ -59,7 +65,6 @@ class PersonController extends Controller
 
     public function store(Request $request)
     {
-
 
 
         $validator = validator($request->all(), [
@@ -163,6 +168,7 @@ class PersonController extends Controller
 
             /*DATOS DE IDENTIFICACIÓN*/
             $person = Person::create($request->identification_data);
+            
             $request['identification_data'] = ['person_id' => $person->id, ...$request->identification_data];
 
             Phone::create($request->identification_data);
@@ -200,8 +206,8 @@ class PersonController extends Controller
                 $parent['address_street'] = $request->identification_data['address_street'];
                 $parent['sector'] = $request->identification_data['sector'];
 
-                $person = Person::create($parent);
-                $parent['person_id'] = $person->id;
+                $person_parent = Person::create($parent);
+                $parent['person_id'] = $person_parent->id;
 
                 Phone::create($parent);
                 $familiar = Parents::create($parent);
@@ -216,7 +222,31 @@ class PersonController extends Controller
                 $student->save();
             }
 
-            Contact::findOrFail($request->contact_id)->update(['status' => 4]);
+          
+            $displayName =  implode(" ", [$request->identification_data['first_name'] , $request->identification_data['second_name'], $request->identification_data['fLast_name'] , $request->identification_data['sLast_name']]); 
+            $mailNickname = UserService::generateUsername($person);
+            $userPrincipalName =  $mailNickname . '@trc.edu.ec';
+            $password = Str::random(12);
+
+            $student->update(['academic_email' => $password]);
+            
+            if(!GraphHelper::createUser( $displayName,  $mailNickname,  $userPrincipalName, $password)){
+                throw new \Exception('Error al crear el correo en el directorio activo.');
+                DB::rollBack();
+                return back();
+            }
+            
+            User::create([
+                'person_id' => $person?->id,
+                'email' => $userPrincipalName,
+                'password' => Hash::make($password),
+                'role_id' => 3
+            ]);
+
+            $contact = Contact::findOrFail($request->contact_id);
+            $contact->status = 4;
+            $contact->notify(new NewUserNotification($userPrincipalName, $password));
+            $contact->save();
 
             DB::commit();
             session()->put('msj', ['success' => 'Persona registrada correctamente.']);

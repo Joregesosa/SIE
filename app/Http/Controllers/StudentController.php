@@ -30,7 +30,6 @@ class StudentController extends Controller
     {
 
         $students = Student::all();
-
         return Inertia::render('Solicitudes/Matriculas', [
             'data' => $students
         ]);
@@ -169,6 +168,9 @@ class StudentController extends Controller
                 $parent_phone = Phone::where('person_id', $parent['person']['id'])->first();
                 $parent_phone->update($parent);
             }
+
+
+            
 
             DB::commit();
             session()->put('msj', ['success' => 'Persona actualizada correctamente.']);

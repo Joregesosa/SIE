@@ -19,7 +19,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information,
                 Año Educativo al que ingresa el alumno
                 <Dropdown
 
-                    disabled={disable}
+                    disabled={true}
                     id="id"
                     inputId="level_id"
                     name="level_id"

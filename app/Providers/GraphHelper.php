@@ -53,9 +53,9 @@ class GraphHelper
         $configuration = new UsersRequestBuilderGetRequestConfiguration();
         $configuration->queryParameters = new UsersRequestBuilderGetQueryParameters();
         // Only request specific properties
-        $configuration->queryParameters->select = ['displayName','id','mail'];
+        $configuration->queryParameters->select = ['displayName','id','mail','createdDateTime'];
         // Sort by display name
-        $configuration->queryParameters->format = 'json';
+        //$configuration->queryParameters->filter = "startswith(displayName, 'CC')";
         $configuration->queryParameters->orderby = ['displayName'];
         // Get at most 25 results
         //$configuration->queryParameters->top = 25; 
@@ -67,9 +67,6 @@ class GraphHelper
             $data[] = self::getDataAll( $user);
         }
 
-
-       
-      
         return  $data;
        
     }
@@ -121,8 +118,9 @@ class GraphHelper
             'hireDate' => $user->getHireDate(),
             'accountEnabled' => $user->getAccountEnabled(),
             'licenseDetails' => $user->getLicenseDetails(),
-
-           /*  'aboutMe' => $user->getAboutMe(),
+            'createdDateTime' => $user->getCreatedDateTime(),
+/*
+           'aboutMe' => $user->getAboutMe(),
             'accountEnabled' => $user->getAccountEnabled(),
             'activities' => $user->getActivities(),
             'ageGroup' => $user->getAgeGroup(),
@@ -146,7 +144,7 @@ class GraphHelper
             'contactFolders' => $user->getContactFolders(),
             'contacts' => $user->getContacts(),
             'country' => $user->getCountry(),
-            'createdDateTime' => $user->getCreatedDateTime(),
+           
             'createdObjects' => $user->getCreatedObjects(),
             'creationType' => $user->getCreationType(),
             'customSecurityAttributes' => $user->getCustomSecurityAttributes(),

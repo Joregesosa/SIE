@@ -29,7 +29,6 @@ return new class extends Migration
             $table->foreign('status_id')->references('id')->on('student_status')->onDelete('restrict');
             $table->unsignedBigInteger('level_id');
             $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
-            $table->string('academic_email')->nullable();
             $table->string('address_street');
             $table->string('sector');
             $table->string('siblings')->nullable();

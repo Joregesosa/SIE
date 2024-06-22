@@ -25,5 +25,10 @@ class Person extends Model
         return $this->first_name . ' ' . $this->second_name . ' ' . $this->fLast_name . ' ' . $this->sLast_name;
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'person_id');
+    }
 
+    
 }

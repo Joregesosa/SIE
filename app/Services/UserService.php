@@ -26,6 +26,7 @@ class UserService
             'first_name' => 'required|string|max:255',
             'fLast_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            
         ], $mensajes);
 
         if ($validator->fails()) {
@@ -33,17 +34,14 @@ class UserService
             return;
         }
 
-        $userName = $this->generateUsername($data['first_name'], $data['fLast_name']);
-
-        $password = Str::random(12);
-
+       /*
         User::create([
             'person_id' => $data['person_id'],
             'email' => $data['email'],
-            'user_name' => $userName,
+           
             'password' => Hash::make($password),
             'role_id' => $data['role_id']
-        ]);
+        ]); */
 
         return true;
 
@@ -57,22 +55,23 @@ class UserService
         ]); */
     }
 
-    private function generateUsername($firstName, $fLastName,)
+    public static function generateUsername($person)
     {
+       
+        $counter = 0;
+    
+        $email =  strtolower(substr($person->first_name, 0, 1) . substr($person->second_name, 0, 1). '.' . $person->fLast_name);
 
-        $counter = 1;
-        $username =  strtolower(substr($firstName, 0, 1) . '.' . $fLastName);
-
-        while ($this->usernameExists($username)) {
-            $username = strtolower(substr($firstName, 0, 1) . '.' . $fLastName . $counter);
+        while (self::emailnameExists($email)) {
             $counter++;
+            $email = $email.'0'.$counter;
         }
 
-        return $username;
+        return $email;
     }
 
-    private function usernameExists($username)
+    private static function emailnameExists($email)
     {
-        return User::where('user_name', $username)->exists();
+        return User::where('email', $email."@trc.edu.ec")->exists();
     }
 }

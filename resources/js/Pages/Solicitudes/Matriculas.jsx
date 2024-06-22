@@ -33,42 +33,11 @@ export default function Matriculas({ auth, data, msj }) {
         setAlert(msj)
     }, [data, msj])
 
-    
-   
-    function random(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    
-    console.log(data)
-
-    const { data:data2, setData, post, processing, errors, reset } = useForm();
-
-    const crear_correo = (rowData) => {
-
-        if (rowData.person == null ) {   
-            return alert('error', 'No se puede crear un correo para esta persona');
-        }
-        const id = rowData.id;
-       const displayName = rowData.person.full_Name;
-       const mailNickname = rowData.person.first_name?.charAt(0) + rowData.person.second_name?.charAt(0) + rowData.person.fLast_name;
-       const userPrincipalName = mailNickname + String(random(0, 999)).padStart(3, '0')   + '@trc.edu.ec';
-       const password = 'xWwvJ]6NMw+bWH-d';
-      
-        post(route('correo.store',{id,displayName, mailNickname, userPrincipalName,password}));
-    }
-
-
-   
+         
     const requestStatus = (rowData) => {
         return <span className={`rounded-md bg-${rowData.identification_data.status.color} text-jewel-text py-1 px-2 text-nowrap`}>{rowData.identification_data.status.name}</span>   
     }
 
-    const requestStatus2 = (rowData) => {
-        if (rowData.identification_data.academic_email) {   
-            return <span >{rowData.identification_data.academic_email}</span>   
-        }
-        return <button onClick={() => crear_correo(rowData)} className={`rounded-md bg-blue-500 p-1 px-2 text-white`}>Crear Correo</button>   
-    }
 
     return (
         <AuthenticatedLayout
@@ -78,8 +47,6 @@ export default function Matriculas({ auth, data, msj }) {
             setAlert={setAlert}
         >
             <Head title="Matriculas" />
-
-            
 
                 <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className='py-2  rounded-none' />
 
@@ -93,7 +60,7 @@ export default function Matriculas({ auth, data, msj }) {
 
                     <Column field='identification_data.level.name' header='Nivel' sortable className='py-2' />
 
-                    <Column field='Correo' header='Crear Correo' sortable className='py-2' body={requestStatus2} />
+                    <Column field='identification_data.email' header='Crear Correo' sortable className='py-2'  />
 
                     <Column field='academic_data.previous_institution' header='Institución de Origen' sortable className='py-2' />
 
