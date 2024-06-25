@@ -8,9 +8,11 @@ import DeleteAlert from "@/Components/Alerts/Delete.Alert";
 import { useTable } from "@/hooks/useTable";
 import { New } from "@/Components/Groups/New";
 import Enviado from "@/Components/Alerts/Enviado";
+import { requestStatus } from "@/Helpers/Contact.Form-Statics";
+import { EnrollmentPayment } from "@/Components/EnrollmentPayment";
 
 export default function ContactsRequest({ auth, data, msj }) {
-   
+    console.log(data)
     const {
         dt,
         setAlert,
@@ -31,10 +33,11 @@ export default function ContactsRequest({ auth, data, msj }) {
 
     const [alert, setAlertt] = useState(null);
     const [enviado, setEnviado] = useState(false);
+    const [payment, setPayment] = useState({});
 
     useEffect(() => {
         setDataList(data);
-        if (msj?.success){
+        if (msj?.success) {
             if (msj.whatsappLink) {
                 setAlertt(msj);
                 window.open(msj.whatsappLink, '_blank');
@@ -42,7 +45,7 @@ export default function ContactsRequest({ auth, data, msj }) {
             } else {
                 setAlertt({ error: "No se recibió el enlace de WhatsApp." });
             }
-        }else{
+        } else {
             setAlertt(msj);
         }
     }, [data, msj]);
@@ -60,51 +63,10 @@ export default function ContactsRequest({ auth, data, msj }) {
         return rowData.first_name + " " + rowData.fLast_name;
     };
 
-    const requestStatus = (rowData) => {
-        if (rowData.status === 1) {
-            return (
-                <span className="rounded-md bg-sky-500 text-jewel-text py-1 px-2">
-                    Pendiente
-                </span>
-            );
-        }
-
-        if (rowData.status === 2) {
-            return (
-                <span className="rounded-md bg-yellow-500 text-jewel-text py-1 px-2">
-                    Aprobada
-                </span>
-            );
-        }
-
-        if (rowData.status === 3) {
-            return (
-                <span className="rounded-md bg-orange-500 text-jewel-text py-1 px-2">
-                    Enviada
-                </span>
-            );
-        }
-
-
-        if (rowData.status === 4) {
-            return (
-                <span className="rounded-md bg-green-500 text-jewel-text py-1 px-2">
-                    Completada
-                </span>
-            );
-        }
-
-        if (rowData.status === 5) {
-            return (
-                <span className="rounded-md bg-red-500 text-jewel-text py-1 px-2">
-                    Rechazada
-                </span>
-            );
-        }
-    };
+    
 
     const handleSubmit = async (e, rowData) => {
-        
+
         e.preventDefault();
         setSelectedItem(rowData);
         post(route("inscription.sent", rowData), {
@@ -121,13 +83,13 @@ export default function ContactsRequest({ auth, data, msj }) {
         }
         if (rowData.status == 2) {
             return <button
-                        onClick={(e) => handleSubmit(e, rowData)}
-                        className="ms-2 cursor-pointer rounded-md hover:scale-105 bg-green-500 text-jewel-text py-1 px-2"
-                    >
-                        Enviar a Ws
-                    </button>;
+                onClick={(e) => handleSubmit(e, rowData)}
+                className="ms-2 cursor-pointer rounded-md hover:scale-105 bg-green-500 text-jewel-text py-1 px-2"
+            >
+                Enviar a Ws
+            </button>;
         }
-        if (rowData.status ==  3 || rowData.status == 4) { 
+        if (rowData.status == 3 || rowData.status == 4) {
             return (
                 <div>
                     <Link
@@ -156,7 +118,7 @@ export default function ContactsRequest({ auth, data, msj }) {
         return date.toLocaleDateString("es-ES", options);
     };
 
-    const edit = (rowData) => {};
+    const edit = (rowData) => { };
 
     return (
         <AuthenticatedLayout
@@ -167,17 +129,16 @@ export default function ContactsRequest({ auth, data, msj }) {
         >
             <Head title="Lista de Solicitudes" />
 
-           
+
 
 
             <div className="h-[calc(100vh-120px)] rounded-b-md flex flex-col">
                 <Toolbar
-                    left={RenderLeftToolbar}
                     right={() => RenderRightToolbar(dt)}
                     className="py-2 rounded-none"
                 />
 
-                <DataTable {...tableConfig}>
+                <DataTable {...tableConfig} onRowClick={(e) => setPayment(e.data)} rowClassName="cursor-pointer hover:bg-gray-500 hover:bg-opacity-20">
                     <Column field="id" header="ID" sortable />
 
                     <Column header="Nombre" sortable body={RenderName} />
@@ -192,7 +153,7 @@ export default function ContactsRequest({ auth, data, msj }) {
 
                     <Column
                         field="responseDate"
-                        header="Provisional-Matriculacion"
+                        header="Provisional-Matriculación"
                         sortable
                         body={link}
                     />
@@ -219,12 +180,7 @@ export default function ContactsRequest({ auth, data, msj }) {
                 message={"el grupo"}
                 endpoint='contact.enviado'
                 showDialog={enviado}
-                hideDialog={()=> setEnviado(false)}
-            />
-
-            <New
-                showDialog={showNewDialog}
-                hideDialog={() => setShowNewDialog(false)}
+                hideDialog={() => setEnviado(false)}
             />
 
             <DeleteAlert
@@ -235,6 +191,8 @@ export default function ContactsRequest({ auth, data, msj }) {
                 showDialog={deleteItemDialog}
                 hideDialog={hideDeleteDialog}
             />
+
+            <EnrollmentPayment request={payment} setPayment={setPayment}/>
 
         </AuthenticatedLayout>
     );

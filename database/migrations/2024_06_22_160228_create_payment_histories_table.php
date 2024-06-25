@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('payment_histories', function (Blueprint $table) {
+      /*   Schema::create('payment_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('payment_type_id');
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('students')->onDelete('set null');
             $table->foreign('payment_type_id')->references('id')->on('payment_types')->onDelete('set null');
-        });
+        }); */
     }
 
     /**

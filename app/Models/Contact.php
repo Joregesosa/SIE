@@ -39,4 +39,9 @@ class Contact extends Model
     public function getFullNameAttribute() {
         return $this->first_name . ' ' . $this->second_name . ' ' . $this->fLast_name . ' ' . $this->sLast_name;
     }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'level_id');
+    }
 }

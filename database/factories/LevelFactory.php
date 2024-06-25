@@ -19,6 +19,9 @@ class LevelFactory extends Factory
         return [
             'name' => $this->faker->name,
             'description' => $this->faker->text,
+            'price' => $this->faker->randomFloat(2, 0, 1000),
+            'enrollment_fee' => $this->faker->randomFloat(2, 0, 1000),
+            'duration' => $this->faker->numberBetween(1, 12),
             'status' => true,
         ];
     }

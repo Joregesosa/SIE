@@ -269,38 +269,8 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                                 className="rounded-md w-full bg-transparent text-sm resize-none h-32"
                             />
                         </label>
-                        <label htmlFor="payment" className="font-bold text-xs col-span-6 pr-4 mt-1">
-                            Pago
-                            <input
-                                id="payment"
-                                type="number"
-                                pattern='[0-9]{1,10}'
-                                value={data?.payment}
-                                onChange={handleChanges}
-                                className="rounded-md w-full bg-transparent text-sm h-9"
-                            />
-                        </label>
-                        <label htmlFor="payment_date" className="font-bold text-xs col-span-6 pl-4 mt-1">
-                            Fecha de pago
-                            <input
-                                id="payment_date"
-                                type="date"
-                                onChange={handleChanges}
-                                value={data?.payment_date}
-                                className="rounded-md w-full bg-transparent text-sm h-9"
-                            />
-                        </label>
-                        <label htmlFor="payment_receipt" className="font-bold text-xs col-span-6 pr-4 mt-1">
-                            Número de comprobante de pago
-                            <input
-                                id="payment_receipt"
-                                type="text"
-                                value={data?.payment_receipt}
-                                onChange={handleChanges}
-                                className="rounded-md w-full bg-transparent text-sm h-9"
-                            />
-                        </label>
-                        <label htmlFor="status" className="font-bold text-xs col-span-6 pl-4 mt-1">
+
+                        <label htmlFor="status" className="font-bold text-xs col-span-6 mt-1">
                             Estado de la solicitud
                             <select
                                 id="status"

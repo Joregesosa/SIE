@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->float('price', 8, 2);
             $table->float('enrollment_fee', 8, 2);
+            $table->integer('duration');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
