@@ -33,18 +33,13 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
 
-        $mensaje = session('msj');
-        if ($mensaje) {
-            Session::forget('msj');
-        }
-
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
-                
+
             ],
-            'msj' => $mensaje,
+            'message' => fn () => $request->session()->get('message'),
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

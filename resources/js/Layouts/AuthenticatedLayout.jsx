@@ -24,7 +24,9 @@ export default function Authenticated({ user, header, alert, setAlert = () => {}
                 showThemeControl={showThemeControl}
                 setShowThemeControl={setShowThemeControl}
             />
-            <Alert alerta={alert} setAlert={setAlert} />
+            {
+                alert && <Alert alerta={alert} setAlert={setAlert} />
+            }
         </div>
     );
 }

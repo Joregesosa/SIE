@@ -10,11 +10,14 @@ import { New } from "@/Components/Groups/New";
 import Enviado from "@/Components/Alerts/Enviado";
 import { requestStatus } from "@/Helpers/Contact.Form-Statics";
 import { EnrollmentPayment } from "@/Components/EnrollmentPayment";
+import { Loading } from "@/Components/Loading";
+import Alert from "@/Components/Alerts/Alert";
 
-export default function ContactsRequest({ auth, data, msj }) {
-    console.log(data)
+export default function ContactsRequest({ auth, data, msj, success }) {
+
     const {
         dt,
+        alert,
         setAlert,
         RenderRightToolbar,
         RenderLeftToolbar,
@@ -31,24 +34,12 @@ export default function ContactsRequest({ auth, data, msj }) {
         setSelectedItem,
     } = useTable(data);
 
-    const [alert, setAlertt] = useState(null);
     const [enviado, setEnviado] = useState(false);
     const [payment, setPayment] = useState({});
 
     useEffect(() => {
         setDataList(data);
-        if (msj?.success) {
-            if (msj.whatsappLink) {
-                setAlertt(msj);
-                window.open(msj.whatsappLink, '_blank');
-                setEnviado(true);
-            } else {
-                setAlertt({ error: "No se recibió el enlace de WhatsApp." });
-            }
-        } else {
-            setAlertt(msj);
-        }
-    }, [data, msj]);
+    }, [data]);
 
     const {
         data: contacdata,
@@ -63,8 +54,6 @@ export default function ContactsRequest({ auth, data, msj }) {
         return rowData.first_name + " " + rowData.fLast_name;
     };
 
-    
-
     const handleSubmit = async (e, rowData) => {
 
         e.preventDefault();
@@ -72,8 +61,39 @@ export default function ContactsRequest({ auth, data, msj }) {
         post(route("inscription.sent", rowData), {
             rowData,
             onSuccess: (page) => {
-                console.log(page);
+                const msj = page?.props?.message;
+                if (msj?.success && msj.whatsappLink) {
+                    if (msj.whatsappLink) {
+                        setAlert(msj);
+                        window.open(msj.whatsappLink, '_blank');
+                        setEnviado(true);
+                    } else {
+                        setAlert({ error: "No se recibió el enlace de WhatsApp." });
+                    }
+                } else {
+                    setAlert(msj);
+                }
             },
+            onError: (error) => {
+                console.log(error);
+            }
+        });
+    };
+
+    const handlePaymentSubmit = (e) => {
+        e.preventDefault();
+        setPayment({});
+        post(route("payment.store"), {
+            onSuccess: (page) => {
+                if (page?.props?.message) {
+                    setAlert(page.props.message);
+                }
+
+            },
+            onError: (error) => {
+
+                setAlert(error);
+            }
         });
     };
 
@@ -118,19 +138,14 @@ export default function ContactsRequest({ auth, data, msj }) {
         return date.toLocaleDateString("es-ES", options);
     };
 
-    const edit = (rowData) => { };
-
     return (
         <AuthenticatedLayout
             user={auth.user}
             header="Solicitudes / Postulantes"
             alert={alert}
-            setAlert={setAlertt}
+            setAlert={setAlert}
         >
             <Head title="Lista de Solicitudes" />
-
-
-
 
             <div className="h-[calc(100vh-120px)] rounded-b-md flex flex-col">
                 <Toolbar
@@ -192,8 +207,14 @@ export default function ContactsRequest({ auth, data, msj }) {
                 hideDialog={hideDeleteDialog}
             />
 
-            <EnrollmentPayment request={payment} setPayment={setPayment}/>
-
+            <EnrollmentPayment
+                request={payment}
+                setPayment={setPayment}
+                handleSubmit={handlePaymentSubmit}
+                data={contacdata}
+                setData={setData}
+            />
+            <Loading status={processing} />
         </AuthenticatedLayout>
     );
 }

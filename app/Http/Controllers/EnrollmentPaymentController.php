@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Models\EnrollmentPayment;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EnrollmentPaymentController extends Controller
 {
@@ -35,13 +36,12 @@ class EnrollmentPaymentController extends Controller
             'amount' => 'required',
             'method' => 'required',
             'date' => 'required',
-            'reference' =>'required_if:method,2',
+            'reference' =>  'required_if:method,2',
         ]);
 
         if ($validator->fails()) {
 
-            session()->put('msj', ['error' => array_values($validator->errors()->messages())]);
-            return back();
+            return back()->withErrors(['error' => array_values($validator->errors()->messages())]);
         }
 
         try {
@@ -49,8 +49,10 @@ class EnrollmentPaymentController extends Controller
             $contact = Contact::find($request->contact_id);
             $contact->status = 2;
             $contact->save();
+            session()->flash('message', ['success' => 'Pago registrado correctamente']);
+            return back();
         } catch (\Exception $e) {
-            return response()->json(['errors' => $e->getMessage()]);
+            return back()->withErrors(['error' => "Ocurrió un error al registrar el pago" . $e->getMessage()]);
         }
     }
 

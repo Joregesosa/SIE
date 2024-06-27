@@ -5,31 +5,21 @@ import { Dropdown } from "primereact/dropdown";
 import { FormActionButtons } from "@/Components/FormActionButtons";
 import { Loading } from "@/Components/Loading";
 import { FormHeader } from "@/Components/FormHeader";
-import {  required_fields,desc,contact_fields,} from "@/Helpers/Contact.Form-Statics";
+import { required_fields, desc, contact_fields, } from "@/Helpers/Contact.Form-Statics";
 import { fieldVerifier } from "@/Helpers/Form.Verifier";
 import { FormSubmitted } from "@/Components/FormSubmitted";
 import { useEffect } from "react";
 import { Alert } from "@/Components/Alerts/Alert";
 
-const ContactForm = ({ msj, levels }) => {
+const ContactForm = ({ levels }) => {
     const [errorHandling, setErrorHandling] = useState({});
-    const { data, setData, post, processing, errors, reset } =
-        useForm(contact_fields);
+    const { data, setData, post, processing, errors, reset } = useForm(contact_fields);
     const [sended, setSended] = useState(false);
     const [alert, setAlert] = useState(null);
 
     const handleChanges = (e) => {
         setData(e.target.id, e.target.value);
     };
-
-    useEffect(() => {
-        if (msj?.success) {
-            setSended(true);
-            reset();
-        } else {
-            setAlert(msj);
-        }
-    }, [msj]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,13 +31,11 @@ const ContactForm = ({ msj, levels }) => {
         if (Object.keys(emptyFields).length === 0) {
             post(route("contact.create"), {
                 onSuccess: () => {
-                    console.log(msj);
+                    setSended(true);
+                    reset();
                 },
-                onError: () => {
-                    alert(
-                        "Ha ocurrido un error, por favor intente de nuevo" +
-                            msj?.error
-                    );
+                onError: (error) => {
+                    setAlert(error)
                 },
             });
         }

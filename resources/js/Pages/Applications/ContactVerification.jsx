@@ -8,8 +8,6 @@ import { ExportMenu } from '@/Reports/ExportMenu';
 export default function ContactVerification({ auth, data: dataprop, msj }) {
     const { data, setData, post, processing, errors, reset } = useForm(dataprop);
 
-    console.log(dataprop)
-    
     const request_no = (id) => {
         let request_no = id.toString();
         let length = request_no.length;
@@ -259,7 +257,7 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
 
                 <form className="col-span-12 mt-4" onSubmit={handleSubmit}>
                     <fieldset className='grid grid-cols-12'>
-                        <fieldset className='font-semibold mb-2 col-span-12 gap-4'>Actualizar status de solicitud</fieldset>
+                        <fieldset className='font-semibold mb-2 col-span-12 gap-4'>Actualizar estado de solicitud</fieldset>
                         <label htmlFor="comment" className="font-bold text-xs col-span-12">
                             Comentario
                             <textarea
@@ -285,6 +283,9 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                         </label>
                     </fieldset>
                     <div className=" py-4 flex justify-end print:hidden">
+                        <button disabled={processing} type="button" className="bg-blue-500 text-white py-2 px-4 rounded-md">
+                            Pago de Matricula
+                        </button>
                         <button disabled={processing} type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
                             Actualizar
                         </button>

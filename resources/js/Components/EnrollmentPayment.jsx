@@ -3,22 +3,15 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import React, { useEffect } from 'react'
 import { FormActionButtons } from './FormActionButtons';
+import { Loading } from './Loading';
 
-export const EnrollmentPayment = ({ request, setPayment }) => {
+export const EnrollmentPayment = ({ request, setPayment, handleSubmit, data, setData}) => {
 
     const closeDialog = () => {
         setPayment({});
     }
 
-    const { data, setData, post, processing, errors, reset } = useForm({});
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        post(route("payment.store"));
-    };
-
     useEffect(() => {
-        console.log(request)
         setData({
             contact_id: request?.id,
             student: request?.full_Name,
@@ -129,7 +122,7 @@ export const EnrollmentPayment = ({ request, setPayment }) => {
                 <FormActionButtons hideDialog={closeDialog} />
             </form>
 
-
+            <Loading processing={true} />
         </Dialog>
     )
 }

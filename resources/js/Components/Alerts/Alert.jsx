@@ -2,7 +2,7 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 import React from 'react'
 
-export const Alert = ({ alerta, setAlert }) => {
+export const Alert = ({ alerta, setAlert }) => {   
     const renderMessage = (message) => {
         if (!message) return null;
         const lines = message.split('\n');
@@ -24,7 +24,7 @@ export const Alert = ({ alerta, setAlert }) => {
                 <span className={`py-4 w-full ${alerta?.success ? 'text-center' : 'text-start' } block`}>
                     {alerta?.success && renderMessage(alerta.success)}
 
-                    {alerta?.error && Array.isArray(alerta?.error) && alerta.error.length > 1 ? (
+                    {alerta?.error && Array.isArray(alerta?.error) ? (
                         <ul className='list-disc list-inside'>
                             {alerta.error.map((err, index) => (
                                 <li key={index}>{renderMessage(err)}</li>

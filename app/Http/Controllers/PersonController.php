@@ -275,11 +275,11 @@ class PersonController extends Controller
             }
 
             $whatsappLink = "https://wa.me/+" . urlencode($phone) . "?text=" . urlencode($whatsappMessage);
-          
-            return back()->with('msj', ['success' => 'Enlace de WhatsApp generado correctamente.', 'whatsappLink' => $whatsappLink]);
+            session()->flash('message', ['success' => 'Enlace de WhatsApp generado correctamente.', 'whatsappLink' => $whatsappLink]);
+            return back();
 
         } catch (\Throwable $e) {
-            return back()->with('msj', ['error' => "Error al procesar formulario. \n ".$e->getMessage()]);
+            return back()->withErrors(['error' => "Error al procesar formulario. \n ".$e->getMessage()]);
         }
     }
     
