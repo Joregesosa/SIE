@@ -38,11 +38,11 @@ class PersonController extends Controller
     public function create(Request $request)
     {
         try {
-           
+
 
             return Inertia::render('Applications/InscriptionForm', [
-              
-                'contact' =>   Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->where('status','>',1)->firstOrFail(),
+
+                'contact' =>   Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->where('status', '>', 1)->firstOrFail(),
                 'information'  => [
                     'levels' => Level::all(),
                     'marital_status' => MaritalStatus::all(),
@@ -144,7 +144,6 @@ class PersonController extends Controller
                 
             */
 
-
         ], [
             'identification_data.first_name.required' => 'El primer nombre es obligatorio.',
             'identification_data.second_name.required' => 'El segundo nombre es obligatorio.',
@@ -156,11 +155,9 @@ class PersonController extends Controller
 
 
         if ($validator->fails()) {
-            session()->put('msj', ['error' => array_values($validator->errors()->messages())]);
+            session()->flash('message', ['error' => array_values($validator->errors()->messages())]);
             return back();
         }
-
-
 
         try {
 
@@ -168,7 +165,7 @@ class PersonController extends Controller
 
             /*DATOS DE IDENTIFICACIÓN*/
             $person = Person::create($request->identification_data);
-            
+
             $request['identification_data'] = ['person_id' => $person->id, ...$request->identification_data];
 
             Phone::create($request->identification_data);
@@ -182,12 +179,12 @@ class PersonController extends Controller
                 'status_id' => 2,
                 'siblings' => $siblingsJson,
                 'family_composition' => $familyCompositionJson,
-                 ...$request->identification_data,
-                  ...$request->academic_data,
-                   ...$request->medical_data, 
-                   ...$request->medical_history,
-                    ...$request->socioeconomic_data, 
-                    ...$request->financial_references
+                ...$request->identification_data,
+                ...$request->academic_data,
+                ...$request->medical_data,
+                ...$request->medical_history,
+                ...$request->socioeconomic_data,
+                ...$request->financial_references
             ];
 
 
@@ -222,8 +219,8 @@ class PersonController extends Controller
                 $student->save();
             }
 
-          
-            $displayName =  implode(" ", [$request->identification_data['first_name'] , $request->identification_data['second_name'], $request->identification_data['fLast_name'] , $request->identification_data['sLast_name']]); 
+
+            /* $displayName =  implode(" ", [$request->identification_data['first_name'] , $request->identification_data['second_name'], $request->identification_data['fLast_name'] , $request->identification_data['sLast_name']]); 
             $mailNickname = UserService::generateUsername($person);
             $userPrincipalName =  $mailNickname . '@trc.edu.ec';
             $password = Str::random(12);
@@ -235,31 +232,32 @@ class PersonController extends Controller
                 DB::rollBack();
                 return back();
             }
-            
-            User::create([
+             */
+            /*  User::create([
                 'person_id' => $person?->id,
                 'email' => $userPrincipalName,
                 'password' => Hash::make($password),
                 'role_id' => 3
-            ]);
+            ]); */
 
             $contact = Contact::findOrFail($request->contact_id);
             $contact->status = 4;
-            $contact->notify(new NewUserNotification($userPrincipalName, $password));
+            /* $contact->notify(new NewUserNotification($userPrincipalName, $password)); */
             $contact->save();
 
             DB::commit();
-            session()->put('msj', ['success' => 'Persona registrada correctamente.']);
+            session()->flash('message', ['success' => 'Persona registrada correctamente.']);
             return back();
         } catch (\Throwable $th) {
             DB::rollBack();
-            session()->put('msj', ['error' => 'Error al registrar la persona.' . $th]);
+            return back()->withErrors(['error' => 'Error al registrar la persona.' . $th]);
             return back();
         }
     }
 
-    
-    public function sent(Request $request) {
+
+    public function sent(Request $request)
+    {
         try {
             $host = $_SERVER['HTTP_HOST'];
             $dir = dirname($_SERVER['REQUEST_URI']);
@@ -267,7 +265,7 @@ class PersonController extends Controller
             $key = urlencode($request->key);          // codificar el key
             $url = "http://" . $host . $dir . "InscriptionForm?card={$id_card}&contact={$key}";
             $whatsappMessage = "Estimado(a) {$request->first_name} {$request->second_name} {$request->fLast_name} {$request->sLast_name},\n\nHemos recibido su solicitud de inscripción y nos complace informarle que ha sido aprobada. Puede acceder al formulario de inscripción a través del siguiente enlace: \n{$url} \n\nSaludos cordiales.";
-           
+
             //eliminar todos los espacios en blanco y simbolos , solo dejar numeros
             $phone = preg_replace('/[^0-9]/', '', $request->father_phone ?? $request->mother_phone ?? $request->number);
             if (!$phone) {
@@ -277,12 +275,11 @@ class PersonController extends Controller
             $whatsappLink = "https://wa.me/+" . urlencode($phone) . "?text=" . urlencode($whatsappMessage);
             session()->flash('message', ['success' => 'Enlace de WhatsApp generado correctamente.', 'whatsappLink' => $whatsappLink]);
             return back();
-
         } catch (\Throwable $e) {
-            return back()->withErrors(['error' => "Error al procesar formulario. \n ".$e->getMessage()]);
+            return back()->withErrors(['error' => "Error al procesar formulario. \n " . $e->getMessage()]);
         }
     }
-    
+
 
     public function index()
     {

@@ -52,7 +52,5 @@ class LevelSeeder extends Seeder
             ]);
         }
 
-
-
     }
 }

@@ -4,10 +4,15 @@ import { InputText } from 'primereact/inputtext';
 import ContactReport from '@/Reports/ContactReport';
 import { Toolbar } from 'primereact/toolbar';
 import { ExportMenu } from '@/Reports/ExportMenu';
+import { EnrollmentPayment } from '@/Components/EnrollmentPayment';
+import { Loading } from '@/Components/Loading';
+import { useEffect, useState } from 'react';
 
 export default function ContactVerification({ auth, data: dataprop, msj }) {
     const { data, setData, post, processing, errors, reset } = useForm(dataprop);
 
+    const [alert, setAlert] = useState();
+    
     const request_no = (id) => {
         let request_no = id.toString();
         let length = request_no.length;
@@ -40,11 +45,47 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
         const { name, value } = e.target;
         setData(name, value);
     }
+    const selectStudent = (rowData) => {
+        setData({
+            ...data,
+            contact_id: rowData.id,
+            student: rowData?.full_Name,
+            amount: rowData?.level?.enrollment_fee,
+            date: new Date().toISOString().split("T")[0],
+            method: 1,
+            reference: "",
+            show: true,
+        });
+    }
+
+    useEffect(() => { console.log(data) }, [data]);
+
+    const handlePaymentSubmit = (e) => {
+        e.preventDefault();
+        setData(dataprop);
+        post(route("payment.store"), {
+            onSuccess: (page) => {
+                console.log(page)
+                if (page?.props?.message) {
+                    setAlert(page.props.message);
+                }
+
+            },
+            onError: (error) => {
+                console.log(error)
+                setAlert(error);
+            }
+        });
+    };
+
 
     return (
+
         <AuthenticatedLayout
             user={auth.user}
             header={"Solicitudes / Procesar Solicitud"}
+            alert={alert}
+            setAlert={setAlert}
         >
             <Head title="Procesar solicitud" />
             <Toolbar className='bg-transparent text-sm border-b-0 print:hidden' right={() => ExportMenu(ContactReport, data)} />
@@ -192,7 +233,7 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                     Año o nivel al que desea aplicar
                     <InputText
                         id="level_id"
-                        value={data?.level_id}
+                        value={data?.level?.name}
                         readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent text-sm h-9'
                     />
@@ -282,10 +323,14 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                             </select>
                         </label>
                     </fieldset>
-                    <div className=" py-4 flex justify-end print:hidden">
-                        <button disabled={processing} type="button" className="bg-blue-500 text-white py-2 px-4 rounded-md">
-                            Pago de Matricula
-                        </button>
+                    <div className=" py-4 flex justify-end print:hidden gap-8">
+                        {
+                            data?.status === 1 &&
+                            <button disabled={processing} onClick={() => selectStudent(dataprop)} type="button" className="bg-blue-700 text-white py-2 px-4 rounded-md">
+                                Pago de Matricula
+                            </button>
+                        }
+
                         <button disabled={processing} type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
                             Actualizar
                         </button>
@@ -293,7 +338,12 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                 </form>
 
             </div>
-
+            <EnrollmentPayment
+                setStudent={setData}
+                student={data}
+                handleSubmit={handlePaymentSubmit}
+            />
+            <Loading status={processing} />
         </AuthenticatedLayout>
     );
 }

@@ -131,29 +131,20 @@ const InscriptionForm = ({ msj, contact, information }) => {
             walking_age: "",
         },
     };
-   
+
     const Parents_data = ["father_data", "mother_data", "tutor_data"];
 
-    const message = contact?.status == 3? "Pronto recibirás un correo de confirmación" : '';
-    const title = contact?.status == 2? "¡Esta solicitud aun no se ah enviado al aspirante!" : contact?.status == 3? "¡Gracias por su inscripción!" : "Esta solicitud ya ha sido enviada";
-    
+    const message = contact?.status == 3 ? "Pronto recibirás un correo de confirmación" : '';
+    const title = contact?.status == 2 ? "¡Esta solicitud aun no se ah enviado al aspirante!" : contact?.status == 3 ? "¡Gracias por su inscripción!" : "Esta solicitud ya ha sido enviada";
+
     const scroll = document.getElementById("scroll");
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
     const [errorHandling, setErrorHandling] = useState({});
     const [step, setStep] = useState(0);
     const [sended, setSended] = useState(contact?.status != 3);
 
- 
-    const [alert, setAlert] = useState(null);
 
-    useEffect(() => {
-        if (msj?.success) {
-            setSended(true);
-            reset();
-        } else {
-            setAlert(msj);
-        }
-    }, [msj]);
+    const [alert, setAlert] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -163,7 +154,6 @@ const InscriptionForm = ({ msj, contact, information }) => {
             setErrorHandling
         );
 
-
         if (Parents_data.every((parent) => data[parent] == null)) {
             setAlert({ 'error': 'Debe completar al menos un formulario de padre, madre o tutor' });
             return;
@@ -172,12 +162,11 @@ const InscriptionForm = ({ msj, contact, information }) => {
         if (Object.keys(emptyFields).length === 0) {
             post(route("inscription.store"), {
                 onSuccess: () => {
-                    console.log(msj);
+                    setSended(true);
+                    reset();
                 },
-                onError: () => {
-                    setAlert(msj);
-                    console.log(errors);
-                    console.log(msj);
+                onError: (error) => {
+                    setAlert(error);
                 },
             });
         }

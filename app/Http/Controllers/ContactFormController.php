@@ -86,7 +86,8 @@ class ContactFormController extends Controller
     public function show($id)
     {
         try {
-            $contact = Contact::findOrFail($id);
+            $contact = Contact::with('level')->findOrFail($id);
+ 
             return Inertia::render('Applications/ContactVerification', [
                 'data' => $contact
             ]);

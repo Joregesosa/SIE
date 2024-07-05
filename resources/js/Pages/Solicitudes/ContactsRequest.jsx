@@ -6,14 +6,13 @@ import { Column } from "primereact/column";
 import { Toolbar } from "primereact/toolbar";
 import DeleteAlert from "@/Components/Alerts/Delete.Alert";
 import { useTable } from "@/hooks/useTable";
-import { New } from "@/Components/Groups/New";
 import Enviado from "@/Components/Alerts/Enviado";
 import { requestStatus } from "@/Helpers/Contact.Form-Statics";
 import { EnrollmentPayment } from "@/Components/EnrollmentPayment";
 import { Loading } from "@/Components/Loading";
-import Alert from "@/Components/Alerts/Alert";
 
-export default function ContactsRequest({ auth, data, msj, success }) {
+
+export default function ContactsRequest({ auth, data }) {
 
     const {
         dt,
@@ -35,7 +34,6 @@ export default function ContactsRequest({ auth, data, msj, success }) {
     } = useTable(data);
 
     const [enviado, setEnviado] = useState(false);
-    const [payment, setPayment] = useState({});
 
     useEffect(() => {
         setDataList(data);
@@ -46,8 +44,6 @@ export default function ContactsRequest({ auth, data, msj, success }) {
         setData,
         post,
         processing,
-        errors,
-        reset,
     } = useForm();
 
     const RenderName = (rowData) => {
@@ -82,13 +78,12 @@ export default function ContactsRequest({ auth, data, msj, success }) {
 
     const handlePaymentSubmit = (e) => {
         e.preventDefault();
-        setPayment({});
+        setData({});
         post(route("payment.store"), {
             onSuccess: (page) => {
                 if (page?.props?.message) {
                     setAlert(page.props.message);
                 }
-
             },
             onError: (error) => {
 
@@ -138,6 +133,20 @@ export default function ContactsRequest({ auth, data, msj, success }) {
         return date.toLocaleDateString("es-ES", options);
     };
 
+    const selectStudent = (rowData) => {
+        console.log(rowData);
+          setData({
+            ...data,
+            contact_id: rowData.id,
+            student: rowData?.full_Name,
+            amount: rowData?.level?.enrollment_fee,
+            date: new Date().toISOString().split("T")[0],
+            method: 1,
+            reference: "",
+            show: true,
+        });  
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -153,7 +162,7 @@ export default function ContactsRequest({ auth, data, msj, success }) {
                     className="py-2 rounded-none"
                 />
 
-                <DataTable {...tableConfig} onRowClick={(e) => setPayment(e.data)} rowClassName="cursor-pointer hover:bg-gray-500 hover:bg-opacity-20">
+                <DataTable {...tableConfig} onRowClick={(e) => {e.data.status === 1 && selectStudent(e.data)}} rowClassName="cursor-pointer hover:bg-gray-500 hover:bg-opacity-20">
                     <Column field="id" header="ID" sortable />
 
                     <Column header="Nombre" sortable body={RenderName} />
@@ -208,11 +217,9 @@ export default function ContactsRequest({ auth, data, msj, success }) {
             />
 
             <EnrollmentPayment
-                request={payment}
-                setPayment={setPayment}
+                setStudent={setData}
+                student={contacdata}
                 handleSubmit={handlePaymentSubmit}
-                data={contacdata}
-                setData={setData}
             />
             <Loading status={processing} />
         </AuthenticatedLayout>
