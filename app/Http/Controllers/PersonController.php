@@ -194,7 +194,7 @@ class PersonController extends Controller
             Request()->merge(['student_id' => $student->id]);
 
 
-            /*RELACION PADRES O TUTORES*/
+            /*RELACIÓN PADRES O TUTORES*/
             foreach ([$request->father_data, $request->mother_data, $request->tutor_data] as  $index => $parent) {
                 if ($parent == null) {
                     continue;
@@ -220,29 +220,29 @@ class PersonController extends Controller
             }
 
 
-            /* $displayName =  implode(" ", [$request->identification_data['first_name'] , $request->identification_data['second_name'], $request->identification_data['fLast_name'] , $request->identification_data['sLast_name']]); 
+            $displayName =  implode(" ", [$request->identification_data['first_name'], $request->identification_data['second_name'], $request->identification_data['fLast_name'], $request->identification_data['sLast_name']]);
             $mailNickname = UserService::generateUsername($person);
             $userPrincipalName =  $mailNickname . '@trc.edu.ec';
             $password = Str::random(12);
 
             $student->update(['academic_email' => $password]);
-            
-            if(!GraphHelper::createUser( $displayName,  $mailNickname,  $userPrincipalName, $password)){
+
+            if (!GraphHelper::createUser($displayName,  $mailNickname,  $userPrincipalName, $password)) {
                 throw new \Exception('Error al crear el correo en el directorio activo.');
                 DB::rollBack();
                 return back();
             }
-             */
-            /*  User::create([
+
+            User::create([
                 'person_id' => $person?->id,
                 'email' => $userPrincipalName,
                 'password' => Hash::make($password),
                 'role_id' => 3
-            ]); */
+            ]);
 
             $contact = Contact::findOrFail($request->contact_id);
             $contact->status = 4;
-            /* $contact->notify(new NewUserNotification($userPrincipalName, $password)); */
+            $contact->notify(new NewUserNotification($userPrincipalName, $password));
             $contact->save();
 
             DB::commit();
@@ -340,7 +340,7 @@ class PersonController extends Controller
             $contact = Contact::findOrFail($request->id);
             $contact->update($request->all());
 
-            session()->put('msj', ["success" => 'Solicitud actializada con exito']);
+            session()->put('msj', ["success" => 'Solicitud actualizada con éxito']);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'La solicitud no existe '], 404);
         } catch (Exception $e) {
