@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\CorreoController;
+use App\Http\Controllers\EnrollmentPaymentController;
 use App\Http\Controllers\GraphController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InscriptionController;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\CheckPermission;
 use App\Models\Contact;
+use App\Models\EnrollmentPayment;
 use Database\Seeders\LevelSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +46,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::post('/register', [RegisterUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register');
+    /* Route::post('/register', [RegisterUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register') */;
+
+
+Route::controller(EnrollmentPaymentController::class)->group(function () { 
+    Route::post('/Payment', 'store')->name('payment.store');
+});
 
 Route::controller(ContactFormController::class)->group(function () {
     Route::get('/ContactForm', 'create')->name('contact.create');
@@ -55,7 +62,6 @@ Route::controller(PersonController::class)->group(function () {
     Route::get('/InscriptionForm', 'create')->name('inscription.create');
     Route::post('/InscriptionForm', 'store')->name('inscription.store');
     Route::post('/InscriptionSent', 'sent')->name('inscription.sent');
-
 });
 
 Route::controller(SystemController::class)->group(function () {
@@ -64,71 +70,71 @@ Route::controller(SystemController::class)->group(function () {
 });
 
 //Route::middleware(['auth', CheckPermission::class])->group(function () {
-     
-    Route::controller(GraphController::class)->group(function () {
-        Route::get('/correos', 'index')->name('correo.index');
-        Route::post('/correos', 'store')->name('correo.store');
-    });
 
-    Route::controller(ProfileController::class)->group(function () {
-        Route::get('/user', 'index')->name('users');
-        Route::get('/profile', 'edit')->name('profile.edit');
-        Route::patch('/profile', 'update')->name('profile.update');
-        Route::delete('/profile', 'destroy')->name('profile.destroy');
-    });
+Route::controller(GraphController::class)->group(function () {
+    Route::get('/correos', 'index')->name('correo.index');
+    Route::post('/correos', 'store')->name('correo.store');
+});
 
-    Route::controller(ContactFormController::class)->group(function () {
-        Route::get('/contactsRequest', 'index')->name('contact');
-        Route::get('/contacts/{id}', 'show')->name('contact.show');
-        Route::put('/contacts', 'update')->name('contact.update');
-        Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
-        Route::post('/contacts/{id}', 'enviado')->name('contact.enviado');
-    });
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('/user', 'index')->name('users');
+    Route::get('/profile', 'edit')->name('profile.edit');
+    Route::patch('/profile', 'update')->name('profile.update');
+    Route::delete('/profile', 'destroy')->name('profile.destroy');
+});
 
-    Route::controller(PersonController ::class)->group(function () {
-        Route::get('/person', 'index')->name('person');
-        Route::get('/person/{id}', 'show')->name('person.show');
-        Route::put('/person', 'update')->name('person.update');
-        Route::delete('/person/{id}', 'destroy')->name('person.delete');
-    });
+Route::controller(ContactFormController::class)->group(function () {
+    Route::get('/contactsRequest', 'index')->name('contact');
+    Route::get('/contacts/{id}', 'show')->name('contact.show');
+    Route::put('/contacts', 'update')->name('contact.update');
+    Route::delete('/contacts/{id}', 'destroy')->name('contact.delete');
+    Route::post('/contacts/{id}', 'enviado')->name('contact.enviado');
+});
 
-    Route::controller(StudentController::class)->group(function () {
-        Route::get('/students', 'index')->name('students');
-        Route::get('/students/{id}', 'show')->name('students.show');
-        Route::put('/students', 'update')->name('students.update');
-        Route::delete('/students/{id}', 'destroy')->name('students.delete');
-    }); 
+Route::controller(PersonController::class)->group(function () {
+    Route::get('/person', 'index')->name('person');
+    Route::get('/person/{id}', 'show')->name('person.show');
+    Route::put('/person', 'update')->name('person.update');
+    Route::delete('/person/{id}', 'destroy')->name('person.delete');
+});
 
-    Route::controller(GroupController::class)->group(function () {
-        Route::get('/groups', 'index')->name('groups');
-        Route::post('/groups', 'store')->name('groups.store');
-        Route::get('/groups/{id}', 'show')->name('groups.show');
-        Route::put('/groups', 'update')->name('groups.update');
-        Route::delete('/groups/{id}', 'destroy')->name('groups.delete');
-    });
+Route::controller(StudentController::class)->group(function () {
+    Route::get('/students', 'index')->name('students');
+    Route::get('/students/{id}', 'show')->name('students.show');
+    Route::put('/students', 'update')->name('students.update');
+    Route::delete('/students/{id}', 'destroy')->name('students.delete');
+});
 
-    Route::controller(LevelController::class)->group(function () {
-        Route::get('/levels', 'index')->name('levels');
-        Route::post('/levels', 'store')->name('levels.store');
-        Route::get('/levels/{id}', 'show')->name('levels.show');
-        Route::put('/levels', 'update')->name('levels.update');
-        Route::delete('/levels/{id}', 'destroy')->name('levels.delete');
-    });
-   
-    Route::controller(PermissionController::class)->group(function () {
-        Route::get('/permission', 'index')->name('permission');
-        Route::post('/permission', 'store')->name('permission.store');
-        Route::put('/permission/{id}', 'update')->name('permission.update');
-        Route::delete('/permission/{id}', 'destroy')->name('permission.delete');
-    });
+Route::controller(GroupController::class)->group(function () {
+    Route::get('/groups', 'index')->name('groups');
+    Route::post('/groups', 'store')->name('groups.store');
+    Route::get('/groups/{id}', 'show')->name('groups.show');
+    Route::put('/groups', 'update')->name('groups.update');
+    Route::delete('/groups/{id}', 'destroy')->name('groups.delete');
+});
 
-    Route::controller(RoleController::class)->group(function () {
-        Route::get('/role', 'index')->name('roles');
-        Route::post('/role', 'store')->name('role.store');
-        Route::put('/role/{id}', 'update')->name('role.update');
-        Route::delete('/role/{id}', 'destroy')->name('role.delete');
-    });
-    
+Route::controller(LevelController::class)->group(function () {
+    Route::get('/levels', 'index')->name('levels');
+    Route::post('/levels', 'store')->name('levels.store');
+    Route::get('/levels/{id}', 'show')->name('levels.show');
+    Route::put('/levels', 'update')->name('levels.update');
+    Route::delete('/levels/{id}', 'destroy')->name('levels.delete');
+});
+
+Route::controller(PermissionController::class)->group(function () {
+    Route::get('/permission', 'index')->name('permission');
+    Route::post('/permission', 'store')->name('permission.store');
+    Route::put('/permission/{id}', 'update')->name('permission.update');
+    Route::delete('/permission/{id}', 'destroy')->name('permission.delete');
+});
+
+Route::controller(RoleController::class)->group(function () {
+    Route::get('/role', 'index')->name('roles');
+    Route::post('/role', 'store')->name('role.store');
+    Route::put('/role/{id}', 'update')->name('role.update');
+    Route::delete('/role/{id}', 'destroy')->name('role.delete');
+});
+
 //});
 
 require __DIR__ . '/auth.php';

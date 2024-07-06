@@ -161,7 +161,7 @@ const ContactReport = ({ data }) => (
                 <Text style={styles.label_full}>Año o nivel al que desea aplicar:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value_full}>{data?.level}</Text>
+                <Text style={styles.value_full}>{data?.level?.name}</Text>
             </View>
 
             <View style={styles.field_container}>
@@ -194,21 +194,10 @@ const ContactReport = ({ data }) => (
                     {data?.comment}
                 </Text>
             </View>
-
             <View style={styles.field_container}>
-                <Text style={styles.label_middle}>Pago:</Text>
-                <Text style={styles.label_middle}>Fecha de pago:</Text>
-            </View>
-            <View style={styles.field_container}>
-                <Text style={styles.value_middle}>${data?.payment}</Text>
-                <Text style={styles.value_middle}>{data?.payment_date}</Text>
-            </View>
-            <View style={styles.field_container}>
-                <Text style={styles.label_middle}>Número de comprobante de pago:</Text>
                 <Text style={styles.label_middle}>Estado de la solicitud:</Text>
             </View>
             <View style={styles.field_container}>
-                <Text style={styles.value_middle}>{data?.payment_receipt}</Text>
                 <Text style={styles.value_middle}>{data?.status}</Text>
             </View>
 

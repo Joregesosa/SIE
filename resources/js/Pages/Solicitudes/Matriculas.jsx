@@ -9,13 +9,13 @@ import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
 export default function Matriculas({ auth, data, msj }) {
+
     const {
         dt,
         alert,
         setAlert,
         RenderRightToolbar,
         RenderLeftToolbar,
-        RenderActionButtons,
         setDataList,
         selectedItem,
         editItemDialog,

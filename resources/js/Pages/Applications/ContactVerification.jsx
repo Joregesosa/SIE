@@ -4,11 +4,14 @@ import { InputText } from 'primereact/inputtext';
 import ContactReport from '@/Reports/ContactReport';
 import { Toolbar } from 'primereact/toolbar';
 import { ExportMenu } from '@/Reports/ExportMenu';
+import { EnrollmentPayment } from '@/Components/EnrollmentPayment';
+import { Loading } from '@/Components/Loading';
+import { useEffect, useState } from 'react';
 
 export default function ContactVerification({ auth, data: dataprop, msj }) {
     const { data, setData, post, processing, errors, reset } = useForm(dataprop);
 
-    console.log(dataprop)
+    const [alert, setAlert] = useState();
     
     const request_no = (id) => {
         let request_no = id.toString();
@@ -42,11 +45,47 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
         const { name, value } = e.target;
         setData(name, value);
     }
+    const selectStudent = (rowData) => {
+        setData({
+            ...data,
+            contact_id: rowData.id,
+            student: rowData?.full_Name,
+            amount: rowData?.level?.enrollment_fee,
+            date: new Date().toISOString().split("T")[0],
+            method: 1,
+            reference: "",
+            show: true,
+        });
+    }
+
+    useEffect(() => { console.log(data) }, [data]);
+
+    const handlePaymentSubmit = (e) => {
+        e.preventDefault();
+        setData(dataprop);
+        post(route("payment.store"), {
+            onSuccess: (page) => {
+                console.log(page)
+                if (page?.props?.message) {
+                    setAlert(page.props.message);
+                }
+
+            },
+            onError: (error) => {
+                console.log(error)
+                setAlert(error);
+            }
+        });
+    };
+
 
     return (
+
         <AuthenticatedLayout
             user={auth.user}
             header={"Solicitudes / Procesar Solicitud"}
+            alert={alert}
+            setAlert={setAlert}
         >
             <Head title="Procesar solicitud" />
             <Toolbar className='bg-transparent text-sm border-b-0 print:hidden' right={() => ExportMenu(ContactReport, data)} />
@@ -194,7 +233,7 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                     Año o nivel al que desea aplicar
                     <InputText
                         id="level_id"
-                        value={data?.level_id}
+                        value={data?.level?.name}
                         readOnly
                         className='rounded-md w-full border-b-2 border-x-0 border-t-0 bg-transparent text-sm h-9'
                     />
@@ -259,7 +298,7 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
 
                 <form className="col-span-12 mt-4" onSubmit={handleSubmit}>
                     <fieldset className='grid grid-cols-12'>
-                        <fieldset className='font-semibold mb-2 col-span-12 gap-4'>Actualizar status de solicitud</fieldset>
+                        <fieldset className='font-semibold mb-2 col-span-12 gap-4'>Actualizar estado de solicitud</fieldset>
                         <label htmlFor="comment" className="font-bold text-xs col-span-12">
                             Comentario
                             <textarea
@@ -269,38 +308,8 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                                 className="rounded-md w-full bg-transparent text-sm resize-none h-32"
                             />
                         </label>
-                        <label htmlFor="payment" className="font-bold text-xs col-span-6 pr-4 mt-1">
-                            Pago
-                            <input
-                                id="payment"
-                                type="number"
-                                pattern='[0-9]{1,10}'
-                                value={data?.payment}
-                                onChange={handleChanges}
-                                className="rounded-md w-full bg-transparent text-sm h-9"
-                            />
-                        </label>
-                        <label htmlFor="payment_date" className="font-bold text-xs col-span-6 pl-4 mt-1">
-                            Fecha de pago
-                            <input
-                                id="payment_date"
-                                type="date"
-                                onChange={handleChanges}
-                                value={data?.payment_date}
-                                className="rounded-md w-full bg-transparent text-sm h-9"
-                            />
-                        </label>
-                        <label htmlFor="payment_receipt" className="font-bold text-xs col-span-6 pr-4 mt-1">
-                            Número de comprobante de pago
-                            <input
-                                id="payment_receipt"
-                                type="text"
-                                value={data?.payment_receipt}
-                                onChange={handleChanges}
-                                className="rounded-md w-full bg-transparent text-sm h-9"
-                            />
-                        </label>
-                        <label htmlFor="status" className="font-bold text-xs col-span-6 pl-4 mt-1">
+
+                        <label htmlFor="status" className="font-bold text-xs col-span-6 mt-1">
                             Estado de la solicitud
                             <select
                                 id="status"
@@ -314,7 +323,14 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                             </select>
                         </label>
                     </fieldset>
-                    <div className=" py-4 flex justify-end print:hidden">
+                    <div className=" py-4 flex justify-end print:hidden gap-8">
+                        {
+                            data?.status === 1 &&
+                            <button disabled={processing} onClick={() => selectStudent(dataprop)} type="button" className="bg-blue-700 text-white py-2 px-4 rounded-md">
+                                Pago de Matricula
+                            </button>
+                        }
+
                         <button disabled={processing} type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
                             Actualizar
                         </button>
@@ -322,7 +338,12 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                 </form>
 
             </div>
-
+            <EnrollmentPayment
+                setStudent={setData}
+                student={data}
+                handleSubmit={handlePaymentSubmit}
+            />
+            <Loading status={processing} />
         </AuthenticatedLayout>
     );
 }

@@ -15,6 +15,10 @@ import { IdentificationData } from '@/Components/InscriptionFormPartials/Identif
 import { Loading } from '@/Components/Loading';
 import { FormActionButtons } from '@/Components/FormActionButtons';
 import New from '@/Components/Users/New';
+import { Toolbar } from 'primereact/toolbar';
+import { EnrollmentSummary } from '@/Reports/EnrollmentSummary';
+import { ExportMenu } from '@/Reports/ExportMenu';
+import { PDFViewer } from '@react-pdf/renderer';
 
 export default function EnrollmentVerification({ auth, data: dataprop, msj, information, disable }) {
     
@@ -50,7 +54,7 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj, info
             header={"Solicitudes / Procesar Matricula"}
         >
             <Head title="Procesar Matricula" />
-
+            <Toolbar className='bg-transparent text-sm border-b-0 print:hidden' right={() => ExportMenu(EnrollmentSummary, data)} />
             <form className='max-w-screen-lg py-8 mx-auto' onSubmit={handleSubmit}>
                 <Accordion activeIndex={0}>
                     <AccordionTab pt={pt} header="Datos del estudiante">
@@ -80,19 +84,21 @@ export default function EnrollmentVerification({ auth, data: dataprop, msj, info
                     <AccordionTab pt={pt} header="Historia vital">
                         <MedicalHistory data={data} setData={setData} information={information} />
                     </AccordionTab>
-                    {auth.user.role_id === 1 &&
-                        <AccordionTab pt={pt} header="Usuario">
-                            <New data={data} roles={information.roles} setData={setData}/>
-                        </AccordionTab>
-                    }
+                     {/* {auth.user.role_id === 1 &&
+                         <AccordionTab pt={pt} header="Usuario">
+                             <New data={data} roles={information.roles} setData={setData}/>
+                         </AccordionTab>
+                     } */}
                 </Accordion>
 
                 <div className="w-full flex justify-end md:col-span-2">
                     <FormActionButtons accept_lbl={'Actualizar'} />
                 </div>
             </form>
-
-            <Loading message="Enviando" status={processing} />
+           {/*  <PDFViewer className='w-full h-full'>
+                <EnrollmentSummary/>
+            </PDFViewer>
+            <Loading message="Enviando" status={processing} /> */}
 
         </AuthenticatedLayout>
     );

@@ -21,7 +21,6 @@ class ContactFormController extends Controller
 
     public function store(Request $request)
     {
-       
 
         try {
             Request()->merge(['key' =>  bin2hex(random_bytes(10))]);
@@ -43,10 +42,10 @@ class ContactFormController extends Controller
                 ]
             );
 
-
             if ($validator->fails()) {
-                return  back()->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
+                return back()->withErrors(['error' => array_values($validator->errors()->messages())]);
             }
+
 
             Contact::create($request->all());
             return redirect()->route('contact.create')->with('msj', ['success' => "El Formulario fue enviado satisfactoriamente"], 200);
@@ -77,8 +76,9 @@ class ContactFormController extends Controller
 
     public function index()
     {
+ 
         return Inertia::render('Solicitudes/ContactsRequest', [
-            'data' => Contact::all(),
+            'data' => Contact::with('level')->get(),
             'levels' => Level::all()
         ]);
     }
@@ -86,7 +86,8 @@ class ContactFormController extends Controller
     public function show($id)
     {
         try {
-            $contact = Contact::findOrFail($id);
+            $contact = Contact::with('level')->findOrFail($id);
+ 
             return Inertia::render('Applications/ContactVerification', [
                 'data' => $contact
             ]);
@@ -173,6 +174,6 @@ class ContactFormController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => 'Error en la acción realizada'], 500);
         }
-        return back(    );
+        return back();
     }
 }

@@ -108,7 +108,6 @@ class DatabaseSeeder extends Seeder
       
         DB::table('student_status')->insert([
             ['name' => 'En espera', 'color' => 'red-500', 'description' => 'El alumno ha solicitado ingreso a la institución pero aún no ha sido admitido o rechazado.'],
-            ['name' => 'Pre-matriculado', 'color' => 'yellow-500', 'description' => 'El alumno ha seleccionado cursos para el próximo período, pero la matrícula aún no está completa.'],
             ['name' => 'Matriculado', 'color' => 'green-500', 'description' => 'El alumno está inscrito en cursos para el período actual.'],
             ['name' => 'Graduado', 'color' => 'blue-500', 'description' => 'El alumno ha completado satisfactoriamente todos los requisitos y ha recibido su grado o título.'],
             ['name' => 'De baja', 'color' => 'gray-500', 'description' => 'El alumno ha solicitado o sido dado de baja de la institución.'],
