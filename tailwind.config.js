@@ -12,6 +12,12 @@ export default {
 
     theme: {
         extend: {
+            backgroundImage: {
+                'inscription-form': "url('/images/students2.0.jpg')",
+                'contact-form': "url('/images/student.jpg')",
+                'main': "url('/images/abc.jpg')",
+                'index': "url('/images/students2.0.jpg')",
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
@@ -61,7 +67,7 @@ export default {
                     secondary: '#0288d1',
                     text: '#ffffff',
                     accent: '#4caf50',
-                    active: '#0277bd', // Un tono más material para el estado activo
+                    active: '#0277bd8f', // Un tono más material para el estado activo
                 },
                 // Tema 7: Paleta de Joyas
                 jewel: {
@@ -101,6 +107,9 @@ export default {
     safelist: [
         { pattern: /bg-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(primary|secondary|accent|active)/ },
         { pattern: /text-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(text|accent|active)/ },
+        { pattern: /border-(classic|dark|monochrome|vintage|minimalist|material|jewel|geometric|artDeco|natural)-(primary|secondary|accent|active)/ },
+        { pattern: /bg-(red|green|blue|yellow|orange|purple|indigo)-500/ },
+
 
     ],
     plugins: [forms],

@@ -17,17 +17,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $message = session('msj');
-        if ($message) {
-            Session::forget('msj');
-        }
-        $role = Role::with('permissions')->get();
-        $permissions = Permission::all();
-
-        return Inertia::render('Roles', [
-            'data' => $role,
-            'permissions' => $permissions,
-            'msj' => $message
+        return Inertia::render('Usuarios/Roles', [
+            'data' => Role::with('permissions')->get(),
+            'permissions' => Permission::all(),
         ]);
     }
 
