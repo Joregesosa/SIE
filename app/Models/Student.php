@@ -115,7 +115,7 @@ class Student extends Model
 
     public function pregnancyType()
     {
-        return $this->belongsTo(pregnancyType::class);
+        return $this->belongsTo(PregnancyType::class);
     }
 
     public function telephones()
