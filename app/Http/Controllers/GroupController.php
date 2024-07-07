@@ -53,8 +53,8 @@ class GroupController extends Controller
     {
         try {
 
-            return Inertia::render('GroupStudentList', [
-                'data' => GroupStudentList::findOrFail($id),
+            return Inertia::render('Cursos/GroupStudentList', [
+                'data' => GroupStudentList::where('id',$id)->get(),
             ]);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('groups.index')->with('msj', ['error' => 'Group not found'], 404);

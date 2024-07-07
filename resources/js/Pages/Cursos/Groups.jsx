@@ -5,7 +5,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toolbar } from 'primereact/toolbar';
 import DeleteAlert from '@/Components/Alerts/Delete.Alert';
-import { useTable } from '@/hooks/useTable'; 
+import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
 
@@ -30,7 +30,7 @@ export default function Groups({ auth, data, msj }) {
         setShowNewDialog,
         onHideEditDialog
     } = useTable(data)
-   
+
     useEffect(() => {
 
         data.forEach(element => {
@@ -46,32 +46,32 @@ export default function Groups({ auth, data, msj }) {
             user={auth.user}
             header={"Cursos / Grupos"}
         >
-   
+
             <Head title="Lista de Groups" />
 
 
-                <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" />
+            <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" />
 
-                <DataTable  {...tableConfig}>
+            <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-0 ' />
+                <Column field='id' header='ID' sortable className='py-0 ' />
 
-                    <Column field='name' header='Grupo' sortable className='py-0' />
+                <Column field='name' header='Grupo' sortable className='py-0' />
 
-                    <Column field='level.name' header='Nivel' sortable className='py-0 truncate max-w-64' />
+                <Column field='level.name' header='Nivel' sortable className='py-0 truncate max-w-64' />
 
-                    <Column field='max_students' header='Cupo máximo' sortable className='py-0' />
+                <Column field='max_students' header='Cupo máximo' sortable className='py-0' />
 
-                    <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-0' />
+                <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-0' />
 
-                    <Column field='teacher.name' header='Profesor Titular' sortable className='py-0' />
+                <Column field='teacher.name' header='Profesor Titular' sortable className='py-0' />
 
-                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-0' />
+                <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-0' />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-0 min-w-36' />
+                <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-0 min-w-36' />
 
-                </DataTable>
- 
+            </DataTable>
+
             {/* modal edit User */}
             <Edit
                 selectedItem={selectedItem}
