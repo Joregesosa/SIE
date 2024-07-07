@@ -10,10 +10,11 @@ import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
 import { G } from '@react-pdf/renderer';
 
-export default function Groups({ auth, data, msj }) {
+export default function Groups({ auth, data, msj,group }) {
 
     const {
         dt,
+        dataList,
         RenderStatus,
         RenderRightToolbar,
         RenderLeftToolbar,
@@ -30,7 +31,7 @@ export default function Groups({ auth, data, msj }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={`Cursos / ${data[0].description}`}
+            header={`Cursos / ${dataList[0]?.description}`}
         >
 
             <Head title="Lista de Groups" />

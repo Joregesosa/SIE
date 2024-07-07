@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import React, { useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -8,8 +8,9 @@ import DeleteAlert from '@/Components/Alerts/Delete.Alert';
 import { useTable } from '@/hooks/useTable';
 import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
+import Alert from '@/Components/Alerts/Alert';
 
-export default function Groups({ auth, data, msj }) {
+export default function Groups({ auth, data, message }) {
 
     const {
         dt,
@@ -19,7 +20,6 @@ export default function Groups({ auth, data, msj }) {
         RenderRightToolbar,
         RenderLeftToolbar,
         RenderActionButtons,
-        dataList,
         setDataList,
         selectedItem,
         editItemDialog,
@@ -31,44 +31,48 @@ export default function Groups({ auth, data, msj }) {
         onHideEditDialog
     } = useTable(data)
 
+    const { get } = useForm();
+
+    const handleRowClick = (e) => {
+        get(route('groups.show', e.data.id))
+    }
     useEffect(() => {
-
-        data.forEach(element => {
-            element.teacher.name = element.teacher.person.first_name + ' ' + element.teacher.person.second_name + ' ' + element.teacher.person.fLast_name + ' ' + element.teacher.person.sLast_name;
-        });
-
         setDataList(data)
-        setAlert(msj)
-    }, [data, msj])
+    }, [data])
+
+    useEffect(() => {
+        setAlert(message)
+    }, [message])
 
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={"Cursos / Grupos"}
+            alert={alert}
+            setAlert={setAlert}
         >
-
             <Head title="Lista de Groups" />
 
 
             <Toolbar left={RenderLeftToolbar} right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" />
 
-            <DataTable  {...tableConfig}>
+            <DataTable  {...tableConfig} rowClassName="cursor-pointer hover:bg-gray-200" onRowClick={handleRowClick}>
 
-                <Column field='id' header='ID' sortable className='py-0 ' />
+                <Column field='id' header='ID' sortable className='py-2 ' />
 
-                <Column field='name' header='Grupo' sortable className='py-0' />
+                <Column field='name' header='Grupo' sortable className='py-2' />
 
-                <Column field='level.name' header='Nivel' sortable className='py-0 truncate max-w-64' />
+                <Column field='level.name' header='Nivel' sortable className='py-2 truncate max-w-64' />
 
-                <Column field='max_students' header='Cupo máximo' sortable className='py-0' />
+                <Column field='max_students' header='Cupo máximo' sortable className='py-2 text-center' />
 
-                <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-0' />
+                {/* <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-2' /> */}
 
-                <Column field='teacher.name' header='Profesor Titular' sortable className='py-0' />
+                <Column field='teacher.person.full_Name' header='Profesor Titular' sortable className='py-2' />
 
-                <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-0' />
+                <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
-                <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-0 min-w-36' />
+               {/*  <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2 min-w-36' /> */}
 
             </DataTable>
 

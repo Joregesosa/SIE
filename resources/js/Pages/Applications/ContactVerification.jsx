@@ -72,7 +72,6 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
 
             },
             onError: (error) => {
-                console.log(error)
                 setAlert(error);
             }
         });
