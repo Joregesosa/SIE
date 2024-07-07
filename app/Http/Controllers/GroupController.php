@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
+use App\Models\GroupStudentList;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -51,16 +52,17 @@ class GroupController extends Controller
     public function show($id)
     {
         try {
-            return Inertia::render('Group', [
-                'data' => Group::findOrFail($id)->load('level', 'teacher.person'),
+
+            return Inertia::render('GroupStudentList', [
+                'data' => GroupStudentList::findOrFail($id),
             ]);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('groups.index')->with('msj', ['error' => 'Group not found'], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error en la acción realizada'], 500);
+            return response()->json(['error' => 'Error en la acción realizada '], 500);
         }
     }
-   
+
     public function update(Request $request)
     {
         try {
@@ -92,7 +94,7 @@ class GroupController extends Controller
 
     public function destroy($id)
     {
-    
+
         try {
             $group = Group::find($id);
             $group->status = 0;
@@ -101,7 +103,5 @@ class GroupController extends Controller
         } catch (Exception $e) {
             return redirect()->route('groups.index')->with('msj', ['error' => 'Error deleting group' . $e->getMessage()], 500);
         }
-
-        
     }
 }

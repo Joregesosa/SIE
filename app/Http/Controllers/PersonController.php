@@ -160,7 +160,7 @@ class PersonController extends Controller
         }
 
         try {
-
+ 
             DB::beginTransaction();
 
             /*DATOS DE IDENTIFICACIÓN*/
@@ -173,9 +173,13 @@ class PersonController extends Controller
             $siblingsJson = json_encode($request->socioeconomic_data['siblings_data']);
             $familyCompositionJson = json_encode($request->socioeconomic_data['family_composition_data']);
 
+            $group = Level::findOrFail($request->identification_data['level_id'])->groups()->where('status', 1)->first();
+        
+            
 
             $student_data = [
                 'person_id' => $person->id,
+                'group_id' => $group->id,
                 'status_id' => 2,
                 'siblings' => $siblingsJson,
                 'family_composition' => $familyCompositionJson,
@@ -224,14 +228,14 @@ class PersonController extends Controller
             $mailNickname = UserService::generateUsername($person);
             $userPrincipalName =  $mailNickname . '@trc.edu.ec';
             $password = Str::random(12);
-
+/* 
             $student->update(['academic_email' => $password]);
 
             if (!GraphHelper::createUser($displayName,  $mailNickname,  $userPrincipalName, $password)) {
                 throw new \Exception('Error al crear el correo en el directorio activo.');
                 DB::rollBack();
                 return back();
-            }
+            } */
 
             User::create([
                 'person_id' => $person?->id,
