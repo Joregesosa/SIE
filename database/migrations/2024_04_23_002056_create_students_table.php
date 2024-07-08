@@ -24,6 +24,7 @@ return new class extends Migration
             /*DATOS PERSONALES*/
             $table->id();
             $table->unsignedBigInteger('person_id');
+            $table->string('matricula')->unique();
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
             $table->unsignedBigInteger('status_id')->default(1);
             $table->foreign('status_id')->references('id')->on('student_status')->onDelete('restrict');

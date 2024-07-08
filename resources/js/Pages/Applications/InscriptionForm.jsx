@@ -18,6 +18,8 @@ import { FormSubmitted } from "@/Components/FormSubmitted";
 const InscriptionForm = ({ msj, contact, information }) => {
     
 
+   
+
     const cleanData = {
         contact_id: contact?.id || "",
         identification_data: {
@@ -137,7 +139,7 @@ const InscriptionForm = ({ msj, contact, information }) => {
     const Parents_data = [ "mother_data","father_data", "tutor_data"];
 
     const [title, setTitle] = useState(contact?.status == 2 ? "¡Esta solicitud aun no se ah enviado al aspirante!" : contact?.status == 3 ? "¡Gracias por su inscripción!" : !contact ?  "Esta Solicitud no existe": "Esta solicitud ya ha sido enviada");
-    const [message, setMessage] = useState(contact?.status == 3 ? "Pronto recibirás un correo de confirmación" : '');
+    const [message, setmessage] = useState(contact?.status == 3 ? "Pronto recibirás un correo de confirmación" : '');
    
     const scroll = document.getElementById("scroll");
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
@@ -165,7 +167,7 @@ const InscriptionForm = ({ msj, contact, information }) => {
      
         if (Object.keys(emptyFields).length === 0) {
             post(route("inscription.store"), {
-                onSuccess: () => {
+                onSuccess: (e) => {
                     setSended(true);
                     //reset();
                 },

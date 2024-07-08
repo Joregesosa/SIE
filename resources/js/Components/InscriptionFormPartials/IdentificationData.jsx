@@ -111,7 +111,8 @@ export const IdentificationData = ({ data, setData, errorHandling , information,
                     {errorHandling?.id_card && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+        
+            <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1 ">
                 Fecha de nacimiento <span>*</span>
                 <Calendar
                     inputId="birth_date"
@@ -119,7 +120,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information,
                     value={data?.identification_data?.birth_date}
                     dateFormat="yy/mm/dd"
                     required
-                    className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
+                    className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden border border-gray-500'
                     inputClassName="border-none outline-none h-full"
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la fecha de nacimiento"

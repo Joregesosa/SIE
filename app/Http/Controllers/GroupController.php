@@ -18,7 +18,7 @@ class GroupController extends Controller
     public function index()
     {
         return Inertia::render('Cursos/Groups', [
-            'data' => Group::all()->load('level', 'teacher.person'),
+            'data' => Group::all()->load('level', 'teacher.person','students'),
         ]);
     }
 

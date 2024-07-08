@@ -158,8 +158,8 @@ class PersonController extends Controller
 
 
         if ($validator->fails()) {
-            session()->flash('message', ['error' => array_values($validator->errors()->messages())]);
-            return back();
+               
+            return back()->withErrors(['error' => array_values($validator->errors()->messages())]);
         }
 
 
