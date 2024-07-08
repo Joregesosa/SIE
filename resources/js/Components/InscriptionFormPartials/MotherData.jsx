@@ -3,6 +3,7 @@ import { InputText } from "primereact/inputtext";
 import PropTypes from 'prop-types';
 import { MainFormFieldset } from "./MainFormFieldset";
 import { info } from "autoprefixer";
+import { Calendar } from "primereact/calendar";
 
 
 
@@ -70,13 +71,15 @@ export const MotherData = ({ data, setData, errorHandling, information }) => {
 
             <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Fecha de nacimiento <span>*</span>
-                <InputText
-                    id="birth_date"
+                <Calendar
+                    inputId="birth_date"
                     name="birth_date"
+                    defaultValue={new Date()}
                     value={data?.mother_data?.birth_date}
                     type='date'
                     required
-                    className='rounded-md w-full'
+                    className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
+                    inputClassName="border-none outline-none h-full"
                     onChange={handleMotherData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
@@ -88,6 +91,7 @@ export const MotherData = ({ data, setData, errorHandling, information }) => {
                     id="id_card"
                     name="id_card"
                     value={data?.mother_data?.id_card}
+                    pattern="[0-9]{9}-[0-9]"
                     required
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleMotherData}

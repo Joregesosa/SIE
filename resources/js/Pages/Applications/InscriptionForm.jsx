@@ -351,7 +351,6 @@ const requiredFields = {
         "level_id",
         "number",
         "reference",
-        "age",
     ],
     mother_data: [
         "birth_date",

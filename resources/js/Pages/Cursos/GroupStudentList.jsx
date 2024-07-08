@@ -4,13 +4,10 @@ import React, { useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toolbar } from 'primereact/toolbar';
-import DeleteAlert from '@/Components/Alerts/Delete.Alert';
-import { useTable } from '@/hooks/useTable';
-import { New } from '@/Components/Groups/New';
-import { Edit } from '@/Components/Groups/Edit';
-import { G } from '@react-pdf/renderer';
 
-export default function Groups({ auth, data, msj,group }) {
+import { useTable } from '@/hooks/useTable';
+
+export default function Groups({ auth, data}) {
 
     const {
         dt,
@@ -24,7 +21,6 @@ export default function Groups({ auth, data, msj,group }) {
     } = useTable(data)
 
     useEffect(() => {
-        console.log(data)
         setDataList(data)
     }, [data])
 
@@ -39,9 +35,9 @@ export default function Groups({ auth, data, msj,group }) {
 
             <Toolbar  right={() => RenderRightToolbar(dt)} className="py-2 rounded-none bg-white bg-opacity-40" />
 
-            <DataTable  {...tableConfig} onRowClick={(e)=>console.log(e.data)} rowClassName="cursor-pointer hover:bg-gray-200">
+            <DataTable  {...tableConfig} rowClassName="cursor-pointer hover:bg-gray-200">
 
-                <Column field='id' header='ID' sortable className='py-0 ' />
+                <Column field='student_id' header='ID' sortable className='py-0 ' />
 
                 <Column field='id_card' header='Cédula' sortable className='py-0' />
                 
@@ -50,7 +46,6 @@ export default function Groups({ auth, data, msj,group }) {
                 <Column field='email' header='Email' sortable className='py-0 truncate max-w-64' />
 
                 <Column field='number' header='Teléfono' sortable className='py-0' />
-
 
 
             </DataTable>
