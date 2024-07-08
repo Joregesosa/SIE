@@ -6,11 +6,7 @@ import { useEffect } from "react";
 
 export default function index({auth,canLogin,canRegister,laravelVersion,phpVersion,}) {
 
-  useEffect(() => {
-    if (auth.user) {
-      window.location.href = "/dashboard";
-    }
-  }, []);
+ 
 
     return (
     <div className="min-h-screen h-screen flex flex-col">

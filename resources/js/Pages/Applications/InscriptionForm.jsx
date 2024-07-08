@@ -16,6 +16,8 @@ import { Loading } from "@/Components/Loading";
 import { FormSubmitted } from "@/Components/FormSubmitted";
 
 const InscriptionForm = ({ msj, contact, information }) => {
+    
+
     const cleanData = {
         contact_id: contact?.id || "",
         identification_data: {
@@ -131,22 +133,23 @@ const InscriptionForm = ({ msj, contact, information }) => {
             walking_age: "",
         },
     };
+       
+    const Parents_data = [ "mother_data","father_data", "tutor_data"];
 
-    const Parents_data = ["father_data", "mother_data", "tutor_data"];
-
-    const message = contact?.status == 3 ? "Pronto recibirás un correo de confirmación" : '';
-    const title = contact?.status == 2 ? "¡Esta solicitud aun no se ah enviado al aspirante!" : contact?.status == 3 ? "¡Gracias por su inscripción!" : "Esta solicitud ya ha sido enviada";
-
+    const [title, setTitle] = useState(contact?.status == 2 ? "¡Esta solicitud aun no se ah enviado al aspirante!" : contact?.status == 3 ? "¡Gracias por su inscripción!" : !contact ?  "Esta Solicitud no existe": "Esta solicitud ya ha sido enviada");
+    const [message, setMessage] = useState(contact?.status == 3 ? "Pronto recibirás un correo de confirmación" : '');
+   
     const scroll = document.getElementById("scroll");
     const { data, setData, post, processing, errors, reset } = useForm(cleanData);
     const [errorHandling, setErrorHandling] = useState({});
     const [step, setStep] = useState(0);
     const [sended, setSended] = useState(contact?.status != 3);
 
-
     const [alert, setAlert] = useState(null);
 
+ 
     const handleSubmit = (e) => {
+        
         e.preventDefault();
         const emptyFields = fieldVerifier(
             data[form_keys[8]],
@@ -159,11 +162,12 @@ const InscriptionForm = ({ msj, contact, information }) => {
             return;
         }
 
+     
         if (Object.keys(emptyFields).length === 0) {
             post(route("inscription.store"), {
                 onSuccess: () => {
                     setSended(true);
-                    reset();
+                    //reset();
                 },
                 onError: (error) => {
                     setAlert(error);
@@ -330,7 +334,7 @@ const InscriptionForm = ({ msj, contact, information }) => {
                     </div>
                 </form>
             ) : (
-                <FormSubmitted title={title} message={message} />
+                <FormSubmitted title={title} message={message} submsj={contact} />
             )}
             <Loading message="Enviando" status={processing} />
         </div>
@@ -409,7 +413,7 @@ const requiredFields = {
         "student_disability_details",
         "medical_condition_details",
         "allergies_details",
-        "medications",
+        //"medications",
         "medical_attention_type_id",
         "medical_attention_details",
         "medical_attention_doctor",
