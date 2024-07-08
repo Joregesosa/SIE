@@ -142,4 +142,15 @@ Route::controller(RoleController::class)->group(function () {
 
 //});
 
+Route::get('/subjects', function () {
+    $subjects = [
+        ['id' => 1, 'subject' => 'Mathematics', 'professor' => ['name' => 'Dr. Smith']],
+        ['id' => 2, 'subject' => 'History', 'professor' => ['name' => 'Prof. Johnson']],
+    ];
+
+    return Inertia::render('Subjects/Index', [
+        'data' => $subjects
+    ]);
+})->middleware(['auth', 'verified'])->name('subjects.index');
+
 require __DIR__ . '/auth.php';
