@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Support\Facades\DB;
 
 class Student extends Model
 {
@@ -71,14 +71,28 @@ class Student extends Model
         'siblings_relationship',
         'others_relationship',
         'habits_and_activities',
-        'father_id' ,
+        'father_id',
         'mother_id',
         'tutor_id'
 
     ];
 
-    protected $with = ['person', 'telephones' ,'level', 'status', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pathologicalFamilyHistory', 'pregnancyType', 'father', 'mother', 'tutor'];
- 
+
+    //quiero solo los dos dijitos del año , ejemplo 20-0001
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            $maxId = self::max('id') + 1;
+            $model->matricula = Carbon::now()->format('y') . '-' . str_pad($maxId, 4, '0', STR_PAD_LEFT);
+        });
+    }
+
+
+
+    protected $with = ['person', 'telephones', 'level', 'status', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pathologicalFamilyHistory', 'pregnancyType', 'father', 'mother', 'tutor'];
+
     public function person()
     {
         return $this->belongsTo(Person::class)->with('user');
@@ -93,7 +107,7 @@ class Student extends Model
     {
         return $this->belongsTo(StudentStatus::class);
     }
-    
+
     public function familyStructure()
     {
         return $this->belongsTo(FamilyStructure::class);
@@ -121,7 +135,7 @@ class Student extends Model
 
     public function telephones()
     {
-        return $this->hasMany(Phone::class, 'person_id','person_id');
+        return $this->hasMany(Phone::class, 'person_id', 'person_id');
     }
 
     public function father()
@@ -139,14 +153,15 @@ class Student extends Model
         return $this->belongsTo(Parents::class, 'tutor_id');
     }
 
-    
 
-    
+
+
     public function toArray()
     {
-        return [    
-           
+        return [
+
             'id' => $this->id,
+            'matricula' => $this->matricula,
             'person' => $this->person ?  $this->person->toArray() : null,
             'identification_data' => [
                 'email' => $this->person?->user?->email ?? '',
@@ -166,10 +181,10 @@ class Student extends Model
                 'level' => $this->level ? $this->level->toArray() : null,
                 'status_id' => $this->status_id ?? '',
                 'status' => $this->status ? $this->status->toArray() : null,
-                
+
             ],
             'mother_data' => $this->mother ?  [
-                'person' => $this->mother->person ? $this->mother->person->toArray() : null, 
+                'person' => $this->mother->person ? $this->mother->person->toArray() : null,
                 'birth_date' => $this->mother->person->birth_date ?? '',
                 'email' => $this->mother->email ?? '',
                 'fLast_name' => $this->mother->person->fLast_name ?? '',
@@ -185,7 +200,7 @@ class Student extends Model
                 'work_place' => $this->mother->work_place ?? '',
             ] : null,
             'father_data' => $this->father ? [
-                'person' => $this->father->person ? $this->father->person->toArray() : null, 
+                'person' => $this->father->person ? $this->father->person->toArray() : null,
                 'birth_date' => $this->father->person->birth_date ?? '',
                 'email' => $this->father->email ?? '',
                 'fLast_name' => $this->father->person->fLast_name ?? '',
@@ -279,6 +294,4 @@ class Student extends Model
             ],
         ];
     }
- 
-
 }

@@ -169,7 +169,7 @@ export const MotherData = ({ data, setData, errorHandling, information }) => {
                     id="number"
                     name="number"
                     value={data?.mother_data?.number}
-                    type='text'
+                    type='tel'
                     required
                     className='rounded-md w-full'
                     onChange={handleMotherData}

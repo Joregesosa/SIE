@@ -334,7 +334,7 @@ const ContactForm = ({ levels }) => {
                                 name="father_phone"
                                 type="tel"
                                 value={data?.father_phone}
-                                 pattern="^\+?\d{1,3}?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+                                pattern="^\+?\d{1,3}?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
                                 required
                                 className="rounded-md w-full "
                                 onChange={handleChanges}

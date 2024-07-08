@@ -170,7 +170,7 @@ export const FatherData = ({ data, setData, errorHandling, information }) => {
                     id="number"
                     name="number"
                     value={data?.father_data?.number}
-                    type='text'
+                    type='tel'
                     required
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleFatherData}
