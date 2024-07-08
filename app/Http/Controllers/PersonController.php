@@ -39,10 +39,9 @@ class PersonController extends Controller
     {
         try {
 
+           return Inertia::render('Applications/InscriptionForm', [
 
-            return Inertia::render('Applications/InscriptionForm', [
-
-                'contact' =>   Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->where('status', '>', 1)->firstOrFail(),
+                'contact' => Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->where('status', '>', 1)->firstOrFail(),
                 'information'  => [
                     'levels' => Level::all(),
                     'marital_status' => MaritalStatus::all(),
@@ -57,7 +56,11 @@ class PersonController extends Controller
 
             ]);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'La solicitud no existe '], 404);
+            return Inertia::render('Applications/InscriptionForm', [
+
+                'contact' =>  null,
+
+            ]);
         } catch (Exception $e) {
             return response()->json(['error' => 'Error en la acción realizada'], 500);
         }
@@ -159,12 +162,17 @@ class PersonController extends Controller
             return back();
         }
 
+
+
+
         try {
 
             DB::beginTransaction();
 
             /*DATOS DE IDENTIFICACIÓN*/
             $person = Person::create($request->identification_data);
+
+
 
             $request['identification_data'] = ['person_id' => $person->id, ...$request->identification_data];
 
@@ -173,9 +181,13 @@ class PersonController extends Controller
             $siblingsJson = json_encode($request->socioeconomic_data['siblings_data']);
             $familyCompositionJson = json_encode($request->socioeconomic_data['family_composition_data']);
 
+            $group = Level::findOrFail($request->identification_data['level_id'])->groups()->where('status', 1)->first();
+
+
 
             $student_data = [
                 'person_id' => $person->id,
+                'group_id' => $group->id,
                 'status_id' => 2,
                 'siblings' => $siblingsJson,
                 'family_composition' => $familyCompositionJson,
@@ -196,9 +208,11 @@ class PersonController extends Controller
 
             /*RELACIÓN PADRES O TUTORES*/
             foreach ([$request->father_data, $request->mother_data, $request->tutor_data] as  $index => $parent) {
+
                 if ($parent == null) {
                     continue;
                 }
+
 
                 $parent['address_street'] = $request->identification_data['address_street'];
                 $parent['sector'] = $request->identification_data['sector'];
@@ -224,14 +238,14 @@ class PersonController extends Controller
             $mailNickname = UserService::generateUsername($person);
             $userPrincipalName =  $mailNickname . '@trc.edu.ec';
             $password = Str::random(12);
-
+            /* 
             $student->update(['academic_email' => $password]);
 
             if (!GraphHelper::createUser($displayName,  $mailNickname,  $userPrincipalName, $password)) {
                 throw new \Exception('Error al crear el correo en el directorio activo.');
                 DB::rollBack();
                 return back();
-            }
+            } */
 
             User::create([
                 'person_id' => $person?->id,
@@ -250,8 +264,8 @@ class PersonController extends Controller
             return back();
         } catch (\Throwable $th) {
             DB::rollBack();
-            return back()->withErrors(['error' => 'Error al registrar la persona.' . $th]);
-            return back();
+            return back()->withErrors(['error' => 'Error al registrar la persona.' . $th->getMessage()]);
+            //return back();
         }
     }
 

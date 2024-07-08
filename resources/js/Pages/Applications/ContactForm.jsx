@@ -58,7 +58,7 @@ const ContactForm = ({ levels }) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-screen-lg mx-auto bg-white bg-opacity-85 p-5 h-full">
                         <label
                             htmlFor="first_name"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Primer nombre <span>*</span>
                             <InputText
@@ -72,7 +72,7 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese el primer nombre"
                             />
                             {errorHandling?.first_name && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -80,7 +80,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="second_name"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Segundo nombre
                             <InputText
@@ -93,7 +93,7 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese el segundo nombre"
                             />
                             {errorHandling?.second_name && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -101,7 +101,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="fLast_name"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Primer Apellido <span>*</span>
                             <InputText
@@ -114,7 +114,7 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese el primer apellido"
                             />
                             {errorHandling?.fLast_name && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -122,7 +122,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="sLast_name"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Segundo Apellido
                             <InputText
@@ -135,32 +135,33 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese el segundo apellido"
                             />
                             {errorHandling?.sLast_name && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
                         </label>
 
-                        <label htmlFor="id_card" className="font-bold text-xs">
+                        <label htmlFor="id_card" className="font-bold text-sm">
                             Número de cédula <span>*</span>
                             <InputText
                                 id="id_card"
                                 name="id_card"
                                 type="text"
                                 value={data?.id_card}
+                                pattern="[0-9]{9}-[0-9]{1}"
                                 required
                                 className="rounded-md w-full"
                                 onChange={handleChanges}
-                                placeholder="Ingrese el número de cédula"
+                                placeholder="000000000-0"
                             />
                             {errorHandling?.id_card && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
                         </label>
 
-                        <label htmlFor="age" className="font-bold text-xs">
+                        <label htmlFor="age" className="font-bold text-sm">
                             Edad del alumno <span>*</span>
                             <InputText
                                 id="age"
@@ -175,13 +176,13 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese la edad del alumno"
                             />
                             {errorHandling?.age && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
                         </label>
 
-                        <label htmlFor="number" className="font-bold text-xs">
+                        <label htmlFor="number" className="font-bold text-sm">
                             Número de teléfono <span>*</span>
                             <InputText
                                 id="number"
@@ -194,13 +195,13 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese el número de teléfono"
                             />
                             {errorHandling?.number && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
                         </label>
 
-                        <label htmlFor="email" className="font-bold text-xs">
+                        <label htmlFor="email" className="font-bold text-sm">
                             Correo electrónico <span>*</span>
                             <InputText
                                 id="email"
@@ -213,7 +214,7 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese el correo electrónico"
                             />
                             {errorHandling?.email && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -221,7 +222,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="last_institution"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Nombre de la Institución Educativa de donde proviene
                             el alumno <span>*</span>
@@ -235,7 +236,7 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese el nombre de la institución educativa"
                             />
                             {errorHandling?.last_institution && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -243,7 +244,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="behavior_qualification"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Calificación comportamental del alumno{" "}
                             <span>*</span>
@@ -257,13 +258,13 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese la calificación comportamental del alumno"
                             />
                             {errorHandling?.behavior_qualification && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
                         </label>
 
-                        <label htmlFor="address" className="font-bold text-xs">
+                        <label htmlFor="address" className="font-bold text-sm">
                             Dirección <span>*</span>
                             <InputText
                                 id="address"
@@ -275,13 +276,13 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese la dirección"
                             />
                             {errorHandling?.address && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
                         </label>
 
-                        <label className="font-bold text-xs">
+                        <label className="font-bold text-sm">
                             Año o nivel al que desea aplicar <span>*</span>
                             <Dropdown
                                 id="level_id"
@@ -296,7 +297,7 @@ const ContactForm = ({ levels }) => {
                                 className="flex items-center border h-[42px] border-gray-500 flex-grow"
                             />
                             {errorHandling?.level_id && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -304,7 +305,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="father_names"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Nombres del Padre
                             <InputText
@@ -312,12 +313,12 @@ const ContactForm = ({ levels }) => {
                                 name="father_names"
                                 value={data?.father_names}
                                 required
-                                className="rounded-md w-full"
+                                className="rounded-md w-full "
                                 onChange={handleChanges}
                                 placeholder="Ingrese los nombres del padre"
                             />
                             {errorHandling?.father_names && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -325,7 +326,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="father_phone"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Número de teléfono del Padre <span>*</span>
                             <InputText
@@ -333,13 +334,14 @@ const ContactForm = ({ levels }) => {
                                 name="father_phone"
                                 type="tel"
                                 value={data?.father_phone}
+                                 pattern="^\+?\d{1,3}?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
                                 required
-                                className="rounded-md w-full"
+                                className="rounded-md w-full "
                                 onChange={handleChanges}
                                 placeholder="Ingrese el número de teléfono del padre"
                             />
                             {errorHandling?.father_phone && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -347,7 +349,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="father_occupation"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Actividad económica del Padre <span>*</span>
                             <InputText
@@ -355,12 +357,12 @@ const ContactForm = ({ levels }) => {
                                 name="father_occupation"
                                 value={data?.father_occupation}
                                 required
-                                className="rounded-md w-full"
+                                className="rounded-md w-full "
                                 onChange={handleChanges}
                                 placeholder="Ingrese la actividad económica del padre"
                             />
                             {errorHandling?.father_occupation && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -368,7 +370,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="mother_names"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Nombres de la Madre <span>*</span>
                             <InputText
@@ -381,7 +383,7 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese los nombres de la madre"
                             />
                             {errorHandling?.mother_names && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -389,7 +391,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="mother_phone"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Número de teléfono de la Madre <span>*</span>
                             <InputText
@@ -397,13 +399,14 @@ const ContactForm = ({ levels }) => {
                                 name="mother_phone"
                                 type="tel"
                                 value={data?.mother_phone}
-                                required
+                                pattern="^\+?\d{1,3}?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
                                 className="rounded-md w-full"
                                 onChange={handleChanges}
                                 placeholder="Ingrese el número de teléfono de la madre"
+                                required
                             />
                             {errorHandling?.mother_phone && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}
@@ -411,7 +414,7 @@ const ContactForm = ({ levels }) => {
 
                         <label
                             htmlFor="mother_occupation"
-                            className="font-bold text-xs"
+                            className="font-bold text-sm"
                         >
                             Actividad económica de la Madre <span>*</span>
                             <InputText
@@ -424,7 +427,7 @@ const ContactForm = ({ levels }) => {
                                 placeholder="Ingrese la actividad económica de la madre"
                             />
                             {errorHandling?.mother_occupation && (
-                                <span className="text-red-500 text-xs">
+                                <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
                             )}

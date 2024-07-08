@@ -72,7 +72,6 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
 
             },
             onError: (error) => {
-                console.log(error)
                 setAlert(error);
             }
         });
@@ -313,13 +312,14 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                             Estado de la solicitud
                             <select
                                 id="status"
-                                value={data?.status}
+                                defaultValue={data?.status}
                                 onChange={handleChanges}
                                 className="rounded-md w-full bg-transparent text-sm h-9"
                             >
-                                <option value="pending">Pendiente</option>
-                                <option value="approved">Aprobado</option>
-                                <option value="rejected">Rechazado</option>
+                                <option value="1" disabled>Pendiente</option>
+                                <option value="7">Contactado</option>
+                                <option value="5">Entrevista</option>
+                                <option value="6">Rechazado</option>
                             </select>
                         </label>
                     </fieldset>

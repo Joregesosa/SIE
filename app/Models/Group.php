@@ -30,6 +30,10 @@ class Group extends Model
         return $this->belongsTo(Teacher::class);
     }
 
+    public function students(): HasMany
+    {
+        return $this->hasMany(Student::class);
+    }
     
 
     

@@ -16,6 +16,7 @@ class Student extends Model
 
     protected $fillable = [
         'person_id',
+        'group_id',
         'address_street',
         'sector',
         'siblings',
@@ -115,7 +116,7 @@ class Student extends Model
 
     public function pregnancyType()
     {
-        return $this->belongsTo(pregnancyType::class);
+        return $this->belongsTo(PregnancyType::class);
     }
 
     public function telephones()

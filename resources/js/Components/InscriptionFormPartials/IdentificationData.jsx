@@ -3,6 +3,7 @@ import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
 import { useEffect } from "react";
+import { Calendar } from "primereact/calendar";
 
 
 export const IdentificationData = ({ data, setData, errorHandling , information, disable }) => {
@@ -99,6 +100,8 @@ export const IdentificationData = ({ data, setData, errorHandling , information,
                 disabled
                     id="id_card"
                     name="id_card"
+       
+                    pattern="[0-9]{9}-[0-9]"
                     value={data?.identification_data?.id_card}
                     required
                     className='rounded-md w-full placeholder:font-normal'
@@ -110,13 +113,14 @@ export const IdentificationData = ({ data, setData, errorHandling , information,
 
             <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Fecha de nacimiento <span>*</span>
-                <InputText
-                    id="birth_date"
+                <Calendar
+                    inputId="birth_date"
                     name="birth_date"
                     value={data?.identification_data?.birth_date}
-                    type='date'
+                    dateFormat="yy/mm/dd"
                     required
-                    className='rounded-md w-full placeholder:font-normal'
+                    className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
+                    inputClassName="border-none outline-none h-full"
                     onChange={handleIdentificationData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
@@ -135,22 +139,6 @@ export const IdentificationData = ({ data, setData, errorHandling , information,
                     placeholder="Ingrese el lugar de nacimiento"
                 />
                     {errorHandling?.birth_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
-            </label>
-
-           
-
-            <label htmlFor="age" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
-                Edad del alumno <span>*</span>
-                <InputText
-                    id="age"
-                    name="age"
-                    value={data?.identification_data?.age}
-                    required
-                    className='rounded-md w-full placeholder:font-normal'
-                    onChange={handleIdentificationData}
-                    placeholder="Ingrese la edad del alumno"
-                />
-                    {errorHandling?.age && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="address_street" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">

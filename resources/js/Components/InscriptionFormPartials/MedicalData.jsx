@@ -4,10 +4,6 @@ import { MainFormFieldset } from "./MainFormFieldset";
 import { useEffect } from "react";
 export const MedicalData = ({ data, setData , errorHandling,  information}) => {
 
-    useEffect(() => {
-        console.log(data.medical_data)
-    }, [data])
-
     const handleMedicalData = (e) => { 
 
         if (["student_disability", "medical_condition", "allergies"].includes(e.target.name) && e.target.value == "0") {
