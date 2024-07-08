@@ -11,4 +11,9 @@ class Level extends Model
     
     protected $fillable = ['name', 'description', 'status'];
 
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
 }

@@ -2,6 +2,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
+import { Calendar } from "primereact/calendar";
 
 
 
@@ -60,6 +61,7 @@ export const TutorData = ({ data, setData, errorHandling, information }) => {
                 <InputText
                     id="sLast_name"
                     name="sLast_name"
+                    dateFormat="yy-mm-dd"
                     value={data?.tutor_data?.sLast_name}
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleTutorData}
@@ -69,13 +71,15 @@ export const TutorData = ({ data, setData, errorHandling, information }) => {
 
             <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Fecha de nacimiento <span>*</span>
-                <InputText
-                    id="birth_date"
+                <Calendar
+                    inputId="birth_date"
                     name="birth_date"
+                    defaultValue={new Date()}
                     value={data?.tutor_data?.birth_date}
                     type='date'
                     required
-                    className='rounded-md w-full placeholder:font-normal'
+                    className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
+                    inputClassName="border-none outline-none h-full"
                     onChange={handleTutorData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
@@ -86,6 +90,7 @@ export const TutorData = ({ data, setData, errorHandling, information }) => {
                 <InputText
                     id="id_card"
                     name="id_card"
+                    pattern="[0-9]{9}-[0-9]"
                     value={data?.tutor_data?.id_card}
                     required
                     className='rounded-md w-full placeholder:font-normal'

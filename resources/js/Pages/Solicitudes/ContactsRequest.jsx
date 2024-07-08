@@ -52,6 +52,19 @@ export default function ContactsRequest({ auth, data }) {
 
     const handleSubmit = async (e, rowData) => {
 
+           const textToCopy = `http://${window.location.host}/InscriptionForm?card=${rowData.id_card}&contact=${rowData.key}`;
+           
+                navigator.clipboard.writeText(textToCopy)
+                  .then(() => {
+                    setAlert({ success: "Enlace copiado al portapapeles." });
+                  })
+                  .catch(err => {
+                    console.error('Error al copiar el texto: ', err);
+                  });
+              
+ 
+
+
         e.preventDefault();
         setSelectedItem(rowData);
         post(route("inscription.sent", rowData), {
@@ -60,7 +73,7 @@ export default function ContactsRequest({ auth, data }) {
                 const msj = page?.props?.message;
                 if (msj?.success && msj.whatsappLink) {
                     if (msj.whatsappLink) {
-                        setAlert(msj);
+                        //setAlert(msj);
                         window.open(msj.whatsappLink, '_blank');
                         setEnviado(true);
                     } else {
@@ -96,7 +109,7 @@ export default function ContactsRequest({ auth, data }) {
         if (rowData.status == 1) {
             return <span>Pendiente de Aprobación</span>;
         }
-        if (rowData.status == 2) {
+        if (rowData.status == 2 || rowData.status == 4) {
             return <button
                 onClick={(e) => handleSubmit(e, rowData)}
                 className="ms-2 cursor-pointer rounded-md hover:scale-105 bg-green-500 text-jewel-text py-1 px-2"
@@ -104,10 +117,11 @@ export default function ContactsRequest({ auth, data }) {
                 Enviar a Ws
             </button>;
         }
-        if (rowData.status == 3 || rowData.status == 4) {
+        if (rowData.status == 3 ) {
             return (
                 <div>
                     <Link
+                       
                         href={route("inscription.create", {
                             contact: rowData.key,
                             card: rowData.id_card,

@@ -38,6 +38,11 @@ Route::get('/enrollmentVerification', function () {
 
 
 Route::get('/', function () {
+
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    
     return Inertia::render('Index/index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
