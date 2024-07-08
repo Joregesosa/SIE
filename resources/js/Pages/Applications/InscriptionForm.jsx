@@ -261,7 +261,16 @@ const InscriptionForm = ({ msj, contact, information }) => {
             requiredFields[form_keys[step]],
             setErrorHandling
         );
-
+        if ('birth_date' in data[form_keys[step]]) {
+            const formattedDate = new Date(data[form_keys[step]].birth_date).toISOString().slice(0, 10);
+            setData(prevData => ({
+                ...prevData,
+                [form_keys[step]]: {
+                    ...prevData[form_keys[step]],
+                    birth_date: formattedDate
+                }
+            }));
+        }
         if (Object.keys(emptyFields).length === 0) {
             setStep(step + 1);
         }

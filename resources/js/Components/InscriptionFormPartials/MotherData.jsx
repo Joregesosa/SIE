@@ -74,7 +74,7 @@ export const MotherData = ({ data, setData, errorHandling, information }) => {
                 <Calendar
                     inputId="birth_date"
                     name="birth_date"
-                    defaultValue={new Date()}
+                    dateFormat="yy-mm-dd"
                     value={data?.mother_data?.birth_date}
                     type='date'
                     required

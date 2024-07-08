@@ -61,6 +61,7 @@ export const TutorData = ({ data, setData, errorHandling, information }) => {
                 <InputText
                     id="sLast_name"
                     name="sLast_name"
+                    dateFormat="yy-mm-dd"
                     value={data?.tutor_data?.sLast_name}
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleTutorData}

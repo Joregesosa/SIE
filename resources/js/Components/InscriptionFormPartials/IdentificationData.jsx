@@ -117,7 +117,7 @@ export const IdentificationData = ({ data, setData, errorHandling , information,
                     inputId="birth_date"
                     name="birth_date"
                     value={data?.identification_data?.birth_date}
-                    type='date'
+                    dateFormat="yy/mm/dd"
                     required
                     className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
                     inputClassName="border-none outline-none h-full"

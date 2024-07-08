@@ -76,6 +76,7 @@ export const FatherData = ({ data, setData, errorHandling, information }) => {
                     inputId="birth_date"
                     name="birth_date"
                     value={data?.father_data?.birth_date}
+                    dateFormat="yy-mm-dd"
                     type='date'
                     required
                     className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'

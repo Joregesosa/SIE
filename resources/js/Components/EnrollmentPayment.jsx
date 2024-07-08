@@ -13,7 +13,7 @@ export const EnrollmentPayment = ({ student, setStudent, handleSubmit,}) => {
 
     const handleChanges = (e) => {
         const { name, value } = e.target;
-        setData({
+        setStudent({
             ...student,
             [name]: value
         })
