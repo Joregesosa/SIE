@@ -153,4 +153,21 @@ Route::get('/subjects', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('subjects.index');
 
+Route::get('/grades', function () {
+    $gradesData = [
+        ['id' => 1, 'name' => 'John Doe', 'subject' => 'Matemáticas', 'grade' => 90, 'grade_level' => 'Primero', 'time_period' => 'Mensual'],
+        ['id' => 2, 'name' => 'John Doe', 'subject' => 'Artes', 'grade' => 'A', 'grade_level' => 'Primero', 'time_period' => 'Trimestral'],
+        ['id' => 3, 'name' => 'John Doe', 'subject' => 'Lengua', 'grade' => 85, 'grade_level' => 'Primero', 'time_period' => 'Semestral'],
+        ['id' => 4, 'name' => 'John Doe', 'subject' => 'Ciencias', 'grade' => 'B', 'grade_level' => 'Primero', 'time_period' => 'Mensual'],
+        ['id' => 5, 'name' => 'Jane Smith', 'subject' => 'Matemáticas', 'grade' => 92, 'grade_level' => 'Segundo', 'time_period' => 'Mensual'],
+        ['id' => 6, 'name' => 'Jane Smith', 'subject' => 'Artes', 'grade' => 'A', 'grade_level' => 'Segundo', 'time_period' => 'Trimestral'],
+        ['id' => 7, 'name' => 'Jane Smith', 'subject' => 'Lengua', 'grade' => 88, 'grade_level' => 'Segundo', 'time_period' => 'Semestral'],
+        ['id' => 8, 'name' => 'Jane Smith', 'subject' => 'Ciencias', 'grade' => 'B', 'grade_level' => 'Segundo', 'time_period' => 'Mensual'],
+    ];
+
+    return Inertia::render('Grades/Grades', [
+        'data' => $gradesData,
+    ]);
+})->middleware(['auth', 'verified'])->name('grades');
+
 require __DIR__ . '/auth.php';
