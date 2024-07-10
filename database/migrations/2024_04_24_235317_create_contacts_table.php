@@ -20,19 +20,25 @@ return new class extends Migration
             $table->string('fLast_name');
             $table->string('sLast_name');
             $table->string('id_card');
-            $table->integer('age');
+            $table->date('birth_date');
             $table->string('number');
             $table->string('email');
             $table->string('last_institution');
             $table->string('address');
             $table->string('father_names');
+            $table->string('father_id_card');
             $table->string('father_phone');
+            $table->unsignedBigInteger('father_phone_type');
             $table->string('father_occupation');
             $table->string('mother_names');
+            $table->string('mother_id_card');
             $table->string('mother_phone');
+            $table->unsignedBigInteger('mother_phone_type');
             $table->string('mother_occupation');
             $table->unsignedBigInteger('level_id');
             $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
+            $table->foreign('father_phone_type')->references('id')->on('phone_types')->onDelete('restrict');
+            $table->foreign('mother_phone_type')->references('id')->on('phone_types')->onDelete('restrict');
 
             $table->integer('status')->default(1);
             $table->timestamps();

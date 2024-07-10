@@ -8,6 +8,8 @@ import { Calendar } from "primereact/calendar";
 
 
 export const FatherData = ({ data, setData, errorHandling, information }) => {
+    console.log(data.father_data)
+
     const handleFatherData = (e) => {
         setData({ ...data, father_data: { ...data.father_data, [e.target.name]: e.target.value } })
     }
@@ -75,10 +77,11 @@ export const FatherData = ({ data, setData, errorHandling, information }) => {
                 <Calendar
                     inputId="birth_date"
                     name="birth_date"
-                    value={data?.father_data?.birth_date}
-                    dateFormat="yy-mm-dd"
+                    value={data?.father_data?.birth_date ? new Date(data?.father_data?.birth_date) : ""}
                     type='date'
                     required
+                    dateFormat="yy-mm-dd"
+                    maxDate={new Date()}
                     className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
                     inputClassName="border-none outline-none h-full"
                     onChange={handleFatherData}

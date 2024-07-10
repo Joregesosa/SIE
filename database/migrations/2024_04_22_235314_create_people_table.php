@@ -82,8 +82,8 @@ return new class extends Migration
             $table->unsignedBigInteger('person_id');
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
             $table->string('number');
-            $table->unsignedBigInteger('phone_type_id')->nullable();
-            $table->foreign('phone_type_id')->references('id')->on('phone_types')->onDelete('set null');
+            $table->unsignedBigInteger('phone_type_id')->default(1);
+            $table->foreign('phone_type_id')->references('id')->on('phone_types')->onDelete('restrict');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

@@ -14,12 +14,22 @@ import { FormHeader } from "@/Components/FormHeader";
 import { fieldVerifier } from "@/Helpers/Form.Verifier";
 import { Loading } from "@/Components/Loading";
 import { FormSubmitted } from "@/Components/FormSubmitted";
+import { locale, addLocale, updateLocaleOption, updateLocaleOptions, localeOption, localeOptions } from 'primereact/api';
+
 
 const InscriptionForm = ({ msj, contact, information }) => {
     
-
+    addLocale('es', {
+        firstDayOfWeek: 1,
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        today: 'Hoy',
+        clear: 'Limpiar',
+    });
    
-
     const cleanData = {
         contact_id: contact?.id || "",
         identification_data: {
@@ -28,40 +38,48 @@ const InscriptionForm = ({ msj, contact, information }) => {
             second_name: contact?.second_name || "",
             sLast_name: contact?.sLast_name || "",
             fLast_name: contact?.fLast_name || "",
-            birth_date: "",
+            birth_date: contact?.birth_date || "",
             birth_place: "",
             id_card: contact?.id_card || "",
             sector: "",
-            age: "",
             address_street: contact?.address || "",
             number: contact?.number || "",
             reference: "",
         },
         mother_data: {
-            birth_date: "",
-            email: "",
-            fLast_name: contact?.sLast_name || "",
-            first_name: contact?.mother_names.split(" ")[0] || "",
-            education_level_id: "",
-            marital_status_id: "",
+            id_card:  contact?.mother_id_card || "",
+            birth_date: contact?.mother?.person.birth_date || "",
+            email: contact?.mother?.email || "",
+            fLast_name: contact.mother.person.fLast_name  ||contact?.sLast_name || "",
+            first_name: contact.mother.person.first_name  || contact?.mother_names.split(" ")[0] || "",
+            education_level_id: contact?.mother?.education_level_id || "",
+            marital_status_id: contact?.mother.marital_status_id || "",
             number: contact?.mother_phone || "",
-            profession: contact?.mother_occupation || "",
-            sLast_name: "",
-            second_name: "",
-            work_place: "",
+            phone_type_id: contact?.mother?.phone_type_id || 1,
+            profession: contact?.mother?.profession ||  contact?.mother_occupation || "",
+            sLast_name: contact.mother?.person.sLast_name || "",
+            second_name: contact.mother?.person.second_name || "",
+            work_place: contact?.mother?.work_place || "",
+            birth_place: contact?.mother?.person.birth_place || "",
+            income: contact?.mother?.incomes || "",
         },
+        
         father_data: {
-            birth_date: "",
-            email: "",
-            fLast_name: contact?.fLast_name || "",
-            first_name: contact?.father_names.split(" ")[0] || "",
-            education_level_id: "",
-            marital_status_id: "",
+            id_card: contact?.father_id_card || "",
+            birth_date: contact.father?.person.birth_date || "",
+            email: contact?.father?.email || "",
+            fLast_name: contact.father.person.fLast_name || contact?.sLast_name || "",
+            first_name: contact.father.person.first_name || contact?.father_names.split(" ")[0] || "",
+            education_level_id: contact?.father?.education_level_id || "",
+            marital_status_id: contact?.father.marital_status_id || "",
             number: contact?.father_phone || "",
-            profession: contact?.father_occupation || "",
-            sLast_name: "",
-            second_name: "",
-            work_place: "",
+            phone_type_id: contact?.father?.phone_type_id || 1,
+            profession: contact?.father?.profession || contact?.father_occupation || "",
+            sLast_name: contact.father?.person.sLast_name || "",
+            second_name: contact.father?.person.second_name || "",
+            work_place: contact?.father?.work_place || "",
+            birth_place: contact?.father?.person.birth_place || "",
+            income: contact?.father?.incomes || "",
         },
         tutor_data: {
             birth_date: "",
@@ -83,9 +101,9 @@ const InscriptionForm = ({ msj, contact, information }) => {
             disability_description: "",
         },
         financial_references: {
-            father_incomes: "",
+            father_incomes: contact?.father?.incomes || "",
             living_description: "",
-            mother_incomes: "",
+            mother_incomes: contact?.mother?.incomes || "",
             other_incomes: "",
             type_house_id: "",
             expenditure: "",
@@ -135,7 +153,10 @@ const InscriptionForm = ({ msj, contact, information }) => {
             walking_age: "",
         },
     };
-       
+
+
+  
+   
     const Parents_data = [ "mother_data","father_data", "tutor_data"];
 
     const [title, setTitle] = useState(contact?.status == 2 ? "¡Esta solicitud aun no se ah enviado al aspirante!" : contact?.status == 3 ? "¡Gracias por su inscripción!" : !contact ?  "Esta Solicitud no existe": "Esta solicitud ya ha sido enviada");
@@ -149,6 +170,7 @@ const InscriptionForm = ({ msj, contact, information }) => {
 
     const [alert, setAlert] = useState(null);
 
+   
  
     const handleSubmit = (e) => {
         

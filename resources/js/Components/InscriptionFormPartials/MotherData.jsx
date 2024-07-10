@@ -4,10 +4,14 @@ import PropTypes from 'prop-types';
 import { MainFormFieldset } from "./MainFormFieldset";
 import { info } from "autoprefixer";
 import { Calendar } from "primereact/calendar";
+import { format } from 'date-fns';
 
 
 
 export const MotherData = ({ data, setData, errorHandling, information }) => {
+
+    console.log(data.mother_data)
+
     const handleMotherData = (e) => {
         setData({ ...data, mother_data: { ...data.mother_data, [e.target.name]: e.target.value } })
     }
@@ -75,9 +79,10 @@ export const MotherData = ({ data, setData, errorHandling, information }) => {
                     inputId="birth_date"
                     name="birth_date"
                     dateFormat="yy-mm-dd"
-                    value={data?.mother_data?.birth_date}
+                    value={data?.mother_data?.birth_date ? new Date(data?.mother_data?.birth_date) : ""}
                     type='date'
                     required
+                    maxDate={new Date()}
                     className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
                     inputClassName="border-none outline-none h-full"
                     onChange={handleMotherData}

@@ -8,7 +8,9 @@ import { Calendar } from "primereact/calendar";
 
 export const IdentificationData = ({ data, setData, errorHandling , information, disable }) => {
  
-    
+
+   
+
     const handleIdentificationData = (e) => {
         setData({ ...data, identification_data: { ...data.identification_data, [e.target.name]: e.target.value } })
     }
@@ -117,9 +119,11 @@ export const IdentificationData = ({ data, setData, errorHandling , information,
                 <Calendar
                     inputId="birth_date"
                     name="birth_date"
-                    value={data?.identification_data?.birth_date}
-                    dateFormat="yy/mm/dd"
+                    value={data?.identification_data?.birth_date ? new Date(data?.identification_data?.birth_date) : ""}
+                    type='date'
                     required
+                    locale="es"
+                    dateFormat="yy-mm-dd"
                     className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden border border-gray-500'
                     inputClassName="border-none outline-none h-full"
                     onChange={handleIdentificationData}

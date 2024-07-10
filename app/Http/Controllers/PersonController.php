@@ -41,7 +41,7 @@ class PersonController extends Controller
 
            return Inertia::render('Applications/InscriptionForm', [
 
-                'contact' => Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->where('status', '>', 1)->firstOrFail(),
+                'contact' => Contact::where('key', $request->input('contact'))->where('id_card', $request->input('card'))->where('status', '>', 1)->firstOrFail()->load('father','mother'),
                 'information'  => [
                     'levels' => Level::all(),
                     'marital_status' => MaritalStatus::all(),
@@ -57,12 +57,10 @@ class PersonController extends Controller
             ]);
         } catch (ModelNotFoundException $e) {
             return Inertia::render('Applications/InscriptionForm', [
-
                 'contact' =>  null,
-
             ]);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error en la acción realizada'], 500);
+            return response()->json(['error' => 'Error en la acción realizada'.$e], 500);
         }
     }
 
@@ -217,11 +215,20 @@ class PersonController extends Controller
                 $parent['address_street'] = $request->identification_data['address_street'];
                 $parent['sector'] = $request->identification_data['sector'];
 
-                $person_parent = Person::create($parent);
+                $person_parent = Person::updateOrCreate(
+                    ['id_card' => $parent['id_card']],
+                    $parent
+                );
+
                 $parent['person_id'] = $person_parent->id;
 
-                Phone::create($parent);
-                $familiar = Parents::create($parent);
+                Phone::updateOrCreate(['person_id' => $person_parent->id,
+                'phone_type_id' => $parent['phone_type_id']], $parent);
+
+                $familiar = Parents::updateOrCreate(
+                    ['person_id' => $person_parent->id], 
+                    $parent 
+                );
 
                 if ($index == 0) {
                     $student->father_id = $familiar->id;

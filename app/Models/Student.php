@@ -26,8 +26,6 @@ class Student extends Model
         'family_structure_id',
         'status_id',
         'disability_description',
-        'father_incomes',
-        'mother_incomes',
         'other_incomes',
         'expenditure',
         'type_house_id',

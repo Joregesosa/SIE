@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(LevelSeeder::class);
 
         DB::table('phone_types')->insert([
-            ['name' => 'Casa'],
             ['name' => 'Celular'],
+            ['name' => 'Casa'],
             ['name' => 'Trabajo'],
             ['name' => 'Otro']
         ]);

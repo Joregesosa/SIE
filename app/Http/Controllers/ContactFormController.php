@@ -21,7 +21,7 @@ class ContactFormController extends Controller
 
     public function store(Request $request)
     {
-
+     
         try {
             Request()->merge(['key' =>  bin2hex(random_bytes(10))]);
 
@@ -31,6 +31,7 @@ class ContactFormController extends Controller
                     'email' => 'required|email',
                     'level_id' => 'required|exists:levels,id',
                     'id_card' => 'required|unique:contacts',
+                    'birth_date' => 'required|date',
                 ],
                 [
                     'email.required' => 'Es necesario proporcionar un correo electrónico',
@@ -39,17 +40,22 @@ class ContactFormController extends Controller
                     'level_id.exists' => 'El nivel seleccionado no existe',
                     'id_card.required' => 'Es necesario proporcionar el numero de cédula',
                     'id_card.unique' => 'Ya existe un registro con el mismo numero de cédula',
+                    'birth_date.required' => 'Es necesario proporcionar la fecha de nacimiento',
+                    'birth_date.date' => 'La fecha de nacimiento proporcionada no es valida',
                 ]
             );
 
             if ($validator->fails()) {
                 return back()->withErrors(['error' => array_values($validator->errors()->messages())]);
             }
-
+          
 
             Contact::create($request->all());
             return redirect()->route('contact.create')->with('msj', ['success' => "El Formulario fue enviado satisfactoriamente"], 200);
         } catch (QueryException $e) {
+
+           
+
             // Manejar los errores de SQL
             $errorCode = $e->errorInfo[1];
 
@@ -69,8 +75,9 @@ class ContactFormController extends Controller
 
             $errorMessage = $errorMessage . " Error en el campo '{$errorField}': ";
 
-            // Redirection con el mensaje de error personalizado
-            return back()->with('msj', ['error' => $errorMessage]);
+
+            return back()->withErrors(['error' => $errorMessage]);
+            
         }
     }
 

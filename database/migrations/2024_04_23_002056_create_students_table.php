@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('address_street');
             $table->string('sector');
             $table->string('siblings')->nullable();
+            
             $table->unsignedBigInteger('father_id')->nullable();
             $table->foreign('father_id')->references('id')->on('parents')->onDelete('set null');
             $table->unsignedBigInteger('mother_id')->nullable();
@@ -50,8 +51,6 @@ return new class extends Migration
             $table->string('disability_description')->nullable();
 
             /*REFERENCIAS SOCIOECONÓMICAS GENERALES*/
-            $table->integer('father_incomes')->nullable()->default(0);
-            $table->integer('mother_incomes')->nullable()->default(0);
             $table->integer('other_incomes')->nullable()->default(0);
             $table->integer('expenditure')->nullable()->default(0);
             $table->unsignedBigInteger('type_house_id')->nullable();
