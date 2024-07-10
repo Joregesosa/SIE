@@ -7,11 +7,10 @@
  */
 export function fieldVerifier(obj, requiredFields, callback) {
 
-
     const emptyFields = {};
     for (const iterator of requiredFields) {
 
-        
+     
 
         if (iterator == "student_disability_details" && obj["student_disability"] == "0") {
             continue;
@@ -22,13 +21,7 @@ export function fieldVerifier(obj, requiredFields, callback) {
         if (iterator == "allergies_details" && obj["allergies"] == "0") {
             continue;
         }
-        if (iterator == "father_incomes" && obj["father_data"] == null) {
-            continue;
-        }
-        if (iterator == "mother_incomes" && obj["mother_data"] == null) {
-            continue;
-        }
-
+      
        
         if (!obj[iterator]) {
             emptyFields[iterator] = true;

@@ -11,8 +11,12 @@ export const FinancialReferences = ({
     information,
 }) => {
     const handleFinancialReferences = (e) => {
-        console.log(e.target.name )
+
+                
         if (e.target.name === "father_incomes") {
+            if (data?.father_data) {
+               
+           
             setData({
                 ...data,
                 financial_references: {
@@ -21,7 +25,11 @@ export const FinancialReferences = ({
                 },
                 father_data: { ...data.father_data, income: e.target.value },
             });
+        }
         } else if (e.target.name === "mother_incomes") {
+            if (data?.mother_data) {
+               
+           
             setData({
                 ...data,
                 financial_references: {
@@ -30,6 +38,7 @@ export const FinancialReferences = ({
                 },
                 mother_data: { ...data.mother_data, income: e.target.value },
             });
+        }
         } else {
             setData({
                 ...data,
@@ -40,7 +49,9 @@ export const FinancialReferences = ({
             });
         }
     };
-   
+    
+
+
     return (
         <MainFormFieldset
             legend="REFERENCIAS SOCIOECONÓMICAS GENERALES"

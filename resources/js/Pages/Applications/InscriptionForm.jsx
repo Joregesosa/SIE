@@ -170,7 +170,7 @@ const InscriptionForm = ({ msj, contact, information }) => {
     const [sended, setSended] = useState(contact?.status != 3);
 
     const [alert, setAlert] = useState(null);
-    console.log(data)
+   
     
     const handleSubmit = (e) => {
         
@@ -275,6 +275,9 @@ const InscriptionForm = ({ msj, contact, information }) => {
         ),
     };
 
+    console.log(data)
+
+
     const form_keys = Object.keys(forms);
 
     useEffect(() => {
@@ -305,6 +308,16 @@ const InscriptionForm = ({ msj, contact, information }) => {
                 }
             }));
         }
+
+        if (Object.keys(emptyFields).includes("father_incomes") && !data.father_data) {
+            delete emptyFields["father_incomes"];
+        }
+
+        if (Object.keys(emptyFields).includes("mother_incomes") && !data.mother_data) {
+            delete emptyFields["mother_incomes"];
+            
+        }
+
         if (Object.keys(emptyFields).length === 0) {
             setStep(step + 1);
         }
