@@ -3,11 +3,14 @@ import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
 import { Calendar } from "primereact/calendar";
+import InputPhoneType from "../InputPhoneType";
+import InputCalendar from "../InputCalendar";
 
 
 
 
 export const FatherData = ({ data, setData, errorHandling, information }) => {
+
     const handleFatherData = (e) => {
         setData({ ...data, father_data: { ...data.father_data, [e.target.name]: e.target.value } })
     }
@@ -72,15 +75,17 @@ export const FatherData = ({ data, setData, errorHandling, information }) => {
 
             <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Fecha de nacimiento <span>*</span>
-                <Calendar
+                <InputCalendar
                     inputId="birth_date"
                     name="birth_date"
-                    value={data?.father_data?.birth_date}
-                    dateFormat="yy-mm-dd"
+                    value={data?.father_data?.birth_date }
                     type='date'
                     required
-                    className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
-                    inputClassName="border-none outline-none h-full"
+                    locale="es"
+                    dateFormat="yy-mm-dd"
+                    maxDate={new Date()}
+                    className=' w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
+                    inputClassName="rounded-md outline-none h-full"
                     onChange={handleFatherData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
@@ -113,7 +118,7 @@ export const FatherData = ({ data, setData, errorHandling, information }) => {
                     optionValue="id"
                     placeholder="Seleccione un estado civil"
                     filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                    className="flex items-center border h-[42px] border-gray-500 flex-grow rounded-md" />
                 {errorHandling?.marital_status_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
@@ -129,7 +134,7 @@ export const FatherData = ({ data, setData, errorHandling, information }) => {
                     optionValue="id"
                     placeholder="Seleccione un nivel de instrucción"
                     filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                    className="flex items-center border h-[42px] border-gray-500 flex-grow rounded-md"  />
                 {errorHandling?.education_level_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
@@ -164,19 +169,21 @@ export const FatherData = ({ data, setData, errorHandling, information }) => {
                 {errorHandling?.work_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="number" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="phone" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Teléfono de contacto <span>*</span>
-                <InputText
-                    id="number"
-                    name="number"
-                    value={data?.father_data?.number}
-                    type='tel'
+                 <InputPhoneType
+                    tel_id="phone"
+                    tel_name="phone"
+                    tel_value={data?.father_data?.phone}
                     required
-                    className='rounded-md w-full placeholder:font-normal'
+                    placeholder="Ingrese el número de teléfono"
+                    type_id="phone_type_id"
+                    type_name="phone_type_id"
+                    type_value={data?.father_data?.phone_type_id}
+                    className="rounded-md w-full placeholder:font-normal"
                     onChange={handleFatherData}
-                    placeholder="Ingrese la fecha de nacimiento"
                 />
-                {errorHandling?.number && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                {errorHandling?.phone && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="email" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">

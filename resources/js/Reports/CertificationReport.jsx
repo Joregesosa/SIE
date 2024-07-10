@@ -29,7 +29,7 @@ export default function CertificationReport({ data }) {
                 </View>
                 <View style={styles.field_container}>
                     <Text style={styles.label}>Teléfono celular:</Text>
-                    <Text style={styles.value}>{data?.identification_data?.number}</Text>
+                    <Text style={styles.value}>{data?.identification_data?.phone}</Text>
                 </View>
                 <View style={styles.field_container}>
                     <Text style={styles.label}>Fecha de nacimiento:</Text>

@@ -148,7 +148,6 @@ export default function ContactsRequest({ auth, data }) {
     };
 
     const selectStudent = (rowData) => {
-        console.log(rowData);
           setData({
             ...data,
             contact_id: rowData.id,

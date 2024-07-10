@@ -45,7 +45,7 @@ export default function Groups({ auth, data}) {
 
                 <Column field='email' header='Email' sortable className='py-0 truncate max-w-64' />
 
-                <Column field='number' header='Teléfono' sortable className='py-0' />
+                <Column field='phone' header='Teléfono' sortable className='py-0' />
 
 
             </DataTable>

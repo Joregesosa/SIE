@@ -18,16 +18,21 @@ class Contact extends Model
         'fLast_name',
         'sLast_name',
         'id_card',
-        'number',
-        'age',
+        'phone',
+        'phone_type_id',
+        'birth_date',
         'email',
         'last_institution',
         'address',
         'father_names',
+        'father_id_card',
         'father_phone',
+        'father_phone_type_id',
         'father_occupation',
         'mother_names',
+        'mother_id_card',
         'mother_phone',
+        'mother_phone_type_id',
         'mother_occupation',
         'level_id',
         'key',
@@ -44,4 +49,16 @@ class Contact extends Model
     {
         return $this->belongsTo(Level::class, 'level_id');
     }
+
+       
+    public function father()
+    {
+        return $this->hasOneThrough(Parents::class, Person::class, 'id_card', 'person_id', 'father_id_card', 'id');
+    }
+
+    public function mother()
+    {
+        return $this->hasOneThrough(Parents::class, Person::class, 'id_card', 'person_id', 'mother_id_card', 'id');
+    }
+
 }

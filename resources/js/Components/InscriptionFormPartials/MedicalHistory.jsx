@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { MainFormFieldset } from "./MainFormFieldset";
 import { Dropdown } from "primereact/dropdown";
 import Checkbox from "../Checkbox";
+import { InputNumber } from "primereact/inputnumber";
 export const MedicalHistory = ({ data, setData, errorHandling, information }) => {
     const handleAcademicData = (e) => {
         const new_medical_history = { ...data };
@@ -17,11 +18,12 @@ export const MedicalHistory = ({ data, setData, errorHandling, information }) =>
                 new_medical_history.medical_history.family_medical_history = JSON.stringify(nmh);
             }
             setData(new_medical_history);
-            console.log(new_medical_history)
             return;
         }
         setData({ ...data, medical_history: { ...data.medical_history, [e.target.name]: e.target.value }, });
     };
+
+    console.log(data.medical_history)
 
     return (
         <MainFormFieldset
@@ -118,14 +120,18 @@ export const MedicalHistory = ({ data, setData, errorHandling, information }) =>
                 className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
             >
                 Peso al nacer
-                <InputText
+                <InputNumber
                     id="birth_weight"
                     name="birth_weight"
                     value={data?.medical_history?.birth_weight}
                     className="rounded-md w-full"
-                    onChange={handleAcademicData}
+                    inputClassName="rounded-md w-full"
+                    onValueChange={handleAcademicData}
                     placeholder="Peso al nacer"
+                     suffix=" Kg"
                 />
+
+              
                 {errorHandling?.birth_weight && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
