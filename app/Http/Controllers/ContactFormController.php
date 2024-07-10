@@ -122,7 +122,7 @@ class ContactFormController extends Controller
                 'sLast_name' => 'required',
                 'id_card' => 'required',
                 'age' => 'required',
-                'number' => 'required',
+                'phone' => 'required',
                 'email' => 'required',
                 'last_institution' => 'required',
                 'address' => 'required',

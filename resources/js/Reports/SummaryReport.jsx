@@ -24,7 +24,7 @@ export default function SummaryReport({ data }) {
                 </View>
                 <View style={styles.field_container}>
                     <Text style={styles.label}>Teléfono celular:</Text>
-                    <Text style={styles.value}>{data?.identification_data?.number}</Text>
+                    <Text style={styles.value}>{data?.identification_data?.phone}</Text>
                 </View>
                 <View style={styles.field_container}>
                     <Text style={styles.label}>Fecha de nacimiento:</Text>
@@ -60,7 +60,7 @@ export default function SummaryReport({ data }) {
                 </View>
                 <View style={styles.field_container}>
                     <Text style={styles.label}>Teléfonos:</Text>
-                    <Text style={styles.value}>{data?.mother_data?.number}</Text>
+                    <Text style={styles.value}>{data?.mother_data?.phone}</Text>
                 </View>
                 <View style={styles.field_container}>
                     <Text style={styles.label}>Fecha de nacimiento:</Text>
@@ -96,7 +96,7 @@ export default function SummaryReport({ data }) {
                 </View>
                 <View style={styles.field_container}>
                     <Text style={styles.label}>Teléfonos:</Text>
-                    <Text style={styles.value}>{data?.father_data?.number}</Text>
+                    <Text style={styles.value}>{data?.father_data?.phone}</Text>
                 </View>
                 <View style={styles.field_container}>
                     <Text style={styles.label}>Fecha de nacimiento:</Text>

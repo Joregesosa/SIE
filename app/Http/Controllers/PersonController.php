@@ -68,8 +68,10 @@ class PersonController extends Controller
     {
 
 
+      
+
         $validator = validator($request->all(), [
-            'identification_data.id_card' => 'unique:people,id_card',
+            'identification_data.id_card' => 'required|unique:people,id_card',
             /*  
             'identification_data.first_name' => 'required|string',
             'identification_data.second_name' => 'required|string',
@@ -78,16 +80,16 @@ class PersonController extends Controller
             'identification_data.birth_date' => 'required|date',
             'identification_data.birth_place' => 'string',
          
-            'identification_data.telefonos.*.number' => 'required|string',
-            'identification_data.telefonos.*.phone_type_id' => 'required|exists:phone_types,id',
+            'identification_data.telefonos.*.phone' => 'required|string',
+            'identification_data.telefonos.*.phone_type_id' => 'required|exists:phone_type_ids,id',
             'parents.*.first_name' => 'required|string',
             'parents.*.second_name' => 'required|string',
             'parents.*.fLast_name' => 'required|string',
             'parents.*.sLast_name' => 'required|string',
             'parents.*.birth_date' => 'required|date',
             'parents.*.id_card' => 'unique:people,id_card',
-            'parents.*.telefonos.*.number' => 'required|string',
-            'parents.*.telefonos.*.phone_type_id' => 'required|exists:phone_types,id',
+            'parents.*.telefonos.*.phone' => 'required|string',
+            'parents.*.telefonos.*.phone_type_id' => 'required|exists:phone_type_ids,id',
             'parents.*.parent_type_id' => 'required|exists:parent_types,id',
             'student_id' => 'required|exists:students,id',
             'address' => 'string',
@@ -152,6 +154,7 @@ class PersonController extends Controller
             'identification_data.sLast_name.required' => 'El segundo apellido es obligatorio.',
             'identification_data.birth_date.required' => 'La fecha de nacimiento es obligatoria.',
             'identification_data.id_card.unique' => 'La cédula ya está registrada.',
+            'identification_data.id_card.required' => 'La cédula es obligatoria.',
         ]);
 
 
@@ -202,7 +205,7 @@ class PersonController extends Controller
 
 
             Request()->merge(['student_id' => $student->id]);
-
+            
 
             /*RELACIÓN PADRES O TUTORES*/
             foreach ([$request->father_data, $request->mother_data, $request->tutor_data] as  $index => $parent) {
@@ -288,7 +291,7 @@ class PersonController extends Controller
             $whatsappMessage = "Estimado(a) {$request->first_name} {$request->second_name} {$request->fLast_name} {$request->sLast_name},\n\nHemos recibido su solicitud de inscripción y nos complace informarle que ha sido aprobada. Puede acceder al formulario de inscripción a través del siguiente enlace: \n{$url} \n\nSaludos cordiales.";
 
             //eliminar todos los espacios en blanco y simbolos , solo dejar numeros
-            $phone = preg_replace('/[^0-9]/', '', $request->father_phone ?? $request->mother_phone ?? $request->number);
+            $phone = preg_replace('/[^0-9]/', '', $request->father_phone ?? $request->mother_phone ?? $request->phone);
             if (!$phone) {
                 throw new \Exception('No se ha proporcionado un número de teléfono válido.');
             }
@@ -340,7 +343,7 @@ class PersonController extends Controller
                 'sLast_name' => 'required',
                 'id_card' => 'required',
                 'age' => 'required',
-                'number' => 'required',
+                'phone' => 'required',
                 'email' => 'required',
                 'last_institution' => 'required',
                 'address' => 'required',

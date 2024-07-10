@@ -2,6 +2,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import PropTypes from "prop-types";
 import { MainFormFieldset } from "./MainFormFieldset";
+import { InputNumber } from "primereact/inputnumber";
 
 export const FinancialReferences = ({
     data,
@@ -10,6 +11,7 @@ export const FinancialReferences = ({
     information,
 }) => {
     const handleFinancialReferences = (e) => {
+        console.log(e.target.name )
         if (e.target.name === "father_incomes") {
             setData({
                 ...data,
@@ -38,47 +40,32 @@ export const FinancialReferences = ({
             });
         }
     };
-
+   
     return (
         <MainFormFieldset
             legend="REFERENCIAS SOCIOECONÓMICAS GENERALES"
             description="Ingresos/egresos de los miembros de la familia, Condición de la vivienda, Servicios"
         >
-            <label
-                htmlFor="father_incomes"
-                className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
-            >
-                Ingresos de Padre <span>*</span>
-                <InputText
-                    id="father_incomes"
-                    name="father_incomes"
-                    value={data?.father_data?.income}
-                    type="number"
-                    required
-                    className="rounded-md w-full placeholder:font-normal"
-                    onChange={handleFinancialReferences}
-                    placeholder="Ingresos de Padre"
-                />
-                {errorHandling?.father_incomes && (
-                    <span className="text-red-500 text-xs">
-                        Este campo es requerido
-                    </span>
-                )}
-            </label>
+           
             <label
                 htmlFor="mother_incomes"
                 className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
             >
                 Ingresos de Madre <span>*</span>
-                <InputText
+                <InputNumber
+                    disabled={data?.mother_data ? false : true}
+                    mode="currency"
+                    currency="USD"
+                    inputId="integeronly"
                     id="mother_incomes"
                     name="mother_incomes"
+                    maxFractionDigits={0}
                     value={data?.mother_data?.income}
-                    type="number"
                     required
-                    className="rounded-md w-full placeholder:font-normal"
-                    onChange={handleFinancialReferences}
-                    placeholder="Ingresos de Madre"
+                    className="rounded-md  w-full placeholder:font-normal  "
+                    inputClassName="rounded-md  w-full placeholder:font-normal  "
+                    onValueChange={handleFinancialReferences}
+                    placeholder="Ingresos de la Madre"
                 />
                 {errorHandling?.mother_incomes && (
                     <span className="text-red-500 text-xs">
@@ -87,20 +74,51 @@ export const FinancialReferences = ({
                 )}
             </label>
             <label
+                htmlFor="father_incomes"
+                className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
+            >
+                Ingresos de Padre <span>*</span>
+                <InputNumber
+                    disabled={data?.father_data ? false : true}
+                    mode="currency"
+                    currency="USD"
+                    inputId="integeronly"
+                    maxFractionDigits={0}
+                    required
+                    className="rounded-md  w-full placeholder:font-normal  "
+                    inputClassName="rounded-md  w-full placeholder:font-normal  "
+                    onValueChange={handleFinancialReferences}
+                    id="father_incomes"
+                    name="father_incomes"
+                    value={data?.father_data?.income}
+                    placeholder="Ingresos de Padre"
+                />
+                {errorHandling?.father_incomes && (
+                    <span className="text-red-500 text-xs">
+                        Este campo es requerido
+                    </span>
+                )}
+            </label>
+              <label
                 htmlFor="other_incomes"
                 className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
             >
                 Otros Ingresos <span>*</span>
-                <InputText
+                 <InputNumber 
+                    mode="currency"
+                     currency="USD" 
                     id="other_incomes"
                     name="other_incomes"
+                    inputId="integeronly"
+                    maxFractionDigits={0}
                     value={data?.financial_references?.other_incomes}
-                    type="number"
                     required
-                    className="rounded-md w-full placeholder:font-normal"
-                    onChange={handleFinancialReferences}
-                    placeholder="Otros Ingresos"
+                    className="rounded-md  w-full placeholder:font-normal  "
+                    inputClassName="rounded-md  w-full placeholder:font-normal  "
+                    onValueChange={handleFinancialReferences}
+                     placeholder="Otros Ingresos"
                 />
+
                 {errorHandling?.other_incomes && (
                     <span className="text-red-500 text-xs">
                         Este campo es requerido
@@ -112,15 +130,20 @@ export const FinancialReferences = ({
                 className="mt-2 font-bold text-xs col-span-2 md:col-span-1"
             >
                 Total de Egresos <span>*</span>
-                <InputText
+               
+                 <InputNumber 
+                    mode="currency"
+                     currency="USD" 
                     id="expenditure"
                     name="expenditure"
+                    inputId="integeronly"
+                    maxFractionDigits={0}
                     value={data?.financial_references?.expenditure}
-                    type="number"
                     required
-                    className="rounded-md w-full placeholder:font-normal"
-                    onChange={handleFinancialReferences}
-                    placeholder="Total de Egresos"
+                    className="rounded-md  w-full placeholder:font-normal  "
+                    inputClassName="rounded-md  w-full placeholder:font-normal  "
+                    onValueChange={handleFinancialReferences}
+                       placeholder="Total de Egresos"
                 />
                 {errorHandling?.expenditure && (
                     <span className="text-red-500 text-xs">
@@ -144,7 +167,7 @@ export const FinancialReferences = ({
                     options={information.type_houses}
                     placeholder="Condición de la vivienda"
                     filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow"
+                    className="flex rounded-md items-center border h-[42px] border-gray-500 flex-grow"
                 />
                 {errorHandling?.type_house_id && (
                     <span className="text-red-500 text-xs">
@@ -165,7 +188,7 @@ export const FinancialReferences = ({
                     value={data?.financial_references?.living_description}
                     type="text"
                     required
-                    className="rounded-md w-full placeholder:font-normal"
+                    className="rounded-md font-normal w-full placeholder:font-normal"
                     onChange={handleFinancialReferences}
                     placeholder="Descripción de la vivienda"
                 />
@@ -174,7 +197,7 @@ export const FinancialReferences = ({
                         Este campo es requerido
                     </span>
                 )}
-            </label>
+            </label> 
         </MainFormFieldset>
     );
 };

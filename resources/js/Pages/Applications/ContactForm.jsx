@@ -72,7 +72,6 @@ const ContactForm = ({ levels }) => {
     const handleChanges = (e) => {
         
         if(e.target.id === 'birth_date'){
-            console.log(format(new Date(e.target.value), 'yyyy-MM-dd'));
             setData(e.target.id, format(new Date(e.target.value), 'yyyy-MM-dd'));
             return; 
         }
@@ -253,26 +252,26 @@ const ContactForm = ({ levels }) => {
                             )}
                         </label>
 
-                        <label htmlFor="number" className="font-bold text-sm">
+                        <label htmlFor="phone" className="font-bold text-sm">
                             Número de teléfono <span>*</span>
 
 
                             <InputPhoneType
-                                tel_id="number"
-                                tel_name="number"
-                                tel_value={data?.number}
+                                tel_id="phone"
+                                tel_name="phone"
+                                tel_value={data?.phone}
                                 required
                                 placeholder="Ingrese el número de teléfono"
 
-                                type_id="number_type"
-                                type_name="number_type"
-                                type_value={data?.number_type}
+                                type_id="phone_type_id"
+                                type_name="phone_type_id"
+                                type_value={data?.phone_type_id}
 
                                 className="rounded-md w-full"
                                 onChange={handleChanges}
                             />
 
-                            {errorHandling?.number && (
+                            {errorHandling?.phone && (
                                 <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
@@ -439,9 +438,9 @@ const ContactForm = ({ levels }) => {
                                 required
                                 placeholder="Ingrese el número de teléfono del padre"
 
-                                type_id="father_phone_type"
-                                type_name="father_phone_type"
-                                type_value={data?.father_phone_type}
+                                type_id="father_phone_type_id"
+                                type_name="father_phone_type_id"
+                                type_value={data?.father_phone_type_id}
 
                                 className="rounded-md w-full"
                                 onChange={handleChanges}
@@ -531,9 +530,9 @@ const ContactForm = ({ levels }) => {
                                 required
                                 placeholder="Ingrese el número de teléfono de la madre"
 
-                                type_id="mother_phone_type"
-                                type_name="mother_phone_type"
-                                type_value={data?.mother_phone_type}
+                                type_id="mother_phone_type_id"
+                                type_name="mother_phone_type_id"
+                                type_value={data?.mother_phone_type_id}
 
                                 className="rounded-md w-full"
                                 onChange={handleChanges}

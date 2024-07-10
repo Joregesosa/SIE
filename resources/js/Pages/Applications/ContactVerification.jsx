@@ -180,13 +180,13 @@ export default function ContactVerification({ auth, data: dataprop, msj }) {
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent text-sm h-9'
                     />
                 </label>
-                <label htmlFor="number" className="font-bold text-xs col-span-4">
+                <label htmlFor="phone" className="font-bold text-xs col-span-4">
                     Número de teléfono
                     <InputText
-                        id="number"
+                        id="phone"
                         type='tel'
                         pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                        value={data?.number}
+                        value={data?.phone}
                         readOnly
                         className='rounded-sm w-full border-b-2 border-x-0 border-t-0 bg-transparent text-sm h-9'
                     />
