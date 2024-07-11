@@ -1,6 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
+import InputCalendar from "../InputCalendar";
 
 export const AcademicData = ({ data, setData, errorHandling }) => {
     const handleAcademicData = (e) => {
@@ -21,15 +22,17 @@ export const AcademicData = ({ data, setData, errorHandling }) => {
             >
                 Fecha de ingreso a la institución por primera vez
                 <span>*</span>
-                <InputText
-                    id="entry_date"
+               <InputCalendar
+                    inputId="entry_date"
                     name="entry_date"
-                    value={data?.academic_data?.entry_date}
-                    type="date"
+                    defaultValue={new Date()}
+                    value={data?.academic_data?.entry_date || new Date()}
+                    type='date'
                     required
-                    className='rounded-md w-full placeholder:font-normal'
+                    className=' w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
+                    inputClassName="rounded-md outline-none h-full"
                     onChange={handleAcademicData}
-                    placeholder="Entry Date"
+                    placeholder="Ingrese la fecha de ingreso a la institución por primera vez"
                 />
                 {errorHandling?.entry_date && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
@@ -43,7 +46,7 @@ export const AcademicData = ({ data, setData, errorHandling }) => {
                     id="previous_institution"
                     name="previous_institution"
                     value={data?.academic_data?.previous_institution}
-                    className='rounded-md w-full placeholder:font-normal'
+                    className='rounded-md  w-full placeholder:font-normal'
                     onChange={handleAcademicData}
                     placeholder="Previous Institution"
                 />

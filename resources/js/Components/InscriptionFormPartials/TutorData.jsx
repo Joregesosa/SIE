@@ -3,6 +3,8 @@ import { InputText } from "primereact/inputtext";
 import { MainFormFieldset } from "./MainFormFieldset";
 import PropTypes from 'prop-types';
 import { Calendar } from "primereact/calendar";
+import { Input } from "postcss";
+import InputCalendar from "../InputCalendar";
 
 
 
@@ -71,15 +73,15 @@ export const TutorData = ({ data, setData, errorHandling, information }) => {
 
             <label htmlFor="birth_date" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Fecha de nacimiento <span>*</span>
-                <Calendar
+                <InputCalendar
                     inputId="birth_date"
                     name="birth_date"
                     defaultValue={new Date()}
                     value={data?.tutor_data?.birth_date}
                     type='date'
                     required
-                    className='rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
-                    inputClassName="border-none outline-none h-full"
+                    className=' w-full placeholder:font-normal h-[40px] p-0 overflow-hidden'
+                    inputClassName="rounded-md outline-none h-full"
                     onChange={handleTutorData}
                     placeholder="Ingrese la fecha de nacimiento"
                 />
@@ -111,7 +113,7 @@ export const TutorData = ({ data, setData, errorHandling, information }) => {
                     optionValue="id"
                     placeholder="Seleccione un estado civil"
                     filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                    className="flex items-center border h-[42px] border-gray-500 flex-grow rounded-md" />
                 {errorHandling?.marital_status_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
@@ -127,7 +129,7 @@ export const TutorData = ({ data, setData, errorHandling, information }) => {
                     optionValue="id"
                     placeholder="Seleccione un nivel de instrucción"
                     filter
-                    className="flex items-center border h-[42px] border-gray-500 flex-grow" />
+                    className="flex items-center border h-[42px] border-gray-500 flex-grow rounded-md" />
                 {errorHandling?.education_level_id && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
@@ -164,19 +166,19 @@ export const TutorData = ({ data, setData, errorHandling, information }) => {
                 {errorHandling?.work_place && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
-            <label htmlFor="number" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
+            <label htmlFor="phone" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">
                 Teléfono de contacto <span>*</span>
                 <InputText
-                    id="number"
-                    name="number"
-                    value={data?.tutor_data?.number}
+                    id="phone"
+                    name="phone"
+                    value={data?.tutor_data?.phone}
                     type='text'
                     required
                     className='rounded-md w-full placeholder:font-normal'
                     onChange={handleTutorData}
                     placeholder="Ingrese el número de teléfono"
                 />
-                {errorHandling?.number && <span className="text-red-500 text-xs">Este campo es requerido</span>}
+                {errorHandling?.phone && <span className="text-red-500 text-xs">Este campo es requerido</span>}
             </label>
 
             <label htmlFor="email" className="mt-2 font-bold text-xs col-span-2 md:col-span-1">

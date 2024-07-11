@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { InputText } from "primereact/inputtext";
 import { useForm } from "@inertiajs/react";
-import { Dropdown } from "primereact/dropdown";
+
 import { FormActionButtons } from "@/Components/FormActionButtons";
+import InputPhoneType from "@/Components/InputPhoneType";
 import { Loading } from "@/Components/Loading";
 import { FormHeader } from "@/Components/FormHeader";
 import { required_fields, desc, contact_fields, } from "@/Helpers/Contact.Form-Statics";
@@ -10,6 +10,13 @@ import { fieldVerifier } from "@/Helpers/Form.Verifier";
 import { FormSubmitted } from "@/Components/FormSubmitted";
 import { useEffect } from "react";
 import { Alert } from "@/Components/Alerts/Alert";
+import { locale, addLocale } from "primereact/api";
+import { Calendar } from "primereact/calendar";
+import { InputMask } from "primereact/inputmask";
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
+import { format } from 'date-fns';
+
 
 const ContactForm = ({ levels }) => {
     const [errorHandling, setErrorHandling] = useState({});
@@ -17,17 +24,72 @@ const ContactForm = ({ levels }) => {
     const [sended, setSended] = useState(false);
     const [alert, setAlert] = useState(null);
 
+    addLocale("es", {
+        firstDayOfWeek: 1,
+        dayNames: [
+            "Domingo",
+            "Lunes",
+            "Martes",
+            "Miércoles",
+            "Jueves",
+            "Viernes",
+            "Sábado",
+        ],
+        dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+        dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
+        monthNames: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+        ],
+        monthNamesShort: [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dic",
+        ],
+        today: "Hoy",
+        clear: "Limpiar",
+    });
+
     const handleChanges = (e) => {
+        
+        if(e.target.id === 'birth_date'){
+            setData(e.target.id, format(new Date(e.target.value), 'yyyy-MM-dd'));
+            return; 
+        }
+
         setData(e.target.id, e.target.value);
     };
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
         const emptyFields = fieldVerifier(
             data,
             required_fields,
             setErrorHandling
         );
+
+
         if (Object.keys(emptyFields).length === 0) {
             post(route("contact.create"), {
                 onSuccess: () => {
@@ -35,12 +97,12 @@ const ContactForm = ({ levels }) => {
                     reset();
                 },
                 onError: (error) => {
-                    setAlert(error)
+                    setAlert(error);
                 },
             });
         }
     };
-
+  
     return (
         <div className="bg-contact-form bg-no-repeat bg-cover bg-center py-6 min-h-screen">
             <Alert alerta={alert} setAlert={setAlert} />
@@ -143,17 +205,20 @@ const ContactForm = ({ levels }) => {
 
                         <label htmlFor="id_card" className="font-bold text-sm">
                             Número de cédula <span>*</span>
-                            <InputText
+
+                            <InputMask
                                 id="id_card"
                                 name="id_card"
-                                type="text"
                                 value={data?.id_card}
-                                pattern="[0-9]{9}-[0-9]{1}"
                                 required
-                                className="rounded-md w-full"
+                                type="tel"
+                                className="rounded-md w-full "
                                 onChange={handleChanges}
-                                placeholder="000000000-0"
+                                mask="999999999-9"
+                                placeholder="Ingrese el numero de cedula"
+                                pattern="[0-9]{9}-[0-9]{1}"
                             />
+
                             {errorHandling?.id_card && (
                                 <span className="text-red-500 text-sm">
                                     Este campo es requerido
@@ -161,40 +226,52 @@ const ContactForm = ({ levels }) => {
                             )}
                         </label>
 
-                        <label htmlFor="age" className="font-bold text-sm">
-                            Edad del alumno <span>*</span>
-                            <InputText
-                                id="age"
-                                name="age"
-                                min={1}
-                                type="number"
-                                max={100}
-                                value={data?.age}
+                        <label
+                            htmlFor="birth_date"
+                            className="font-bold text-sm"
+                        >
+                            Fecha de nacimiento <span>*</span>
+                            <Calendar
+                                id="birth_date"
+                                name="birth_date"
+                                dateFormat="yy-mm-dd"
+                                value={data.birth_date ? new Date(data.birth_date) : null}
+                                type="date"
                                 required
-                                className="rounded-md w-full"
+                                locale="es"
+                                maxDate={new Date()}
+                                className="rounded-md w-full placeholder:font-normal h-[40px] p-0 overflow-hidden"
+                                inputClassName="border-none outline-none h-full"
                                 onChange={handleChanges}
-                                placeholder="Ingrese la edad del alumno"
+                                placeholder="Ingrese la fecha de nacimiento"
                             />
-                            {errorHandling?.age && (
-                                <span className="text-red-500 text-sm">
+                            {errorHandling?.birth_date && (
+                                <span className="text-red-500 text-xs">
                                     Este campo es requerido
                                 </span>
                             )}
                         </label>
 
-                        <label htmlFor="number" className="font-bold text-sm">
+                        <label htmlFor="phone" className="font-bold text-sm">
                             Número de teléfono <span>*</span>
-                            <InputText
-                                id="number"
-                                name="number"
-                                type="tel"
-                                value={data?.number}
+
+
+                            <InputPhoneType
+                                tel_id="phone"
+                                tel_name="phone"
+                                tel_value={data?.phone}
                                 required
+                                placeholder="Ingrese el número de teléfono"
+
+                                type_id="phone_type_id"
+                                type_name="phone_type_id"
+                                type_value={data?.phone_type_id}
+
                                 className="rounded-md w-full"
                                 onChange={handleChanges}
-                                placeholder="Ingrese el número de teléfono"
                             />
-                            {errorHandling?.number && (
+
+                            {errorHandling?.phone && (
                                 <span className="text-red-500 text-sm">
                                     Este campo es requerido
                                 </span>
@@ -289,12 +366,12 @@ const ContactForm = ({ levels }) => {
                                 name="level_id"
                                 value={data?.level_id}
                                 onChange={handleChanges}
-                                options={levels}
+                                options={levels || []}
                                 optionLabel="description"
                                 placeholder="Seleccione un nivel"
                                 optionValue="id"
                                 filter
-                                className="flex items-center border h-[42px] border-gray-500 flex-grow"
+                                className="flex items-center rounded-md border h-[42px] border-gray-500 flex-grow"
                             />
                             {errorHandling?.level_id && (
                                 <span className="text-red-500 text-sm">
@@ -325,20 +402,48 @@ const ContactForm = ({ levels }) => {
                         </label>
 
                         <label
+                            htmlFor="father_id_card"
+                            className="font-bold text-sm"
+                        >
+                            Cedula del Padre <span>*</span>
+                            <InputMask
+                                id="father_id_card"
+                                name="father_id_card"
+                                value={data?.father_id_card}
+                                required
+                                type="tel"
+                                className="rounded-md w-full"
+                                onChange={handleChanges}
+                                mask="999999999-9"
+                                placeholder="Ingrese la cedula del padre"
+                                pattern="[0-9]{9}-[0-9]{1}"
+                            />
+                            {errorHandling?.father_id_card && (
+                                <span className="text-red-500 text-sm">
+                                    Este campo es requerido
+                                </span>
+                            )}
+                        </label>
+
+                        <label
                             htmlFor="father_phone"
                             className="font-bold text-sm"
                         >
                             Número de teléfono del Padre <span>*</span>
-                            <InputText
-                                id="father_phone"
-                                name="father_phone"
-                                type="tel"
-                                value={data?.father_phone}
-                                 pattern="^\+?\d{1,3}?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+
+                            <InputPhoneType
+                                tel_id="father_phone"
+                                tel_name="father_phone"
+                                tel_value={data?.father_phone}
                                 required
-                                className="rounded-md w-full "
-                                onChange={handleChanges}
                                 placeholder="Ingrese el número de teléfono del padre"
+
+                                type_id="father_phone_type_id"
+                                type_name="father_phone_type_id"
+                                type_value={data?.father_phone_type_id}
+
+                                className="rounded-md w-full"
+                                onChange={handleChanges}
                             />
                             {errorHandling?.father_phone && (
                                 <span className="text-red-500 text-sm">
@@ -390,20 +495,47 @@ const ContactForm = ({ levels }) => {
                         </label>
 
                         <label
+                            htmlFor="mother_id_card"
+                            className="font-bold text-sm"
+                        >
+                            Cedula de la Madre <span>*</span>
+                            <InputMask
+                                id="mother_id_card"
+                                name="mother_id_card"
+                                value={data?.mother_id_card}
+                                required
+                                type="tel"
+                                className="rounded-md w-full "
+                                onChange={handleChanges}
+                                mask="999999999-9"
+                                placeholder="Ingrese la cedula del padre"
+                                pattern="[0-9]{9}-[0-9]{1}"
+                            />
+                            {errorHandling?.mother_id_card && (
+                                <span className="text-red-500 text-sm">
+                                    Este campo es requerido
+                                </span>
+                            )}
+                        </label>
+
+                        <label
                             htmlFor="mother_phone"
                             className="font-bold text-sm"
                         >
                             Número de teléfono de la Madre <span>*</span>
-                            <InputText
-                                id="mother_phone"
-                                name="mother_phone"
-                                type="tel"
-                                value={data?.mother_phone}
-                                pattern="^\+?\d{1,3}?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+                            <InputPhoneType
+                                tel_id="mother_phone"
+                                tel_name="mother_phone"
+                                tel_value={data?.mother_phone}
+                                required
+                                placeholder="Ingrese el número de teléfono de la madre"
+
+                                type_id="mother_phone_type_id"
+                                type_name="mother_phone_type_id"
+                                type_value={data?.mother_phone_type_id}
+
                                 className="rounded-md w-full"
                                 onChange={handleChanges}
-                                placeholder="Ingrese el número de teléfono de la madre"
-                                required
                             />
                             {errorHandling?.mother_phone && (
                                 <span className="text-red-500 text-sm">

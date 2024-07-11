@@ -56,7 +56,9 @@ export default function Matriculas({ auth, data, msj }) {
 
                     <Column field='person.full_Name' header='Nombre' sortable className='py-2' />
 
-                    <Column field='person.id_card' header='Cedula' sortable className='py-2' />
+                    <Column field='person.id_card' header='Cedula' sortable className='py-2 whitespace-nowrap' />
+                    
+                    <Column field='matricula' header='Matricula' sortable className='py-2' />
 
                     <Column field='identification_data.level.name' header='Nivel' sortable className='py-2' />
 

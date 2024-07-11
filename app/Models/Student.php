@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Support\Facades\DB;
 
 class Student extends Model
 {
@@ -26,8 +26,6 @@ class Student extends Model
         'family_structure_id',
         'status_id',
         'disability_description',
-        'father_incomes',
-        'mother_incomes',
         'other_incomes',
         'expenditure',
         'type_house_id',
@@ -71,14 +69,28 @@ class Student extends Model
         'siblings_relationship',
         'others_relationship',
         'habits_and_activities',
-        'father_id' ,
+        'father_id',
         'mother_id',
         'tutor_id'
 
     ];
 
-    protected $with = ['person', 'telephones' ,'level', 'status', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pathologicalFamilyHistory', 'pregnancyType', 'father', 'mother', 'tutor'];
- 
+
+    //quiero solo los dos dijitos del año , ejemplo 20-0001
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            $maxId = self::max('id') + 1;
+            $model->matricula = Carbon::now()->format('y') . '-' . str_pad($maxId, 4, '0', STR_PAD_LEFT);
+        });
+    }
+
+
+
+    protected $with = ['person', 'telephones', 'level', 'status', 'familyStructure', 'typeHouse', 'medicalAttentionType', 'pathologicalFamilyHistory', 'pregnancyType', 'father', 'mother', 'tutor'];
+
     public function person()
     {
         return $this->belongsTo(Person::class)->with('user');
@@ -93,7 +105,7 @@ class Student extends Model
     {
         return $this->belongsTo(StudentStatus::class);
     }
-    
+
     public function familyStructure()
     {
         return $this->belongsTo(FamilyStructure::class);
@@ -121,7 +133,7 @@ class Student extends Model
 
     public function telephones()
     {
-        return $this->hasMany(Phone::class, 'person_id','person_id');
+        return $this->hasMany(Phone::class, 'person_id', 'person_id');
     }
 
     public function father()
@@ -139,14 +151,15 @@ class Student extends Model
         return $this->belongsTo(Parents::class, 'tutor_id');
     }
 
-    
 
-    
+
+
     public function toArray()
     {
-        return [    
-           
+        return [
+
             'id' => $this->id,
+            'matricula' => $this->matricula,
             'person' => $this->person ?  $this->person->toArray() : null,
             'identification_data' => [
                 'email' => $this->person?->user?->email ?? '',
@@ -160,16 +173,16 @@ class Student extends Model
                 'id_card' => $this->person->id_card ?? '',
                 'sector' => $this->sector ?? '',
                 'address_street' => $this->address_street ?? '',
-                'number' => $this->telephones->first() ? $this->telephones->first()->number : '',
+                'phone' => $this->telephones->first() ? $this->telephones->first()->phone : '',
                 'reference' => $this->reference ?? '',
                 'level_id' => $this->level_id,
                 'level' => $this->level ? $this->level->toArray() : null,
                 'status_id' => $this->status_id ?? '',
                 'status' => $this->status ? $this->status->toArray() : null,
-                
+
             ],
             'mother_data' => $this->mother ?  [
-                'person' => $this->mother->person ? $this->mother->person->toArray() : null, 
+                'person' => $this->mother->person ? $this->mother->person->toArray() : null,
                 'birth_date' => $this->mother->person->birth_date ?? '',
                 'email' => $this->mother->email ?? '',
                 'fLast_name' => $this->mother->person->fLast_name ?? '',
@@ -178,14 +191,14 @@ class Student extends Model
                 'education_level' => $this->mother->educationLevel ? $this->mother->educationLevel->toArray() : null,
                 'marital_status_id' => $this->mother->marital_status_id ?? '',
                 'marital_status' => $this->mother->maritalStatus ? $this->mother->maritalStatus->toArray() : null,
-                'number' => $this->mother->telephones->first() ? $this->mother->telephones->first()->number : '',
+                'phone' => $this->mother->telephones->first() ? $this->mother->telephones->first()->phone : '',
                 'profession' => $this->mother->profession ?? '',
                 'sLast_name' => $this->mother->person->sLast_name ?? '',
                 'second_name' => $this->mother->person->second_name ?? '',
                 'work_place' => $this->mother->work_place ?? '',
             ] : null,
             'father_data' => $this->father ? [
-                'person' => $this->father->person ? $this->father->person->toArray() : null, 
+                'person' => $this->father->person ? $this->father->person->toArray() : null,
                 'birth_date' => $this->father->person->birth_date ?? '',
                 'email' => $this->father->email ?? '',
                 'fLast_name' => $this->father->person->fLast_name ?? '',
@@ -194,7 +207,7 @@ class Student extends Model
                 'education_level' => $this->father->educationLevel ? $this->father->educationLevel->toArray() : null,
                 'marital_status_id' => $this->father->marital_status_id ?? '',
                 'marital_status' => $this->father->maritalStatus ? $this->father->maritalStatus->toArray() : null,
-                'number' => $this->father->telephones->first() ? $this->father->telephones->first()->number : '',
+                'phone' => $this->father->telephones->first() ? $this->father->telephones->first()->phone : '',
                 'profession' => $this->father->profession ?? '',
                 'sLast_name' => $this->father->person->sLast_name ?? '',
                 'second_name' => $this->father->person->second_name ?? '',
@@ -210,7 +223,7 @@ class Student extends Model
                 'education_level' => $this->tutor->educationLevel ? $this->tutor->educationLevel->toArray() : null,
                 'marital_status_id' => $this->tutor->marital_status_id ?? '',
                 'marital_status' => $this->tutor->maritalStatus ? $this->tutor->maritalStatus->toArray() : null,
-                'number' => $this->tutor->telephones->first() ? $this->tutor->telephones->first()->number : '',
+                'phone' => $this->tutor->telephones->first() ? $this->tutor->telephones->first()->phone : '',
                 'profession' => $this->tutor->profession ?? '',
                 'sLast_name' => $this->tutor->person->sLast_name ?? '',
                 'second_name' => $this->tutor->person->second_name ?? '',
@@ -279,6 +292,4 @@ class Student extends Model
             ],
         ];
     }
- 
-
 }

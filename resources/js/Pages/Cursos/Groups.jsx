@@ -12,6 +12,7 @@ import Alert from '@/Components/Alerts/Alert';
 
 export default function Groups({ auth, data, message }) {
 
+
     const {
         dt,
         alert,
@@ -44,6 +45,15 @@ export default function Groups({ auth, data, message }) {
         setAlert(message)
     }, [message])
 
+    const cupo = (rowData) => {
+        
+        if (rowData.students.length == rowData.max_students) {
+           return <span className="text-red-500">{rowData.students.length}  /  {rowData.max_students}</span>
+        }
+
+        return rowData.students.length + '  /  ' + rowData.max_students
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -64,7 +74,7 @@ export default function Groups({ auth, data, message }) {
 
                 <Column field='level.name' header='Nivel' sortable className='py-2 truncate max-w-64' />
 
-                <Column field='max_students' header='Cupo máximo' sortable className='py-2 text-center' />
+                <Column field='max_students' header='Cupo máximo' sortable  body={cupo} className='py-2 text-center' />
 
                 {/* <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-2' /> */}
 

@@ -18,7 +18,7 @@ class GroupController extends Controller
     public function index()
     {
         return Inertia::render('Cursos/Groups', [
-            'data' => Group::all()->load('level', 'teacher.person'),
+            'data' => Group::all()->load('level', 'teacher.person','students'),
         ]);
     }
 
@@ -66,7 +66,7 @@ class GroupController extends Controller
                     'p.birth_date',
                     'p.id_card',
                     'u.email',
-                    't.number',
+                    't.phone',
                 ])
                 ->leftJoin('levels AS l', 'g.level_id', '=', 'l.id')
                 ->leftJoin('students AS e', 'g.id', '=', 'e.group_id')
