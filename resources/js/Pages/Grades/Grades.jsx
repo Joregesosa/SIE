@@ -5,6 +5,9 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toolbar } from 'primereact/toolbar';
 import { Dropdown } from 'primereact/dropdown';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { InputNumber } from 'primereact/inputnumber';
 
 const gradeLevels = [
     { label: 'Primero', value: 'Primero' },
@@ -60,6 +63,9 @@ export default function Grades({ auth, data }) {
     const [selectedGradeType, setSelectedGradeType] = useState(null);
     const [selectedTimePeriod, setSelectedTimePeriod] = useState(null);
     const [filteredData, setFilteredData] = useState(data);
+    const [newGradeDialog, setNewGradeDialog] = useState(false);
+    const [editGradeDialog, setEditGradeDialog] = useState(false);
+    const [editGradeData, setEditGradeData] = useState(null);
 
     useEffect(() => {
         let filtered = data;
@@ -104,33 +110,109 @@ export default function Grades({ auth, data }) {
     };
 
     const renderHeader = () => (
-        <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
+        <div className="flex flex-wrap gap-2 align-items-center justify-between">
+            <div className='flex'>
+                <Button icon="pi pi-plus" label="Nuevo" onClick={() => setNewGradeDialog(true)} />
+            </div>
+            <div className="flex-grow-1"></div>
             <div className="flex flex-wrap gap-2 align-items-center">
                 <Dropdown value={selectedGradeLevel} options={gradeLevels} onChange={(e) => setSelectedGradeLevel(e.value)} placeholder="Groups" />
                 <Dropdown value={selectedStudent} options={students} onChange={(e) => setSelectedStudent(e.value)} placeholder="Students" />
                 <Dropdown value={selectedSubject} options={subjects} onChange={(e) => setSelectedSubject(e.value)} placeholder="Subjects" />
                 <Dropdown value={selectedGradeType} options={gradeTypes} onChange={(e) => setSelectedGradeType(e.value)} placeholder="Grade" />
                 <Dropdown value={selectedTimePeriod} options={timePeriods} onChange={(e) => setSelectedTimePeriod(e.value)} placeholder="Time period" />
-                <button className="p-button p-component" onClick={resetFilters}>Reset Filters</button>
+                <Button className="p-button p-component" label="Reset Filters" onClick={resetFilters} />
             </div>
         </div>
     );
 
+    const editGrade = (rowData) => {
+        setEditGradeData(rowData);
+        setEditGradeDialog(true);
+    };
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <>
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button mr-2" onClick={() => editGrade(rowData)} />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" severity="danger" onClick={() => console.log("Eliminar nota", rowData)} />
+            </>
+        );
+    };
+
     return (
-        <AuthenticatedLayout user={auth.user} header="Grades">
-            <Head title="Grades" />
+        <AuthenticatedLayout user={auth.user} header="Scores">
+            <Head title="Scores" />
 
             <div className="card">
                 <Toolbar className="mb-4" left={renderHeader()} />
 
-                <DataTable value={filteredData} paginator rows={10} className="p-datatable-gridlines">
-                    <Column field="name" header="Nombre" sortable />
-                    <Column field="subject" header="Materia" sortable />
-                    <Column field="grade" header="Nota" sortable />
-                    <Column field="grade_level" header="Grado" sortable />
-                    <Column field="time_period" header="Periodo" sortable />
+                <DataTable value={filteredData} paginator rows={4} className="p-datatable-gridlines">
+                    <Column field="name" header="Name" sortable />
+                    <Column field="subject" header="Subject" sortable />
+                    <Column field="grade" header="Score" sortable />
+                    <Column field="time_period" header="Period" sortable />
+                    <Column header="Actions" body={actionBodyTemplate} />
                 </DataTable>
             </div>
+
+            <Dialog visible={newGradeDialog} style={{ width: '450px' }} header="Nueva Nota" modal className="p-fluid" onHide={() => setNewGradeDialog(false)}>
+                <form action="" method="POST">
+                    <div className="p-field">
+                        <label >Student</label>
+                        <Dropdown id="name" options={students} placeholder="Selecciona un estudiante" />
+                    </div>
+                    <div className="p-field">
+                        <label >Subject</label>
+                        <Dropdown id="subject" options={subjects} placeholder="Selecciona una materia" />
+                    </div>
+                    <div className="p-field">
+                        <label >Score</label>
+                        <InputNumber id="grade" placeholder="Ingresa la nota" />
+                    </div>
+                    <div className="p-field">
+                        <label >Group</label>
+                        <Dropdown id="grade_level" options={gradeLevels} placeholder="Selecciona un grado" />
+                    </div>
+                    <div className="p-field">
+                        <label >Period</label>
+                        <Dropdown id="time_period" options={timePeriods} placeholder="Selecciona un periodo" />
+                    </div>
+                    <div className="p-dialog-footer flex justify-around">
+                        <Button type="button" label="Cancelar" className="bg-red-600 hover:bg-red-500 text-center px-6 py-2 text-white pl-4 p-button p-component p-button-outlined" severity="danger" icon="pi pi-times" onClick={() => setNewGradeDialog(false)} />
+                        <Button type="submit" label="Aceptar" className="bg-blue-600 hover:bg-blue-500 text-center px-6 py-2 text-white pl-4 p-button p-component" icon="pi pi-check" />
+                    </div>
+                </form>
+            </Dialog>
+
+            <Dialog visible={editGradeDialog} style={{ width: '450px' }} header="Editar Nota" modal className="p-fluid" onHide={() => setEditGradeDialog(false)}>
+                <form action="" method="POST">
+                    <div className="p-field">
+                        <label >Student</label>
+                        <Dropdown id="edit_name" value={editGradeData?.name} options={students} onChange={(e) => setEditGradeData({ ...editGradeData, name: e.value })} placeholder="Selecciona un estudiante" />
+                    </div>
+                    <div className="p-field">
+                        <label >Subject</label>
+                        <Dropdown id="edit_subject" value={editGradeData?.subject} options={subjects} onChange={(e) => setEditGradeData({ ...editGradeData, subject: e.value })} placeholder="Selecciona una materia" />
+                    </div>
+                    <div className="p-field">
+                        <label >Score</label>
+                        <InputNumber id="edit_grade" value={editGradeData?.grade} onValueChange={(e) => setEditGradeData({ ...editGradeData, grade: e.value })} placeholder="Ingresa la nota" />
+                    </div>
+                    <div className="p-field">
+                        <label >Group</label>
+                        <Dropdown id="edit_grade_level" value={editGradeData?.grade_level} options={gradeLevels} onChange={(e) => setEditGradeData({ ...editGradeData, grade_level: e.value })} placeholder="Selecciona un grado" />
+                    </div>
+                    <div className="p-field">
+                        <label >Period</label>
+                        <Dropdown id="edit_time_period" value={editGradeData?.time_period} options={timePeriods} onChange={(e) => setEditGradeData({ ...editGradeData, time_period: e.value })} placeholder="Selecciona un periodo" />
+                    </div>
+                    <div className="p-dialog-footer flex justify-around">
+                        <Button type="button" label="Cancelar" className="bg-red-600 hover:bg-red-500 text-center px-6 py-2 text-white pl-4 p-button p-component p-button-outlined" icon="pi pi-times" severity="danger" onClick={() => setEditGradeDialog(false)} />
+                        <Button type="submit" label="Aceptar" className="bg-blue-600 hover:bg-blue-500 text-center px-6 py-2 text-white pl-4 p-button p-component" icon="pi pi-check" />
+                    </div>
+                </form>
+            </Dialog>
         </AuthenticatedLayout>
     );
 }
