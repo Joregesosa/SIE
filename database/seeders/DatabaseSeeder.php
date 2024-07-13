@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,14 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        $this->call(PermissionSeeder::class);
-        $this->call(RoleSeeder::class);
-        $this->call(PersonSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(LevelSeeder::class);
-        $this->call(SubjectSeeder::class);
+       
 
-        DB::table('phone_type_ids')->insert([
+        DB::table('phone_types')->insert([
             ['name' => 'Celular'],
             ['name' => 'Casa'],
             ['name' => 'Trabajo'],
@@ -116,6 +114,16 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Suspendido', 'color' => 'gray-500', 'description' => 'El alumno ha sido temporalmente retirado de la institución debido a problemas académicos o disciplinarios.'],
             ['name' => 'Readmisión', 'color' => 'gray-500', 'description' => 'El alumno ha sido readmitido después de un período de suspensión.'],
         ]);
+
+
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(PersonSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(SubjectSeeder::class);
+        $this->call(LevelSeeder::class);
+        $this->call(StudentSeeder::class);
+
     }
 }
 

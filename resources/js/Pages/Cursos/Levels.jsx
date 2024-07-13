@@ -13,7 +13,6 @@ import { New } from '@/Components/Levels/New';
 export default function Levels({ auth, currentUser, data, msj }) {
 
 
-    console.log(data)
     const {
         dt,
         alert,
@@ -38,6 +37,16 @@ export default function Levels({ auth, currentUser, data, msj }) {
         setDataList(data)
         setAlert(msj)
     }, [data, msj])
+
+    const distribucion  = (rowData) => {
+        if (rowData.teacher_multiplied) {
+           return <span className="bg-orange-400 p-1 rounded-md text-white font-semibold text-sm">Multiple</span>
+        }
+
+        return <span className="bg-blue-400 p-1 rounded-md text-white font-semibold text-sm" >Unico</span>
+    }
+
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -54,7 +63,9 @@ export default function Levels({ auth, currentUser, data, msj }) {
                     <Column field='name' header='Nivel' sortable className='py-0' />
                    
                     <Column field='description' header='Descripción' sortable className='py-0' />
-                   
+
+                    <Column  header='Profesor' body={distribucion} sortable className='py-2' />
+
                     <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-0' />
 
                     <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-0' />

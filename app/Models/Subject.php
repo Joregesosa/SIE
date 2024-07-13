@@ -10,4 +10,9 @@ class Subject extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function levels()
+    {
+        return $this->belongsToMany(Level::class);
+    }
 }

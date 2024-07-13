@@ -19,6 +19,8 @@ class Group extends Model
         'teacher_id',
         'status',
     ];
+
+    protected $with = ['level.subjects'];
     
     public function level(): BelongsTo
     {
@@ -35,6 +37,7 @@ class Group extends Model
         return $this->hasMany(Student::class);
     }
     
-
+    
+   
     
 }

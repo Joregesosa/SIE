@@ -8,7 +8,8 @@ import { Toolbar } from 'primereact/toolbar';
 import { useTable } from '@/hooks/useTable';
 import Grades from '@/Components/Grades';
 
-export default function Groups({ auth, data , data2}) {
+export default function Groups({ auth, data , data2, calificaciones}) {
+    console.log( calificaciones)
 
     const [ver, setVer] = useState(1);
 

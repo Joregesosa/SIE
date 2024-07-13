@@ -7,6 +7,7 @@ use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Models\GroupStudentList;
 use Exception;
+use Grupos;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -93,6 +94,7 @@ class GroupController extends Controller
                     ['id' => 7, 'name' => 'Jane Smith', 'subject' => 'Lengua', 'grade' => 88, 'grade_level' => 'Segundo', 'time_period' => 'Semestral'],
                     ['id' => 8, 'name' => 'Jane Smith', 'subject' => 'Ciencias', 'grade' => 'B', 'grade_level' => 'Segundo', 'time_period' => 'Mensual'],
                 ],
+                'calificaciones' => Group::find($id),
             ]);
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Error al obtener los estudiantes del grupo']);

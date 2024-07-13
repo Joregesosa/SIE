@@ -41,8 +41,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-
-         Schema::create('subject_levels', function (Blueprint $table) {
+        Schema::create('level_subject', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('level_id');
             $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
@@ -59,5 +58,6 @@ return new class extends Migration
         Schema::dropIfExists('levels');
         Schema::dropIfExists('groups');
         Schema::dropIfExists('subjects');
+        Schema::dropIfExists('level_subject');
     }
 };

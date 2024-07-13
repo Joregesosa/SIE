@@ -78,7 +78,7 @@ Route::controller(SystemController::class)->group(function () {
 });
 
 //Route::middleware(['auth', CheckPermission::class])->group(function () {
-
+    Route::middleware(['auth'])->group(function () {
 Route::controller(GraphController::class)->group(function () {
     Route::get('/correos', 'index')->name('correo.index');
     Route::post('/correos', 'store')->name('correo.store');
@@ -150,7 +150,7 @@ Route::controller(SubjectController::class)->group(function () {
     Route::delete('/role/{id}', 'destroy')->name('role.delete'); */
 });
 
-//});
+});
 
 
 require __DIR__ . '/auth.php';

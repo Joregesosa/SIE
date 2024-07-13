@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Person;
+use App\Models\Teacher;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
@@ -17,16 +19,23 @@ class TeacherFactory extends Factory
      */
     public function definition(): array
     {
-
-     
         return [
-                //persona que existe en la tabla personas
-            'person_id' => Person::whereNotIn('id', [1])->inRandomOrder()->first()->id,
+            'person_id' => Person::factory(),
             'profession' => 'Maestro',
             'work_place' => 'Colegio de la Ciudad',
             'email' => $this->faker->unique()->safeEmail,
             'status' => true,
-
         ];
     }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Teacher $teacher) {
+            User::factory()->create([
+                'person_id' => $teacher->person_id,
+                'role_id' => 2,
+            ]);
+        });
+    }
+
 }
