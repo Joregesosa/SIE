@@ -61,7 +61,7 @@ const letterToGrade = (letter) => {
     }
 };
 
-export default function Grades({ auth, data }) {
+export default function Grades({ data }) {
     const [selectedGradeLevel, setSelectedGradeLevel] = useState(null);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [selectedSubject, setSelectedSubject] = useState(null);
@@ -208,8 +208,9 @@ export default function Grades({ auth, data }) {
     };
 
     return (
-        <AuthenticatedLayout user={auth.user} header="Scores">
-            <Head title="Scores" />
+        <>
+      
+       
 
             <div className="card">
                 <Toolbar className="mb-4" left={renderHeader()} />
@@ -393,6 +394,7 @@ export default function Grades({ auth, data }) {
                     </div>
                 </form>
             </Dialog>
+
             <Dialog
                 visible={warning}
                 style={{ width: "450px" }}
@@ -428,7 +430,9 @@ export default function Grades({ auth, data }) {
                         />
                     </div>
                 </form>
-            </Dialog>
-        </AuthenticatedLayout>
+           </Dialog>
+
+
+        </>
     );
 }

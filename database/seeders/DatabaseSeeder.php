@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PersonSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(LevelSeeder::class);
+        $this->call(SubjectSeeder::class);
 
         DB::table('phone_type_ids')->insert([
             ['name' => 'Celular'],

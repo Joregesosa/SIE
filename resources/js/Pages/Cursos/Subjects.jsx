@@ -30,9 +30,6 @@ export default function Subjects({ auth, data, msj }) {
         onHideEditDialog,
     } = useTable(data);
 
-    const renderProfessorName = (rowData) => {
-        return <span>{rowData.professor.name}</span>;
-    };
 
     useEffect(() => {
         setDataList(data);
@@ -53,19 +50,19 @@ export default function Subjects({ auth, data, msj }) {
                 <Column field="id" header="ID" sortable className="py-2 " />
 
                 <Column
-                    field="subject"
-                    header="Subject"
+                    field="name"
+                    header="Materia"
                     sortable
                     className="py-2"
                 />
 
-                <Column
+             {/*    <Column
                     field="professor.name"
                     header="Professor"
                     sortable
                     className="py-2"
-                    body={renderProfessorName}
-                />
+                  
+                /> */}
 
                 <Column
                     header="Actions"

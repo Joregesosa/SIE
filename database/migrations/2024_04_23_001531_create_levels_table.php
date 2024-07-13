@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('price', 8, 2);
             $table->float('enrollment_fee', 8, 2);
             $table->integer('duration');
+            $table->boolean('teacher_multiplied')->default(false);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
@@ -33,6 +34,21 @@ return new class extends Migration
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
+
+        Schema::create('subjects', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
+
+         Schema::create('subject_levels', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('level_id');
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
+            $table->unsignedBigInteger('subject_id');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('restrict');
+        });
     }
 
     /**
@@ -42,5 +58,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('levels');
         Schema::dropIfExists('groups');
+        Schema::dropIfExists('subjects');
     }
 };
