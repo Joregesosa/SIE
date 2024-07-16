@@ -4,9 +4,8 @@ import Hero from "./Hero";
 import Footer from "./Footer";
 import { useEffect } from "react";
 
-export default function index({auth,canLogin,canRegister,laravelVersion,phpVersion,}) {
+export default function index({auth,canLogin,canRegister,laravelVersion,phpVersion}) {
 
- 
 
     return (
     <div className="min-h-screen h-screen flex flex-col">

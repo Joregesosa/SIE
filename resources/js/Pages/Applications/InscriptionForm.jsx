@@ -419,6 +419,7 @@ const requiredFields = {
     mother_data: [
         "birth_date",
         "email",
+        "id_card",
         "fLast_name",
         "first_name",
         "education_level_id",
@@ -430,6 +431,7 @@ const requiredFields = {
     father_data: [
         "birth_date",
         "email",
+        "id_card",
         "fLast_name",
         "first_name",
         "education_level_id",
@@ -442,6 +444,7 @@ const requiredFields = {
         "birth_date",
         "email",
         "fLast_name",
+        "id_card",
         "first_name",
         "education_level_id",
         "marital_status_id",
