@@ -5,8 +5,7 @@ import Footer from "./Footer";
 import { useEffect } from "react";
 
 export default function index({auth,canLogin,canRegister,laravelVersion,phpVersion}) {
-
-
+  //aqui hay un error
     return (
     <div className="min-h-screen h-screen flex flex-col">
      <Navbar auth={auth} canLogin={canLogin} canRegister={canRegister} />
