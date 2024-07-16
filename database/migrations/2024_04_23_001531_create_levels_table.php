@@ -44,9 +44,16 @@ return new class extends Migration
         Schema::create('level_subject', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('level_id');
-            $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
             $table->unsignedBigInteger('subject_id');
+            $table->unsignedBigInteger('elective_year_id');
+            $table->unsignedBigInteger('teacher_id');
+            $table->timestamps();
+
+            // Definición de las claves foráneas
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('restrict');
+            $table->foreign('elective_year_id')->references('id')->on('elective_years')->onDelete('restrict');
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('restrict');
         });
     }
 

@@ -46,7 +46,7 @@ Route::get('/', function () {
         return redirect()->route('dashboard');
     }
     
-    return Inertia::render('Index/index', [
+    return Inertia::render('Index/Index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,

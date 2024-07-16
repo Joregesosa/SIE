@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Level;
 use App\Models\Subject;
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -33,7 +34,8 @@ class LevelFactory extends Factory
     {
         return $this->afterCreating(function (Level $level) {
 
-              $level->subjects()->attach(Subject::all()->random(5));
+              $level->subjects()->attach(Subject::all()->random(5)->pluck('id')->toArray(),[ 'elective_year_id' => 1,
+              'teacher_id' => Teacher::inRandomOrder()->first()->id]);
         });
     }
 }
