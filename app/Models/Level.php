@@ -18,6 +18,12 @@ class Level extends Model
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(Subject::class, 'level_subject')
+                    ->withPivot('elective_year_id', 'teacher_id');
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
     }
 }

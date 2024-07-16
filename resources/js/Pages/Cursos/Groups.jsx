@@ -12,7 +12,6 @@ import Alert from '@/Components/Alerts/Alert';
 
 export default function Groups({ auth, data, message  }) {
 
-
     const {
         dt,
         alert,
@@ -54,12 +53,11 @@ export default function Groups({ auth, data, message  }) {
     }
 
     const cupo = (rowData) => {
-            console.log(rowData)
-        if (rowData.students.length == rowData.max_students) {
-           return <span className="text-red-500">{rowData.students.length}  /  {rowData.max_students}</span>
+        if (rowData.students_list.length == rowData.max_students) {
+           return <span className="text-red-500">{rowData.students_list.length}  /  {rowData.max_students}</span>
         }
 
-        return rowData.students.length + '  /  ' + rowData.max_students
+        return rowData.students_list.length + '  /  ' + rowData.max_students
     }
 
 

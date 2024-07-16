@@ -19,7 +19,7 @@ class GroupController extends Controller
     public function index()
     {
         return Inertia::render('Cursos/Groups', [
-            'data' => Group::all()->load('level', 'teacher.person','students'),
+            'data' => Group::all()->load('teacher.person'),
         ]);
     }
 
@@ -54,7 +54,7 @@ class GroupController extends Controller
     public function show($id)
     {
         try {
-            $students = DB::table('groups AS g')
+            /*$students = DB::table('groups AS g')
                 ->select([
                     'g.id',
                     'l.description',
@@ -77,24 +77,18 @@ class GroupController extends Controller
                 ->where('e.status_id', '=', 2)
                 ->where('g.id', '=', $id)
                 ->get();
+                */
 
-            if ($students->isEmpty()) {
+            $students = Group::find($id);
+           
+            if ($students->students_list->isEmpty()) {
                 session()->flash('message', ['error' => 'No hay estudiantes inscritos a este grupo']);
                 return back();
             }
+
+
             return Inertia::render('Cursos/GroupStudentList', [
                 'data' => $students,
-                'data2' => [
-                    ['id' => 1, 'name' => 'John Doe', 'subject' => 'Matemáticas', 'grade' => 90, 'grade_level' => 'Primero', 'time_period' => 'Mensual'],
-                    ['id' => 2, 'name' => 'John Doe', 'subject' => 'Artes', 'grade' => 'A', 'grade_level' => 'Primero', 'time_period' => 'Trimestral'],
-                    ['id' => 3, 'name' => 'John Doe', 'subject' => 'Lengua', 'grade' => 85, 'grade_level' => 'Primero', 'time_period' => 'Semestral'],
-                    ['id' => 4, 'name' => 'John Doe', 'subject' => 'Ciencias', 'grade' => 'B', 'grade_level' => 'Primero', 'time_period' => 'Mensual'],
-                    ['id' => 5, 'name' => 'Jane Smith', 'subject' => 'Matemáticas', 'grade' => 92, 'grade_level' => 'Segundo', 'time_period' => 'Mensual'],
-                    ['id' => 6, 'name' => 'Jane Smith', 'subject' => 'Artes', 'grade' => 'A', 'grade_level' => 'Segundo', 'time_period' => 'Trimestral'],
-                    ['id' => 7, 'name' => 'Jane Smith', 'subject' => 'Lengua', 'grade' => 88, 'grade_level' => 'Segundo', 'time_period' => 'Semestral'],
-                    ['id' => 8, 'name' => 'Jane Smith', 'subject' => 'Ciencias', 'grade' => 'B', 'grade_level' => 'Segundo', 'time_period' => 'Mensual'],
-                ],
-                'calificaciones' => Group::find($id),
             ]);
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Error al obtener los estudiantes del grupo']);

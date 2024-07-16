@@ -8,8 +8,9 @@ import { Toolbar } from 'primereact/toolbar';
 import { useTable } from '@/hooks/useTable';
 import Grades from '@/Components/Grades';
 
-export default function Groups({ auth, data , data2, calificaciones}) {
-    console.log( calificaciones)
+export default function Groups({ auth, data  }) {
+    console.log( data
+    )
 
     const [ver, setVer] = useState(1);
 
@@ -22,16 +23,16 @@ export default function Groups({ auth, data , data2, calificaciones}) {
         RenderActionButtons,
         setDataList,
         tableConfig,
-    } = useTable(data)
+    } = useTable(data.students_list)
 
     useEffect(() => {
-        setDataList(data)
+        setDataList(data.students_list)
     }, [data])
 
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={`Cursos / ${dataList[0]?.description}`}
+            header={`Cursos / ${data.level?.description}`}
         >
 
             <Head title="Lista de Groups" />
@@ -44,12 +45,12 @@ export default function Groups({ auth, data , data2, calificaciones}) {
                 <button onClick={()=>setVer(2)} className='bg-blue-500 block w-fit rounded-md p-2 hover:scale-105 cursor-pointer text-white'>Calificaiones </button>
             </div>
           
-            {ver === 1 && (<DataTable {...tableConfig} rowClassName="cursor-pointer hover:bg-gray-200">
-                <Column field='student_id' header='ID' sortable className='py-0 ' />
+           {ver === 1 && (<DataTable {...tableConfig} rowClassName="cursor-pointer hover:bg-gray-200">
+                <Column field='id' header='ID' sortable className='py-0 ' />
 
-                <Column field='id_card' header='Cédula' sortable className='py-0' />
+                <Column field='matricula' header='Matricula' sortable className='py-0' />
                 
-                <Column field='full_name' header='Nombre' sortable className='py-0 truncate max-w-64' />
+                <Column field='person.full_Name' header='Nombre' sortable className='py-0 truncate max-w-64' />
 
                 <Column field='email' header='Email' sortable className='py-0 truncate max-w-64' />
 
@@ -58,12 +59,11 @@ export default function Groups({ auth, data , data2, calificaciones}) {
 
                 </DataTable>
 
-            )}
+            )} 
 
             {ver === 2 && (
-                <Grades data={data2} />
-            )}
-
+                <Grades data={data} />
+            )}  
             
 
         </AuthenticatedLayout>

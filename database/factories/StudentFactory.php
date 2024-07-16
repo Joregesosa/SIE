@@ -89,6 +89,24 @@ class StudentFactory extends Factory
                 'person_id' => $student->person_id,
                 'role_id' => 3,
             ]);
+
+
+            $level = $student->level;
+            $subjects = $level->subjects;
+
+            $randomSubjects = $subjects->random(rand(1, $subjects->count()));
+
+            $randomSubjects->each(function ($subject) use ($student, $level) {
+                $student->scores()->create([
+                    'subject_id' => $subject->id,
+                    'level_id' => $level->id,
+                    'elective_year_id' => 1,
+                    'score' => rand(50, 100), 
+                    'comment' => $this->faker->sentence, 
+                    'status' => true,
+                ]);
+            });
+        
         });
     }
 }

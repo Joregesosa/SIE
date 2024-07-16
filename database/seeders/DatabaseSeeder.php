@@ -125,7 +125,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LevelSeeder::class);
         $this->call(StudentSeeder::class);
         $this->call(SystemSeeder::class);
-
     }
 }
 
