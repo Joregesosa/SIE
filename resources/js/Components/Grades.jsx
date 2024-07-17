@@ -39,26 +39,23 @@ const Grades = ({ data, subject, qualifiers }) => {
     const [selectedGradeType, setSelectedGradeType] = useState(gradeTypes[0]);
     const [warning, setWarning] = useState(false);
 
-    useEffect(() => {
-        if (subject) {
-            const subjectScores = data.subjects_scores.find(
-                (item) => item.subject.id === subject.id
-            );
-            const scores = subjectScores
-                ? subjectScores.scores.map((score) => ({
-                      ...score,
-                      student: score.student ?? {
-                          person: {
-                              first_name: "Anónimo",
-                              last_name: "Anónimo",
-                          },
-                          id: "No encontrado",
-                      },
-                  }))
-                : [];
-            setFilteredData(scores);
-        }
-    }, [subject, data]);
+  useEffect(() => {
+    if (subject) {
+      const subjectScores = data.subjects_scores.find(
+        (item) => item.subject.id === subject.id
+      );
+      const scores = subjectScores
+        ? subjectScores.scores.map((score) => ({
+            ...score,
+            student: score.student ?? {
+              person: { first_name: "Anónimo", last_name: "Anónimo" },
+              id: "No encontrado",
+            },
+          }))
+        : [];
+      setFilteredData(scores);
+    }
+  }, [subject, data]);
 
     const openNewGradeDialog = () => {
         setEditMode(false);
@@ -68,7 +65,6 @@ const Grades = ({ data, subject, qualifiers }) => {
     };
 
     const gradeToLetter = (grade) => {
-        console.log(grade);
         for (let i = 0; i < qualifiers.length; i++) {
             if (grade >= qualifiers[i].min && grade <= qualifiers[i].max) {
                 return qualifiers[i].qualifier;
@@ -100,15 +96,16 @@ const Grades = ({ data, subject, qualifiers }) => {
         hideDialog();
     };
 
-    const gradeTypeTemplate = (rowData) => {
-        const score = rowData.score ?? 0; // Si rowData.score es null, muestra 0
-        return selectedGradeType == "quantitative"
-            ? score
-            : gradeToLetter(score);
-    };
+  const gradeTypeTemplate = (rowData) => {
+    const score = rowData.score ?? '--';
+    return selectedGradeType == "quantitative"
+      ? score
+      : gradeToLetter(score);
+  };
+    
 
     const fullNameTemplate = (rowData) => {
-        return `${rowData.student.person.first_name} ${rowData.student.person.last_name}`;
+        return `${rowData.student.person.full_Name}`;
     };
 
     const showDeleteConfirmation = (rowData) => {
@@ -120,7 +117,7 @@ const Grades = ({ data, subject, qualifiers }) => {
         <div>
             <div className="flex justify-between items-center mx-5">
                 <h2 className="text-lg font-bold">
-                    Calificaciones para {subject.name}
+                    Calificaciones de {subject.name}
                 </h2>
                 <Dropdown
                     value={selectedGradeType}
@@ -143,7 +140,7 @@ const Grades = ({ data, subject, qualifiers }) => {
             <DataTable value={filteredData} paginator rows={10}>
                 <Column field="student.id" header="ID" sortable />
                 <Column field="student" header="Nombre" body={fullNameTemplate} sortable/>
-                <Column field="grade" header={ selectedGradeType.value === "quantitative" ? "Calificación" : "Calificación en Letras" }body={gradeTypeTemplate} sortable/>
+                <Column field="grade" header={"Calificación"}body={gradeTypeTemplate} sortable/>
                 <Column header="Acciones" body={(rowData) => ( <> <Button icon="pi pi-pencil"
                                 className="p-button-rounded p-button-info"
                                 onClick={() => openEditGradeDialog(rowData)}
@@ -168,7 +165,7 @@ const Grades = ({ data, subject, qualifiers }) => {
                 }
             >
                 <div className="p-field">
-                    <label htmlFor="grade">Calificación</label>
+                    <label htmlFor="grade" className="mr-4">Calificación</label>
                     <InputNumber
                         id="grade"
                         value={newGrade}
@@ -188,13 +185,13 @@ const Grades = ({ data, subject, qualifiers }) => {
                             options={["A", "B", "C", "D", "F"]}
                             onChange={(e) => {
                                 setSelectedLetterGrade(e.value);
-                                setNewGrade(letterToGrade(e.value)); // Convierte la letra a número
+                                setNewGrade(letterToGrade(e.value)); 
                             }}
                             placeholder="Seleccionar una calificación"
                         />
                     </div>
                 )}
-                <div className="p-dialog-footer flex justify-around mt-6">
+                <div className="p-dialog-footer flex justify-center gap-6 mt-6">
                     <Button
                         type="button"
                         label="Cancelar"
@@ -211,25 +208,24 @@ const Grades = ({ data, subject, qualifiers }) => {
                 </div>
             </Dialog>
 
-            <Dialog
-                visible={warning}
-                style={{ width: "450px" }}
-                header="Confirmar Eliminación"
-                modal
-                className="p-fluid"
-                onHide={() => setWarning(false)}
-            >
-                <form onSubmit={deleteGrade}>
-                    <div className="p-field flex mb-5 items-center">
-                        <div className="w-8 h-8">
-                            <i className="pi pi-exclamation-triangle mr-5 text-red-500 text-3xl"></i>
-                        </div>
-                        <p className="m-0 ml-3">
-                            Seguro que desea eliminar la calificación de{" "}
-                            {subject.name} del estudiante{" "}
-                            {selectedGrade?.student.person.first_name}?
-                        </p>
-                    </div>
+      <Dialog
+        visible={warning}
+        style={{ width: "450px" }}
+        header="Confirmar Eliminación"
+        modal
+        className="p-fluid"
+        onHide={() => setWarning(false)}
+      >
+        <form onSubmit={deleteGrade}>
+          <div className="p-field flex mb-5 items-center">
+            <div className="w-8 h-8">
+              <i className="pi pi-exclamation-triangle mr-5 text-red-500 text-3xl"></i>
+            </div>
+            <p className="m-0 ml-3">
+              Seguro que desea eliminar la calificación de {subject.name} del estudiante{" "}
+              {selectedGrade?.student.person.first_name}?
+            </p>
+          </div>
 
                     <div className="p-dialog-footer flex justify-around">
                         <Button

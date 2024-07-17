@@ -9,7 +9,7 @@ export default function SubjectCards({ subjects, levelDescription, groupName, on
                 <div key={subjectScore.subject.id} className="flex justify-center items-center">
                     <Card title={subjectScore.subject.name} subTitle={`${groupName} - ${levelDescription}`} className="rounded-lg shadow-md text-center">
                         <div className="flex justify-center">
-                            <Button onClick={() => onSubjectClick(subjectScore.subject)} className="bg-blue-500 w-[60%] rounded-md py-2 px-4  text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-center">
+                            <Button onClick={() => onSubjectClick(subjectScore.subject)} className="bg-blue-500 w-[60%] rounded-md py-2   text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 justify-center">
                                 Ver Calificaciones
                             </Button>
                         </div>
