@@ -26,6 +26,14 @@ return new class extends Migration
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
+        
+        Schema::create('score_qualifiers', function (Blueprint $table) {
+            $table->id();
+            $table->float('min');
+            $table->float('max');
+            $table->string('qualifier');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -34,5 +42,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('scores');
+        Schema::dropIfExists('score_qualifiers');
     }
 };
