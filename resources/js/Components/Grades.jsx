@@ -96,14 +96,14 @@ const Grades = ({ data, subject }) => {
   };
 
   const gradeTypeTemplate = (rowData) => {
-    const score = rowData.score ?? 0; // Si rowData.score es null, muestra 0
+    const score = rowData.score ?? 0;
     return selectedGradeType.value === "quantitative"
       ? score
-      : gradeToLetter(score); // Convierte a letra si es necesario
+      : gradeToLetter(score);
   };
 
   const fullNameTemplate = (rowData) => {
-    return `${rowData.student.person.first_name} ${rowData.student.person.last_name}`;
+    return `${rowData.student.person.full_Name}`;
   };
 
   const showDeleteConfirmation = (rowData) => {
@@ -115,7 +115,7 @@ const Grades = ({ data, subject }) => {
     <div>
       <div className="flex justify-between items-center mx-5">
         <h2 className="text-lg font-bold">
-          Calificaciones para {subject.name}
+          Calificaciones de {subject.name}
         </h2>
         <Dropdown
           value={selectedGradeType}
@@ -184,7 +184,7 @@ const Grades = ({ data, subject }) => {
         }
       >
         <div className="p-field">
-          <label htmlFor="grade">Calificación</label>
+          <label htmlFor="grade" className="mr-4">Calificación</label>
           <InputNumber
             id="grade"
             value={newGrade}
@@ -202,13 +202,13 @@ const Grades = ({ data, subject }) => {
               options={["A", "B", "C", "D", "F"]}
               onChange={(e) => {
                 setSelectedLetterGrade(e.value);
-                setNewGrade(letterToGrade(e.value)); // Convierte la letra a número
+                setNewGrade(letterToGrade(e.value)); 
               }}
               placeholder="Seleccionar una calificación"
             />
           </div>
         )}
-        <div className="p-dialog-footer flex justify-around mt-6">
+        <div className="p-dialog-footer flex justify-center gap-6 mt-6">
           <Button
             type="button"
             label="Cancelar"
