@@ -137,6 +137,7 @@ Route::controller(RoleController::class)->group(function () {
     Route::get('/role', 'index')->name('roles');
     Route::get('/role/create', 'create')->name('role.create');
     Route::post('/role', 'store')->name('role.store');
+    Route::get('/role/{id}', 'edit')->name('role.edit');
     Route::put('/role/{id}', 'update')->name('role.update');
     Route::delete('/role/{id}', 'destroy')->name('role.delete');
 });

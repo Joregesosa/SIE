@@ -16,8 +16,6 @@ export default function Roles({ auth, data, msj, permissions }) {
         setAlert,
         RenderStatus,
         RenderRightToolbar,
-        RenderLeftToolbar,
-        RenderActionButtons,
         dataList,
         setDataList,
         selectedItem,
@@ -28,6 +26,8 @@ export default function Roles({ auth, data, msj, permissions }) {
         showNewDialog,
         setShowNewDialog,
         onHideEditDialog,
+        RenderLeftLinkToolbar,
+        RenderActionLinks
     } = useTable(data);
 
     const RenderPermissionList = (rowData) => {
@@ -60,51 +60,52 @@ export default function Roles({ auth, data, msj, permissions }) {
                 "Usuarios / Roles"
             }
         >
-            <Head title="Lista de Usuarios" />
+            <Head title="Lista de Roles" />
 
-                <Toolbar
-                    left={RenderLeftToolbar}
-                    right={() => RenderRightToolbar(dt)}
-                    className="py-2 rounded-none bg-white bg-opacity-40"
+            <Toolbar
+                left={RenderLeftLinkToolbar}
+                right={() => RenderRightToolbar(dt)}
+                className="py-2 rounded-none bg-white bg-opacity-40"
+            />
+
+            <DataTable ref={dt} value={dataList} {...tableConfig}>
+                <Column
+                    field="id"
+                    header="ID"
+                    sortable
+                    className="py-2"
                 />
-                <DataTable ref={dt} value={dataList} {...tableConfig}>
-                    <Column
-                        field="id"
-                        header="ID"
-                        sortable
-                        className="py-2"
-                    />
 
-                    <Column
-                        field="role"
-                        header="Role"
-                        sortable
-                        className="py-2"
-                    />
+                <Column
+                    field="role"
+                    header="Role"
+                    sortable
+                    className="py-2"
+                />
 
-                    <Column
-                        field="permissions"
-                        header="Permissions"
-                        sortable
-                        body={RenderPermissionList}
-                        className="py-2 max-w-80"
-                    />
+                <Column
+                    field="permissions"
+                    header="Permissions"
+                    sortable
+                    body={RenderPermissionList}
+                    className="py-2 max-w-80"
+                />
 
-                    <Column
-                        field="status"
-                        header="Estatus"
-                        sortable
-                        body={RenderStatus}
-                        className="py-2"
-                    />
+                <Column
+                    field="status"
+                    header="Estatus"
+                    sortable
+                    body={RenderStatus}
+                    className="py-2"
+                />
 
-                    <Column
-                        header="Acciones"
-                        body={(rowData) => RenderActionButtons(rowData)}
-                        exportable={false}
-                        className="py-2"
-                    />
-                </DataTable>
+                <Column
+                    header="Acciones"
+                    body={(rowData) => RenderActionLinks(rowData, 'role.edit')}
+                    exportable={false}
+                    className="py-2"
+                />
+            </DataTable>
 
             {/* modal delete User */}
 

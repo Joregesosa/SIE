@@ -6,14 +6,15 @@ import { useEffect, useState } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import { Button } from 'primereact/button/button.esm';
 
-export default function CreateRole({ auth, permissions }) {
+export default function EditRole({ auth, permissions, role }) {
     const [list, setList] = useState([]);
     const [alert, setAlert] = useState();
-    const { data, setData, post, processing, reset } = useForm({ role: '', permissions: [] });
+    const { data, setData, put, processing, reset } = useForm({ role: '', permissions: [] });
 
     useEffect(() => {
+        setData({ 'permissions': role.attachedPermissions, 'role': role.role });
         setList(permissions);
-    }, [permissions]);
+    }, [permissions, role]);
 
     const handleCheckbox = (e) => {
         if (e.target.checked) {
@@ -35,14 +36,14 @@ export default function CreateRole({ auth, permissions }) {
             setData('permissions', data.permissions.filter((item) => !removeAllPermission.includes(item)));
         }
     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('role.store'), {
+        put(route('role.update', role.id), {
             onSuccess: ({ props: { message } }) => {
                 setAlert(message);
                 reset();
             }, onError: (error) => {
-                console.log(error)
                 setAlert(error);
             }
         });
@@ -51,16 +52,17 @@ export default function CreateRole({ auth, permissions }) {
 
         <AuthenticatedLayout
             user={auth.user}
-            header={"Usuarios / Crear Rol"}
+            header={"Usuarios / Editar Rol"}
             alert={alert}
             setAlert={setAlert}
         >
-            <Head title="Crear Rol" />
+            <Head title="Editar Rol" />
             <form onSubmit={handleSubmit}>
                 <div className='flex justify-between px-8 pt-8 pb-4 items-center'>
-                    <h1 className='text-4xl font-bold  '>Crear Rol</h1>
+                    <h1 className='text-4xl font-bold  '>Editar Rol</h1>
                     <Link href={route('roles')} className='pi pi-arrow-circle-left text-3xl' />
                 </div>
+
                 <label htmlFor="role" className='w-96 block ml-12 mt-8'>
                     Rol
                     <InputText id="role" value={data?.role} required className='rounded-md w-full' onChange={(e) => setData('role', e.target.value)} placeholder='Nombre del Role' />
@@ -95,7 +97,7 @@ export default function CreateRole({ auth, permissions }) {
                 </div>
             </form>
 
-            <Loading status={processing} message="Registrando nuevo rol..." />
+            <Loading status={processing} message="Actualizando rol..." />
         </AuthenticatedLayout>
     );
 }

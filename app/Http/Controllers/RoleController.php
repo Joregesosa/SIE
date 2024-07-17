@@ -39,19 +39,7 @@ class RoleController extends Controller
 
     public function create()
     {
-        $permissions = collect(
-            [
-                "Ver" => Permission::WHERE('name', 'LIKE', '%ver%')->orderBy('name')->get(),
-                "Actualizar" => Permission::WHERE('name', 'LIKE', '%actualizar%')->orderBy('name')->get(),
-                "Eliminar" => Permission::WHERE('name', 'LIKE', '%eliminar%')->orderBy('name')->get(),
-                "Crear" => Permission::WHERE('name', 'LIKE', '%crear%')->orderBy('name')->get(),
-                "others" => Permission::WHERE('name', 'NOT LIKE', '%ver%')
-                    ->WHERE('name', 'NOT LIKE', '%actualizar%')
-                    ->WHERE('name', 'NOT LIKE', '%eliminar%')
-                    ->WHERE('name', 'NOT LIKE', '%crear%')
-                    ->orderBy('name')->get(),
-            ]
-        );
+        $permissions =  $this->loadPermissions();
 
         return Inertia::render('Usuarios/CreateRole', [
             'permissions' => $permissions,
@@ -81,8 +69,7 @@ class RoleController extends Controller
             DB::beginTransaction();
 
             $role = Role::create($request->all());
-            $permissionIds = array_column($request->permissions, 'id');
-            $role->permissions()->attach($permissionIds);
+            $role->permissions()->attach($request->permissions);
 
             DB::commit();
             session()->flash('message',  ['success' => "Role created successfully"]);
@@ -91,6 +78,19 @@ class RoleController extends Controller
             DB::rollBack();
             return back()->withErrors(['error' => 'Error creating role' . $e->getMessage()], 500);
         }
+    }
+
+
+    public function edit($id)
+    {
+        $role = Role::with('permissions')->find($id);
+
+
+        return Inertia::render('Usuarios/EditRole', [
+            'role' => $role,
+            'permissions' => $this->loadPermissions(),
+
+        ]);
     }
 
 
@@ -118,8 +118,7 @@ class RoleController extends Controller
 
             $role =  Role::find($id);
             $role->update($request->all());
-            $permissionIds = array_column($request->permissions, 'id');
-            $role->permissions()->sync($permissionIds);
+            $role->permissions()->sync($request->permissions);
 
             DB::commit();
 
@@ -138,5 +137,22 @@ class RoleController extends Controller
         Role::destroy($id);
 
         return redirect()->route('roles')->with('msj', ['success' => "Role deleted successfully"], 200);
+    }
+
+    private function loadPermissions()
+    {
+        return  collect(
+            [
+                "Ver" => Permission::WHERE('name', 'LIKE', '%ver%')->orderBy('name')->get(),
+                "Actualizar" => Permission::WHERE('name', 'LIKE', '%actualizar%')->orderBy('name')->get(),
+                "Eliminar" => Permission::WHERE('name', 'LIKE', '%eliminar%')->orderBy('name')->get(),
+                "Crear" => Permission::WHERE('name', 'LIKE', '%crear%')->orderBy('name')->get(),
+                "others" => Permission::WHERE('name', 'NOT LIKE', '%ver%')
+                    ->WHERE('name', 'NOT LIKE', '%actualizar%')
+                    ->WHERE('name', 'NOT LIKE', '%eliminar%')
+                    ->WHERE('name', 'NOT LIKE', '%crear%')
+                    ->orderBy('name')->get(),
+            ]
+        );
     }
 }
