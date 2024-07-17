@@ -112,6 +112,12 @@ const Grades = ({ data, subject, qualifiers }) => {
         setSelectedGrade(rowData);
         setWarning(true);
     };
+    const buttonsActions = (rowData) => {
+        return (<div className=" h-5 flex items-center"> 
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-info" onClick={() => openEditGradeDialog(rowData)}/>
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger p-ml-1" onClick={() => showDeleteConfirmation(rowData)}/>
+            </div>);
+    };
 
     return (
         <div>
@@ -138,21 +144,14 @@ const Grades = ({ data, subject, qualifiers }) => {
                 </div>
             </Toolbar>
             <DataTable value={filteredData} paginator rows={10}>
-                <Column field="student.id" header="ID" sortable />
-                <Column field="student" header="Nombre" body={fullNameTemplate} sortable/>
-                <Column field="grade" header={"Calificación"}body={gradeTypeTemplate} sortable/>
-                <Column header="Acciones" body={(rowData) => ( <> <Button icon="pi pi-pencil"
-                                className="p-button-rounded p-button-info"
-                                onClick={() => openEditGradeDialog(rowData)}
-                            />
-                            <Button
-                                icon="pi pi-trash"
-                                className="p-button-rounded p-button-danger p-ml-1"
-                                onClick={() => showDeleteConfirmation(rowData)}
-                            />
-                        </>
-                    )}
-                />
+                <Column field="student.id" header="ID" sortable className='py-1  '  />
+
+                <Column field="student" header="Nombre" body={fullNameTemplate} sortable className='py-1 ' />
+
+                <Column field="grade" header={"Calificación"}body={gradeTypeTemplate} sortable className='py-1 ' />
+                
+                <Column header="Acciones" className='py-2 '  body={buttonsActions} />
+                
             </DataTable>
 
             <Dialog
