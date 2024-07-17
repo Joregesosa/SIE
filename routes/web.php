@@ -42,7 +42,7 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
-    
+
     return Inertia::render('Index/index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -54,7 +54,7 @@ Route::get('/', function () {
     /* Route::post('/register', [RegisterUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register') */;
 
 
-Route::controller(EnrollmentPaymentController::class)->group(function () { 
+Route::controller(EnrollmentPaymentController::class)->group(function () {
     Route::post('/Payment', 'store')->name('payment.store');
 });
 
@@ -135,6 +135,7 @@ Route::controller(PermissionController::class)->group(function () {
 
 Route::controller(RoleController::class)->group(function () {
     Route::get('/role', 'index')->name('roles');
+    Route::get('/role/create', 'create')->name('role.create');
     Route::post('/role', 'store')->name('role.store');
     Route::put('/role/{id}', 'update')->name('role.update');
     Route::delete('/role/{id}', 'destroy')->name('role.delete');

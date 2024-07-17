@@ -17,9 +17,44 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $permissions = collect(
+            [
+                "Ver" => Permission::WHERE('name', 'LIKE', '%ver%')->orderBy('name')->get(),
+                "Actualizar" => Permission::WHERE('name', 'LIKE', '%actualizar%')->orderBy('name')->get(),
+                "Eliminar" => Permission::WHERE('name', 'LIKE', '%eliminar%')->orderBy('name')->get(),
+                "Crear" => Permission::WHERE('name', 'LIKE', '%crear%')->orderBy('name')->get(),
+                "others" => Permission::WHERE('name', 'NOT LIKE', '%ver%')
+                    ->WHERE('name', 'NOT LIKE', '%actualizar%')
+                    ->WHERE('name', 'NOT LIKE', '%eliminar%')
+                    ->WHERE('name', 'NOT LIKE', '%crear%')
+                    ->orderBy('name')->get(),
+            ]
+        );
+
         return Inertia::render('Usuarios/Roles', [
             'data' => Role::with('permissions')->get(),
-            'permissions' => Permission::all(),
+            'permissions' => $permissions,
+        ]);
+    }
+
+    public function create()
+    {
+        $permissions = collect(
+            [
+                "Ver" => Permission::WHERE('name', 'LIKE', '%ver%')->orderBy('name')->get(),
+                "Actualizar" => Permission::WHERE('name', 'LIKE', '%actualizar%')->orderBy('name')->get(),
+                "Eliminar" => Permission::WHERE('name', 'LIKE', '%eliminar%')->orderBy('name')->get(),
+                "Crear" => Permission::WHERE('name', 'LIKE', '%crear%')->orderBy('name')->get(),
+                "others" => Permission::WHERE('name', 'NOT LIKE', '%ver%')
+                    ->WHERE('name', 'NOT LIKE', '%actualizar%')
+                    ->WHERE('name', 'NOT LIKE', '%eliminar%')
+                    ->WHERE('name', 'NOT LIKE', '%crear%')
+                    ->orderBy('name')->get(),
+            ]
+        );
+
+        return Inertia::render('Usuarios/CreateRole', [
+            'permissions' => $permissions,
         ]);
     }
 
@@ -39,7 +74,7 @@ class RoleController extends Controller
         ], $message);
 
         if ($validator->fails()) {
-            return redirect()->route('roles')->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
+            return back()->withErrors(['error' => array_values($validator->errors()->messages())]);
         }
 
         try {
@@ -50,37 +85,14 @@ class RoleController extends Controller
             $role->permissions()->attach($permissionIds);
 
             DB::commit();
-
-            return redirect()->route('roles')->with('msj', ['success' => "Role created successfully"], 200);
+            session()->flash('message',  ['success' => "Role created successfully"]);
+            return back();
         } catch (QueryException $e) {
             DB::rollBack();
-            return redirect()->route('roles')->with('msj', ['error' => 'Error creating role' . $e->getMessage()], 500);
+            return back()->withErrors(['error' => 'Error creating role' . $e->getMessage()], 500);
         }
     }
 
-    /*  public function store(Request $request)
-    {
-        
-        $message = [
-            'role.unique' => 'Ya existe un role con el nombre' . $request->role,
-            'role.required' => 'El nombre del role es requerido',
-        ];
-
-        $validator =  validator($request->all(), [
-            'role' => 'required|string|unique:' . Role::class,
-        ], $message);
-
-        if ($validator->fails()) {
-
-            return redirect()->route('roles')->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
-        }
-
-        $role = Role::create($request->all());
-        $permissionIds = array_column($request->permissions, 'id');
-        $role->permissions()->attach($permissionIds);
- 
-        return redirect()->route('roles')->with('msj', ['success' => "Role created successfully"], 200);
-    } */
 
     /** 
      * Update the specified resource in storage.
@@ -88,7 +100,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
 
-     /*    $message = [
+        /*    $message = [
             'role.unique' => 'Ya existe un role con el nombre ' . $request->role,
             'role.required' => 'El nombre del role es requerido',
         ];
@@ -112,7 +124,6 @@ class RoleController extends Controller
             DB::commit();
 
             return redirect()->route('roles')->with('msj', ['success' => "Role updated successfully"], 200);
-
         } catch (QueryException $e) {
             DB::rollBack();
             return redirect()->route('roles')->with('msj', ['error' => 'Error updated role' . $e->getMessage()], 500);

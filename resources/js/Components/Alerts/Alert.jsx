@@ -3,6 +3,7 @@ import { Dialog } from 'primereact/dialog'
 import React from 'react'
 
 export const Alert = ({ alerta, setAlert }) => {
+    console.log(alerta)
     const renderMessage = (message) => {
         if (!message) return null;
         const lines = message.split('\n');
@@ -27,7 +28,7 @@ export const Alert = ({ alerta, setAlert }) => {
                     {alerta?.error && Array.isArray(alerta?.error) ? (
                         <ul className='list-disc list-inside'>
                             {alerta.error.map((err, index) => (
-                                <li key={index}>{renderMessage(err)}</li>
+                                <li key={index} className='text-lg'>{renderMessage(err)}</li>
                             ))}
                         </ul>
                     ) : alerta?.error ? (
