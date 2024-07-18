@@ -9,7 +9,7 @@ class Level extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['name', 'description', 'status'];
+    protected $fillable = ['name', 'description', 'status' , 'price', 'enrollment_fee', 'duration', 'style_multiplied'];
 
     public function groups()
     {

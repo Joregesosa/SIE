@@ -6,8 +6,11 @@
  * @returns {object} - An object containing the empty fields.
  */
 export function fieldVerifier(obj, requiredFields, callback) {
+
     const emptyFields = {};
     for (const iterator of requiredFields) {
+
+     
 
         if (iterator == "student_disability_details" && obj["student_disability"] == "0") {
             continue;
@@ -19,13 +22,12 @@ export function fieldVerifier(obj, requiredFields, callback) {
             continue;
         }
       
-
-        if (!obj[iterator]) {   
-          
-                
+       
+        if (!obj[iterator]) {
             emptyFields[iterator] = true;
         }
     }
+
     callback(emptyFields);
     return emptyFields;
 }

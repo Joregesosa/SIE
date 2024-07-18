@@ -66,65 +66,7 @@ class StudentController extends Controller
     public function update(Request $request)
     {
         try {
-            /* $mensajes = [
-                'required' => 'El campo :attribute es requerido',
-                'exists' => 'El campo :attribute no existe',
-                ];
-
-                $validator = validator($request->all(), [
-                    'id' => 'required|exists:students,id',
-                    'person_id' => 'required|exists:people,id',
-                    'address_street' => 'required',
-                    'sector' => 'required',
-                    'siblings' => 'required',
-                    'birth_order' => 'required',
-                    'family_structure_id' => 'required',
-
-                    'disability_description' => 'required',
-                    'other_incomes' => 'required',
-                    'expenditure' => 'required',
-                    'type_house_id' => 'required',
-                    'living_description' => 'required',
-                    'entry_date' => 'required',
-                    'previous_institution' => 'required',
-                    'repeated_years' => 'required',
-                    'preferred_subjects' => 'required',
-                    'difficult_subjects' => 'required',
-                    'achievements' => 'required',
-                    'dignities' => 'required',
-                    'participation' => 'required',
-                    'extracurricular' => 'required',
-                    'student_disability' => 'required',
-                    'student_disability_details' => 'required',
-                    'disability_percentage' => 'required',
-                    'disability_carnet' => 'required',
-                    'medical_condition' => 'required',
-                    'medical_condition_details' => 'required',
-                    'allergies' => 'required',
-                    'allergies_description' => 'required',
-                    'medications' => 'required',
-                    'medical_attention_type_id' => 'required',
-                    'medical_attention_name' => 'required',
-                    'medical_attention_address' => 'required',
-                    'medical_attention_doctor' => 'required',
-                    'pregnancy_mother_age' => 'required',
-                    'pregnancy_accidents' => 'required',
-                    'pregnancy_medications' => 'required',
-                    'pregnancy_type_id' => 'required',
-                    'pregnancy_difficulties' => 'required',
-                    'birth_weight' => 'required',
-                    'birth_height' => 'required',
-                    'walking_age' => 'required',
-                    'talking_age' => 'required',
-                    'breastfeeding_period' => 'required',
-                    'bottle_age' => 'required'
-                ], $mensajes);
-
-                if ($validator->fails()) {
-                    return response()->json(['error' => $validator->errors()], 400);
-                }
-            */
-
+            
             DB::beginTransaction();
 
             if (!User::where('person_id', $request->person['id'])->exists() && isset($request->user['email'])) {

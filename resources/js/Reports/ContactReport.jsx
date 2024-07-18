@@ -136,7 +136,7 @@ const ContactReport = ({ data }) => (
             <View style={styles.field_container}>
                 <Text style={styles.value_3}>{data?.id_card}</Text>
                 <Text style={styles.value_3}>{data?.age}</Text>
-                <Text style={styles.value_3}>{data?.number}</Text>
+                <Text style={styles.value_3}>{data?.phone}</Text>
             </View>
 
             <View style={styles.field_container}>

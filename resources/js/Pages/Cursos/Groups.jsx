@@ -12,6 +12,7 @@ import Alert from '@/Components/Alerts/Alert';
 
 export default function Groups({ auth, data, message }) {
 
+
     const {
         dt,
         alert,
@@ -44,6 +45,25 @@ export default function Groups({ auth, data, message }) {
         setAlert(message)
     }, [message])
 
+    const distribucion  = (rowData) => {
+        
+        if (rowData.level.teacher_multiplied) {
+           return <span className="bg-blue-400 p-1 rounded-md">Multiple</span>
+        }
+
+        return <span className="bg-blue-400 p-1 rounded-md" >Unico</span>
+    }
+
+    const cupo = (rowData) => {
+            console.log(rowData)
+        if (rowData.students.length == rowData.max_students) {
+           return <span className="text-red-500">{rowData.students.length}  /  {rowData.max_students}</span>
+        }
+
+        return rowData.students.length + '  /  ' + rowData.max_students
+    }
+
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -64,9 +84,9 @@ export default function Groups({ auth, data, message }) {
 
                 <Column field='level.name' header='Nivel' sortable className='py-2 truncate max-w-64' />
 
-                <Column field='max_students' header='Cupo máximo' sortable className='py-2 text-center' />
+                <Column field='max_students' header='Cupo máximo' sortable  body={cupo} className='py-2 text-center' />
 
-                {/* <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-2' /> */}
+                <Column  header='Profesor' body={distribucion} sortable className='py-2' />
 
                 <Column field='teacher.person.full_Name' header='Profesor Titular' sortable className='py-2' />
 
