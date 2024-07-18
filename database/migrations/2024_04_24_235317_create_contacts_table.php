@@ -38,9 +38,9 @@ return new class extends Migration
             $table->string('mother_occupation');
             $table->unsignedBigInteger('level_id');
             $table->foreign('level_id')->references('id')->on('levels')->onDelete('restrict');
-            $table->foreign('phone_type_id')->references('id')->on('phone_type_ids')->onDelete('restrict');
-            $table->foreign('father_phone_type_id')->references('id')->on('phone_type_ids')->onDelete('restrict');
-            $table->foreign('mother_phone_type_id')->references('id')->on('phone_type_ids')->onDelete('restrict');
+            $table->foreign('phone_type_id')->references('id')->on('phone_types')->onDelete('restrict');
+            $table->foreign('father_phone_type_id')->references('id')->on('phone_types')->onDelete('restrict');
+            $table->foreign('mother_phone_type_id')->references('id')->on('phone_types')->onDelete('restrict');
 
             $table->integer('status')->default(1);
             $table->timestamps();

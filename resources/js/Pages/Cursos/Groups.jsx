@@ -10,8 +10,7 @@ import { New } from '@/Components/Groups/New';
 import { Edit } from '@/Components/Groups/Edit';
 import Alert from '@/Components/Alerts/Alert';
 
-export default function Groups({ auth, data, message }) {
-
+export default function Groups({ auth, data, message  }) {
 
     const {
         dt,
@@ -45,14 +44,22 @@ export default function Groups({ auth, data, message }) {
         setAlert(message)
     }, [message])
 
-    const cupo = (rowData) => {
-        
-        if (rowData.students.length == rowData.max_students) {
-           return <span className="text-red-500">{rowData.students.length}  /  {rowData.max_students}</span>
+    const distribucion  = (rowData) => {
+        if (rowData.teacher_multiplied) {
+           return <span className="bg-orange-400 p-1 rounded-md text-white font-semibold text-sm">Multiple</span>
         }
 
-        return rowData.students.length + '  /  ' + rowData.max_students
+        return <span className="bg-blue-400 p-1 rounded-md text-white font-semibold text-sm" >Unico</span>
     }
+
+    const cupo = (rowData) => {
+        if (rowData.students_list.length == rowData.max_students) {
+           return <span className="text-red-500">{rowData.students_list.length}  /  {rowData.max_students}</span>
+        }
+
+        return rowData.students_list.length + '  /  ' + rowData.max_students
+    }
+
 
     return (
         <AuthenticatedLayout
@@ -76,7 +83,7 @@ export default function Groups({ auth, data, message }) {
 
                 <Column field='max_students' header='Cupo máximo' sortable  body={cupo} className='py-2 text-center' />
 
-                {/* <Column field='capacity_available' header='Cupos Disponibles' sortable className='py-2' /> */}
+                <Column  header='Profesor' body={distribucion} sortable className='py-2' />
 
                 <Column field='teacher.person.full_Name' header='Profesor Titular' sortable className='py-2' />
 

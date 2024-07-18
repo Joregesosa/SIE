@@ -43,7 +43,14 @@ export const sections = [
                 title: 'Grupos',
                 url: 'groups',
                 permission: 'read_groups'
-            }
+            },
+            {
+                icon: 'pi-book',
+                title: 'Materias',
+                url: 'subjects',
+                permission: 'subjects'
+            },
+          
         ],
     },
     {
