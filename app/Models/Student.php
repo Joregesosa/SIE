@@ -151,7 +151,20 @@ class Student extends Model
         return $this->belongsTo(Parents::class, 'tutor_id');
     }
 
-
+    public function scores()
+    {
+        return $this->hasMany(Scores::class);
+    }
+    
+    public function getlowdata(){
+        return [
+            'id' => $this->id,
+            'matricula' => $this->matricula,
+            'person' => $this->person ?  $this->person->toArray() : null,
+            'email' => $this->person?->user?->email ?? '',
+            'phone' => $this->telephones->first() ? $this->telephones->first()->phone : '',
+        ];
+    }
 
 
     public function toArray()

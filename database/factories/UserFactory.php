@@ -21,7 +21,7 @@ class UserFactory extends Factory
         return [ 
             'person_id' => 1,
             'role_id' => 1,
-            'email' => fake()->unique()->email(),
+            'email' => strtolower($this->faker->lexify('??')) . '.'.fake()->unique()->userName() . '@trc.edu.ec',
             'email_verified_at' => now(),
             'password' => "admin",
             'remember_token' => Str::random(10),

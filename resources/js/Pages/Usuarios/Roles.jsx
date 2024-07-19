@@ -1,56 +1,50 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Toolbar } from "primereact/toolbar";
 import DeleteAlert from "@/Components/Alerts/Delete.Alert";
-import { New } from "@/Components/Role/New";
 import { useTable } from "@/hooks/useTable";
-import { Edit } from "@/Components/Role/Edit";
 
-export default function Roles({ auth, data, msj, permissions }) {
+export default function Roles({ auth, data, message }) {
     const {
         dt,
         alert,
         setAlert,
         RenderStatus,
         RenderRightToolbar,
-        RenderLeftToolbar,
-        RenderActionButtons,
         dataList,
         setDataList,
         selectedItem,
-        editItemDialog,
         deleteItemDialog,
         hideDeleteDialog,
         tableConfig,
-        showNewDialog,
-        setShowNewDialog,
-        onHideEditDialog,
+        RenderLeftLinkToolbar,
+        RenderActionLinks
     } = useTable(data);
 
+    const [expandedRows, setExpandedRows] = useState(null);
     const RenderPermissionList = (rowData) => {
         if (rowData) {
             return (
-                <span className="text-sm flex flex-wrap gap-1 ">
-                    {rowData.permissions.map((obj) => {
-
+                <div className="text-sm flex flex-wrap gap-1 sm:px-16">
+                    {rowData.permissions.sort((a, b) =>a.name < b.name ? -1 : 1).map((obj) => {
                         return (
-                            <span className={`text-black px-1 text-nowrap rounded-md bg-${obj.color2}`}>
+                            <span className={`text-black px-1 text-nowrap rounded-md bg-${obj.color2}`} key={obj.id}>
                                 {obj.name}
                             </span>
                         )
                     })}
-                </span>
+                </div>
             );
         }
     };
 
     useEffect(() => {
         setDataList(data);
-        setAlert(msj);
-    }, [data, msj]);
+        setAlert(message);
+    }, [data, message]);
     return (
         <AuthenticatedLayout
             alert={alert}
@@ -60,66 +54,45 @@ export default function Roles({ auth, data, msj, permissions }) {
                 "Usuarios / Roles"
             }
         >
-            <Head title="Lista de Usuarios" />
+            <Head title="Lista de Roles" />
 
-                <Toolbar
-                    left={RenderLeftToolbar}
-                    right={() => RenderRightToolbar(dt)}
-                    className="py-2 rounded-none bg-white bg-opacity-40"
+            <Toolbar
+                left={RenderLeftLinkToolbar}
+                right={() => RenderRightToolbar(dt)}
+                className="py-2 rounded-none bg-white bg-opacity-40"
+            />
+
+            <DataTable ref={dt} value={dataList} {...tableConfig} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)} rowExpansionTemplate={RenderPermissionList}>
+                <Column expander />
+                <Column
+                    field="id"
+                    header="ID"
+                    sortable
+                    className="py-2"
                 />
-                <DataTable ref={dt} value={dataList} {...tableConfig}>
-                    <Column
-                        field="id"
-                        header="ID"
-                        sortable
-                        className="py-2"
-                    />
 
-                    <Column
-                        field="role"
-                        header="Role"
-                        sortable
-                        className="py-2"
-                    />
+                <Column
+                    field="role"
+                    header="Role"
+                    sortable
+                    className="py-2"
+                />
 
-                    <Column
-                        field="permissions"
-                        header="Permissions"
-                        sortable
-                        body={RenderPermissionList}
-                        className="py-2 max-w-80"
-                    />
+                <Column
+                    field="status"
+                    header="Estatus"
+                    sortable
+                    body={RenderStatus}
+                    className="py-2"
+                />
 
-                    <Column
-                        field="status"
-                        header="Estatus"
-                        sortable
-                        body={RenderStatus}
-                        className="py-2"
-                    />
-
-                    <Column
-                        header="Acciones"
-                        body={(rowData) => RenderActionButtons(rowData)}
-                        exportable={false}
-                        className="py-2"
-                    />
-                </DataTable>
-
-            {/* modal delete User */}
-
-            <Edit
-                selectedItem={selectedItem}
-                showDialog={editItemDialog}
-                hideDialog={onHideEditDialog}
-                permissions={permissions}
-                endpoint="role.update"
-            />
-            <New
-                showDialog={showNewDialog}
-                hideDialog={() => setShowNewDialog(false)}
-                permissions={permissions}
-            />
+                <Column
+                    header="Acciones"
+                    body={(rowData) => RenderActionLinks(rowData, 'role.edit')}
+                    exportable={false}
+                    className="py-2"
+                />
+            </DataTable>
 
             <DeleteAlert
                 itemId={selectedItem.id}

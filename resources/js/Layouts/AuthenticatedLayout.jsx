@@ -30,4 +30,3 @@ export default function Authenticated({ user, header, alert, setAlert = () => {}
         </div>
     );
 }
-{/* <div id='print' className='h-[calc(100vh-72px)] bg-white bg-opacity-95 p-10 overflow-y-auto print:py-0 print:h-full '></div> */}

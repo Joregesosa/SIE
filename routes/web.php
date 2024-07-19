@@ -45,8 +45,9 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
+
     
-    return Inertia::render('Index/index', [
+    return Inertia::render('Index/Index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -57,7 +58,7 @@ Route::get('/', function () {
     /* Route::post('/register', [RegisterUserController::class, 'store'])->middleware(['auth', 'verified'])->name('register') */;
 
 
-Route::controller(EnrollmentPaymentController::class)->group(function () { 
+Route::controller(EnrollmentPaymentController::class)->group(function () {
     Route::post('/Payment', 'store')->name('payment.store');
 });
 
@@ -78,7 +79,7 @@ Route::controller(SystemController::class)->group(function () {
 });
 
 //Route::middleware(['auth', CheckPermission::class])->group(function () {
-
+    Route::middleware(['auth'])->group(function () {
 Route::controller(GraphController::class)->group(function () {
     Route::get('/correos', 'index')->name('correo.index');
     Route::post('/correos', 'store')->name('correo.store');
@@ -138,7 +139,9 @@ Route::controller(PermissionController::class)->group(function () {
 
 Route::controller(RoleController::class)->group(function () {
     Route::get('/role', 'index')->name('roles');
+    Route::get('/role/create', 'create')->name('role.create');
     Route::post('/role', 'store')->name('role.store');
+    Route::get('/role/{id}', 'edit')->name('role.edit');
     Route::put('/role/{id}', 'update')->name('role.update');
     Route::delete('/role/{id}', 'destroy')->name('role.delete');
 });
@@ -150,7 +153,7 @@ Route::controller(SubjectController::class)->group(function () {
     Route::delete('/role/{id}', 'destroy')->name('role.delete'); */
 });
 
-//});
+});
 
 
 require __DIR__ . '/auth.php';

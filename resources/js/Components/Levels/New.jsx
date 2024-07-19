@@ -26,7 +26,7 @@ export function New({ showDialog, hideDialog }) {
 
 
     return (
-        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Editar Nivel" modal className="p-fluid" onHide={hideDialog} >
+        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Crear Nivel" modal className="p-fluid" onHide={hideDialog} >
 
             <form onSubmit={submit} className='flex flex-col gap-2'>
                 <div className='flex flex-col gap-3'>
