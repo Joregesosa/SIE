@@ -11,9 +11,6 @@ import { Edit } from '@/Components/Levels/Edit';
 import { New } from '@/Components/Levels/New';
 
 export default function Levels({ auth, currentUser, data, msj }) {
-
-
-    console.log(data)
     const {
         dt,
         alert,

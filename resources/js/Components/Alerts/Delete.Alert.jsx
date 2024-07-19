@@ -5,7 +5,6 @@ import { FormActionButtons } from '../FormActionButtons';
 import { Loading } from '../Loading';
 
 export default function DeleteAlert({ value, showDialog, hideDialog, message, endpoint, itemId }) {
-    console.log(value)
     const { delete: deleteItem, processing } = useForm()
 
     const destroy = () => {

@@ -26,7 +26,6 @@ export default function Roles({ auth, data, message }) {
 
     const [expandedRows, setExpandedRows] = useState(null);
     const RenderPermissionList = (rowData) => {
-        console.log(rowData);
         if (rowData) {
             return (
                 <div className="text-sm flex flex-wrap gap-1 sm:px-16">
@@ -78,14 +77,6 @@ export default function Roles({ auth, data, message }) {
                     sortable
                     className="py-2"
                 />
-
-                {/* <Column
-                    field="permissions"
-                    header="Permissions"
-                    sortable
-                    body={RenderPermissionList}
-                    className="py-2 max-w-80"
-                /> */}
 
                 <Column
                     field="status"
