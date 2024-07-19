@@ -27,7 +27,7 @@ export const Alert = ({ alerta, setAlert }) => {
                     {alerta?.error && Array.isArray(alerta?.error) ? (
                         <ul className='list-disc list-inside'>
                             {alerta.error.map((err, index) => (
-                                <li key={index}>{renderMessage(err)}</li>
+                                <li key={index} className='text-lg'>{renderMessage(err)}</li>
                             ))}
                         </ul>
                     ) : alerta?.error ? (

@@ -66,6 +66,16 @@ export const useTable = (data) => {
             </div>
         );
     };
+    const RenderLeftLinkToolbar = () => {
+        return (
+            <div className="flex flex-wrap gap-2">
+                <Link href={route('role.create')} className="p-button-success p-button-rounded p-button-outlined flex gap-2 items-center font-semibold hover:ring-2 px-4 rounded-md" >
+                    <i className='pi pi-plus'></i>
+                    Nuevo
+                </Link>
+            </div>
+        );
+    };
 
     const RenderActionButtons = (rowData) => {
         return (
@@ -119,7 +129,7 @@ export const useTable = (data) => {
         onHideEditDialog,
         RenderActionLinks,
         setSelectedItem,
-
+        RenderLeftLinkToolbar,
 
     }
 }
