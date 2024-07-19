@@ -10,7 +10,7 @@ import { useTable } from '@/hooks/useTable';
 import { Edit } from '@/Components/Levels/Edit';
 import { New } from '@/Components/Levels/New';
 
-export default function Levels({ auth, currentUser, data, msj }) {
+export default function Levels({ auth, data, msj }) {
     const {
         dt,
         alert,
@@ -47,15 +47,15 @@ export default function Levels({ auth, currentUser, data, msj }) {
 
                 <DataTable  {...tableConfig}>
 
-                    <Column field='id' header='ID' sortable className='py-0 ' />
+                    <Column field='id' header='ID' sortable className='py-2 ' />
 
-                    <Column field='name' header='Nivel' sortable className='py-0' />
+                    <Column field='name' header='Nivel' sortable className='py-2' />
                    
-                    <Column field='description' header='Descripción' sortable className='py-0' />
+                    <Column field='description' header='Descripción' sortable className='py-2' />
                    
-                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-0' />
+                    <Column field='status' header='Estatus' sortable body={RenderStatus} className='py-2' />
 
-                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-0' />
+                    <Column header="Acciones" body={(rowData) => RenderActionButtons(rowData)} exportable={false} className='py-2' />
 
                 </DataTable>
  
