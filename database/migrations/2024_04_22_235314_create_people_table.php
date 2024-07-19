@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {   /*TIPOS DE TELEFONOS*/    
-        Schema::create('phone_type_ids', function (Blueprint $table) {
+        Schema::create('phone_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->boolean('status')->default(1);
@@ -83,7 +83,7 @@ return new class extends Migration
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
             $table->string('phone');
             $table->unsignedBigInteger('phone_type_id')->default(1);
-            $table->foreign('phone_type_id')->references('id')->on('phone_type_ids')->onDelete('restrict');
+            $table->foreign('phone_type_id')->references('id')->on('phone_types')->onDelete('restrict');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
@@ -101,7 +101,7 @@ return new class extends Migration
         Schema::dropIfExists('medical_attention_types');
         Schema::dropIfExists('type_houses');
         Schema::dropIfExists('family_structures');
-        Schema::dropIfExists('phone_type_ids');
+        Schema::dropIfExists('phone_types');
         
     }
 };

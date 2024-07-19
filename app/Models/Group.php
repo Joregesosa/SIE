@@ -20,6 +20,20 @@ class Group extends Model
         'status',
     ];
     
+    protected $with = ['level'];
+
+    protected $appends = ['students_list', 'subjects_scores'];
+
+    public function getStudentsListAttribute()
+    {
+        return $this->students()->get()->map->getlowdata();
+    }
+
+     public function getSubjectsScoresAttribute()
+    {
+        return  $this->level->subjects->map->getScores($this->id);
+    } 
+    
     public function level(): BelongsTo
     {
         return $this->belongsTo(Level::class);
@@ -35,6 +49,6 @@ class Group extends Model
         return $this->hasMany(Student::class);
     }
     
-
-    
+        
 }
+

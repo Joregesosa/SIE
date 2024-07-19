@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Parents;
 use App\Models\Person;
+use App\Models\Student;
 use App\Models\Teacher;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -26,9 +28,11 @@ class PersonSeeder extends Seeder
             'id_card' => '123456789',
         ]);
 
-        Person::factory(10)->create();
 
         Teacher::factory(4)->create(); 
+
+        Parents::factory(4)->create();
+        
 
         
     }

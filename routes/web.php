@@ -15,6 +15,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SystemController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +23,12 @@ use Inertia\Inertia;
 use App\Http\Middleware\CheckPermission;
 use App\Models\Contact;
 use App\Models\EnrollmentPayment;
+use App\Models\Subject;
 use Database\Seeders\LevelSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Mockery\Matcher\Subset;
 
 /* borrar después */
 /* Route::get('/enrollmentRequest', function () {
@@ -43,7 +46,8 @@ Route::get('/', function () {
         return redirect()->route('dashboard');
     }
 
-    return Inertia::render('Index/index', [
+    
+    return Inertia::render('Index/Index', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -75,7 +79,7 @@ Route::controller(SystemController::class)->group(function () {
 });
 
 //Route::middleware(['auth', CheckPermission::class])->group(function () {
-
+    Route::middleware(['auth'])->group(function () {
 Route::controller(GraphController::class)->group(function () {
     Route::get('/correos', 'index')->name('correo.index');
     Route::post('/correos', 'store')->name('correo.store');
@@ -142,6 +146,14 @@ Route::controller(RoleController::class)->group(function () {
     Route::delete('/role/{id}', 'destroy')->name('role.delete');
 });
 
-//});
+Route::controller(SubjectController::class)->group(function () {
+    Route::get('/subjects', 'index')->name('subjects');
+   /*  Route::post('/role', 'store')->name('role.store');
+    Route::put('/role/{id}', 'update')->name('role.update');
+    Route::delete('/role/{id}', 'destroy')->name('role.delete'); */
+});
+
+});
+
 
 require __DIR__ . '/auth.php';

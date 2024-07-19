@@ -7,6 +7,7 @@ use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Models\GroupStudentList;
 use Exception;
+use Grupos;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ class GroupController extends Controller
     public function index()
     {
         return Inertia::render('Cursos/Groups', [
-            'data' => Group::all()->load('level', 'teacher.person','students'),
+            'data' => Group::all()->load('teacher.person'),
         ]);
     }
 
@@ -53,7 +54,7 @@ class GroupController extends Controller
     public function show($id)
     {
         try {
-            $students = DB::table('groups AS g')
+            /*$students = DB::table('groups AS g')
                 ->select([
                     'g.id',
                     'l.description',
@@ -76,11 +77,16 @@ class GroupController extends Controller
                 ->where('e.status_id', '=', 2)
                 ->where('g.id', '=', $id)
                 ->get();
+                */
 
-            if ($students->isEmpty()) {
+            $students = Group::find($id);
+           
+            if ($students->students_list->isEmpty()) {
                 session()->flash('message', ['error' => 'No hay estudiantes inscritos a este grupo']);
                 return back();
             }
+
+
             return Inertia::render('Cursos/GroupStudentList', [
                 'data' => $students,
             ]);
