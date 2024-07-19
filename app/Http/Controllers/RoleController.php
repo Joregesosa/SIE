@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
+use PhpParser\Node\Stmt\TryCatch;
 
 class RoleController extends Controller
 {
@@ -134,9 +135,20 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::destroy($id);
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('roles')->with('msj', ['success' => "Role deleted successfully"], 200);
+            $role = Role::find($id);
+            $role->delete();
+
+            DB::commit();
+
+            session()->flash('message',  ['success' => "Role created successfully"]);
+            return back();
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Error creating role' . $e->getMessage()]);
+        }
     }
 
     private function loadPermissions()

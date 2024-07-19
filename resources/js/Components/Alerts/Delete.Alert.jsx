@@ -2,13 +2,14 @@ import { useForm } from '@inertiajs/react';
 import { Dialog } from 'primereact/dialog'
 import React from 'react'
 import { FormActionButtons } from '../FormActionButtons';
+import { Loading } from '../Loading';
 
 export default function DeleteAlert({ value, showDialog, hideDialog, message, endpoint, itemId }) {
-
-    const { delete: deleteItem } = useForm()
+    console.log(value)
+    const { delete: deleteItem, processing } = useForm()
 
     const destroy = () => {
- 
+
         deleteItem(route(endpoint, itemId), {
             onSuccess: () => {
                 hideDialog()
@@ -27,6 +28,7 @@ export default function DeleteAlert({ value, showDialog, hideDialog, message, en
                 )}
             </div>
             <FormActionButtons hideDialog={hideDialog} type={"button"} action={destroy} />
+            <Loading status={processing} />
         </Dialog>
     )
 }

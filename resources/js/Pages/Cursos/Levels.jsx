@@ -38,6 +38,7 @@ export default function Levels({ auth, currentUser, data, msj }) {
         setDataList(data)
         setAlert(msj)
     }, [data, msj])
+    useEffect(() => {console.log(selectedItem)}, [selectedItem])
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -77,7 +78,7 @@ export default function Levels({ auth, currentUser, data, msj }) {
 
             <DeleteAlert
                 itemId={selectedItem.id}
-                value={selectedItem.level}
+                value={selectedItem.name}
                 message={"el nivel"}
                 endpoint=''
                 showDialog={deleteItemDialog}

@@ -5,11 +5,9 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Toolbar } from "primereact/toolbar";
 import DeleteAlert from "@/Components/Alerts/Delete.Alert";
-import { New } from "@/Components/Role/New";
 import { useTable } from "@/hooks/useTable";
-import { Edit } from "@/Components/Role/Edit";
 
-export default function Roles({ auth, data, msj, permissions }) {
+export default function Roles({ auth, data, message, permissions }) {
     const {
         dt,
         alert,
@@ -19,13 +17,9 @@ export default function Roles({ auth, data, msj, permissions }) {
         dataList,
         setDataList,
         selectedItem,
-        editItemDialog,
         deleteItemDialog,
         hideDeleteDialog,
         tableConfig,
-        showNewDialog,
-        setShowNewDialog,
-        onHideEditDialog,
         RenderLeftLinkToolbar,
         RenderActionLinks
     } = useTable(data);
@@ -49,8 +43,8 @@ export default function Roles({ auth, data, msj, permissions }) {
 
     useEffect(() => {
         setDataList(data);
-        setAlert(msj);
-    }, [data, msj]);
+        setAlert(message);
+    }, [data, message]);
     return (
         <AuthenticatedLayout
             alert={alert}
@@ -106,21 +100,6 @@ export default function Roles({ auth, data, msj, permissions }) {
                     className="py-2"
                 />
             </DataTable>
-
-            {/* modal delete User */}
-
-            <Edit
-                selectedItem={selectedItem}
-                showDialog={editItemDialog}
-                hideDialog={onHideEditDialog}
-                permissions={permissions}
-                endpoint="role.update"
-            />
-            <New
-                showDialog={showNewDialog}
-                hideDialog={() => setShowNewDialog(false)}
-                permissions={permissions}
-            />
 
             <DeleteAlert
                 itemId={selectedItem.id}
