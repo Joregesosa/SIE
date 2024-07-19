@@ -1,13 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Toolbar } from "primereact/toolbar";
 import DeleteAlert from "@/Components/Alerts/Delete.Alert";
 import { useTable } from "@/hooks/useTable";
 
-export default function Roles({ auth, data, message, permissions }) {
+export default function Roles({ auth, data, message }) {
     const {
         dt,
         alert,
@@ -24,19 +24,20 @@ export default function Roles({ auth, data, message, permissions }) {
         RenderActionLinks
     } = useTable(data);
 
+    const [expandedRows, setExpandedRows] = useState(null);
     const RenderPermissionList = (rowData) => {
+        console.log(rowData);
         if (rowData) {
             return (
-                <span className="text-sm flex flex-wrap gap-1 ">
-                    {rowData.permissions.map((obj) => {
-
+                <div className="text-sm flex flex-wrap gap-1 sm:px-16">
+                    {rowData.permissions.sort((a, b) =>a.name < b.name ? -1 : 1).map((obj) => {
                         return (
-                            <span className={`text-black px-1 text-nowrap rounded-md bg-${obj.color2}`}>
+                            <span className={`text-black px-1 text-nowrap rounded-md bg-${obj.color2}`} key={obj.id}>
                                 {obj.name}
                             </span>
                         )
                     })}
-                </span>
+                </div>
             );
         }
     };
@@ -62,7 +63,8 @@ export default function Roles({ auth, data, message, permissions }) {
                 className="py-2 rounded-none bg-white bg-opacity-40"
             />
 
-            <DataTable ref={dt} value={dataList} {...tableConfig}>
+            <DataTable ref={dt} value={dataList} {...tableConfig} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)} rowExpansionTemplate={RenderPermissionList}>
+                <Column expander />
                 <Column
                     field="id"
                     header="ID"
@@ -77,13 +79,13 @@ export default function Roles({ auth, data, message, permissions }) {
                     className="py-2"
                 />
 
-                <Column
+                {/* <Column
                     field="permissions"
                     header="Permissions"
                     sortable
                     body={RenderPermissionList}
                     className="py-2 max-w-80"
-                />
+                /> */}
 
                 <Column
                     field="status"

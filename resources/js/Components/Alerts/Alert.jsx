@@ -3,7 +3,6 @@ import { Dialog } from 'primereact/dialog'
 import React from 'react'
 
 export const Alert = ({ alerta, setAlert }) => {
-    console.log(alerta)
     const renderMessage = (message) => {
         if (!message) return null;
         const lines = message.split('\n');
