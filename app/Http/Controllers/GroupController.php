@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Models\GroupStudentList;
+use App\Models\ScoreQualifiers;
 use Exception;
 use Grupos;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -85,10 +86,11 @@ class GroupController extends Controller
                 session()->flash('message', ['error' => 'No hay estudiantes inscritos a este grupo']);
                 return back();
             }
-
+            
 
             return Inertia::render('Cursos/GroupStudentList', [
                 'data' => $students,
+                'qualifiers' => ScoreQualifiers::all(),
             ]);
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Error al obtener los estudiantes del grupo']);

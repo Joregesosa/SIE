@@ -8,7 +8,8 @@ import { Button } from 'primereact/button';
 import Grades from '@/Components/Grades';
 import SubjectCards from '@/Components/SubjectCards';
 
-export default function Groups({ auth, data }) {
+export default function Groups({ auth, data ,qualifiers }) {
+   
     const [view, setView] = useState('list'); // Cambiado a 'list' y 'subjects' para mayor claridad
     const [selectedSubject, setSelectedSubject] = useState(null);
 
@@ -61,6 +62,7 @@ export default function Groups({ auth, data }) {
                 <Grades 
                     subject={selectedSubject}
                     data={data}
+                    qualifiers={qualifiers}
                     onBack={() => handleViewChange('subjects')}
                 />
             )}
