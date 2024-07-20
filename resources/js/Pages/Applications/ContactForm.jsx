@@ -25,7 +25,8 @@ const ContactForm = ({ levels }) => {
     const [alert, setAlert] = useState(null);
 
 
-    console.log(data)
+    console.log(data.level_id);
+    
     addLocale("es", {
         firstDayOfWeek: 1,
         dayNames: [
@@ -364,14 +365,15 @@ const ContactForm = ({ levels }) => {
                         <label className="font-bold text-sm">
                             Año o nivel al que desea aplicar <span>*</span>
                             <Dropdown
+                                optionValue="id"
+                                optionLabel="name"
+                                placeholder="Seleccione un nivel"
                                 id="level_id"
                                 name="level_id"
                                 value={data?.level_id}
                                 onChange={handleChanges}
                                 options={levels || []}
-                                optionLabel="description"
-                                placeholder="Seleccione un nivel"
-                                optionValue="id"
+                               
                                 filter
                                 className="flex items-center rounded-md border h-[42px] border-gray-500 flex-grow"
                             />
