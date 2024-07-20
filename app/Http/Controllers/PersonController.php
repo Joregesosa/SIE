@@ -248,14 +248,14 @@ class PersonController extends Controller
             $mailNickname = UserService::generateUsername($person);
             $userPrincipalName =  $mailNickname . '@trc.edu.ec';
             $password = Str::random(12);
-            /* 
+            
             $student->update(['academic_email' => $password]);
 
             if (!GraphHelper::createUser($displayName,  $mailNickname,  $userPrincipalName, $password)) {
                 throw new \Exception('Error al crear el correo en el directorio activo.');
                 DB::rollBack();
                 return back();
-            } */
+            }
 
             User::create([
                 'person_id' => $person?->id,

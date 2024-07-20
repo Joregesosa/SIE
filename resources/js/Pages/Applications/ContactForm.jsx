@@ -364,7 +364,7 @@ const ContactForm = ({ levels }) => {
                             Año o nivel al que desea aplicar <span>*</span>
                             <Dropdown
                                 optionValue="id"
-                                optionLabel="name"
+                                optionLabel="description"
                                 placeholder="Seleccione un nivel"
                                 id="level_id"
                                 name="level_id"
