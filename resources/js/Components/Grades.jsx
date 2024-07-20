@@ -70,7 +70,7 @@ const Grades = ({ data, subject, qualifiers }) => {
                 return qualifiers[i].qualifier;
             }
         }
-        return "0";
+        return "--";
     };
 
     const openEditGradeDialog = (rowData) => {

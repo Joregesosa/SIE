@@ -119,7 +119,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(PersonSeeder::class);
-        $this->call(UserSeeder::class);
         $this->call(SubjectSeeder::class);
         $this->call(ElectiveYearSeeder::class);
         $this->call(LevelSeeder::class);
