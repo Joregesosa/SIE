@@ -3,11 +3,10 @@ import { useForm } from '@inertiajs/react';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { FormActionButtons } from '../FormActionButtons';
-import { PickList } from 'primereact/picklist';
 
 const cleanUser = { role: '', permissions: [] }
 export function New({ showDialog, hideDialog, permissions }) {
-    const [source, setSource] = useState(permissions)
+    console.log(permissions)
     const { data, setData, post, processing, errors, reset } = useForm(cleanUser);
 
     const submit = (e) => {
@@ -21,8 +20,7 @@ export function New({ showDialog, hideDialog, permissions }) {
         });
     };
     const onChange = (e) => {
-        setSource(e.source);
-        setData('permissions', e.target);
+        setData({ ...data, permissions: e.value });
     };
     const itemTemplate = (item) => {
         return (
@@ -31,24 +29,33 @@ export function New({ showDialog, hideDialog, permissions }) {
             </div>
         );
     };
-    useEffect(()=>{
-        console.log(data.permissions)
-    }, [data])
+
     return (
-        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Permiso" modal className="p-fluid" onHide={hideDialog} >
+        <Dialog visible={showDialog} style={{ width: '40rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Nuevo Rol" modal className="p-fluid" onHide={hideDialog} >
 
             <form onSubmit={submit} className='flex flex-col gap-2'>
                 <div className='flex flex-col gap-3'>
-                    <div className="field">
-                        <label htmlFor="role" className="font-bold text-xs">
-                            Rol
-                        </label>
-                        <InputText id="role" value={data?.role} required className='rounded-md' onChange={(e) => setData('role', e.target.value)} placeholder='Nombre del permiso' />
-                    </div>
 
-                    <div className="card">
-                        <PickList dataKey="id" itemTemplate={itemTemplate} source={source} target={data.permissions} onChange={onChange} breakpoint="1280px" sourceHeader="Disponibles" targetHeader="Asignados" sourceStyle={{ height: '20rem' }} targetStyle={{ height: '20rem'}}  />
-                    </div>
+                    <label htmlFor="role" className="font-bold text-xs">
+                        Rol
+                        <InputText id="role" value={data?.role} required className='rounded-md' onChange={(e) => setData('role', e.target.value)} placeholder='Nombre del permiso' />
+                    </label>
+
+                    <ul className='w-full'>
+                        {/* {permissions && permissions.map((permission, index) => (
+                            <li key={index} className='flex justify-between p-2'>
+                                <span className=''>{permission.name}</span>
+                                <input type="checkbox" value={permission.id} onChange={(e) => {
+                                    if (e.target.checked) {
+                                        setData('permissions', [...data.permissions, e.target.value])
+                                    } else {
+                                        setData('permissions', data.permissions.filter((item) => item !== e.target.value))
+                                    }
+                                }} />
+                            </li>
+                        ))} */}
+                    </ul>
+
 
                 </div>
                 <FormActionButtons hideDialog={hideDialog} />

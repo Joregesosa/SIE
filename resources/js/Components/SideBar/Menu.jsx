@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from '@inertiajs/react';
+import { sections } from './sections';
 const Accordion = ({ isMouseOver, theme }) => {
     const [openIndex, setOpenIndex] = useState(null);
 
     const handleItemClick = (index) => {
         setOpenIndex(index === openIndex ? null : index);
     };
-    const mainIconSize = isMouseOver? 'text-2xl' : 'text-3xl';
-    useEffect(()=>{
+    const mainIconSize = isMouseOver ? 'text-2xl' : 'text-3xl';
+    useEffect(() => {
         !isMouseOver && setOpenIndex(null)
     }, [isMouseOver])
     return (
-        <div>
+        <div className='px-6 flex-grow'>
             {sections.map((section, index) => (
-                <div key={index} className='py-1 rounded-md  '>
+                <div key={index} className='py-1 rounded-md'>
 
                     <div onClick={() => handleItemClick(index)} className={`cursor-pointer flex gap-2  items-center text-${theme}-text  py-2  justify-center rounded-sm`} >
                         <i className={`pi ${section.icon}  ${mainIconSize} `}></i>
                         {isMouseOver &&
                             <>
                                 <h3 className='text-base'>{section.title}</h3>
-                                <i className={`pi ${openIndex === index ? 'pi-angle-up' : 'pi-angle-down'} ml-auto`} /> 
+                                <i className={`pi ${openIndex === index ? 'pi-angle-up' : 'pi-angle-down'} ml-auto`} />
                             </>
                         }
 
@@ -44,33 +45,5 @@ const Accordion = ({ isMouseOver, theme }) => {
         </div>
     );
 };
-
-const sections = [
-    {
-
-        title: 'Usuarios',
-        icon: 'pi-users',
-        content: [
-            {
-                icon: 'pi-list',
-                title: 'Lista  de Usuarios',
-                url: 'users',
-                permission: 'edit_user'
-                
-            },
-            {
-                icon: 'pi-cog',
-                title: 'Roles',
-                url: 'roles'
-            },
-            ,
-            {
-                icon: 'pi-cog',
-                title: 'Permisos usuario',
-                url: 'permission'
-            }
-        ],
-    },
-];
 
 export default Accordion;

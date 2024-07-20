@@ -18,16 +18,9 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $message = session('msj');
-        if ($message) {
-            Session::forget('msj');
-        }
-        $user = User::with('roles')->get();
-      
-
-        return Inertia::render('Users', [
-            'data' => $user,
-            'msj' => $message
+        return Inertia::render('Usuarios/Users', [
+            'currentUser' => Auth::user()->load('role.permissions'),
+            'data' => User::with('role', 'person')->get(),
         ]);
     }
 

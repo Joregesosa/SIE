@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
+use PhpParser\Node\Stmt\TryCatch;
 
 class RoleController extends Controller
 {
@@ -17,17 +18,32 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $message = session('msj');
-        if ($message) {
-            Session::forget('msj');
-        }
-        $role = Role::with('permissions')->get();
-        $permissions = Permission::all();
+        $permissions = collect(
+            [
+                "Ver" => Permission::WHERE('name', 'LIKE', '%ver%')->orderBy('name')->get(),
+                "Actualizar" => Permission::WHERE('name', 'LIKE', '%actualizar%')->orderBy('name')->get(),
+                "Eliminar" => Permission::WHERE('name', 'LIKE', '%eliminar%')->orderBy('name')->get(),
+                "Crear" => Permission::WHERE('name', 'LIKE', '%crear%')->orderBy('name')->get(),
+                "others" => Permission::WHERE('name', 'NOT LIKE', '%ver%')
+                    ->WHERE('name', 'NOT LIKE', '%actualizar%')
+                    ->WHERE('name', 'NOT LIKE', '%eliminar%')
+                    ->WHERE('name', 'NOT LIKE', '%crear%')
+                    ->orderBy('name')->get(),
+            ]
+        );
 
-        return Inertia::render('Roles', [
-            'data' => $role,
+        return Inertia::render('Usuarios/Roles', [
+            'data' => Role::with('permissions')->get(),
             'permissions' => $permissions,
-            'msj' => $message
+        ]);
+    }
+
+    public function create()
+    {
+        $permissions =  $this->loadPermissions();
+
+        return Inertia::render('Usuarios/CreateRole', [
+            'permissions' => $permissions,
         ]);
     }
 
@@ -47,48 +63,37 @@ class RoleController extends Controller
         ], $message);
 
         if ($validator->fails()) {
-            return redirect()->route('roles')->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
+            return back()->withErrors(['error' => array_values($validator->errors()->messages())]);
         }
 
         try {
             DB::beginTransaction();
 
             $role = Role::create($request->all());
-            $permissionIds = array_column($request->permissions, 'id');
-            $role->permissions()->attach($permissionIds);
+            $role->permissions()->attach($request->permissions);
 
             DB::commit();
-
-            return redirect()->route('roles')->with('msj', ['success' => "Role created successfully"], 200);
+            session()->flash('message',  ['success' => "Role created successfully"]);
+            return back();
         } catch (QueryException $e) {
             DB::rollBack();
-            return redirect()->route('roles')->with('msj', ['error' => 'Error creating role' . $e->getMessage()], 500);
+            return back()->withErrors(['error' => 'Error creating role' . $e->getMessage()], 500);
         }
     }
 
-    /*  public function store(Request $request)
+
+    public function edit($id)
     {
-        
-        $message = [
-            'role.unique' => 'Ya existe un role con el nombre' . $request->role,
-            'role.required' => 'El nombre del role es requerido',
-        ];
+        $role = Role::with('permissions')->find($id);
 
-        $validator =  validator($request->all(), [
-            'role' => 'required|string|unique:' . Role::class,
-        ], $message);
 
-        if ($validator->fails()) {
+        return Inertia::render('Usuarios/EditRole', [
+            'role' => $role,
+            'permissions' => $this->loadPermissions(),
 
-            return redirect()->route('roles')->with('msj', ['error' => array_values($validator->errors()->messages())], 404);
-        }
+        ]);
+    }
 
-        $role = Role::create($request->all());
-        $permissionIds = array_column($request->permissions, 'id');
-        $role->permissions()->attach($permissionIds);
- 
-        return redirect()->route('roles')->with('msj', ['success' => "Role created successfully"], 200);
-    } */
 
     /** 
      * Update the specified resource in storage.
@@ -96,7 +101,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
 
-     /*    $message = [
+        /*    $message = [
             'role.unique' => 'Ya existe un role con el nombre ' . $request->role,
             'role.required' => 'El nombre del role es requerido',
         ];
@@ -114,13 +119,11 @@ class RoleController extends Controller
 
             $role =  Role::find($id);
             $role->update($request->all());
-            $permissionIds = array_column($request->permissions, 'id');
-            $role->permissions()->sync($permissionIds);
+            $role->permissions()->sync($request->permissions);
 
             DB::commit();
 
             return redirect()->route('roles')->with('msj', ['success' => "Role updated successfully"], 200);
-
         } catch (QueryException $e) {
             DB::rollBack();
             return redirect()->route('roles')->with('msj', ['error' => 'Error updated role' . $e->getMessage()], 500);
@@ -132,8 +135,36 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::destroy($id);
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('roles')->with('msj', ['success' => "Role deleted successfully"], 200);
+            $role = Role::find($id);
+            $role->delete();
+
+            DB::commit();
+
+            session()->flash('message',  ['success' => "Role created successfully"]);
+            return back();
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Error creating role' . $e->getMessage()]);
+        }
+    }
+
+    private function loadPermissions()
+    {
+        return  collect(
+            [
+                "Ver" => Permission::WHERE('name', 'LIKE', '%ver%')->orderBy('name')->get(),
+                "Actualizar" => Permission::WHERE('name', 'LIKE', '%actualizar%')->orderBy('name')->get(),
+                "Eliminar" => Permission::WHERE('name', 'LIKE', '%eliminar%')->orderBy('name')->get(),
+                "Crear" => Permission::WHERE('name', 'LIKE', '%crear%')->orderBy('name')->get(),
+                "others" => Permission::WHERE('name', 'NOT LIKE', '%ver%')
+                    ->WHERE('name', 'NOT LIKE', '%actualizar%')
+                    ->WHERE('name', 'NOT LIKE', '%eliminar%')
+                    ->WHERE('name', 'NOT LIKE', '%crear%')
+                    ->orderBy('name')->get(),
+            ]
+        );
     }
 }

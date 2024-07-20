@@ -42,7 +42,7 @@ class NewUserNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Bienvenido! '.  $notifiable->email)
+                    ->line('Bienvenido! '. $notifiable->email)
                     ->line('Hay que hacer una mejora aqui')
                     ->line('Nombre de usuario: '. $this->username)
                     ->line('Contraseña: '. $this->password)

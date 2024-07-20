@@ -1,4 +1,5 @@
 import { ThemeContext } from '@/Context/ThemeProvider';
+import { Link } from '@inertiajs/react';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
@@ -50,8 +51,8 @@ export const useTable = (data) => {
 
     /* Todo lo que dice render es un componente */
     const RenderStatus = (rowData) => {
-      
-        return <Tag value={rowData.status? 'Activo' : 'Inactivo'} severity={getStatusStyle(rowData)} />;
+
+        return <Tag value={rowData.status ? 'Activo' : 'Inactivo'} severity={getStatusStyle(rowData)} />;
     };
 
     const RenderRightToolbar = (ref) => {
@@ -65,18 +66,37 @@ export const useTable = (data) => {
             </div>
         );
     };
+    const RenderLeftLinkToolbar = () => {
+        return (
+            <div className="flex flex-wrap gap-2">
+                <Link href={route('role.create')} className="p-button-success p-button-rounded p-button-outlined flex gap-2 items-center font-semibold hover:ring-2 px-4 rounded-md" >
+                    <i className='pi pi-plus'></i>
+                    Nuevo
+                </Link>
+            </div>
+        );
+    };
 
     const RenderActionButtons = (rowData) => {
         return (
             <>
-                <Button icon="pi pi-pencil" rounded outlined className="mr-2" onClick={() => editItem(rowData)} />
-                <Button icon="pi pi-trash" rounded outlined severity="danger" onClick={() => deleteItem(rowData)} />
+                <Button icon="pi pi-pencil" rounded outlined className="mr-2 h-fit" onClick={() => editItem(rowData)} />
+                <Button icon="pi pi-trash" rounded outlined className='h-fit' severity="danger" onClick={() => deleteItem(rowData)} />
             </>
         );
     };
 
+    const RenderActionLinks = (rowData, path) => {
+        return (
+            <>
+                <Link href={route(path, rowData.id)} className="p-button-rounded p-button-outlined p-button-primary" ><i className='pi pi-pencil'></i></Link>
+                <Button icon="pi pi-trash" rounded outlined className='h-fit' severity="danger" onClick={() => deleteItem(rowData)} />
+            </>
+        );
+    }
+
     const RenderSearch = () => (
-        <div className="flex flex-wrap gap-2 align-items-center pl-8">
+        <div className="flex flex-wrap gap-2 align-items-center pl-8 bg-transparent">
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
@@ -85,7 +105,7 @@ export const useTable = (data) => {
     );
 
     const tableConfig = {
-        ref: dt, value: dataList, dataKey: 'id', paginator: true, rows: 5, rowsPerPageOptions: [5, 10, 25], paginatorTemplate: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate: "Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: RenderSearch, scrollable: true, paginatorClassName: `bg-${theme}-primary text-${theme}-text rounded-b-md`
+        ref: dt, value: dataList, dataKey: 'id', paginator: true, rows: 10, rowsPerPageOptions: [5, 10, 25], paginatorTemplate: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown", currentPageReportTemplate: "Showing {first} to {last} of {totalRecords} usuarios", globalFilter: globalFilter, header: RenderSearch, scrollable: true, paginatorClassName: `bg-${theme}-secondary text-${theme}-text rounded-b-md`
     }
 
     return {
@@ -106,6 +126,10 @@ export const useTable = (data) => {
         tableConfig,
         showNewDialog,
         setShowNewDialog,
-        onHideEditDialog
+        onHideEditDialog,
+        RenderActionLinks,
+        setSelectedItem,
+        RenderLeftLinkToolbar,
+
     }
 }

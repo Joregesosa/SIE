@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
@@ -13,8 +15,17 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['role' => 'admin']);
-        Role::create(['role' => 'instructor']);
-        Role::create(['role' => 'student']);
+        Role::create(['role' => 'Admin']);
+        Role::create(['role' => 'Instructor']);
+        Role::create(['role' => 'Student']);
+
+        foreach (Permission::all() as $role) {
+            DB::table('permission_role')->insert([
+                ['role_id' => '1','permission_id'=> $role->id],
+            ]);
+        }
+
     }
 }
+
+

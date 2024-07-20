@@ -12,9 +12,17 @@ class Role extends Model
         'role',
         'status'
     ];
+    
+    protected $appends = ['attachedPermissions'];
+
+    public function getAttachedPermissionsAttribute()
+    {
+        return $this->permissions->pluck('id')->toArray();
+    }
 
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);
     }
+ 
 }

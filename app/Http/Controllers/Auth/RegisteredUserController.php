@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\NewUserNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
 
-class RegisteredUserController extends Controller
+class RegisterUserController extends Controller
 {
     /**
      * Display the registration view.
@@ -26,25 +27,21 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Collection $data)
     {
+        
         $mensajes = [
             'firstName' => 'El nombre es invalido',
-            'secondName' => 'El nombre es invalido',
             'fLastName' => 'El nombre es invalido',
-            'sLastName' => 'El nombre es invalido',
             'email.required' => 'El email no puede estar en blanco',
             'email.email' => 'Email no valido',
             'email.unique' => 'Ya existe una cuenta con este email'
         ];
 
-        $validator =  validator($request->all(), [
+        $validator =  validator($data->all(), [
             'firstName' => 'required|string|max:255',
-            'secondName' => 'required|string|max:255|required|string|max:255',
             'fLastName' => 'required|string|max:255',
-            'sLastName' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
- 
         ], $mensajes);
 
           if ($validator->fails()) {
@@ -53,18 +50,14 @@ class RegisteredUserController extends Controller
         }
 
         $userName = $this->generateUsername(
-            $request->firstName,
-            $request->fLastName,
+            $data->firstName,
+            $data->fLastName,
         );
 
         $password = Str::random(12);
 
         $user = User::create([
-            'firstName' => $request->firstName,
-            'secondName' => $request->secondName,
-            'fLastName' => $request->fLastName,
-            'sLastName' => $request->sLastName,
-            'email' => $request->email,
+            'email' => $data->email,
             'userName' => $userName,
             'password' => Hash::make($password),
         ]);
@@ -75,7 +68,7 @@ class RegisteredUserController extends Controller
 
         return Inertia::render('Users', [
             'usersData' => $users,
-            'msj' => ["success" => 'Usuario registrado con exito']
+            'msj' => ["success" => 'Usuario registrado con éxito']
         ]);
     }
 
