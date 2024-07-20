@@ -24,8 +24,6 @@ const ContactForm = ({ levels }) => {
     const [sended, setSended] = useState(false);
     const [alert, setAlert] = useState(null);
 
-
-    console.log(data.level_id);
     
     addLocale("es", {
         firstDayOfWeek: 1,
