@@ -5,62 +5,50 @@ namespace App\Http\Controllers;
 use App\Models\ScoreQualifiers;
 use App\Http\Requests\StoreScoreQualifiersRequest;
 use App\Http\Requests\UpdateScoreQualifiersRequest;
+use Inertia\Inertia;
 
 class ScoreQualifiersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+
     public function index()
     {
-        //
+       
+        return Inertia::render('score_qualifiers/index', [
+            'data' => ScoreQualifiers::all()
+        ]);
+       
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
-        //
+        return Inertia::render('score_qualifiers/create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(StoreScoreQualifiersRequest $request)
     {
-        //
+        try {
+
+            $request->validate([
+                'min' => 'required|numeric',
+                'max' => 'required|numeric',
+                'qualifier' => 'required|string|max:255',
+            ]); 
+
+            $scoreQualifiers = ScoreQualifiers::create($request->all());
+
+            return redirect()->route('score_qualifiers.index')
+                ->with('success', 'Calificador de nota creado correctamente');
+        } catch (\Exception $e) {
+            Log::error('Error creating score qualifier: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error creando el calificador de nota');
+        }
+            
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(ScoreQualifiers $scoreQualifiers)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ScoreQualifiers $scoreQualifiers)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateScoreQualifiersRequest $request, ScoreQualifiers $scoreQualifiers)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ScoreQualifiers $scoreQualifiers)
-    {
-        //
+        return view('score_qualifiers.show', compact('scoreQualifiers'));
     }
 }

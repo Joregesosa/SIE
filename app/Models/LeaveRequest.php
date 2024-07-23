@@ -5,32 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+class LeaveRequest extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'person_id',
-        'profession',
-        'work_place',
-        'email',
+        'employee_id',
+        'start_date',
+        'end_date',
+        'reason',
         'status',
+        'remarks',
     ];
-
-    public function person()
-    {
-        return $this->belongsTo(Person::class);
-    }
 
     public function employee()
     {
         return $this->belongsTo(Employee::class);
     }
-
-    public function subject()
-    {
-        return $this->belongsTo(Subject::class);
-    }
-
 }
-
